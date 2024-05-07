@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &171147771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 171147772}
+  m_Layer: 0
+  m_Name: EnemiesContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &171147772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171147771}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480155376
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +314,7 @@ MonoBehaviour:
   RoadMeshRenderer: {fileID: 505870332}
   ZeroPointInWorld: 0
   Width: 10
-  Length: 40
+  Length: 200
 --- !u!1 &545052287
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +363,88 @@ MonoBehaviour:
   MainGuy: {fileID: 959194257}
   Road: {fileID: 505870334}
   MoveSpeed: 6
+--- !u!1 &623047393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623047394}
+  - component: {fileID: 623047395}
+  - component: {fileID: 623047396}
+  - component: {fileID: 623047397}
+  m_Layer: 0
+  m_Name: AttackArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623047394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623047393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 959194261}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &623047395
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623047393}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 6, z: 16}
+  m_Center: {x: 0, y: 0, z: 9.5}
+--- !u!114 &623047396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623047393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a03f77a52ff464bb24f123f1338f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 623047395}
+--- !u!114 &623047397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623047393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7282462fc59944f389f7bfbc829f91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainGuy: {fileID: 959194257}
+  Damage: 5
 --- !u!1 &633155335
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +626,7 @@ MonoBehaviour:
   EnemySimplePrefab: {fileID: 0}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 0}
+  EnemiesContainer: {fileID: 0}
 --- !u!4 &647974107
 Transform:
   m_ObjectHideFlags: 0
@@ -884,7 +998,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.002, z: -57.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 623047394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
@@ -1023,9 +1138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47091b63c900d044b82e6f2870d4c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySimplePrefab: {fileID: 0}
+  EnemySimplePrefab: {fileID: 5887504866877522567, guid: 4b062c891d5fd4603804735ceca70770, type: 3}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
+  EnemiesContainer: {fileID: 171147771}
 --- !u!1 &1067913565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,6 +1762,9 @@ MonoBehaviour:
   ObjectsGenerator: {fileID: 1018137057}
   MainGuy: {fileID: 959194257}
   LevelUIManager: {fileID: 1067913570}
+  AttackManager: {fileID: 623047397}
+  EnemySpawnCooldown:
+    cooldownSec: 3
 --- !u!1 &1971944821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,3 +1823,4 @@ SceneRoots:
   - {fileID: 1067913569}
   - {fileID: 1442690336}
   - {fileID: 647974107}
+  - {fileID: 171147772}

@@ -1,17 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MainGuy : MonoBehaviour {
+public class MainGuy : MonoBehaviour
+{
     public Team Team;
-    public void ApplyMovement(Vector3 newPosition) {
+
+    void Start()
+    {
+        Team.CreateTeam();
+    }
+
+    public void ApplyMovement(Vector3 newPosition)
+    {
         transform.position = newPosition;
         Team.ApplyMovement(newPosition);
     }
-    public void StartMove() {
+
+    public void StartMove()
+    {
         // start move animation for the guy and team
     }
-    void Start() {
-        Team.CreateTeam();
+
+    public void VisualiseAttack(Vector3 position)
+    {
+        Debug.DrawRay(transform.position, position - transform.position, Color.red);
+        Team.VisualiseAttack(position);
     }
+
 }

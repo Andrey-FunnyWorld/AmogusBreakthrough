@@ -49,6 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PositionOffset: {x: 0, y: 0, z: 0}
   Renderer: {fileID: 6961288545730773622}
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!33 &6250666905470168085
 MeshFilter:
   m_ObjectHideFlags: 0
