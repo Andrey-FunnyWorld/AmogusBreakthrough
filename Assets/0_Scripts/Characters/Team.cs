@@ -8,13 +8,13 @@ using UnityEngine;
 public class Team : MonoBehaviour {
     public MainGuy MainGuy;
     public Amogus AmogusPrefab;
+    public TeamLayout Layout = TeamLayout.Battle;
+    public HatNamePrefabMap HatNamePrefabMap;
     [HideInInspector]
     public int Count;
     public int StartupCount = 3;
-    public Material SourceMaterial;
     List<Color> colors;
     List<Amogus> Mates;
-    Dictionary<Color, Material> Materials = new Dictionary<Color, Material>();
     MyRange teamRange = new MyRange();
     
     public MyRange TeamRange { get { return teamRange; } }
@@ -26,38 +26,59 @@ public class Team : MonoBehaviour {
         UnsubscriveEvents();
     }
 
-    public void CreateTeam() {
+    public void CreateTeam(ProgressState state) {
         Mates = new List<Amogus>(StartupCount);
         colors = new List<Color>(StartupCount);
         for (int i = 0; i < StartupCount; i++) {
-            CreateMate();
+            CreateMate((SkinItemName)state.EquippedBackpacks[i + 1], (SkinItemName)state.EquippedHats[i + 1]);
         }
         CalcTeamRange();
     }
     public void AddNewMate() {
-        CreateMate();
+        SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[Count];
+        SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[Count];
+        CreateMate(skinBackpack, skinHat);
         CalcTeamRange();
     }
-    void CreateMate() {
+    void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
-        Vector3 offset = new Vector3(
-            X_OFFSET * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
-            0,
-            Z_OFFSET * ((Mates.Count / 2) % 2 == 0 ? -1 : 1)
-        );
+        Vector3 offset = CalcOffset();
         newMate.PositionOffset = offset;
         newMate.transform.Translate(offset + new Vector3(MainGuy.transform.position.x, 0, 0));
-        colors.Add(GetNextColor());
-        newMate.SetColor(GetMaterial(colors.Last()));
+        ApplyMaterials(newMate, backpackSkin);
+        ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
     }
-    Material GetMaterial(Color color) {
-        if (!Materials.ContainsKey(color)) {
-            Material newMaterial = new Material(SourceMaterial);
-            newMaterial.SetColor("_Color", color);
-            Materials.Add(color, newMaterial);
+    void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
+        colors.Add(GetNextColor());
+        Material colorMaterial = MaterialStorage.Instance.GetColorMaterial(colors.Last());
+        Material skinMaterial = MaterialStorage.Instance.GetBackpackMaterial(backpackSkin);
+        mate.ApplyMaterials(colorMaterial, skinMaterial);
+    }
+    void ApplyHat(Amogus mate, SkinItemName hatSkin) {
+        if (mate.ActiveHat != null)
+            HatStorage.Instance.RemoveHat(mate.ActiveHat);
+        if (hatSkin != SkinItemName.None) {
+            mate.ApplyHat(HatStorage.Instance.GetHat(hatSkin));
+        } else {
+            mate.ApplyHat(null);
         }
-        return Materials[color];
+    }
+    Vector3 CalcOffset() {
+        Vector3 offset = Vector3.zero;
+        if (Layout == TeamLayout.Battle) {
+            offset = new Vector3(
+                X_OFFSET * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
+                0,
+                Z_OFFSET * ((Mates.Count / 2) % 2 == 0 ? -1 : 1)
+            );
+        } else if (Layout == TeamLayout.Line) {
+            offset = new Vector3(
+                2 * X_OFFSET * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
+                0, 0
+            );
+        }
+        return offset;
     }
     void CalcTeamRange() {
         teamRange.Start = Mathf.Min(-MIN_RANGE, -X_OFFSET * ((Mates.Count + 1) / 2));
@@ -69,8 +90,9 @@ public class Team : MonoBehaviour {
         }
     }
     Color GetNextColor() {
-        List<Color> availableColors = TeamColors.Except(colors).ToList();
-        return availableColors[Random.Range(0, availableColors.Count)];
+        return TeamColors[colors.Count];
+        // List<Color> availableColors = TeamColors.Except(colors).ToList();
+        // return availableColors[Random.Range(0, availableColors.Count)];
     }
     static Color[] TeamColors = new Color[10] {
         Color.red, Color.blue, Color.green, Color.magenta, Color.yellow, Color.grey,
@@ -79,14 +101,44 @@ public class Team : MonoBehaviour {
     const float X_OFFSET = 0.6f;
     const float Z_OFFSET = 0.5f;
     const float MIN_RANGE = 0.4f;
-    const int MAX_CAPACITY = 10;
+    public const int MAX_CAPACITY = 10;
 
     #region Events
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.CageDestroyed, CageDestroyed);
+        EventManager.StartListening(EventNames.RandomSkins, ApplyRandomSkins);
+        EventManager.StartListening(EventNames.ShopItemClick, ShopItemClick);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
+        EventManager.StopListening(EventNames.RandomSkins, ApplyRandomSkins);
+        EventManager.StopListening(EventNames.ShopItemClick, ShopItemClick);
+    }
+    void ApplyRandomSkins(object arg) {
+        RandomSkinArg skinArg = (RandomSkinArg)arg;
+        for (int i = 0; i < Mates.Count; i++) {
+            if (skinArg.ShopType == ShopType.Backpack) {
+                Material skinMaterial = MaterialStorage.Instance.GetBackpackMaterial((SkinItemName)skinArg.RandomSkins[i]);
+                Mates[i].ApplyBackpack(skinMaterial);
+            } else {
+                ApplyHat(Mates[i], (SkinItemName)skinArg.RandomSkins[i]);
+            }
+        }
+    }
+    void ShopItemClick(object arg) {
+        ListItem item = (ListItem)arg;
+        if (item.IsAvaiable) {
+            for (int i = 0; i < Mates.Count; i++) {
+                if (item.ShopType == ShopType.Backpack) {
+                    Material skinMaterial = item.Model.SkinName != SkinItemName.None
+                        ? MaterialStorage.Instance.GetBackpackMaterial(item.Model.SkinName):
+                        null;
+                    Mates[i].ApplyBackpack(skinMaterial);
+                } else {
+                    ApplyHat(Mates[i], item.Model.SkinName);
+                }
+            }
+        }
     }
     void CageDestroyed(object arg) {
         if (Count == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
@@ -104,4 +156,7 @@ public class MyRange {
     public override string ToString() {
         return string.Format("Start: {0} | End: {1}", Start, End);
     }
+}
+public enum TeamLayout {
+    Battle, Line
 }
