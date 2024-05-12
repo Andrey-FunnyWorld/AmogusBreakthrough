@@ -11,7 +11,7 @@ public class MainGuy : MonoBehaviour {
     public void StartMove() {
         // start move animation for the guy and team
     }
-    void Start() {
-        Team.CreateTeam();
+    public void ApplyProgress(ProgressState progress) {
+        Team.CreateTeam(progress);
     }
 }
