@@ -284,7 +284,7 @@ MonoBehaviour:
   ZeroPointInWorld: 0
   AttackHandler: {fileID: 802100786}
   Width: 10
-  Length: 40
+  Length: 100
   roadObjects: []
   tracksCount: 10
 --- !u!1 &545052287
@@ -778,7 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Road: {fileID: 505870334}
   MainGuy: {fileID: 959194257}
-  Damage: 1
+  TeamDamage: 0.5
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
