@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class RoadObjectBase : MonoBehaviour {
     public ProgressBarUI HealthBar;
     public float RoadPosition;
+
     void Start() {
         HP = StartHP;
         HealthBar.MaxValue = StartHP;

@@ -7,10 +7,12 @@ public class LevelManager : MonoBehaviour {
     public RoadObjectsGenerator ObjectsGenerator;
     public MainGuy MainGuy;
     public LevelUIManager LevelUIManager;
+
     void Start() {
         SubscriveEvents();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
-        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, 0));
+        List<float> roadTracksCoords = Road.InitTracks();
+        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
     }
     void Update() {
         // if (Input.GetKeyDown(KeyCode.Space)) {

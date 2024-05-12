@@ -282,8 +282,11 @@ MonoBehaviour:
   StartSpeed: 5
   RoadMeshRenderer: {fileID: 505870332}
   ZeroPointInWorld: 0
+  AttackHandler: {fileID: 802100786}
   Width: 10
   Length: 40
+  roadObjects: []
+  tracksCount: 10
 --- !u!1 &545052287
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +732,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735760553}
   m_CullTransparentMesh: 1
+--- !u!1 &802100784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 802100785}
+  - component: {fileID: 802100786}
+  m_Layer: 0
+  m_Name: AttackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &802100785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802100784}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.362905, y: 3.9025054, z: -4.5028114}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543382294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &802100786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802100784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c1323d15c6be5468af1f716fdbae04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Road: {fileID: 505870334}
+  MainGuy: {fileID: 959194257}
+  Damage: 1
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47091b63c900d044b82e6f2870d4c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySimplePrefab: {fileID: 0}
+  EnemySimplePrefab: {fileID: 7419256989263333393, guid: 109d8a002f9dc7848b966563a054088a, type: 3}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
 --- !u!1 &1067913565
@@ -1266,8 +1316,9 @@ MonoBehaviour:
   MainGuy: {fileID: 959194257}
   AmogusPrefab: {fileID: 3835075887073776746, guid: 7600222f514ae044ab944c1993d9a585, type: 3}
   Count: 0
-  StartupCount: 4
+  StartupCount: 6
   SourceMaterial: {fileID: 2100000, guid: 87b6b66f770d54345b84472fd66db3cd, type: 2}
+  AttackRange: 10
 --- !u!1 &1428354364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1465,7 @@ Transform:
   - {fileID: 1971944822}
   - {fileID: 1428354365}
   - {fileID: 1018137056}
+  - {fileID: 802100785}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736466778

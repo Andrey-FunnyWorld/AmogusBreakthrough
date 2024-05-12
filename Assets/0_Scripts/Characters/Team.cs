@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,15 @@ public class Team : MonoBehaviour {
     MyRange teamRange = new MyRange();
     
     public MyRange TeamRange { get { return teamRange; } }
+
+    public float AttackRange = 10f;
+    [NonSerialized] public Transform MostLeftMate;
+    [NonSerialized] public Transform MostRightMate;
+
+    const float X_OFFSET = 0.6f;
+    const float Z_OFFSET = 0.5f;
+    const float MIN_RANGE = 0.4f;
+    const int MAX_CAPACITY = 10;
 
     void Start() {
         SubscriveEvents();
@@ -50,6 +60,13 @@ public class Team : MonoBehaviour {
         colors.Add(GetNextColor());
         newMate.SetColor(GetMaterial(colors.Last()));
         Mates.Add(newMate);
+
+        if (MostLeftMate == null || MostLeftMate.position.x > offset.x) {
+            MostLeftMate = newMate.transform;
+        }
+        if (MostRightMate == null || MostRightMate.position.x < offset.x) {
+            MostRightMate = newMate.transform;
+        }
     }
     Material GetMaterial(Color color) {
         if (!Materials.ContainsKey(color)) {
@@ -62,6 +79,10 @@ public class Team : MonoBehaviour {
     void CalcTeamRange() {
         teamRange.Start = Mathf.Min(-MIN_RANGE, -X_OFFSET * ((Mates.Count + 1) / 2));
         teamRange.End = Mathf.Max(MIN_RANGE, X_OFFSET * (Mates.Count / 2));
+        // Debug.Log($"Team range changed: start:{teamRange.Start}, end:{teamRange.End}");
+
+        // teamBounds = CalcCombinedBounds(gameObject);
+        // Debug.Log($"combined bounds center: {teamBounds.center}, size:{teamBounds.size}");
     }
     public void ApplyMovement(Vector3 newPosition) {
         foreach (Amogus amogus in Mates) {
@@ -70,17 +91,13 @@ public class Team : MonoBehaviour {
     }
     Color GetNextColor() {
         List<Color> availableColors = TeamColors.Except(colors).ToList();
-        return availableColors[Random.Range(0, availableColors.Count)];
+        return availableColors[UnityEngine.Random.Range(0, availableColors.Count)];
     }
     static Color[] TeamColors = new Color[10] {
         Color.red, Color.blue, Color.green, Color.magenta, Color.yellow, Color.grey,
         new Color(1, 0.49f, 0.19f), new Color(0.54f, 0.17f, 0.88f), new Color(0.57f, 0.44f, 0.86f), new Color(0.5f, 0.5f,0)
     };
-    const float X_OFFSET = 0.6f;
-    const float Z_OFFSET = 0.5f;
-    const float MIN_RANGE = 0.4f;
-    const int MAX_CAPACITY = 10;
-
+    
     #region Events
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.CageDestroyed, CageDestroyed);
@@ -96,6 +113,23 @@ public class Team : MonoBehaviour {
         }
     }
     #endregion
+
+    void OnDrawGizmos() {
+        if (MostLeftMate != null) {
+            Gizmos.color = new Color(1, 1, 0, 0.25F);
+            Gizmos.DrawCube(GetTeamPosition(), GetTeamSize());
+        }
+    }
+    private Vector3 GetTeamPosition() {
+        return new Vector3(
+            (MostLeftMate.position.x + MostRightMate.position.x) / 2,
+            2,
+            transform.position.z + AttackRange / 2 + 1
+        );
+    }
+    private Vector3 GetTeamSize() {
+        return new Vector3(Mathf.Abs(teamRange.Start) + Mathf.Abs(teamRange.End), 4, AttackRange);
+    }
 }
 
 public class MyRange {

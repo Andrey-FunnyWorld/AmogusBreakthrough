@@ -8,9 +8,21 @@ public class Road : MonoBehaviour {
     [HideInInspector]
     public float ZeroPointInWorld;
 
-    void Start() {
-        Speed = StartSpeed;
-    }
+    [SerializeField] private AttackHandler AttackHandler;
+
+    public float Width;
+    public float Length = 40;
+
+    float texOffsetFactor = 0;
+    bool isRunning = false;
+    float moveTime = 0;
+    float currentPosition = 0;
+    public List<RoadObjectBase> roadObjects;
+    List<float> tracksCoords;
+
+    public float tracksCount = 10; //todo
+
+    float speed = 0;
 
     public bool IsRunning { get { return isRunning; }
         set {
@@ -20,7 +32,6 @@ public class Road : MonoBehaviour {
             }
         }
     }
-    float speed = 0;
     public float Speed {
         get { return speed; }
         set {
@@ -30,44 +41,76 @@ public class Road : MonoBehaviour {
             }
         }
     }
-    float texOffsetFactor = 0;
-    bool isRunning = false;
-    float moveTime = 0;
-    float currentPosition = 0;
-    List<RoadObjectBase> roadObjects;
+
+    void Start() {
+        Speed = StartSpeed;
+    }
+
     void Update() {
         if (IsRunning) {
             moveTime += Time.deltaTime;
             currentPosition = moveTime * Speed;
             MoveObjects();
-            float texOffset = moveTime / texOffsetFactor;
-            RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
-            if (currentPosition >= Length) {
-                IsRunning = false;
-                EventManager.TriggerEvent(EventNames.RoadFinished, this);
-            }
+            MoveRoadTexture();
+            HandleFinishReached();
         }
     }
-    public float Width;
-    public float Length = 40;
+
+    public List<float> InitTracks() {
+        tracksCoords = new List<float>();
+
+        float roadWidth = Width;
+        float trackWidth = roadWidth / tracksCount;
+        float nextTrackX = -roadWidth / 2 + roadWidth / (tracksCount * 2);
+        tracksCoords.Add(nextTrackX);
+
+        for (int i = 1; i < tracksCount; i++) {
+            nextTrackX += trackWidth;
+            tracksCoords.Add(nextTrackX);
+        }
+
+        return tracksCoords;
+    }
+
+    private void MoveRoadTexture() {
+        float texOffset = moveTime / texOffsetFactor;
+        RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
+    }
+
+    private void HandleFinishReached() {
+        if (currentPosition >= Length) {
+            IsRunning = false;
+            EventManager.TriggerEvent(EventNames.RoadFinished, this);
+        }
+    }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
+        AttackHandler.InitAttackRange(tracksCoords);
         roadObjects = objects;
         MoveObjects();
     }
+
     void MoveObjects() {
         foreach (RoadObjectBase roadObject in roadObjects) {
-            if (roadObject != null) {
+            if (roadObject != null)
+            {
                 float newPos = roadObject.RoadPosition - currentPosition;
-                roadObject.transform.position = new Vector3(
-                    roadObject.transform.position.x,
-                    roadObject.transform.position.y,
-                    GetWorldPosition(newPos)
-                );
+                HandleObjectPosition(roadObject, newPos);
+                AttackHandler.HandleObjectShouldBeAttacked(roadObject);
             }
         }
         CleanupObjects();
     }
+
+    private void HandleObjectPosition(RoadObjectBase roadObject, float newPos)
+    {
+        roadObject.transform.position = new Vector3(
+            roadObject.transform.position.x,
+            roadObject.transform.position.y,
+            GetWorldPosition(newPos)
+        );
+    }
+
     float GetWorldPosition(float roadPosition) {
         return ZeroPointInWorld + roadPosition;
     }
@@ -76,6 +119,11 @@ public class Road : MonoBehaviour {
             if (roadObjects[i] == null) {
                 roadObjects.RemoveAt(i);
                 i--;
+            } else if (AttackHandler.CheckDestroyObject(roadObjects[i])) {
+                RoadObjectBase obj = roadObjects[i];
+                roadObjects.RemoveAt(i);
+                i--;
+                Destroy(obj.gameObject);
             }
         }
     }
