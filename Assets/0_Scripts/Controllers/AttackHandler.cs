@@ -52,6 +52,7 @@ public class AttackHandler : MonoBehaviour
 
             foreach (EnemyBase enemy in enemiesBeingAttacked) {
                 enemy.HP -= TeamDamage;
+                enemy.VisualiseTakingDamage(true);
 
                 if (enemy.HP <= 0) {
                     shouldReinitEnemiesToAttack = true;
@@ -96,6 +97,7 @@ public class AttackHandler : MonoBehaviour
     }
 
     private void RemoveEnemy(EnemyBase enemy) {
+        enemy.VisualiseTakingDamage(false);
         allEnemies[enemy.transform.position.x].Remove(enemy);
         enemiesBeingAttacked.Remove(enemy);
     }
@@ -118,5 +120,4 @@ public class AttackHandler : MonoBehaviour
     private int CompareEnemiesZCoords(EnemyBase enemy1, EnemyBase enemy2) =>
         enemy1.transform.position.z.CompareTo(enemy2.transform.position.z);
 
-    
 }

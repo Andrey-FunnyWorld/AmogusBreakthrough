@@ -778,7 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Road: {fileID: 505870334}
   MainGuy: {fileID: 959194257}
-  TeamDamage: 0.5
+  TeamDamage: 1
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47091b63c900d044b82e6f2870d4c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySimplePrefab: {fileID: 7419256989263333393, guid: 109d8a002f9dc7848b966563a054088a, type: 3}
+  EnemySimplePrefab: {fileID: 7419256989263333393, guid: caf4b6db747eea9479c896d7581d12cc, type: 3}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
 --- !u!1 &1067913565
