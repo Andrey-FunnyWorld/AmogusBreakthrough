@@ -12,4 +12,10 @@ public static class Utils {
         }
         callback.Invoke();
     }
+    public static float EaseInCubic(float x) {
+        return Mathf.Pow(x, 2);
+    }
+    public static float EaseInSquare(float x) {
+        return Mathf.Pow(x, 2);
+    }
 }
