@@ -42,12 +42,12 @@ public class RoadObjectsGenerator : MonoBehaviour {
     }
 
     List<RoadObjectBase> DebugGenerateEnemies(List<float> roadTracksCoords) {
-        List<RoadObjectBase> objects = new List<RoadObjectBase>();
+        int enemiesCount = Random.Range(20, 50);
+        List<RoadObjectBase> objects = new List<RoadObjectBase>(enemiesCount);
         float nextPosition = 15;
-        int enemies = Random.Range(20, 50);
-        List<float> positions = new List<float> { nextPosition };
+        List<float> positions = new List<float>(enemiesCount) { nextPosition };
         
-        for (int i = 0; i < enemies; i++) {
+        for (int i = 0; i < enemiesCount; i++) {
             nextPosition += Random.Range(1, 3);
             positions.Add(nextPosition);
         }

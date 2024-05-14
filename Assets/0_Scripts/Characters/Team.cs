@@ -10,6 +10,7 @@ public class Team : MonoBehaviour {
     public MainGuy MainGuy;
     public Amogus AmogusPrefab;
     [HideInInspector]
+    public float AmogusDamage = 0.1f;
     public int Count;
     public int StartupCount = 3;
     public Material SourceMaterial;
@@ -19,6 +20,7 @@ public class Team : MonoBehaviour {
     MyRange teamRange = new MyRange();
     
     public MyRange TeamRange { get { return teamRange; } }
+    public int MatesCount => Mates.Count;
 
     public float AttackRange = 10f;
     [NonSerialized] public Transform MostLeftMate;
@@ -79,10 +81,6 @@ public class Team : MonoBehaviour {
     void CalcTeamRange() {
         teamRange.Start = Mathf.Min(-MIN_RANGE, -X_OFFSET * ((Mates.Count + 1) / 2));
         teamRange.End = Mathf.Max(MIN_RANGE, X_OFFSET * (Mates.Count / 2));
-        // Debug.Log($"Team range changed: start:{teamRange.Start}, end:{teamRange.End}");
-
-        // teamBounds = CalcCombinedBounds(gameObject);
-        // Debug.Log($"combined bounds center: {teamBounds.center}, size:{teamBounds.size}");
     }
     public void ApplyMovement(Vector3 newPosition) {
         foreach (Amogus amogus in Mates) {

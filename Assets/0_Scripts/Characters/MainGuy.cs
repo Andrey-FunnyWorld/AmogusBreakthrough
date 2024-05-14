@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MainGuy : MonoBehaviour {
     public Team Team;
+    public float Damage = 0.2f;
 
     void Start() {
         Team.CreateTeam();

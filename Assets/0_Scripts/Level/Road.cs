@@ -8,10 +8,12 @@ public class Road : MonoBehaviour {
     [HideInInspector]
     public float ZeroPointInWorld;
 
-    [SerializeField] private AttackHandler AttackHandler;
-
     public float Width;
     public float Length = 40;
+
+    public float tracksCount = 10; //todo
+
+    [SerializeField] private AttackController AttackHandler;
 
     float texOffsetFactor = 0;
     bool isRunning = false;
@@ -19,10 +21,9 @@ public class Road : MonoBehaviour {
     float currentPosition = 0;
     public List<RoadObjectBase> roadObjects;
     List<float> tracksCoords;
-
-    public float tracksCount = 10; //todo
-
     float speed = 0;
+
+    public bool MovementStarted { get; set; }
 
     public bool IsRunning { get { return isRunning; }
         set {
@@ -85,7 +86,7 @@ public class Road : MonoBehaviour {
     }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
-        AttackHandler.InitAttackRange(tracksCoords);
+        AttackHandler.Prepare();
         roadObjects = objects;
         MoveObjects();
     }
@@ -96,7 +97,7 @@ public class Road : MonoBehaviour {
             {
                 float newPos = roadObject.RoadPosition - currentPosition;
                 HandleObjectPosition(roadObject, newPos);
-                AttackHandler.HandleObjectShouldBeAttacked(roadObject);
+                AttackHandler.HandleAttackObject(roadObject);
             }
         }
         CleanupObjects();
@@ -119,11 +120,6 @@ public class Road : MonoBehaviour {
             if (roadObjects[i] == null) {
                 roadObjects.RemoveAt(i);
                 i--;
-            } else if (AttackHandler.CheckDestroyObject(roadObjects[i])) {
-                RoadObjectBase obj = roadObjects[i];
-                roadObjects.RemoveAt(i);
-                i--;
-                Destroy(obj.gameObject);
             }
         }
     }

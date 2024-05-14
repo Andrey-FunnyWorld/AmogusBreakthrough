@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour {
     void LetsRoll() {
         MainGuy.StartMove();
         Road.IsRunning = true;
+        Road.MovementStarted = true;
         LevelUIManager.LetsRoll();
     }
     void StartMovement(object arg) {
