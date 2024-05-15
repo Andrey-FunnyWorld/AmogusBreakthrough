@@ -67,5 +67,6 @@ public static class EventNames {
     public static string StartDataLoaded = "StartDataLoaded";
     public static string RandomSkins = "RandomSkins";
     public static string ShopItemClick = "ShopItemClick";
+    public static string WheelSpinResult = "WheelSpinResult";
     //public static string ShopListCloseButtonClick = "ShopListCloseButtonClick";
 }

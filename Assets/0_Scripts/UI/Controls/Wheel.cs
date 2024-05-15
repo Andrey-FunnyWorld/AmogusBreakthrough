@@ -8,6 +8,7 @@ public class Wheel : MonoBehaviour {
     public Transform WheelTransform;
     public float StartSpeed = 1440;
     bool isSpinning = false;
+    List<WheelItem> items;
     const float DURATION_EXTENT = 1;
     const int SECTOR_COUNT = 8;
     const int RARE_SECTOR_COUNT = 2;
@@ -30,20 +31,26 @@ public class Wheel : MonoBehaviour {
             yield return null;
         }
         isSpinning = false;
+        HandleSpinResult(WheelTransform.rotation.eulerAngles.z);
+    }
+    void HandleSpinResult(float angle) {
+        const float RANGE = 360 / SECTOR_COUNT;
+        int sectorIndex = (int)Mathf.Abs(Mathf.Floor((360 - angle) / RANGE));
+        EventManager.TriggerEvent(EventNames.WheelSpinResult, items[sectorIndex]);
+        //Debug.Log(string.Format("Angle: {0}; Index: {1}; Type: {2}", angle, sectorIndex, items[sectorIndex].ItemType));
     }
     public void GenerateItems() {
         float radius = 0.7f * WheelTransform.GetComponent<RectTransform>().sizeDelta.x / 2;
-        Debug.Log(radius);
+        items = new List<WheelItem>(SECTOR_COUNT);
         for (int i = 0; i < SECTOR_COUNT; i++) {
             WheelItem item = Instantiate(ItemOnWheelPrefab, Vector2.zero, Quaternion.identity, WheelTransform);
             float deg = (i + 0.5f) * 360 / SECTOR_COUNT;
-            if (i == 7) item.SetType(ItemType.Epic);
-            else if (i == 6 || i == 0) item.SetType(ItemType.Rare);
-            else item.SetType(ItemType.Regular);
-            
+            if (i == 7) item.SetType(WheelItemType.Epic);
+            else if (i == 6 || i == 0) item.SetType(WheelItemType.Rare);
+            else item.SetType(WheelItemType.Regular);
             item.transform.localPosition = new Vector2(radius * Mathf.Cos(deg * Mathf.Deg2Rad), radius * Mathf.Sin(deg * Mathf.Deg2Rad));
             item.transform.Rotate(new Vector3(0, 0, deg));
-            //item.rot(Vector3.forward, WheelTransform.position, i * 360 / SECTOR_COUNT);
+            items.Add(item);
         }
     }
     void Start() {
@@ -51,6 +58,6 @@ public class Wheel : MonoBehaviour {
     }
 }
 
-public enum ItemType {
+public enum WheelItemType {
     Regular, Rare, Epic
 }

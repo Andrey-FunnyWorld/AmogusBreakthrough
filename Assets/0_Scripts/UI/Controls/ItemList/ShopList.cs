@@ -45,6 +45,21 @@ public class ShopList : MonoBehaviour {
     void OnDisable() {
         SetCollapsed(false);
     }
+    void Start() {
+        SubscriveEvents();
+    }
+    void OnDestroy() {
+        UnsubscriveEvents();
+    }
+    void SubscriveEvents() {
+        EventManager.StartListening(EventNames.WheelSpinResult, WheelSpinResult);
+    }
+    void UnsubscriveEvents() {
+        EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
+    }
+    void WheelSpinResult(object arg) {
+        WheelItem wheelItem = (WheelItem)arg;
+    }
 }
 
 public enum ShopType {
