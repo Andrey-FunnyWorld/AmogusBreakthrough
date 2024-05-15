@@ -5,14 +5,12 @@ public class AttackController : MonoBehaviour
 {
     public Road Road;
     public MainGuy MainGuy;
-    public float TeamDamage = 0.5f;
-    // private Cooldown attackCooldown = new Cooldown(0.1f);
-    private float attackCooldown = 0.1f;
 
     private List<EnemyBase> enemies = new List<EnemyBase>(20);
-
+    private float attackCooldown = 0.1f;
     private float attackStartPosition;
     private float attackEndPosition;
+    private float teamDamage = 0.5f;
 
     private Coroutine attackCoroutine = null;
 
@@ -48,7 +46,10 @@ public class AttackController : MonoBehaviour
     }
 
     private void InitTeamDamage() {
-        TeamDamage = MainGuy.Damage + MainGuy.Team.MatesCount * MainGuy.Team.AmogusDamage;
+        Debug.Log($"is main guy damage: {MainGuy.Damage}");
+        Debug.Log($"is main team MateCount: {MainGuy.Team.MatesCount}");
+        Debug.Log($"is main team Amogus damage: {MainGuy.Team.AmogusDamage}");
+        teamDamage = MainGuy.Damage + MainGuy.Team.MatesCount * MainGuy.Team.AmogusDamage;
     }
 
     private void AttackEnemies() {
@@ -56,7 +57,7 @@ public class AttackController : MonoBehaviour
 
         attackCoroutine = StartCoroutine(Utils.WaitAndDo(attackCooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].HP -= TeamDamage;
+                enemies[i].HP -= teamDamage;
                 enemies[i].VisualiseTakingDamage(true);
 
                 if (enemies[i].HP <= 0) {

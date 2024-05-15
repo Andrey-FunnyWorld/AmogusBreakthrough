@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UserProgressController : MonoBehaviour {
+    public static UserProgressController Instance;
+    [System.NonSerialized]
+    public ProgressState ProgressState;
+    [System.NonSerialized]
+    public PlayerSettings PlayerSettings;
+    public bool IsLogged = false;
+    public bool ProgressLoaded;
+    public static string TRUE = "true";
+    public SkinItems BackpackItems;
+    void Awake() {
+        if (Instance == null) {
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+            #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
+            LoadFromFile();
+            #endif
+        } else {
+            Destroy(gameObject);
+        }
+    }
+    public void LoadFromFile() {
+        PlayerSettings = ProgressFileSaver.LoadSettings();
+        ProgressState = ProgressFileSaver.LoadProgress();
+        ProgressState.AdjustHats(BackpackItems.Items.Length - 1); // 1 is for None
+        StartCoroutine(Utils.WaitAndDo(0.1f, () => {
+            Instance.ProgressLoaded = true;
+            EventManager.TriggerEvent(EventNames.StartDataLoaded, null);
+        }));
+    }
+}
+
+[System.Serializable]
+public class ProgressState {
+    public int Score;
+    public int[] EquippedBackpacks;
+    public int[] EquippedHats;
+    public int[] PurchasedBackpacks;
+    public int[] PurchasedHats;
+    [System.NonSerialized]
+    public bool SkipSaveTargetDialog;
+    public ProgressState() {
+        DefaultValues();
+    }
+    void DefaultValues() {
+        EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
+        EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
+        PurchasedBackpacks = new int[3] { 0, 1, 3 };
+        PurchasedHats = new int[3] { 0, 1, 3 };
+        SkipSaveTargetDialog = false;
+    }
+    public void AdjustHats(int startIndex) {
+        for (int i = 0; i < EquippedHats.Length; i++) {
+            if (EquippedHats[i] > 0)
+                EquippedHats[i] += startIndex;
+        }
+        for (int i = 0; i < PurchasedHats.Length; i++) {
+            if (PurchasedHats[i] > 0)
+                PurchasedHats[i] += startIndex;
+        }
+    }
+}
+[System.Serializable]
+public class PlayerSettings {
+    public PlayerSettings() {
+        MusicVolume = 0.5f;
+        SoundVolume = 0.5f;
+    }
+    public float MusicVolume;
+    public float SoundVolume;
+}

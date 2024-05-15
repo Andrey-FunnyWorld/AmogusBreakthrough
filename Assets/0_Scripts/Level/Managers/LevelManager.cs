@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour {
         UnsubscriveEvents();
     }
     void LetsRoll() {
+        Road.PrepareAttackController();
         MainGuy.StartMove();
         Road.IsRunning = true;
         Road.MovementStarted = true;
@@ -35,12 +36,20 @@ public class LevelManager : MonoBehaviour {
     void RoadFinished(object arg) {
         LevelUIManager.RoadFinished();
     }
+    void ApplyProgress(ProgressState progress) {
+        MainGuy.ApplyProgress(progress);
+    }
+    void StartDataLoaded(object arg) {
+        ApplyProgress(UserProgressController.Instance.ProgressState);
+    }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
+        EventManager.StartListening(EventNames.StartDataLoaded, StartDataLoaded);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
+        EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
     }
 }

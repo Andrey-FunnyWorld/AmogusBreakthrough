@@ -73,6 +73,10 @@ public class Road : MonoBehaviour {
         return tracksCoords;
     }
 
+    public void PrepareAttackController() {
+        AttackHandler.Prepare();
+    }
+
     private void MoveRoadTexture() {
         float texOffset = moveTime / texOffsetFactor;
         RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
@@ -86,7 +90,7 @@ public class Road : MonoBehaviour {
     }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
-        AttackHandler.Prepare();
+        // AttackHandler.Prepare();
         roadObjects = objects;
         MoveObjects();
     }
