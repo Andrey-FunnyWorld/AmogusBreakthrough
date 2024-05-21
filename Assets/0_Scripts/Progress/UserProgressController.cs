@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UserProgressController : MonoBehaviour {
@@ -12,6 +10,7 @@ public class UserProgressController : MonoBehaviour {
     public bool ProgressLoaded;
     public static string TRUE = "true";
     public SkinItems BackpackItems;
+
     void Awake() {
         if (Instance == null) {
             transform.parent = null;

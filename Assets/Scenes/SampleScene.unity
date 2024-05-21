@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -329,11 +329,11 @@ MonoBehaviour:
   StartSpeed: 5
   RoadMeshRenderer: {fileID: 505870332}
   ZeroPointInWorld: 0
-  AttackHandler: {fileID: 802100786}
   Width: 10
   Length: 100
-  roadObjects: []
   tracksCount: 10
+  AttackHandler: {fileID: 802100786}
+  roadObjects: []
 --- !u!1 &545052287
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Road: {fileID: 505870334}
   MainGuy: {fileID: 959194257}
-  TeamDamage: 1
+  weaponsStaticData: {fileID: 11400000, guid: 956840c53f05142a5acab816f71dbf63, type: 2}
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,12 +1275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cef9a38c7fc7e4585700202fb8e3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGuy: {fileID: 959194257}
-  AmogusPrefab: {fileID: 3835075887073776746, guid: 7600222f514ae044ab944c1993d9a585, type: 3}
-  Count: 0
-  StartupCount: 6
-  SourceMaterial: {fileID: 2100000, guid: 87b6b66f770d54345b84472fd66db3cd, type: 2}
-  AttackRange: 10
 --- !u!1 &1428354364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1710,10 @@ PrefabInstance:
       propertyPath: Team
       value: 
       objectReference: {fileID: 1412597526}
+    - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      propertyPath: Damage
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6771805259163161212, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: m_Name
       value: MainGuy
