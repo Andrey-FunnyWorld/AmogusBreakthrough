@@ -170,6 +170,50 @@ MonoBehaviour:
   IsLogged: 0
   ProgressLoaded: 0
   BackpackItems: {fileID: 11400000, guid: 32b87e4619a79784691d49253fb72441, type: 2}
+--- !u!1 &274705032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274705033}
+  - component: {fileID: 274705034}
+  m_Layer: 0
+  m_Name: AttackFXController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274705033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274705032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543382294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274705034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274705032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab6e1d847f8d482faaf0eef876d3a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &480155376
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,6 +928,7 @@ MonoBehaviour:
   Road: {fileID: 505870334}
   MainGuy: {fileID: 959194257}
   weaponsStaticData: {fileID: 11400000, guid: 956840c53f05142a5acab816f71dbf63, type: 2}
+  fxController: {fileID: 274705034}
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1467,7 @@ Transform:
   - {fileID: 1428354365}
   - {fileID: 1018137056}
   - {fileID: 802100785}
+  - {fileID: 274705033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736466778

@@ -7,11 +7,13 @@ public class AttackController : MonoBehaviour
     public Road Road;
     public MainGuy MainGuy;
     public WeaponsList weaponsStaticData;
+    public AttackFXController fxController;
 
     private List<EnemyBase> enemies = new List<EnemyBase>(20);
     private Dictionary<WeaponType, WeaponDefinition> weapons;
     private Coroutine attackCoroutine = null;
     private WeaponDefinition currentWeapon;
+
     private float attackCooldown = 0.1f;
     private float attackStartPosition;
     private float attackEndPosition;
@@ -19,10 +21,13 @@ public class AttackController : MonoBehaviour
 
     void Start() {
         SubscriveEvents();
+        fxController.SetEnemies(enemies);
     }
     void Update() {
         if (Road.MovementStarted && enemies.Count > 0) {
             AttackEnemies();
+        } else if (enemies.Count == 0) {
+            fxController.ClearAttackFXs();
         }
     }
     void OnDestroy() {
@@ -63,7 +68,7 @@ public class AttackController : MonoBehaviour
         foreach (WeaponDefinition weapon in weaponsStaticData.Items) {
             weapons.Add(weapon.Type, weapon);
         }
-        currentWeapon = weaponsStaticData.Items[1]; //todo
+        currentWeapon = weaponsStaticData.Items[1]; //todo тут типа выбрана ракетница
     }
     private void InitAttackRange() {
         float MainGuyZCoord = MainGuy.transform.position.z;
@@ -71,7 +76,6 @@ public class AttackController : MonoBehaviour
         attackEndPosition = MainGuyZCoord + 1;
     }
     private void InitTeamDamage() {
-        // teamDamage = MainGuy.Damage + MainGuy.Team.MatesCount * MainGuy.Team.AmogusDamage;
         teamDamage = currentWeapon.Damage + MainGuy.Team.MatesCount * MainGuy.Team.AmogusDamage;
     }
     private void AttackEnemies() {
@@ -80,16 +84,33 @@ public class AttackController : MonoBehaviour
         attackCoroutine = StartCoroutine(Utils.WaitAndDo(attackCooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
                 enemies[i].HP -= teamDamage;
-                enemies[i].VisualiseTakeDamage(true);
+                HandleAttackVisualisation(i);
 
                 if (enemies[i] == null || enemies[i].HP <= 0) {
                     enemies.RemoveAt(i);
                     i--;
                 }
             }
-            
+
             attackCoroutine = null;
         }));
+    }
+    private void HandleAttackVisualisation(int index) {
+        if (currentWeapon.FxSpawner == null) {
+            enemies[index].VisualiseTakeDamage(true);
+        } else {
+            enemies[index].VisualiseTakeDamage(false);
+            if (!fxController.IsPrepared(currentWeapon.Type)) {
+                fxController.PrepareAttackFXs(
+                    weaponType: currentWeapon.Type,
+                    fxSpawner: currentWeapon.FxSpawner,
+                    leftEdge: MainGuy.Team.MostLeftMate,
+                    rightEdge: MainGuy.Team.MostRightMate,
+                    attackStartPosition,
+                    attackEndPosition
+                );
+            }
+        }
     }
     private bool IsInAttackRange(EnemyBase enemy) {
         return enemy.transform.position.z <= attackStartPosition;
