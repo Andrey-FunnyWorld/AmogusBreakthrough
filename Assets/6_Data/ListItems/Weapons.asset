@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Weapons
   m_EditorClassIdentifier: 
   Items:
-  - Type: 0
-    Damage: 0.4
-    FxEmitter: {fileID: 0}
   - Type: 1
+    Damage: 0.4
+    FxSpawner: {fileID: 0}
+    AttackCooldown: 0
+  - Type: 2
     Damage: 0.6
-    FxEmitter: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
+    FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
+    AttackCooldown: 0
