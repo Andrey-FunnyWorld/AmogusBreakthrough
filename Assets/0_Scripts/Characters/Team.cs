@@ -107,12 +107,12 @@ public class Team : MonoBehaviour {
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StartListening(EventNames.RandomSkins, ApplyRandomSkins);
-        EventManager.StartListening(EventNames.ShopItemClick, ShopItemClick);
+        EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StopListening(EventNames.RandomSkins, ApplyRandomSkins);
-        EventManager.StopListening(EventNames.ShopItemClick, ShopItemClick);
+        EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
     }
     void ApplyRandomSkins(object arg) {
         RandomSkinArg skinArg = (RandomSkinArg)arg;
@@ -125,18 +125,16 @@ public class Team : MonoBehaviour {
             }
         }
     }
-    void ShopItemClick(object arg) {
-        ListItem item = (ListItem)arg;
-        if (item.IsAvaiable) {
-            for (int i = 0; i < Mates.Count; i++) {
-                if (item.ShopType == ShopType.Backpack) {
-                    Material skinMaterial = item.Model.SkinName != SkinItemName.None
-                        ? MaterialStorage.Instance.GetBackpackMaterial(item.Model.SkinName):
-                        null;
-                    Mates[i].ApplyBackpack(skinMaterial);
-                } else {
-                    ApplyHat(Mates[i], item.Model.SkinName);
-                }
+    void SkinItemEquip(object arg) {
+        SkinItemEquipArgs args = (SkinItemEquipArgs)arg;
+        for (int i = 0; i < Mates.Count; i++) {
+            if (args.ShopType == ShopType.Backpack) {
+                Material skinMaterial = args.ItemModel.SkinName != SkinItemName.None
+                    ? MaterialStorage.Instance.GetBackpackMaterial(args.ItemModel.SkinName):
+                    null;
+                Mates[i].ApplyBackpack(skinMaterial);
+            } else {
+                ApplyHat(Mates[i], args.ItemModel.SkinName);
             }
         }
     }

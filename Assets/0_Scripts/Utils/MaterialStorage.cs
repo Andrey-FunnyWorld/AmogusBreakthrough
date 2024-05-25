@@ -44,5 +44,5 @@ public class MaterialStorage : MonoBehaviour {
 
 public enum SkinItemName {
     None, BackJoker, BackLightning, BackStar,
-    HatCylinder, HatCrown, HatHearts
+    HatCylinder, HatCrown, HatHearts, HatChinese, HatAnon, HatKid, HatToilerPaper, HatSheriff, HatViking, HatPirate, HatMexican, HatCatEars
 }

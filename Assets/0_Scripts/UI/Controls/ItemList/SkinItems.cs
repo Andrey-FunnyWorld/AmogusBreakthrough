@@ -12,4 +12,9 @@ public class ShopItemModel {
     public SkinItemName SkinName;
     public Sprite Sprite;
     public int Price;
+    public SkinItemQuality Quality;
+}
+
+public enum SkinItemQuality {
+    Regular, Rare, Epic
 }
