@@ -19,11 +19,14 @@ public class MyLocalization : MonoBehaviour {
     }
     public Dictionary<string, string> LocalizedStringsRu = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Ваш рекорд" },
+        { LocalizationKeys.AdSpinReady, "Готово" },
     };
     public Dictionary<string, string> LocalizedStringsEn = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Your record" },
+        { LocalizationKeys.AdSpinReady, "Ready" },
     };
 }
 public static class LocalizationKeys {
     public static string YourRecord = "YourRecord";
+    public static string AdSpinReady = "AdSpinReady";
 }

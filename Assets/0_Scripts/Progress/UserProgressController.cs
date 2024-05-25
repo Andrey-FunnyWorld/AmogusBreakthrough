@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,22 +38,33 @@ public class UserProgressController : MonoBehaviour {
 
 [System.Serializable]
 public class ProgressState {
-    public int Score;
+    public int Money;
+    public int Spins;
     public int[] EquippedBackpacks;
     public int[] EquippedHats;
     public int[] PurchasedBackpacks;
     public int[] PurchasedHats;
     [System.NonSerialized]
     public bool SkipSaveTargetDialog;
+    public string AdSpinWhenAvailableString;
+    public DateTime AdSpinWhenAvailable {
+        get { 
+            if (AdSpinWhenAvailableString != string.Empty)
+                return DateTime.Parse(AdSpinWhenAvailableString);
+            else return new DateTime(1900, 0, 0);
+        }
+    }
     public ProgressState() {
         DefaultValues();
     }
     void DefaultValues() {
         EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
         EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
-        PurchasedBackpacks = new int[3] { 0, 1, 3 };
-        PurchasedHats = new int[3] { 0, 1, 3 };
+        PurchasedBackpacks = new int[1] { 0 };
+        PurchasedHats = new int[1] { 0 };
         SkipSaveTargetDialog = false;
+        Spins = 2;
+        AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
     }
     public void AdjustHats(int startIndex) {
         for (int i = 0; i < EquippedHats.Length; i++) {

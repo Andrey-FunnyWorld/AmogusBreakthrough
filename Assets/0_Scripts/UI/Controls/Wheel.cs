@@ -6,6 +6,8 @@ using UnityEngine;
 public class Wheel : MonoBehaviour {
     public WheelItem ItemOnWheelPrefab;
     public Transform WheelTransform;
+    public AdSpinButton AdSpinButton;
+    public ButtonScored FreeSpinButton;
     public float StartSpeed = 1440;
     bool isSpinning = false;
     List<WheelItem> items;
@@ -17,7 +19,12 @@ public class Wheel : MonoBehaviour {
         if (!isSpinning) {
             isSpinning = true;
             StartCoroutine(Spinning(GetDuration(duration)));
+            EventManager.TriggerEvent(EventNames.WheelSpinStart, this);
         }
+    }
+    public void ApplyProgress(ProgressState state) {
+        FreeSpinButton.SetScore(state.Spins);
+        AdSpinButton.ApplyFinishDate(state.AdSpinWhenAvailable);
     }
     float GetDuration(float baseDuration) {
         return Random.Range(baseDuration - DURATION_EXTENT, baseDuration + DURATION_EXTENT);
@@ -45,9 +52,9 @@ public class Wheel : MonoBehaviour {
         for (int i = 0; i < SECTOR_COUNT; i++) {
             WheelItem item = Instantiate(ItemOnWheelPrefab, Vector2.zero, Quaternion.identity, WheelTransform);
             float deg = (i + 0.5f) * 360 / SECTOR_COUNT;
-            if (i == 7) item.SetType(WheelItemType.Epic);
-            else if (i == 6 || i == 0) item.SetType(WheelItemType.Rare);
-            else item.SetType(WheelItemType.Regular);
+            if (i == 7) item.SetType(SkinItemQuality.Epic);
+            else if (i == 6 || i == 0) item.SetType(SkinItemQuality.Rare);
+            else item.SetType(SkinItemQuality.Regular);
             item.transform.localPosition = new Vector2(radius * Mathf.Cos(deg * Mathf.Deg2Rad), radius * Mathf.Sin(deg * Mathf.Deg2Rad));
             item.transform.Rotate(new Vector3(0, 0, deg));
             items.Add(item);
@@ -56,8 +63,7 @@ public class Wheel : MonoBehaviour {
     void Start() {
         GenerateItems();
     }
-}
-
-public enum WheelItemType {
-    Regular, Rare, Epic
+    void OnEnable() {
+        FreeSpinButton.SetScore(UserProgressController.Instance.ProgressState.Spins);
+    }
 }

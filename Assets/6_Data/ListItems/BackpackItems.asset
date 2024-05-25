@@ -16,12 +16,16 @@ MonoBehaviour:
   - SkinName: 0
     Sprite: {fileID: 21300000, guid: 823e41f6e0dda3749ac327dd1664dfa5, type: 3}
     Price: 0
+    Quality: 0
   - SkinName: 1
     Sprite: {fileID: 21300000, guid: 6623ef4b780181147895feb01c8681d7, type: 3}
     Price: 10
+    Quality: 0
   - SkinName: 2
     Sprite: {fileID: 21300000, guid: 95b963116bedfff4c835c27c3d3867be, type: 3}
     Price: 10
+    Quality: 1
   - SkinName: 3
     Sprite: {fileID: 21300000, guid: 698f2c2aecafd804d88d89756a39d8c3, type: 3}
     Price: 10
+    Quality: 2
