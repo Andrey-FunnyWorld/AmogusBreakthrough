@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public abstract class EnemyBase : RoadObjectBase {
+public abstract class EnemyBase : Attackable {
     public float MoveSpeed;
-    [SerializeField] private ParticleSystem hitParticle;
+    // [SerializeField] private ParticleSystem hitParticle;
     protected abstract void Attack();
 
     public override void Destroyed() {
@@ -10,9 +10,9 @@ public abstract class EnemyBase : RoadObjectBase {
         Destroy(gameObject);
     }
 
-    public void VisualiseTakeDamage(bool show) {
-        if (hitParticle == null || hitParticle.gameObject.activeSelf == show) return;
+    // public void VisualiseTakeDamage(bool show) {
+    //     if (hitParticle == null || hitParticle.gameObject.activeSelf == show) return;
         
-        hitParticle.gameObject.SetActive(show);
-    }
+    //     hitParticle.gameObject.SetActive(show);
+    // }
 }

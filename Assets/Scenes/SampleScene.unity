@@ -214,7 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab6e1d847f8d482faaf0eef876d3a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxEffectsCount: 3
 --- !u!1 &480155376
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +607,7 @@ MonoBehaviour:
   EnemySimplePrefab: {fileID: 0}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 0}
+  BoxWithRocket: {fileID: 0}
 --- !u!4 &647974107
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   EnemySimplePrefab: {fileID: 7419256989263333393, guid: caf4b6db747eea9479c896d7581d12cc, type: 3}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
+  BoxWithRocket: {fileID: 5817935461928733998, guid: 2a5adfee2f08e4ef8a799b10373a2c17, type: 3}
 --- !u!1 &1067913565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +1761,10 @@ PrefabInstance:
     - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: Damage
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      propertyPath: CurrentWeaponType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6771805259163161212, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: m_Name

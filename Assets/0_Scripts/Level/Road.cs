@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +32,7 @@ public class Road : MonoBehaviour {
             }
         }
     }
+
     public float Speed {
         get { return speed; }
         set {
@@ -77,38 +77,36 @@ public class Road : MonoBehaviour {
         AttackHandler.Prepare();
     }
 
-    private void MoveRoadTexture() {
+    public void AssignRoadObjects(List<RoadObjectBase> objects) {
+        roadObjects = objects;
+        MoveObjects();
+    }
+
+    void MoveRoadTexture() {
         float texOffset = moveTime / texOffsetFactor;
         RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
     }
 
-    private void HandleFinishReached() {
+    void HandleFinishReached() {
         if (currentPosition >= Length) {
             IsRunning = false;
             EventManager.TriggerEvent(EventNames.RoadFinished, this);
         }
     }
 
-    public void AssignRoadObjects(List<RoadObjectBase> objects) {
-        // AttackHandler.Prepare();
-        roadObjects = objects;
-        MoveObjects();
-    }
-
     void MoveObjects() {
         foreach (RoadObjectBase roadObject in roadObjects) {
-            if (roadObject != null)
-            {
+            if (roadObject != null) {
                 float newPos = roadObject.RoadPosition - currentPosition;
                 HandleObjectPosition(roadObject, newPos);
                 AttackHandler.HandleAttackObject(roadObject);
+                HandleObjectReachedPlayer(roadObject);
             }
         }
         CleanupObjects();
     }
 
-    private void HandleObjectPosition(RoadObjectBase roadObject, float newPos)
-    {
+    void HandleObjectPosition(RoadObjectBase roadObject, float newPos) {
         roadObject.transform.position = new Vector3(
             roadObject.transform.position.x,
             roadObject.transform.position.y,
@@ -119,6 +117,19 @@ public class Road : MonoBehaviour {
     float GetWorldPosition(float roadPosition) {
         return ZeroPointInWorld + roadPosition;
     }
+
+    void HandleObjectReachedPlayer(RoadObjectBase roadObject) {
+        if (AttackHandler.IntersectsTeam(roadObject)) {
+            if (roadObject is Weapon weapon) {
+                if (!weapon.CanBeAttacked) {
+                    weapon.OnPickedUp();
+                }
+            }
+
+            //else if is EnemyBase...
+        }
+    }
+
     void CleanupObjects() {
         for (int i = 0; i < roadObjects.Count; i++) {
             if (roadObjects[i] == null) {

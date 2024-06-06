@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public EnemySimple EnemySimplePrefab;
     public EnemyGiant EnemyGiantPrefab;
     public Cage CagePrefab;
+    public Weapon BoxWithRocket;
 
     Dictionary<EnemyType, float> enemyWeights = new Dictionary<EnemyType, float>() {
         { EnemyType.Simple, 1 },
@@ -19,7 +19,6 @@ public class RoadObjectsGenerator : MonoBehaviour {
         List<float> roadTracksCoords,
         float budget
     ) {
-        // return DebugObjectSetup(roadTracksCoords);
         return DebugGenerateEnemies(roadTracksCoords);
     }
 
@@ -47,24 +46,54 @@ public class RoadObjectsGenerator : MonoBehaviour {
         float nextPosition = 15;
         List<float> positions = new List<float>(enemiesCount) { nextPosition };
         
-        for (int i = 0; i < enemiesCount; i++) {
+        for (int i = 1; i < enemiesCount; i++) {
             nextPosition += Random.Range(1, 3);
             positions.Add(nextPosition);
         }
 
         foreach (float pos in positions) {
-            EnemySimple enemy = Instantiate(EnemySimplePrefab);
-            enemy.RoadPosition = pos;
-            enemy.transform.Translate(
-                new Vector3(
-                    roadTracksCoords[Random.Range(0, roadTracksCoords.Count)],
-                    enemy.transform.localScale.y / 2,
-                    0
-                )
-            );
-            objects.Add(enemy);
+            var random = Random.Range(0, 10);
+            if (random == 0) {
+                objects.Add(ProvideWeaponBox(BoxWithRocket, pos, roadTracksCoords));
+            } else {
+                objects.Add(ProvideEnemySimple(EnemySimplePrefab, pos, roadTracksCoords));
+            }
         }
+        
         return objects;
+    }
+
+    private Attackable ProvideWeaponBox(
+        Weapon Prefab,
+        float roadPosition,
+        List<float> roadTracksCoords
+    ) {
+        Weapon weaponBox = Instantiate(Prefab);
+        weaponBox.RoadPosition = roadPosition;
+        weaponBox.transform.Translate(ProvideRandomPosition(roadTracksCoords, weaponBox));
+        return weaponBox;
+    }
+
+    private Attackable ProvideEnemySimple(
+        EnemySimple prefab,
+        float roadPosition,
+        List<float> roadTracksCoords
+    ) {
+        EnemySimple enemy = Instantiate(prefab);
+        enemy.RoadPosition = roadPosition;
+        enemy.transform.Translate(ProvideRandomPosition(roadTracksCoords, enemy));
+        return enemy;
+    }
+
+    private Vector3 ProvideRandomPosition(
+        List<float> roadTracksCoords,
+        Attackable enemy
+    ) {
+        return new Vector3(
+            roadTracksCoords[Random.Range(0, roadTracksCoords.Count)],
+            enemy.transform.localScale.y / 2,
+            0
+        );
     }
 
 }
