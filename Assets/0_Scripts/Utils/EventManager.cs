@@ -65,7 +65,13 @@ public static class EventNames {
     public static string CageDestroyed = "CageDestroyed";
     public static string RoadFinished = "RoadFinished";
     public static string StartDataLoaded = "StartDataLoaded";
+    // UI ->
     public static string RandomSkins = "RandomSkins";
-    public static string ShopItemClick = "ShopItemClick";
+    public static string WheelSpinResult = "WheelSpinResult";
+    public static string WheelSpinStart = "WheelSpinStart";
+    public static string SkinItemEquip = "SkinItemEquip";
+    public static string ShopItemPurchaseTry = "ShopItemPurchaseTry";
+    public static string FreeSpinChanged = "FreeSpinChanged";
+    public static string PerkSelected = "PerkSelected";
     public static string WeaponChanged = "WeaponChanged";
 }

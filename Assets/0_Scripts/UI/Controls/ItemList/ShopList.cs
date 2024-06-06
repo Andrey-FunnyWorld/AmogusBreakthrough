@@ -5,20 +5,27 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ShopList : MonoBehaviour {
-    public Transform Grid;
+    public GridPaging Grid;
     public ListItem ListItemPrefab;
     public SkinItems Items;
     public ShopType ShopType;
+    public Wheel Wheel;
     List<ListItem> liveItems = new List<ListItem>();
     const float collapsedTop = 310;
+    ProgressState progressState;
+    public NewSkinPanel NewSkinPanel;
     public void GenerateItems(ProgressState state) {
+        Wheel.ApplyProgress(state);
+        progressState = state;
         int[] purchasedItems = ShopType == ShopType.Backpack ? state.PurchasedBackpacks : state.PurchasedHats; 
         foreach (ShopItemModel model in Items.Items) {
             CreateItem(model, purchasedItems.Contains((int)model.SkinName));
         }
+        Grid.SetAllItems(liveItems.ToArray());
     }
     void CreateItem(ShopItemModel model, bool purchased) {
-        ListItem item = Instantiate(ListItemPrefab, Grid);
+        ListItem item = Instantiate(ListItemPrefab);
+        item.gameObject.SetActive(false);
         item.ApplyData(model, purchased, ShopType);
         liveItems.Add(item);
     }
@@ -35,6 +42,7 @@ public class ShopList : MonoBehaviour {
     bool isCollapsed = false;
     public void ToggleCollapsed() {
         SetCollapsed(!isCollapsed);
+        Grid.SetPageSize(isCollapsed ? 2 : 10);
     }
     public void SetCollapsed(bool collapse) {
         isCollapsed = collapse;
@@ -44,6 +52,62 @@ public class ShopList : MonoBehaviour {
     }
     void OnDisable() {
         SetCollapsed(false);
+        UnsubscriveEvents();
+    }
+    void OnEnable() {
+        SubscriveEvents();
+    }
+    void OnDestroy() {
+        UnsubscriveEvents();
+    }
+    void SubscriveEvents() {
+        EventManager.StartListening(EventNames.WheelSpinResult, WheelSpinResult);
+        EventManager.StartListening(EventNames.ShopItemPurchaseTry, ShopItemPurchaseTry);
+    }
+    void UnsubscriveEvents() {
+        EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
+        EventManager.StopListening(EventNames.ShopItemPurchaseTry, ShopItemPurchaseTry);
+    }
+    const float SPIN_REWARD_DELAY = 0.5f;
+    void WheelSpinResult(object arg) {
+        WheelItem wheelItem = (WheelItem)arg;
+        ShopItemModel rewardItem = GetRandomItem(wheelItem.ItemType);
+        if (rewardItem != null) {
+            StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => NewSkinPanel.ShowItem(rewardItem, ShopType) ));
+        } else {
+            Debug.Log("No appropriate skins left");
+        }
+    }
+    void ShopItemPurchaseTry(object arg) {
+        ShopItemPurchaseArgs args = (ShopItemPurchaseArgs)arg;
+        if (args.ForFree) {
+            UnlockItem(args.ItemModel);
+        } else {
+            bool enoughMoney = progressState.Money >= 0; // TO DO
+            if (enoughMoney) {
+                // deduct money
+                UnlockItem(args.ItemModel);
+            }
+        }
+    }
+    void UnlockItem(ShopItemModel model) {
+        ListItem listItem = liveItems.FirstOrDefault(i => i.Model.SkinName == model.SkinName);
+        if (listItem != null) {
+            listItem.Unlock();
+        }
+    }
+    ShopItemModel GetRandomItem(SkinItemQuality quality) {
+        int[] purchasedItems = ShopType == ShopType.Backpack ? progressState.PurchasedBackpacks : progressState.PurchasedHats;
+        HashSet<int> purchasedSet = new HashSet<int>(purchasedItems);
+        ShopItemModel[] availableItems = Items.Items.Where(i => !purchasedItems.Any(p => i.SkinName == (SkinItemName)p)).ToArray();
+        if (availableItems.Length > 0) {
+            availableItems = availableItems.Where(i => i.Quality == quality).ToArray();
+            if (availableItems.Length > 0) {
+                ShopItemModel reward = availableItems[Random.Range(0, availableItems.Length)];
+                return reward;
+            }
+        }
+        return null;
     }
 }
 

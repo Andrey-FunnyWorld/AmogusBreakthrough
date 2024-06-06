@@ -7,12 +7,14 @@ public class LevelManager : MonoBehaviour {
     public RoadObjectsGenerator ObjectsGenerator;
     public MainGuy MainGuy;
     public LevelUIManager LevelUIManager;
-
+    public MovementController MovementController;
+    public PerkPanel PerkPanel;
     void Start() {
         SubscriveEvents();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
+        MovementController.AllowMove = !PerkPanel.ShowOnStart;
     }
     void Update() {
         // if (Input.GetKeyDown(KeyCode.Space)) {
@@ -42,14 +44,21 @@ public class LevelManager : MonoBehaviour {
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
     }
+    void PerkSelected(object arg) {
+        PerkItem perkItem = (PerkItem)arg;
+        MovementController.AllowMove = true;
+        Debug.Log("TO-DO. Apply Perk: " + perkItem.PerkType);
+    }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
         EventManager.StartListening(EventNames.StartDataLoaded, StartDataLoaded);
+        EventManager.StartListening(EventNames.PerkSelected, PerkSelected);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
+        EventManager.StopListening(EventNames.PerkSelected, PerkSelected);
     }
 }
