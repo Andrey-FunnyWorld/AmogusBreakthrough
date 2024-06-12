@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -43,6 +44,7 @@ public class Team : MonoBehaviour {
     void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
         Vector3 offset = CalcOffset();
+        newMate.SetGun(Mates.Count % 2 == 0);
         newMate.PositionOffset = offset;
         newMate.transform.Translate(offset + new Vector3(MainGuy.transform.position.x, 0, 0));
         ApplyMaterials(newMate, backpackSkin);
@@ -74,7 +76,7 @@ public class Team : MonoBehaviour {
             );
         } else if (Layout == TeamLayout.Line) {
             offset = new Vector3(
-                2 * X_OFFSET * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
+                X_OFFSET_LINE * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
                 0, 0
             );
         }
@@ -98,8 +100,9 @@ public class Team : MonoBehaviour {
         Color.red, Color.blue, Color.green, Color.magenta, Color.yellow, Color.grey,
         new Color(1, 0.49f, 0.19f), new Color(0.54f, 0.17f, 0.88f), new Color(0.57f, 0.44f, 0.86f), new Color(0.5f, 0.5f,0)
     };
+    const float X_OFFSET_LINE = 1.5f;
     const float X_OFFSET = 0.6f;
-    const float Z_OFFSET = 0.5f;
+    const float Z_OFFSET = 0.7f;
     const float MIN_RANGE = 0.4f;
     public const int MAX_CAPACITY = 10;
 
@@ -108,11 +111,25 @@ public class Team : MonoBehaviour {
         EventManager.StartListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StartListening(EventNames.RandomSkins, ApplyRandomSkins);
         EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
+        EventManager.StartListening(EventNames.StartMovement, StartMovement);
+        EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StopListening(EventNames.RandomSkins, ApplyRandomSkins);
         EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
+        EventManager.StopListening(EventNames.StartMovement, StartMovement);
+        EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
+    }
+    void StartMovement(object arg) {
+        MainGuy.SetRun(true);
+        foreach (Amogus mate in Mates)
+            mate.SetRun(true);
+    }
+    void RoadFinished(object arg) {
+        MainGuy.SetRun(false);
+        foreach (Amogus mate in Mates)
+            mate.SetRun(false);
     }
     void ApplyRandomSkins(object arg) {
         RandomSkinArg skinArg = (RandomSkinArg)arg;

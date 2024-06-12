@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainGuy : MonoBehaviour {
+public class MainGuy : TeamMember {
     public Team Team;
     public void ApplyMovement(Vector3 newPosition) {
         transform.position = newPosition;

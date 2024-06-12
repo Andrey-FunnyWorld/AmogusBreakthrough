@@ -499,7 +499,7 @@ MonoBehaviour:
   PerkSelectorCount: 3
   PerkSelectorPrefab: {fileID: 4425356734203546442, guid: c2f11f63236301b43a48b07bb17540b8, type: 3}
   Grid: {fileID: 1564404428}
-  ShowOnStart: 1
+  ShowOnStart: 0
 --- !u!1 &545052287
 GameObject:
   m_ObjectHideFlags: 0
