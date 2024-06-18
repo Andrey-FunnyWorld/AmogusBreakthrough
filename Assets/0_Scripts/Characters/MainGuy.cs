@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainGuy : MonoBehaviour {
+public class MainGuy : TeamMember {
     public Team Team;
     public WeaponType CurrentWeaponType;
     public float DamageMultiplier = 1.5f;
