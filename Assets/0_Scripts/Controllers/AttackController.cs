@@ -34,6 +34,9 @@ public class AttackController : MonoBehaviour
         UnsubscriveEvents();
 
     public void HandleAttackObject(RoadObjectBase roadObject) {
+        if (NotAllInitialized())
+            return;
+
         if (roadObject is Attackable enemy) {
             if (!enemy.CanBeAttacked) 
                 return;
@@ -85,6 +88,9 @@ public class AttackController : MonoBehaviour
         return false;
     }
 
+    private bool NotAllInitialized() =>
+        MainGuy == null || MainGuy.Team == null || MainGuy.Team.MostLeftMate == null;
+        
     private bool PlayerIsReached(float nearestZPointToPlayer) =>
         nearestZPointToPlayer < MainGuy.transform.position.z + MainGuy.transform.lossyScale.z / 2;
 

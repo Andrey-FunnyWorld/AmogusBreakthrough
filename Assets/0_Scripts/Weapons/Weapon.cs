@@ -9,7 +9,6 @@ public class Weapon : Attackable
 
     public override void Destroyed()
     {
-        Debug.Log("Weapon box destr");
         boxMarker.gameObject.SetActive(false);
         weaponMarker.gameObject.SetActive(true);
     }
