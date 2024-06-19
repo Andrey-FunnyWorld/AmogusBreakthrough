@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +7,22 @@ public class Road : MonoBehaviour {
     [HideInInspector]
     public float ZeroPointInWorld;
 
-    void Start() {
-        Speed = StartSpeed;
-    }
+    public float Width;
+    public float Length = 40;
+
+    public float tracksCount = 10; //todo
+
+    [SerializeField] private AttackController AttackHandler;
+
+    float texOffsetFactor = 0;
+    bool isRunning = false;
+    float moveTime = 0;
+    float currentPosition = 0;
+    public List<RoadObjectBase> roadObjects;
+    List<float> tracksCoords;
+    float speed = 0;
+
+    public bool MovementStarted { get; set; }
 
     public bool IsRunning { get { return isRunning; }
         set {
@@ -20,7 +32,7 @@ public class Road : MonoBehaviour {
             }
         }
     }
-    float speed = 0;
+
     public float Speed {
         get { return speed; }
         set {
@@ -30,47 +42,94 @@ public class Road : MonoBehaviour {
             }
         }
     }
-    float texOffsetFactor = 0;
-    bool isRunning = false;
-    float moveTime = 0;
-    float currentPosition = 0;
-    List<RoadObjectBase> roadObjects;
+
+    void Start() {
+        Speed = StartSpeed;
+    }
+
     void Update() {
         if (IsRunning) {
             moveTime += Time.deltaTime;
             currentPosition = moveTime * Speed;
             MoveObjects();
-            float texOffset = moveTime / texOffsetFactor;
-            RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
-            if (currentPosition >= Length) {
-                IsRunning = false;
-                EventManager.TriggerEvent(EventNames.RoadFinished, this);
-            }
+            MoveRoadTexture();
+            HandleFinishReached();
         }
     }
-    public float Width;
-    public float Length = 40;
+
+    public List<float> InitTracks() {
+        tracksCoords = new List<float>();
+
+        float roadWidth = Width;
+        float trackWidth = roadWidth / tracksCount;
+        float nextTrackX = -roadWidth / 2 + roadWidth / (tracksCount * 2);
+        tracksCoords.Add(nextTrackX);
+
+        for (int i = 1; i < tracksCount; i++) {
+            nextTrackX += trackWidth;
+            tracksCoords.Add(nextTrackX);
+        }
+
+        return tracksCoords;
+    }
+
+    public void PrepareAttackController() {
+        AttackHandler.Prepare();
+    }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
         roadObjects = objects;
         MoveObjects();
     }
+
+    void MoveRoadTexture() {
+        float texOffset = moveTime / texOffsetFactor;
+        RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
+    }
+
+    void HandleFinishReached() {
+        if (currentPosition >= Length) {
+            IsRunning = false;
+            EventManager.TriggerEvent(EventNames.RoadFinished, this);
+        }
+    }
+
     void MoveObjects() {
         foreach (RoadObjectBase roadObject in roadObjects) {
             if (roadObject != null) {
                 float newPos = roadObject.RoadPosition - currentPosition;
-                roadObject.transform.position = new Vector3(
-                    roadObject.transform.position.x,
-                    roadObject.transform.position.y,
-                    GetWorldPosition(newPos)
-                );
+                HandleObjectPosition(roadObject, newPos);
+                AttackHandler.HandleAttackObject(roadObject);
+                HandleObjectReachedPlayer(roadObject);
             }
         }
         CleanupObjects();
     }
+
+    void HandleObjectPosition(RoadObjectBase roadObject, float newPos) {
+        roadObject.transform.position = new Vector3(
+            roadObject.transform.position.x,
+            roadObject.transform.position.y,
+            GetWorldPosition(newPos)
+        );
+    }
+
     float GetWorldPosition(float roadPosition) {
         return ZeroPointInWorld + roadPosition;
     }
+
+    void HandleObjectReachedPlayer(RoadObjectBase roadObject) {
+        if (AttackHandler.IntersectsTeam(roadObject)) {
+            if (roadObject is Weapon weapon) {
+                if (!weapon.CanBeAttacked) {
+                    weapon.OnPickedUp();
+                }
+            }
+
+            //else if is EnemyBase...
+        }
+    }
+
     void CleanupObjects() {
         for (int i = 0; i < roadObjects.Count; i++) {
             if (roadObjects[i] == null) {

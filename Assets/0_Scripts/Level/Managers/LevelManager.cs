@@ -12,7 +12,8 @@ public class LevelManager : MonoBehaviour {
     void Start() {
         SubscriveEvents();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
-        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, 0));
+        List<float> roadTracksCoords = Road.InitTracks();
+        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
         MovementController.AllowMove = !PerkPanel.ShowOnStart;
     }
     void Update() {
@@ -24,8 +25,10 @@ public class LevelManager : MonoBehaviour {
         UnsubscriveEvents();
     }
     void LetsRoll() {
+        Road.PrepareAttackController();
         MainGuy.StartMove();
         Road.IsRunning = true;
+        Road.MovementStarted = true;
         LevelUIManager.LetsRoll();
     }
     void StartMovement(object arg) {

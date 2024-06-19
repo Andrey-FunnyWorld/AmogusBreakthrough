@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -246,6 +246,50 @@ MonoBehaviour:
   IsLogged: 0
   ProgressLoaded: 0
   BackpackItems: {fileID: 11400000, guid: 32b87e4619a79784691d49253fb72441, type: 2}
+--- !u!1 &274705032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274705033}
+  - component: {fileID: 274705034}
+  m_Layer: 0
+  m_Name: AttackFXController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274705033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274705032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543382294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274705034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274705032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab6e1d847f8d482faaf0eef876d3a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &480155376
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +451,9 @@ MonoBehaviour:
   ZeroPointInWorld: 0
   Width: 10
   Length: 40
+  tracksCount: 10
+  AttackHandler: {fileID: 802100786}
+  roadObjects: []
 --- !u!1 &514675585
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +776,7 @@ MonoBehaviour:
   EnemySimplePrefab: {fileID: 0}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 0}
+  BoxWithRocket: {fileID: 0}
 --- !u!4 &647974107
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,6 +1051,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735760553}
   m_CullTransparentMesh: 1
+--- !u!1 &802100784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 802100785}
+  - component: {fileID: 802100786}
+  m_Layer: 0
+  m_Name: AttackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &802100785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802100784}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.362905, y: 3.9025054, z: -4.5028114}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543382294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &802100786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802100784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c1323d15c6be5468af1f716fdbae04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Road: {fileID: 505870334}
+  MainGuy: {fileID: 959194257}
+  weaponsStaticData: {fileID: 11400000, guid: 956840c53f05142a5acab816f71dbf63, type: 2}
+  fxController: {fileID: 274705034}
 --- !u!1 &896444373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,9 +1283,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47091b63c900d044b82e6f2870d4c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySimplePrefab: {fileID: 0}
+  EnemySimplePrefab: {fileID: 7419256989263333393, guid: caf4b6db747eea9479c896d7581d12cc, type: 3}
   EnemyGiantPrefab: {fileID: 0}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
+  BoxWithRocket: {fileID: 5817935461928733998, guid: 2a5adfee2f08e4ef8a799b10373a2c17, type: 3}
 --- !u!1 &1067913565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1638,8 @@ Transform:
   - {fileID: 1971944822}
   - {fileID: 1428354365}
   - {fileID: 1018137056}
+  - {fileID: 802100785}
+  - {fileID: 274705033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1564404426
@@ -1891,6 +1990,14 @@ PrefabInstance:
       propertyPath: Team
       value: 
       objectReference: {fileID: 1412597526}
+    - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      propertyPath: Damage
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      propertyPath: CurrentWeaponType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6771805259163161212, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: m_Name
       value: MainGuy

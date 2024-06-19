@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -6,23 +6,36 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class Team : MonoBehaviour {
+public class Team : MonoBehaviour
+{
     public MainGuy MainGuy;
     public Amogus AmogusPrefab;
     public TeamLayout Layout = TeamLayout.Battle;
     public HatNamePrefabMap HatNamePrefabMap;
-    [HideInInspector]
-    public int Count;
+    public float AmogusDamage = 0.1f;
+    [HideInInspector] public int Count;
     public int StartupCount = 3;
     List<Color> colors;
     List<Amogus> Mates;
     MyRange teamRange = new MyRange();
-    
+
     public MyRange TeamRange { get { return teamRange; } }
+    public int MatesCount => Mates.Count;
+
+    public float AttackRange = 10f;
+    [NonSerialized] public Transform MostLeftMate;
+    [NonSerialized] public Transform MostRightMate;
+
+    const float X_OFFSET_LINE = 1.5f;
+    const float X_OFFSET = 0.6f;
+    const float Z_OFFSET = 0.7f;
+    const float MIN_RANGE = 0.4f;
+    public const int MAX_CAPACITY = 10;
 
     void Start() {
         SubscriveEvents();
     }
+
     void OnDestroy() {
         UnsubscriveEvents();
     }
@@ -30,7 +43,8 @@ public class Team : MonoBehaviour {
     public void CreateTeam(ProgressState state) {
         Mates = new List<Amogus>(StartupCount);
         colors = new List<Color>(StartupCount);
-        for (int i = 0; i < StartupCount; i++) {
+        for (int i = 0; i < StartupCount; i++)
+        {
             CreateMate((SkinItemName)state.EquippedBackpacks[i + 1], (SkinItemName)state.EquippedHats[i + 1]);
         }
         CalcTeamRange();
@@ -50,6 +64,15 @@ public class Team : MonoBehaviour {
         ApplyMaterials(newMate, backpackSkin);
         ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
+
+        if (MostLeftMate == null || MostLeftMate.position.x > offset.x)
+        {
+            MostLeftMate = newMate.transform;
+        }
+        if (MostRightMate == null || MostRightMate.position.x < offset.x)
+        {
+            MostRightMate = newMate.transform;
+        }
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -74,7 +97,8 @@ public class Team : MonoBehaviour {
                 0,
                 Z_OFFSET * ((Mates.Count / 2) % 2 == 0 ? -1 : 1)
             );
-        } else if (Layout == TeamLayout.Line) {
+        }
+        else if (Layout == TeamLayout.Line) {
             offset = new Vector3(
                 X_OFFSET_LINE * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
                 0, 0
@@ -100,11 +124,6 @@ public class Team : MonoBehaviour {
         Color.red, Color.blue, Color.green, Color.magenta, Color.yellow, Color.grey,
         new Color(1, 0.49f, 0.19f), new Color(0.54f, 0.17f, 0.88f), new Color(0.57f, 0.44f, 0.86f), new Color(0.5f, 0.5f,0)
     };
-    const float X_OFFSET_LINE = 1.5f;
-    const float X_OFFSET = 0.6f;
-    const float Z_OFFSET = 0.7f;
-    const float MIN_RANGE = 0.4f;
-    public const int MAX_CAPACITY = 10;
 
     #region Events
     void SubscriveEvents() {
@@ -163,6 +182,23 @@ public class Team : MonoBehaviour {
         }
     }
     #endregion
+
+    void OnDrawGizmos() {
+        if (MostLeftMate != null) {
+            Gizmos.color = new Color(1, 1, 0, 0.25F);
+            Gizmos.DrawCube(GetTeamPosition(), GetTeamSize());
+        }
+    }
+    private Vector3 GetTeamPosition() {
+        return new Vector3(
+            (MostLeftMate.position.x + MostRightMate.position.x) / 2,
+            2,
+            transform.position.z + AttackRange / 2 + 1
+        );
+    }
+    private Vector3 GetTeamSize() {
+        return new Vector3(Mathf.Abs(teamRange.Start) + Mathf.Abs(teamRange.End), 4, AttackRange);
+    }
 }
 
 public class MyRange {
@@ -172,6 +208,7 @@ public class MyRange {
         return string.Format("Start: {0} | End: {1}", Start, End);
     }
 }
+
 public enum TeamLayout {
     Battle, Line
 }

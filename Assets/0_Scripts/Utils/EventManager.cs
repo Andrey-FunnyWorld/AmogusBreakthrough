@@ -74,4 +74,5 @@ public static class EventNames {
     public static string ShopItemPurchased = "ShopItemPurchased";
     public static string FreeSpinChanged = "FreeSpinChanged";
     public static string PerkSelected = "PerkSelected";
+    public static string WeaponChanged = "WeaponChanged";
 }

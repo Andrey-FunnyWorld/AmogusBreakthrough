@@ -1,15 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
 public abstract class RoadObjectBase : MonoBehaviour {
     public ProgressBarUI HealthBar;
     public float RoadPosition;
-    void Start() {
-        HP = StartHP;
-        HealthBar.MaxValue = StartHP;
-        HealthBar.Value = StartHP;
-    }
     public float StartHP = 10;
+
+    float hp = 0;
+
     public float HP {
         get { return hp; }
         set {
@@ -22,8 +19,15 @@ public abstract class RoadObjectBase : MonoBehaviour {
             }
         }
     }
-    float hp = 0;
+
+    void Start() {
+        HP = StartHP;
+        HealthBar.MaxValue = StartHP;
+        HealthBar.Value = StartHP;
+    }
+    
     public abstract void Destroyed();
+
     void Update() {
         // only for debug
         if (Input.GetKeyDown(KeyCode.Backspace)) {

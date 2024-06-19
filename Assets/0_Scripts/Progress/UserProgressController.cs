@@ -14,6 +14,7 @@ public class UserProgressController : MonoBehaviour {
     public bool ProgressLoaded;
     public static string TRUE = "true";
     public SkinItems BackpackItems;
+
     void Awake() {
         if (Instance == null) {
             transform.parent = null;
