@@ -18,9 +18,9 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
     [NonSerialized]
     public ShopItemModel Model;
     [NonSerialized]
-    public ShopType ShopType;
+    public SkinType ShopType;
     string priceFormat = "{0} <sprite name=\"coin\">";
-    public void ApplyData(ShopItemModel model, bool purchased, ShopType shopType) {
+    public void ApplyData(ShopItemModel model, bool purchased, SkinType shopType) {
         PriceText.text = string.Format(priceFormat, model.Price);
         ItemImage.sprite = model.Sprite;
         ApplyPurchased(purchased);
@@ -35,6 +35,7 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
     }
     public void Unlock() {
         ApplyPurchased(true);
+        EventManager.TriggerEvent(EventNames.ShopItemPurchased, this);
     }
     public void OnPointerDown(PointerEventData arg) {
         if (IsAvaiable) {
@@ -46,7 +47,7 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
 }
 
 public class SkinItemEquipArgs {
-    public ShopType ShopType;
+    public SkinType ShopType;
     public ShopItemModel ItemModel;
 }
 public class ShopItemPurchaseArgs {

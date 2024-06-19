@@ -71,6 +71,7 @@ public static class EventNames {
     public static string WheelSpinStart = "WheelSpinStart";
     public static string SkinItemEquip = "SkinItemEquip";
     public static string ShopItemPurchaseTry = "ShopItemPurchaseTry";
+    public static string ShopItemPurchased = "ShopItemPurchased";
     public static string FreeSpinChanged = "FreeSpinChanged";
     public static string PerkSelected = "PerkSelected";
 }

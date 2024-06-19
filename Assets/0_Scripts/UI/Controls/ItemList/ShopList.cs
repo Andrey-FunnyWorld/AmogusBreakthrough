@@ -8,7 +8,7 @@ public class ShopList : MonoBehaviour {
     public GridPaging Grid;
     public ListItem ListItemPrefab;
     public SkinItems Items;
-    public ShopType ShopType;
+    public SkinType ShopType;
     public Wheel Wheel;
     List<ListItem> liveItems = new List<ListItem>();
     const float collapsedTop = 310;
@@ -17,7 +17,7 @@ public class ShopList : MonoBehaviour {
     public void GenerateItems(ProgressState state) {
         Wheel.ApplyProgress(state);
         progressState = state;
-        int[] purchasedItems = ShopType == ShopType.Backpack ? state.PurchasedBackpacks : state.PurchasedHats; 
+        int[] purchasedItems = ShopType == SkinType.Backpack ? state.PurchasedBackpacks : state.PurchasedHats; 
         foreach (ShopItemModel model in Items.Items) {
             CreateItem(model, purchasedItems.Contains((int)model.SkinName));
         }
@@ -97,7 +97,7 @@ public class ShopList : MonoBehaviour {
         }
     }
     ShopItemModel GetRandomItem(SkinItemQuality quality) {
-        int[] purchasedItems = ShopType == ShopType.Backpack ? progressState.PurchasedBackpacks : progressState.PurchasedHats;
+        int[] purchasedItems = ShopType == SkinType.Backpack ? progressState.PurchasedBackpacks : progressState.PurchasedHats;
         HashSet<int> purchasedSet = new HashSet<int>(purchasedItems);
         ShopItemModel[] availableItems = Items.Items.Where(i => !purchasedItems.Any(p => i.SkinName == (SkinItemName)p)).ToArray();
         if (availableItems.Length > 0) {
@@ -111,11 +111,11 @@ public class ShopList : MonoBehaviour {
     }
 }
 
-public enum ShopType {
+public enum SkinType {
     Backpack, Hat
 }
 
 public class RandomSkinArg {
     public int[] RandomSkins;
-    public ShopType ShopType;
+    public SkinType ShopType;
 }

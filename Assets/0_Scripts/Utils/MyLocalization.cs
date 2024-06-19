@@ -20,6 +20,8 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsRu = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Ваш рекорд" },
         { LocalizationKeys.AdSpinReady, "Готово" },
+        { LocalizationKeys.HatsProgress, "Шляпы: {0}%" },
+        { LocalizationKeys.BackpackProgress, "Рюкзаки: {0}%" },
         { LocalizationKeys.PerkNameExtraDamage, "Доп Урон" },
         { LocalizationKeys.PerkNameExtraHealth, "Доп ХП" },
         { LocalizationKeys.PerkNameWalkSpeed, "Медленная ходьба" },
@@ -34,6 +36,8 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsEn = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Your record" },
         { LocalizationKeys.AdSpinReady, "Ready" },
+        { LocalizationKeys.HatsProgress, "Hats: {0}%" },
+        { LocalizationKeys.BackpackProgress, "Backpacks: {0}%" },
         { LocalizationKeys.PerkNameExtraDamage, "Extra Damage" },
         { LocalizationKeys.PerkNameExtraHealth, "Extra Health" },
         { LocalizationKeys.PerkNameWalkSpeed, "Walk Speed" },
@@ -69,6 +73,8 @@ public class MyLocalization : MonoBehaviour {
 public static class LocalizationKeys {
     public static string YourRecord = "YourRecord";
     public static string AdSpinReady = "AdSpinReady";
+    public static string HatsProgress = "HatsProgress";
+    public static string BackpackProgress = "BackpackProgress";
     public static string PerkNameExtraDamage = "PerkNameExtraDamage";
     public static string PerkNameExtraHealth = "PerkNameExtraHealth";
     public static string PerkNameWalkSpeed = "PerkNameWalkSpeed";

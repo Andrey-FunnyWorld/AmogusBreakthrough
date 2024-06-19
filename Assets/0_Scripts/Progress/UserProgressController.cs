@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class UserProgressController : MonoBehaviour {
@@ -65,6 +66,17 @@ public class ProgressState {
         SkipSaveTargetDialog = false;
         Spins = 2;
         AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
+    }
+    public void AddPurchased(SkinType skinType, SkinItemName skinName) {
+        int[] skinItemArray = skinType == SkinType.Hat ? PurchasedHats : PurchasedBackpacks;
+        int[] newItems = new int[skinItemArray.Length + 1];
+        Array.Copy(skinItemArray, newItems, skinItemArray.Length);
+        newItems[newItems.Length - 1] = (int)skinName;
+        if (skinType == SkinType.Hat) {
+            PurchasedHats = newItems;
+        } else {
+            PurchasedBackpacks = newItems;
+        }
     }
     public void AdjustHats(int startIndex) {
         for (int i = 0; i < EquippedHats.Length; i++) {

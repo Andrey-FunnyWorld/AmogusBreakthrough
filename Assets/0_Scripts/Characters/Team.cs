@@ -134,7 +134,7 @@ public class Team : MonoBehaviour {
     void ApplyRandomSkins(object arg) {
         RandomSkinArg skinArg = (RandomSkinArg)arg;
         for (int i = 0; i < Mates.Count; i++) {
-            if (skinArg.ShopType == ShopType.Backpack) {
+            if (skinArg.ShopType == SkinType.Backpack) {
                 Material skinMaterial = MaterialStorage.Instance.GetBackpackMaterial((SkinItemName)skinArg.RandomSkins[i]);
                 Mates[i].ApplyBackpack(skinMaterial);
             } else {
@@ -145,7 +145,7 @@ public class Team : MonoBehaviour {
     void SkinItemEquip(object arg) {
         SkinItemEquipArgs args = (SkinItemEquipArgs)arg;
         for (int i = 0; i < Mates.Count; i++) {
-            if (args.ShopType == ShopType.Backpack) {
+            if (args.ShopType == SkinType.Backpack) {
                 Material skinMaterial = args.ItemModel.SkinName != SkinItemName.None
                     ? MaterialStorage.Instance.GetBackpackMaterial(args.ItemModel.SkinName):
                     null;

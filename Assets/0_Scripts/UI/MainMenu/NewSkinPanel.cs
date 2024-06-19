@@ -10,8 +10,8 @@ public class NewSkinPanel : MonoBehaviour {
     public Animator Animator;
     public SkinQualityColors QualityColors;
     ShopItemModel item;
-    ShopType shopType;
-    public void ShowItem(ShopItemModel itemModel, ShopType shopType) {
+    SkinType shopType;
+    public void ShowItem(ShopItemModel itemModel, SkinType shopType) {
         ColorImage.color = QualityColors.Colors.First(c => c.Quality == itemModel.Quality).Color;
         SkinItemImage.sprite = itemModel.Sprite;
         gameObject.SetActive(true);
