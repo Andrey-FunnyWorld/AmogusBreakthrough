@@ -32,5 +32,13 @@ public class PerkItem : MonoBehaviour {
 }
 
 public enum PerkType {
-    ExtraDamage, ExtraHealth, WalkSpeed, ExtraGuys, FreezeBoss
+    ExtraGuy, BossDamage, ExtraHealth, ExtraAttackWidth,
+    SlowWalkSpeed,
+    AttackZoneVisibility,
+    RegenHP,
+    WeaponBoxTransparency,
+    OnePunchKill,
+    Bubble,
+    ExtraCoins,
+    ExtraHealthUltra
 }
