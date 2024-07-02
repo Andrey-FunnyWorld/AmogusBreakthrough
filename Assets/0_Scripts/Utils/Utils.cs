@@ -12,8 +12,11 @@ public static class Utils {
         }
         callback.Invoke();
     }
+    public static float EaseOutCubic(float x) {
+        return 1 - Mathf.Pow(x, 3);
+    }
     public static float EaseInCubic(float x) {
-        return Mathf.Pow(x, 2);
+        return Mathf.Pow(x, 3);
     }
     public static float EaseInSquare(float x) {
         return Mathf.Pow(x, 2);
