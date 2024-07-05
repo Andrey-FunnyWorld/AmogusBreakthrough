@@ -6,6 +6,8 @@ using UnityEngine;
 public class MainMenuManager : MonoBehaviour {
     public MainGuy MainGuy;
     public ShopList ShopBackpacks, ShopHats;
+    public PerkShopList PerkShopList;
+    public UpgradeShop UpgradeShop;
     public Transform MainMenu;
     public ButtonDisabled[] DisableWhenSpinning;
     public ProgressText3D HatText, BackpackText;
@@ -31,12 +33,20 @@ public class MainMenuManager : MonoBehaviour {
     void ShopItemPurchased(object arg) {
         ListItem listItem = (ListItem)arg;
         UserProgressController.Instance.ProgressState.AddPurchased(listItem.ShopType, listItem.Model.SkinName);
+        UserProgressController.Instance.ProgressState.Money -= listItem.Model.Price;
+        UpdateProgressTexts(UserProgressController.Instance.ProgressState);
+    }
+    void PerkItemPurchased(object arg) {
+        PerkModel model = (PerkModel)arg;
+        UserProgressController.Instance.ProgressState.AddPurchased(model.PerkType);
+        UserProgressController.Instance.ProgressState.Money -= model.Price;
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
     }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
         ShopBackpacks.GenerateItems(UserProgressController.Instance.ProgressState);
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
+        PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
@@ -59,11 +69,19 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StartListening(EventNames.WheelSpinStart, WheelSpinStart);
         EventManager.StartListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StartListening(EventNames.ShopItemPurchased, ShopItemPurchased);
+        EventManager.StartListening(EventNames.PerkItemPurchased, PerkItemPurchased);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
         EventManager.StopListening(EventNames.WheelSpinStart, WheelSpinStart);
         EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StopListening(EventNames.ShopItemPurchased, ShopItemPurchased);
+        EventManager.StopListening(EventNames.PerkItemPurchased, PerkItemPurchased);
+    }
+    public void HideShops() {
+        ShopBackpacks.gameObject.SetActive(false);
+        ShopHats.gameObject.SetActive(false);
+        PerkShopList.gameObject.SetActive(false);
+        UpgradeShop.gameObject.SetActive(false);
     }
 }

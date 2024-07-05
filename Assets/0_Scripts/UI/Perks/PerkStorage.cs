@@ -22,4 +22,5 @@ public class PerkModel {
         );
     }}
     public Sprite Sprite;
+    public int Price;
 }
