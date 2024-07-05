@@ -47,6 +47,9 @@ public class ProgressState {
     public int[] PurchasedBackpacks;
     public int[] PurchasedHats;
     public int[] PurchasedPerks;
+    public int UpgradeLevelHP;
+    public int UpgradeLevelAttackSpeed;
+    public int UpgradeLevelDamage;
     [System.NonSerialized]
     public bool SkipSaveTargetDialog;
     public string AdSpinWhenAvailableString;
@@ -70,6 +73,7 @@ public class ProgressState {
         Money = 900;
         AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
         PurchasedPerks = new int[4] { 0, 1, 2, 3 };
+        UpgradeLevelDamage = 7;
     }
     public void AddPurchased(SkinType skinType, SkinItemName skinName) {
         int[] skinItemArray = skinType == SkinType.Hat ? PurchasedHats : PurchasedBackpacks;
@@ -87,6 +91,13 @@ public class ProgressState {
         Array.Copy(PurchasedPerks, newItems, PurchasedPerks.Length);
         newItems[newItems.Length - 1] = (int)perkType;
         PurchasedPerks = newItems;
+    }
+    public void AddUpgrade(UpgradeType upgradeType, int level) {
+        switch (upgradeType) {
+            case UpgradeType.AttackSpeed: UpgradeLevelAttackSpeed = level; break;
+            case UpgradeType.Damage: UpgradeLevelDamage = level; break;
+            case UpgradeType.HP: UpgradeLevelHP = level; break;
+        }
     }
     public void AdjustHats(int startIndex) {
         for (int i = 0; i < EquippedHats.Length; i++) {
