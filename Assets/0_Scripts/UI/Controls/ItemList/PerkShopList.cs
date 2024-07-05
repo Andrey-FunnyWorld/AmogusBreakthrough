@@ -37,6 +37,8 @@ public class PerkShopList : MonoBehaviour {
         bool enoughMoney = progressState.Money >= args.Price;
         if (enoughMoney) {
             UnlockItem(args);
+        } else {
+            EventManager.TriggerEvent(EventNames.NotEnoughMoney, args);
         }
     }
     void OnDisable() {

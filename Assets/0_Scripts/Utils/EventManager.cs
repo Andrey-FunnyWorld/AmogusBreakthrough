@@ -78,4 +78,5 @@ public static class EventNames {
 
     public static string PerkItemPurchaseTry = "PerkItemPurchaseTry";
     public static string PerkItemPurchased = "PerkItemPurchased";
+    public static string NotEnoughMoney = "NotEnoughMoney";
 }
