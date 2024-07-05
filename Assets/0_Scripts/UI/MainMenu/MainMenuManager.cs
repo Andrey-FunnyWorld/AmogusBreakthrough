@@ -50,11 +50,18 @@ public class MainMenuManager : MonoBehaviour {
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
     }
+    void UpgradeItemPurchased(object arg) {
+        UpgradeItem upgradeItem = (UpgradeItem)arg;
+        UserProgressController.Instance.ProgressState.Money -= upgradeItem.Price;
+        UserProgressController.Instance.ProgressState.AddUpgrade(upgradeItem.UpgradeType, upgradeItem.CurrentLevel);
+        ApplyProgressLight(UserProgressController.Instance.ProgressState);
+    }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
         ShopBackpacks.GenerateItems(UserProgressController.Instance.ProgressState);
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
         PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
+        UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
@@ -80,6 +87,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StartListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StartListening(EventNames.ShopItemPurchased, ShopItemPurchased);
         EventManager.StartListening(EventNames.PerkItemPurchased, PerkItemPurchased);
+        EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StartListening(EventNames.NotEnoughMoney, NotEnoughMoney);
     }
     void UnsubscriveEvents() {
@@ -88,6 +96,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StopListening(EventNames.ShopItemPurchased, ShopItemPurchased);
         EventManager.StopListening(EventNames.PerkItemPurchased, PerkItemPurchased);
+        EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
     }
     public void HideShops() {

@@ -70,13 +70,16 @@ public static class EventNames {
     public static string WheelSpinResult = "WheelSpinResult";
     public static string WheelSpinStart = "WheelSpinStart";
     public static string SkinItemEquip = "SkinItemEquip";
-    public static string ShopItemPurchaseTry = "ShopItemPurchaseTry";
-    public static string ShopItemPurchased = "ShopItemPurchased";
+    
     public static string FreeSpinChanged = "FreeSpinChanged";
     public static string PerkSelected = "PerkSelected";
     public static string WeaponChanged = "WeaponChanged";
 
+    public static string ShopItemPurchaseTry = "ShopItemPurchaseTry";
+    public static string ShopItemPurchased = "ShopItemPurchased";
     public static string PerkItemPurchaseTry = "PerkItemPurchaseTry";
     public static string PerkItemPurchased = "PerkItemPurchased";
+    public static string UpgradeItemPurchaseTry = "UpgradeItemPurchaseTry";
+    public static string UpgradeItemPurchased = "UpgradeItemPurchased";
     public static string NotEnoughMoney = "NotEnoughMoney";
 }
