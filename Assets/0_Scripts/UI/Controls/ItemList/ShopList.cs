@@ -86,6 +86,8 @@ public class ShopList : MonoBehaviour {
             bool enoughMoney = progressState.Money >= args.ItemModel.Price;
             if (enoughMoney) {
                 UnlockItem(args.ItemModel);
+            } else {
+                EventManager.TriggerEvent(EventNames.NotEnoughMoney, args);
             }
         }
     }
