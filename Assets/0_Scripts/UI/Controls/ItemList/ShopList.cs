@@ -21,7 +21,7 @@ public class ShopList : MonoBehaviour {
         foreach (ShopItemModel model in Items.Items) {
             CreateItem(model, purchasedItems.Contains((int)model.SkinName));
         }
-        Grid.SetAllItems(liveItems.ToArray());
+        Grid.SetAllItems(liveItems.Select(i => i.transform).ToArray());
     }
     void CreateItem(ShopItemModel model, bool purchased) {
         ListItem item = Instantiate(ListItemPrefab);
@@ -83,9 +83,8 @@ public class ShopList : MonoBehaviour {
         if (args.ForFree) {
             UnlockItem(args.ItemModel);
         } else {
-            bool enoughMoney = progressState.Money >= 0; // TO DO
+            bool enoughMoney = progressState.Money >= args.ItemModel.Price;
             if (enoughMoney) {
-                // deduct money
                 UnlockItem(args.ItemModel);
             }
         }

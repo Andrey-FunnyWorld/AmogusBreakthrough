@@ -46,6 +46,7 @@ public class ProgressState {
     public int[] EquippedHats;
     public int[] PurchasedBackpacks;
     public int[] PurchasedHats;
+    public int[] PurchasedPerks;
     [System.NonSerialized]
     public bool SkipSaveTargetDialog;
     public string AdSpinWhenAvailableString;
@@ -66,7 +67,9 @@ public class ProgressState {
         PurchasedHats = new int[1] { 0 };
         SkipSaveTargetDialog = false;
         Spins = 2;
+        Money = 900;
         AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
+        PurchasedPerks = new int[4] { 0, 1, 2, 3 };
     }
     public void AddPurchased(SkinType skinType, SkinItemName skinName) {
         int[] skinItemArray = skinType == SkinType.Hat ? PurchasedHats : PurchasedBackpacks;
@@ -78,6 +81,12 @@ public class ProgressState {
         } else {
             PurchasedBackpacks = newItems;
         }
+    }
+    public void AddPurchased(PerkType perkType) {
+        int[] newItems = new int[PurchasedPerks.Length + 1];
+        Array.Copy(PurchasedPerks, newItems, PurchasedPerks.Length);
+        newItems[newItems.Length - 1] = (int)perkType;
+        PurchasedPerks = newItems;
     }
     public void AdjustHats(int startIndex) {
         for (int i = 0; i < EquippedHats.Length; i++) {

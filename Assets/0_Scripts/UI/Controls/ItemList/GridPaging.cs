@@ -9,7 +9,7 @@ public class GridPaging : MonoBehaviour {
     int pageIndex = -1;
     int totalCount = 0;
     int maxPageIndex = 0;
-    ListItem[] allItems, currentPageItems;
+    Transform[] allItems, currentPageItems;
     public int PageIndex {
         get { return pageIndex; }
         set {
@@ -25,7 +25,7 @@ public class GridPaging : MonoBehaviour {
         PrevPageItem.SetParent(null);
         NextPageItem.SetParent(null);
         if (currentPageItems != null)
-            foreach (ListItem item in currentPageItems) {
+            foreach (Transform item in currentPageItems) {
                 item.gameObject.SetActive(false);
                 item.transform.SetParent(null);
             }
@@ -34,7 +34,7 @@ public class GridPaging : MonoBehaviour {
             PrevPageItem.gameObject.SetActive(true);
         }
         currentPageItems = GetPageItems(newPageIndex);
-        foreach (ListItem item in currentPageItems) {
+        foreach (Transform item in currentPageItems) {
             item.gameObject.SetActive(true);
             item.transform.SetParent(transform);
             item.transform.localScale = Vector2.one;
@@ -44,7 +44,7 @@ public class GridPaging : MonoBehaviour {
             NextPageItem.gameObject.SetActive(true);
         }
     }
-    ListItem[] GetPageItems(int pageIndex) {
+    Transform[] GetPageItems(int pageIndex) {
         int skip = pageIndex * PageSize + (pageIndex > 0 ? 1 : 0);
         int take = pageIndex == 0 ? PageSize + 1 : PageSize;
         return allItems.Skip(skip).Take(take).ToArray();
@@ -59,7 +59,7 @@ public class GridPaging : MonoBehaviour {
         maxPageIndex = (int)Mathf.Ceil((float)totalCount / pageSize) - 1;
         if (totalCount % pageSize == 1) maxPageIndex--;
     }
-    public void SetAllItems(ListItem[] items) {
+    public void SetAllItems(Transform[] items) {
         allItems = items;
         totalCount = allItems.Length;
         CalcPageDate(PageSize);
