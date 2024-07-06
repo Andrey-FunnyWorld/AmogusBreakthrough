@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
         MovementController.AllowMove = !PerkPanel.ShowOnStart;
+        ApplyProgress(UserProgressController.Instance.ProgressState);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void Update() {
@@ -41,6 +42,7 @@ public class LevelManager : MonoBehaviour {
     }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);
+        EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
@@ -53,13 +55,17 @@ public class LevelManager : MonoBehaviour {
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
+        #if UNITY_EDITOR
         EventManager.StartListening(EventNames.StartDataLoaded, StartDataLoaded);
+        #endif
         EventManager.StartListening(EventNames.PerkSelected, PerkSelected);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
+        #if UNITY_EDITOR
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
+        #endif
         EventManager.StopListening(EventNames.PerkSelected, PerkSelected);
     }
 }
