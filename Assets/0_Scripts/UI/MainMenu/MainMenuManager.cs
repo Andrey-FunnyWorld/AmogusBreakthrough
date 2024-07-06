@@ -62,6 +62,7 @@ public class MainMenuManager : MonoBehaviour {
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
         PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
         UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
+        EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
@@ -96,7 +97,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StopListening(EventNames.ShopItemPurchased, ShopItemPurchased);
         EventManager.StopListening(EventNames.PerkItemPurchased, PerkItemPurchased);
-        EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
+        EventManager.StopListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
     }
     public void HideShops() {
