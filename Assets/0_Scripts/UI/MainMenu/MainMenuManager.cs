@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour {
     public ButtonDisabled[] DisableWhenSpinning;
     public ProgressText3D HatText, BackpackText;
     public ScoreTextMenu ScoreText;
+    public SettingsPanel SettingsPanel;
     List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Start() {
         SubscriveEvents();
@@ -58,10 +59,12 @@ public class MainMenuManager : MonoBehaviour {
     }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
+        SettingsPanel.ApplyProgress(UserProgressController.Instance.PlayerSettings);
         ShopBackpacks.GenerateItems(UserProgressController.Instance.ProgressState);
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
         PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
         UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
+        EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
@@ -96,7 +99,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StopListening(EventNames.ShopItemPurchased, ShopItemPurchased);
         EventManager.StopListening(EventNames.PerkItemPurchased, PerkItemPurchased);
-        EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
+        EventManager.StopListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
     }
     public void HideShops() {
