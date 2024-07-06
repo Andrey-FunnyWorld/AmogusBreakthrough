@@ -2758,6 +2758,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u041D\u0430\u0434\u0435\u0442\u044C \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u043E"
       objectReference: {fileID: 0}
+    - target: {fileID: 687842578092261853, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
+    - target: {fileID: 687842578092261853, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6969964487963048819, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
+    - target: {fileID: 687842578092261853, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2496083830394372782, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
       propertyPath: m_Name
       value: RandomUseButton
