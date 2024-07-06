@@ -36,6 +36,12 @@ public class UserProgressController : MonoBehaviour {
             EventManager.TriggerEvent(EventNames.StartDataLoaded, null);
         }));
     }
+    public void SaveProgress() {
+
+    }
+    public void SaveSettings() {
+        
+    }
 }
 
 [System.Serializable]
@@ -50,6 +56,7 @@ public class ProgressState {
     public int UpgradeLevelHP;
     public int UpgradeLevelAttackSpeed;
     public int UpgradeLevelDamage;
+    public int SkipAdRounds = 0;
     [System.NonSerialized]
     public bool SkipSaveTargetDialog;
     public string AdSpinWhenAvailableString;
