@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour {
     public ProgressText3D HatText, BackpackText;
     public ScoreTextMenu ScoreText;
     public SettingsPanel SettingsPanel;
+    public SkipAdButton SkipAdButton;
     List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Start() {
         SubscriveEvents();
@@ -43,6 +44,7 @@ public class MainMenuManager : MonoBehaviour {
         UserProgressController.Instance.ProgressState.Money -= listItem.Model.Price;
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
+        UserProgressController.Instance.SaveProgress();
     }
     void PerkItemPurchased(object arg) {
         PerkModel model = (PerkModel)arg;
@@ -50,11 +52,16 @@ public class MainMenuManager : MonoBehaviour {
         UserProgressController.Instance.ProgressState.Money -= model.Price;
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
+        UserProgressController.Instance.SaveProgress();
     }
     void UpgradeItemPurchased(object arg) {
         UpgradeItem upgradeItem = (UpgradeItem)arg;
         UserProgressController.Instance.ProgressState.Money -= upgradeItem.Price;
         UserProgressController.Instance.ProgressState.AddUpgrade(upgradeItem.UpgradeType, upgradeItem.CurrentLevel);
+        ApplyProgressLight(UserProgressController.Instance.ProgressState);
+        UserProgressController.Instance.SaveProgress();
+    }
+    void SkipAdPurchased(object arg) {
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
     }
     void StartDataLoaded(object arg) {
@@ -64,6 +71,7 @@ public class MainMenuManager : MonoBehaviour {
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
         PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
         UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
+        SkipAdButton.ApplyProgress(UserProgressController.Instance.ProgressState.SkipAdRounds);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     public void ShowShopAction(bool show) {
@@ -92,6 +100,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StartListening(EventNames.PerkItemPurchased, PerkItemPurchased);
         EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StartListening(EventNames.NotEnoughMoney, NotEnoughMoney);
+        EventManager.StartListening(EventNames.SkipAdPurchased, SkipAdPurchased);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
@@ -101,6 +110,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.PerkItemPurchased, PerkItemPurchased);
         EventManager.StopListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
+        EventManager.StopListening(EventNames.SkipAdPurchased, SkipAdPurchased);
     }
     public void HideShops() {
         ShopBackpacks.gameObject.SetActive(false);

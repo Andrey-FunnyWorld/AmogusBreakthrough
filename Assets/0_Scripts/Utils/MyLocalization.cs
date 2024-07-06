@@ -22,6 +22,8 @@ public class MyLocalization : MonoBehaviour {
         { LocalizationKeys.AdSpinReady, "Готово" },
         { LocalizationKeys.HatsProgress, "Шляпы: {0}%" },
         { LocalizationKeys.BackpackProgress, "Рюкзаки: {0}%" },
+        { LocalizationKeys.Yes, "Да" },
+        { LocalizationKeys.No, "Нет" },
 
         { LocalizationKeys.PerkNameAttackZoneVisibility, "Зона атаки" },
         { LocalizationKeys.PerkNameBossDamage, "Урон по боссам" },
@@ -54,6 +56,8 @@ public class MyLocalization : MonoBehaviour {
         { LocalizationKeys.AdSpinReady, "Ready" },
         { LocalizationKeys.HatsProgress, "Hats: {0}%" },
         { LocalizationKeys.BackpackProgress, "Backpacks: {0}%" },
+        { LocalizationKeys.Yes, "Yes" },
+        { LocalizationKeys.No, "No" },
         
         { LocalizationKeys.PerkNameAttackZoneVisibility, "Attack Zone" },
         { LocalizationKeys.PerkNameBossDamage, "Boss Damage" },
@@ -121,6 +125,8 @@ public static class LocalizationKeys {
     public static string AdSpinReady = "AdSpinReady";
     public static string HatsProgress = "HatsProgress";
     public static string BackpackProgress = "BackpackProgress";
+    public static string Yes = "Yes";
+    public static string No = "No";
 
     public static string PerkNameExtraGuy = "PerkNameExtraGuy";
     public static string PerkNameBossDamage = "PerkNameBossDamage";

@@ -49,16 +49,16 @@ MonoBehaviour:
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 256
-      m_Height: 256
-      m_HorizontalBearingX: -50
-      m_HorizontalBearingY: 220
-      m_HorizontalAdvance: 253
+      m_Width: 128
+      m_Height: 128
+      m_HorizontalBearingX: -10
+      m_HorizontalBearingY: 115
+      m_HorizontalAdvance: 128
     m_GlyphRect:
       m_X: 1
       m_Y: 0
-      m_Width: 253
-      m_Height: 256
+      m_Width: 128
+      m_Height: 128
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0

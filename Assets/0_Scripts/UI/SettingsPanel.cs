@@ -22,6 +22,7 @@ public class SettingsPanel : MonoBehaviour {
     }
     public void SaveSettings() {
         if (saveRequired) {
+            UserProgressController.Instance.SaveProgress();
             //HtmlBridge.Instance.SaveSettings();
             saveRequired = false;
         }

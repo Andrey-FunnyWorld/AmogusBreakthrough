@@ -21,6 +21,7 @@ public class AdSpinButton : MonoBehaviour {
     public void Spin() {
         DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
         UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
+        UserProgressController.Instance.SaveProgress();
     }
     string GetTimeText(DateTime date) {
         if (date < DateTime.Now) {
