@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour {
     public ButtonDisabled[] DisableWhenSpinning;
     public ProgressText3D HatText, BackpackText;
     public ScoreTextMenu ScoreText;
+    public SettingsPanel SettingsPanel;
     List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Start() {
         SubscriveEvents();
@@ -58,6 +59,7 @@ public class MainMenuManager : MonoBehaviour {
     }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
+        SettingsPanel.ApplyProgress(UserProgressController.Instance.PlayerSettings);
         ShopBackpacks.GenerateItems(UserProgressController.Instance.ProgressState);
         ShopHats.GenerateItems(UserProgressController.Instance.ProgressState);
         PerkShopList.GenerateItems(UserProgressController.Instance.ProgressState);
