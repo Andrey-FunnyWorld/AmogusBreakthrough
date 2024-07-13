@@ -141,3 +141,39 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 8bf48125edd8ca74785b7f4b0338376d, type: 3}
     Price: 15
     Quality: 1
+  - SkinName: 35
+    Sprite: {fileID: 21300000, guid: 7ea10be74d969d24786320b1daa2b707, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 36
+    Sprite: {fileID: 21300000, guid: b8b5667b15fb3f744b7e79d20553d8f0, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 37
+    Sprite: {fileID: 21300000, guid: 54d8428654a8b2248b55a88918ce67f9, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 38
+    Sprite: {fileID: 21300000, guid: 5da6e268535c0d84e9c96c08d0ff2074, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 39
+    Sprite: {fileID: 21300000, guid: 770e32a3ae5168741b5c37c952956dbd, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 40
+    Sprite: {fileID: 21300000, guid: 64298e2f0e3c73b409a26b03e9998db9, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 41
+    Sprite: {fileID: 21300000, guid: 1d25f2df3f5e3ad4d82d2b462371c861, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 42
+    Sprite: {fileID: 21300000, guid: a9348dd513868234bbdd502b072a68eb, type: 3}
+    Price: 10
+    Quality: 0
+  - SkinName: 43
+    Sprite: {fileID: 21300000, guid: c964ae8328ce8694b8ef120fa8ffaf66, type: 3}
+    Price: 100
+    Quality: 2

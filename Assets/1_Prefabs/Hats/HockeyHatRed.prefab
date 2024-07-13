@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2943722088083600442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2345488443576464618}
+  m_Layer: 0
+  m_Name: HockeyHatRed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2345488443576464618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2943722088083600442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7568696, y: -0, z: -0, w: -0.6535659}
+  m_LocalPosition: {x: 0, y: 1.054, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5253132730219046097}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 261.622, y: 0, z: 0}
+--- !u!1001 &5723047219248120634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2345488443576464618}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 78.21921
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 77.222694
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 74.367
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.925
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.033
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.6535659
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7568696
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 261.622
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      propertyPath: m_Name
+      value: amogus-hat-hockey
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7333476749145248386}
+  m_SourcePrefab: {fileID: 100100000, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+--- !u!1 &4876607634379079275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+  m_PrefabInstance: {fileID: 5723047219248120634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7333476749145248386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876607634379079275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e152e658745b911469022f82672af89a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Color: {r: 0.9529412, g: 0.20392156, b: 0.25415868, a: 0}
+  MaterialIndex: 0
+  MeshRenderer: {fileID: 6389988564514430910}
+--- !u!4 &5253132730219046097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+  m_PrefabInstance: {fileID: 5723047219248120634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6389988564514430910 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ff85ba7eb643fd847bc0dfd6b66e31b1, type: 3}
+  m_PrefabInstance: {fileID: 5723047219248120634}
+  m_PrefabAsset: {fileID: 0}
