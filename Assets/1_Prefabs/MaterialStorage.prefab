@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5777cf50076a0c49aefaf9c735ad1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackpackNameMaterialMap: {fileID: 11400000, guid: 53cbe041114b5744892813daeab69619, type: 2}
   SourceColorMaterial: {fileID: 2100000, guid: 2098937d8063380439ae710f95b95cac, type: 2}
-  JokerMaterial: {fileID: 2100000, guid: b0b0555c2f3fc304eb14eafd6fc855b9, type: 2}
-  LightningMaterial: {fileID: 2100000, guid: c5d33ea48f543aa4cb838a2bd73cd650, type: 2}
-  StarMaterial: {fileID: 2100000, guid: f48bb13ec46370042ad71fb97e203d0f, type: 2}

@@ -77,7 +77,7 @@ public class Team : MonoBehaviour
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
         Material colorMaterial = MaterialStorage.Instance.GetColorMaterial(colors.Last());
-        Material skinMaterial = MaterialStorage.Instance.GetBackpackMaterial(backpackSkin);
+        Material skinMaterial = backpackSkin != SkinItemName.None ? MaterialStorage.Instance.GetBackpackMaterial(backpackSkin) : null;
         mate.ApplyMaterials(colorMaterial, skinMaterial);
     }
     void ApplyHat(Amogus mate, SkinItemName hatSkin) {
