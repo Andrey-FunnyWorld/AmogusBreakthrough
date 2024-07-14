@@ -13,83 +13,83 @@ MonoBehaviour:
   m_Name: HatNamePrefabMap
   m_EditorClassIdentifier: 
   Hats:
-  - SkinItemName: 4
-    HatPrefab: {fileID: 1626110933655967615, guid: 3a0e5fac610280a43a429af231236797, type: 3}
-  - SkinItemName: 5
-    HatPrefab: {fileID: 2486288973770129717, guid: 28db3f8a2a72c664bb7eb99d49eddeba, type: 3}
-  - SkinItemName: 6
-    HatPrefab: {fileID: 1116482140586239027, guid: 68ed07bda4c1ca4448f96abb5c6b39c6, type: 3}
-  - SkinItemName: 7
-    HatPrefab: {fileID: 8343754160432518152, guid: cf940ab9628aef3418758312026e5bd3, type: 3}
-  - SkinItemName: 8
-    HatPrefab: {fileID: 4002041638845782693, guid: ebd7405d037a35e4c903c8fee46c7015, type: 3}
-  - SkinItemName: 9
-    HatPrefab: {fileID: 689729888380543609, guid: 88369dd9236de50448193f18bbb8a353, type: 3}
-  - SkinItemName: 10
-    HatPrefab: {fileID: 9125539058071563105, guid: 1ab6366802c2f47429abe5eca1873473, type: 3}
-  - SkinItemName: 11
-    HatPrefab: {fileID: 7745523939826842656, guid: 8883fc498f41049408a8726bf447a17e, type: 3}
-  - SkinItemName: 12
-    HatPrefab: {fileID: 717818138200049358, guid: 3d3e0546558a13740815c20d5a644c62, type: 3}
-  - SkinItemName: 13
-    HatPrefab: {fileID: 1869550361996910757, guid: d0fc634bf20b28d46b7828048e22a44f, type: 3}
-  - SkinItemName: 14
-    HatPrefab: {fileID: 2747829303119345155, guid: 857e979bcf0be8445a6a7fc60a52072d, type: 3}
-  - SkinItemName: 15
-    HatPrefab: {fileID: 7310570635747734961, guid: b2074716020654049b4a4b190c287fc7, type: 3}
-  - SkinItemName: 16
-    HatPrefab: {fileID: 941932741714647322, guid: 5274fa776345eeb4a8c9cec55ce83e1f, type: 3}
-  - SkinItemName: 17
-    HatPrefab: {fileID: 3210939665680423172, guid: a6acb19bc0230724b8f31626a50c65d7, type: 3}
-  - SkinItemName: 18
-    HatPrefab: {fileID: 8203092516003882697, guid: c8afd0c354bf6664890f876da62d4b1e, type: 3}
-  - SkinItemName: 19
-    HatPrefab: {fileID: 1018759331172868659, guid: 49a89a3a52a565b4b9327bd229555c18, type: 3}
-  - SkinItemName: 20
-    HatPrefab: {fileID: 6381735186794897575, guid: 3d72006e8f139a348a78934b42df3a07, type: 3}
-  - SkinItemName: 21
-    HatPrefab: {fileID: 9036870736755602077, guid: 3e88b098e57d9d74094c8cf0a33faf3d, type: 3}
-  - SkinItemName: 22
-    HatPrefab: {fileID: 1371268539804171712, guid: 9fd6e6509d2c64346b243a21d8e00ed9, type: 3}
-  - SkinItemName: 23
-    HatPrefab: {fileID: 1484405794182081552, guid: d1cfda0f21946534fb61a713bde898d0, type: 3}
-  - SkinItemName: 24
-    HatPrefab: {fileID: 2423485012258282885, guid: c1f65f3e49ef9d340a3e50c8767e8647, type: 3}
-  - SkinItemName: 25
-    HatPrefab: {fileID: 3400050827233118151, guid: 5ea8fc9b2081def4a9a1bfb4a9614ab6, type: 3}
-  - SkinItemName: 26
-    HatPrefab: {fileID: 8256448533119894964, guid: 0e50b129549d33f49aafdfb5d779ca3b, type: 3}
-  - SkinItemName: 27
-    HatPrefab: {fileID: 1332123125072534615, guid: 5c58c65f760a63743954def59f71ae13, type: 3}
-  - SkinItemName: 28
-    HatPrefab: {fileID: 6599935207586224324, guid: da4ba13de9cec2545aa0d9bcf9e977a5, type: 3}
-  - SkinItemName: 29
-    HatPrefab: {fileID: 5641701156890610957, guid: 27c35c507922af043a2318a74b145622, type: 3}
-  - SkinItemName: 30
-    HatPrefab: {fileID: 7405374689236173428, guid: 587c69199ee4fd048b792bf483150304, type: 3}
-  - SkinItemName: 31
-    HatPrefab: {fileID: 7506336987040561711, guid: d5ec48641c7bde04d9cf75f12519be1e, type: 3}
-  - SkinItemName: 32
-    HatPrefab: {fileID: 4347858446372857157, guid: 9c3188cc0c479af4ca0ad31d8efc0ad9, type: 3}
-  - SkinItemName: 33
-    HatPrefab: {fileID: 4703083023233979173, guid: 11b68b9aaaf1a654691a2ba62ce04cc0, type: 3}
-  - SkinItemName: 34
-    HatPrefab: {fileID: 6259933182552293146, guid: 8df20332c6bab4844bd1f781ebb4a223, type: 3}
-  - SkinItemName: 35
-    HatPrefab: {fileID: 6700061003694019755, guid: cc4d1bbe22847e844bfb3aafed9b4765, type: 3}
-  - SkinItemName: 36
-    HatPrefab: {fileID: 4362642491036497205, guid: c0ddb533e1d602740a0d818eb8135a78, type: 3}
-  - SkinItemName: 37
-    HatPrefab: {fileID: 3327911256772694421, guid: fd29222696054fc4c91d788a35175c6c, type: 3}
-  - SkinItemName: 38
-    HatPrefab: {fileID: 8680339926856295017, guid: f0729b84ed67d2d4cb1cecb1f29eaffc, type: 3}
-  - SkinItemName: 39
-    HatPrefab: {fileID: 5024686468129388014, guid: 3c2443b6c4a59314e8ffe1fe44778e06, type: 3}
-  - SkinItemName: 40
-    HatPrefab: {fileID: 6037547918224317647, guid: 126338cd61956e342b715978384c9883, type: 3}
   - SkinItemName: 41
-    HatPrefab: {fileID: 2345488443576464618, guid: bb8c55c35e2f9e14285261209a1f1975, type: 3}
+    HatPrefab: {fileID: 1626110933655967615, guid: 3a0e5fac610280a43a429af231236797, type: 3}
   - SkinItemName: 42
-    HatPrefab: {fileID: 4081541834201657017, guid: b23bd6ca649fb614d916f37332631bb7, type: 3}
+    HatPrefab: {fileID: 2486288973770129717, guid: 28db3f8a2a72c664bb7eb99d49eddeba, type: 3}
   - SkinItemName: 43
+    HatPrefab: {fileID: 1116482140586239027, guid: 68ed07bda4c1ca4448f96abb5c6b39c6, type: 3}
+  - SkinItemName: 44
+    HatPrefab: {fileID: 8343754160432518152, guid: cf940ab9628aef3418758312026e5bd3, type: 3}
+  - SkinItemName: 45
+    HatPrefab: {fileID: 4002041638845782693, guid: ebd7405d037a35e4c903c8fee46c7015, type: 3}
+  - SkinItemName: 46
+    HatPrefab: {fileID: 689729888380543609, guid: 88369dd9236de50448193f18bbb8a353, type: 3}
+  - SkinItemName: 47
+    HatPrefab: {fileID: 9125539058071563105, guid: 1ab6366802c2f47429abe5eca1873473, type: 3}
+  - SkinItemName: 48
+    HatPrefab: {fileID: 7745523939826842656, guid: 8883fc498f41049408a8726bf447a17e, type: 3}
+  - SkinItemName: 49
+    HatPrefab: {fileID: 717818138200049358, guid: 3d3e0546558a13740815c20d5a644c62, type: 3}
+  - SkinItemName: 50
+    HatPrefab: {fileID: 1869550361996910757, guid: d0fc634bf20b28d46b7828048e22a44f, type: 3}
+  - SkinItemName: 51
+    HatPrefab: {fileID: 2747829303119345155, guid: 857e979bcf0be8445a6a7fc60a52072d, type: 3}
+  - SkinItemName: 52
+    HatPrefab: {fileID: 7310570635747734961, guid: b2074716020654049b4a4b190c287fc7, type: 3}
+  - SkinItemName: 53
+    HatPrefab: {fileID: 941932741714647322, guid: 5274fa776345eeb4a8c9cec55ce83e1f, type: 3}
+  - SkinItemName: 54
+    HatPrefab: {fileID: 3210939665680423172, guid: a6acb19bc0230724b8f31626a50c65d7, type: 3}
+  - SkinItemName: 55
+    HatPrefab: {fileID: 8203092516003882697, guid: c8afd0c354bf6664890f876da62d4b1e, type: 3}
+  - SkinItemName: 56
+    HatPrefab: {fileID: 1018759331172868659, guid: 49a89a3a52a565b4b9327bd229555c18, type: 3}
+  - SkinItemName: 57
+    HatPrefab: {fileID: 6381735186794897575, guid: 3d72006e8f139a348a78934b42df3a07, type: 3}
+  - SkinItemName: 58
+    HatPrefab: {fileID: 9036870736755602077, guid: 3e88b098e57d9d74094c8cf0a33faf3d, type: 3}
+  - SkinItemName: 59
+    HatPrefab: {fileID: 1371268539804171712, guid: 9fd6e6509d2c64346b243a21d8e00ed9, type: 3}
+  - SkinItemName: 60
+    HatPrefab: {fileID: 1484405794182081552, guid: d1cfda0f21946534fb61a713bde898d0, type: 3}
+  - SkinItemName: 61
+    HatPrefab: {fileID: 2423485012258282885, guid: c1f65f3e49ef9d340a3e50c8767e8647, type: 3}
+  - SkinItemName: 62
+    HatPrefab: {fileID: 3400050827233118151, guid: 5ea8fc9b2081def4a9a1bfb4a9614ab6, type: 3}
+  - SkinItemName: 63
+    HatPrefab: {fileID: 8256448533119894964, guid: 0e50b129549d33f49aafdfb5d779ca3b, type: 3}
+  - SkinItemName: 64
+    HatPrefab: {fileID: 1332123125072534615, guid: 5c58c65f760a63743954def59f71ae13, type: 3}
+  - SkinItemName: 65
+    HatPrefab: {fileID: 6599935207586224324, guid: da4ba13de9cec2545aa0d9bcf9e977a5, type: 3}
+  - SkinItemName: 66
+    HatPrefab: {fileID: 5641701156890610957, guid: 27c35c507922af043a2318a74b145622, type: 3}
+  - SkinItemName: 67
+    HatPrefab: {fileID: 7405374689236173428, guid: 587c69199ee4fd048b792bf483150304, type: 3}
+  - SkinItemName: 68
+    HatPrefab: {fileID: 7506336987040561711, guid: d5ec48641c7bde04d9cf75f12519be1e, type: 3}
+  - SkinItemName: 69
+    HatPrefab: {fileID: 4347858446372857157, guid: 9c3188cc0c479af4ca0ad31d8efc0ad9, type: 3}
+  - SkinItemName: 70
+    HatPrefab: {fileID: 4703083023233979173, guid: 11b68b9aaaf1a654691a2ba62ce04cc0, type: 3}
+  - SkinItemName: 71
+    HatPrefab: {fileID: 6259933182552293146, guid: 8df20332c6bab4844bd1f781ebb4a223, type: 3}
+  - SkinItemName: 72
+    HatPrefab: {fileID: 6700061003694019755, guid: cc4d1bbe22847e844bfb3aafed9b4765, type: 3}
+  - SkinItemName: 73
+    HatPrefab: {fileID: 4362642491036497205, guid: c0ddb533e1d602740a0d818eb8135a78, type: 3}
+  - SkinItemName: 74
+    HatPrefab: {fileID: 3327911256772694421, guid: fd29222696054fc4c91d788a35175c6c, type: 3}
+  - SkinItemName: 75
+    HatPrefab: {fileID: 8680339926856295017, guid: f0729b84ed67d2d4cb1cecb1f29eaffc, type: 3}
+  - SkinItemName: 76
+    HatPrefab: {fileID: 5024686468129388014, guid: 3c2443b6c4a59314e8ffe1fe44778e06, type: 3}
+  - SkinItemName: 77
+    HatPrefab: {fileID: 6037547918224317647, guid: 126338cd61956e342b715978384c9883, type: 3}
+  - SkinItemName: 78
+    HatPrefab: {fileID: 2345488443576464618, guid: bb8c55c35e2f9e14285261209a1f1975, type: 3}
+  - SkinItemName: 79
+    HatPrefab: {fileID: 4081541834201657017, guid: b23bd6ca649fb614d916f37332631bb7, type: 3}
+  - SkinItemName: 80
     HatPrefab: {fileID: 6421157446961314142, guid: 66deff71e957648448d0e9fb75297722, type: 3}

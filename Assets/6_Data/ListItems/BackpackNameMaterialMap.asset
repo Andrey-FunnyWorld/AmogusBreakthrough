@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b79da24eba195a42977a4a94eb6304a, type: 3}
+  m_Name: BackpackNameMaterialMap
+  m_EditorClassIdentifier: 
+  Backpacks:
+  - SkinItemName: 1
+    Material: {fileID: 2100000, guid: b0b0555c2f3fc304eb14eafd6fc855b9, type: 2}
+  - SkinItemName: 2
+    Material: {fileID: 2100000, guid: c5d33ea48f543aa4cb838a2bd73cd650, type: 2}
+  - SkinItemName: 3
+    Material: {fileID: 2100000, guid: f48bb13ec46370042ad71fb97e203d0f, type: 2}
+  - SkinItemName: 4
+    Material: {fileID: 2100000, guid: 0e22a38e40414e54ba5fa8eb92008fde, type: 2}
+  - SkinItemName: 5
+    Material: {fileID: 2100000, guid: 4b04ff8b68304a944b2757699505264c, type: 2}
+  - SkinItemName: 6
+    Material: {fileID: 2100000, guid: be136749f4eda2949b43a1419c34a187, type: 2}
+  - SkinItemName: 7
+    Material: {fileID: 2100000, guid: 07f23b33f39c2a14a88cc419264efd12, type: 2}
+  - SkinItemName: 8
+    Material: {fileID: 2100000, guid: b9181549bd3d0a64486b32089eded3e6, type: 2}
+  - SkinItemName: 9
+    Material: {fileID: 2100000, guid: 406993d9af8687b4d97190d1e1bc14cd, type: 2}
+  - SkinItemName: 10
+    Material: {fileID: 2100000, guid: 86b87c9b2c6c482439b53f0db6f9bc2b, type: 2}
+  - SkinItemName: 11
+    Material: {fileID: 2100000, guid: db4febc4970342d459e9cfbb91246abe, type: 2}
+  - SkinItemName: 12
+    Material: {fileID: 2100000, guid: afbf33a425d3cac429f89f20d6335b9d, type: 2}
+  - SkinItemName: 13
+    Material: {fileID: 2100000, guid: a0ab41cfb9d5bae42891da45f4895d8d, type: 2}
+  - SkinItemName: 14
+    Material: {fileID: 2100000, guid: 69f2607e4c187c94a9c6c37de0f55af1, type: 2}
+  - SkinItemName: 15
+    Material: {fileID: 2100000, guid: b9584914ade491b43a8ac25f63d5e83c, type: 2}
+  - SkinItemName: 16
+    Material: {fileID: 2100000, guid: dfa470eb76eb91443ac8592e2adcf1e0, type: 2}
+  - SkinItemName: 17
+    Material: {fileID: 2100000, guid: 2669d8d8fee32984882f2e7679f9b505, type: 2}
+  - SkinItemName: 18
+    Material: {fileID: 2100000, guid: 51a2db0ddb90a3a4085d76897f386efa, type: 2}
+  - SkinItemName: 19
+    Material: {fileID: 2100000, guid: 375999147fb7b96468a0d55241c6423c, type: 2}
+  - SkinItemName: 20
+    Material: {fileID: 2100000, guid: f646bb9de5cb7664c819ac049726c70a, type: 2}
+  - SkinItemName: 21
+    Material: {fileID: 2100000, guid: 52b66ab01b2496148949ffebdb524e06, type: 2}
+  - SkinItemName: 22
+    Material: {fileID: 2100000, guid: 191cccfff4ab9594795f03d023e6dc21, type: 2}
+  - SkinItemName: 23
+    Material: {fileID: 2100000, guid: 5529bf54b2a87ef479004333c4eb3ac2, type: 2}
+  - SkinItemName: 24
+    Material: {fileID: 2100000, guid: 168fe945861e1f84ebc7c118b843860a, type: 2}
+  - SkinItemName: 25
+    Material: {fileID: 2100000, guid: d103e7df75e985b4bb15eea8d7ce6bcb, type: 2}
+  - SkinItemName: 26
+    Material: {fileID: 2100000, guid: 137ba2208fa04ac47a444fd78c2d6f85, type: 2}
+  - SkinItemName: 27
+    Material: {fileID: 2100000, guid: 6c4c5232b5e73c1459148beafbd54e2b, type: 2}
+  - SkinItemName: 28
+    Material: {fileID: 2100000, guid: 64daaddc545b1e040a8563e298ccc180, type: 2}
+  - SkinItemName: 29
+    Material: {fileID: 2100000, guid: aa607f5054011104bb733459c8fbe582, type: 2}
+  - SkinItemName: 30
+    Material: {fileID: 2100000, guid: ef68d01647a3cb04ab8ed46a4a3918b0, type: 2}
+  - SkinItemName: 31
+    Material: {fileID: 2100000, guid: f8183ec63c5f1e245a14bffe1d81b551, type: 2}
+  - SkinItemName: 32
+    Material: {fileID: 2100000, guid: e33ebc9a28a72104caddfbd138635d3a, type: 2}
+  - SkinItemName: 33
+    Material: {fileID: 2100000, guid: 0e6b6bc510982cd4db6ef6b633d9219b, type: 2}
+  - SkinItemName: 34
+    Material: {fileID: 2100000, guid: 30e500a00517c1c49847a720af5e2493, type: 2}
+  - SkinItemName: 35
+    Material: {fileID: 2100000, guid: a7e243dd9e4ddca47a4bf2c6b879dd0a, type: 2}
+  - SkinItemName: 36
+    Material: {fileID: 2100000, guid: b893c9efd7b3b0b4d89d8de5490f3d75, type: 2}
+  - SkinItemName: 37
+    Material: {fileID: 2100000, guid: 4ee3eb7395dfadb44bd6d11e5030ddb6, type: 2}
+  - SkinItemName: 38
+    Material: {fileID: 2100000, guid: 453d5f25aea982941a88cc51ebde3fe9, type: 2}
+  - SkinItemName: 39
+    Material: {fileID: 2100000, guid: 95789747dc84cf54a9cadaadda02b2d0, type: 2}
+  - SkinItemName: 40
+    Material: {fileID: 2100000, guid: a2aeb4b34fb384c448e0cc6715b6528a, type: 2}
