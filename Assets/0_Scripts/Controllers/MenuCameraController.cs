@@ -4,11 +4,12 @@ using UnityEngine;
 using Cinemachine;
 
 public class MenuCameraController : MonoBehaviour {
-    public CinemachineVirtualCamera FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera;
+    public CinemachineVirtualCamera FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera,
+        BackpackMedium, HatMedium;
     CameraType currentCamera;
     CinemachineVirtualCamera[] cameras;
     void Start() {
-        cameras = new CinemachineVirtualCamera[5] { FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera };
+        cameras = new CinemachineVirtualCamera[6] { FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera, BackpackMedium };
     }
     public void SwitchToCamera(int cameraType) {
         currentCamera = (CameraType)cameraType;
@@ -19,21 +20,27 @@ public class MenuCameraController : MonoBehaviour {
             case CameraType.BackpackClose: targetCam = BackpackCloseCamera; break;
             case CameraType.HatFar: targetCam = HatFarCamera; break;
             case CameraType.HatClose: targetCam = HatCloseCamera; break;
+            case CameraType.BackpackMedium: targetCam = BackpackMedium; break;
+            //case CameraType.HatMedium: targetCam = BackpackMedium; break;
             default: targetCam = FaceCamera; break;
         }
+        currentCamera = (CameraType)cameraType;
         foreach (CinemachineVirtualCamera cam in cameras) {
             cam.gameObject.SetActive(cam == targetCam);
         }
     }
-    public void ToogleBackpackCameras() {
-        CameraType cameraType = currentCamera == CameraType.BackpackFar ? CameraType.BackpackClose : CameraType.BackpackFar;
-        SwitchToCamera((int)cameraType);
+    public void SwitchToCamera(CameraType nextCamera) {
+        SwitchToCamera((int)nextCamera);
     }
-    public void ToogleHatCameras() {
-        CameraType cameraType = currentCamera == CameraType.HatFar ? CameraType.HatClose : CameraType.HatFar;
-        SwitchToCamera((int)cameraType);
-    }
+    // public void ToogleBackpackCameras() {
+    //     CameraType cameraType = currentCamera == CameraType.BackpackFar ? CameraType.BackpackClose : CameraType.BackpackFar;
+    //     SwitchToCamera((int)cameraType);
+    // }
+    // public void ToogleHatCameras() {
+    //     CameraType cameraType = currentCamera == CameraType.HatFar ? CameraType.HatClose : CameraType.HatFar;
+    //     SwitchToCamera((int)cameraType);
+    // }
 }
 public enum CameraType {
-    Face, BackpackFar, BackpackClose, HatClose, HatFar
+    Face, BackpackFar, BackpackClose, HatClose, HatFar, BackpackMedium, HatMedium
 }
