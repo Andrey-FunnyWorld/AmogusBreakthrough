@@ -234,6 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2502046638460772507}
   - component: {fileID: 4750213404844724083}
+  - component: {fileID: 4889872507565836378}
   m_Layer: 5
   m_Name: ListItem
   m_TagString: Untagged
@@ -280,6 +281,28 @@ MonoBehaviour:
   Buy: {fileID: 7253167826213324831}
   Equip: {fileID: 1159916678339774628}
   SkinQualityColors: {fileID: 11400000, guid: efdb2d7add372db449215f53ee94859f, type: 2}
+  Animator: {fileID: 4889872507565836378}
+--- !u!95 &4889872507565836378
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122203357014273335}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: af33b56b6f22a11479ef2484851da1af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3293391632679437666
 GameObject:
   m_ObjectHideFlags: 0

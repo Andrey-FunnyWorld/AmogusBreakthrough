@@ -14,7 +14,8 @@ public class MainMenuManager : MonoBehaviour {
     public ScoreTextMenu ScoreText;
     public SettingsPanel SettingsPanel;
     public SkipAdButton SkipAdButton;
-    List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
+    public Wheel Wheel;
+    //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Start() {
         SubscriveEvents();
     }
@@ -30,6 +31,7 @@ public class MainMenuManager : MonoBehaviour {
         MainGuy.ApplyProgress(progress);
         UpdateProgressTexts(progress);
         ScoreText.SetScoreSilent(progress.Money);
+        Wheel.ApplyProgress(progress);
     }
     void UpdateProgressTexts(ProgressState progress) {
         HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
@@ -81,16 +83,16 @@ public class MainMenuManager : MonoBehaviour {
         ScoreText.HighlightError();
     }
     void WheelSpinStart(object arg) {
-        foreach (ButtonDisabled btn in DisableWhenSpinning) {
-            if (!btn.Enable) buttonsToSkip.Add(btn);
-            else btn.Enable = false;
-        }
+        // foreach (ButtonDisabled btn in DisableWhenSpinning) {
+        //     if (!btn.Enable) buttonsToSkip.Add(btn);
+        //     else btn.Enable = false;
+        // }
     }
     void WheelSpinResult(object arg) {
-        foreach (ButtonDisabled btn in DisableWhenSpinning) {
-            if (!buttonsToSkip.Contains(btn))
-                btn.Enable = true;
-        }
+        // foreach (ButtonDisabled btn in DisableWhenSpinning) {
+        //     if (!buttonsToSkip.Contains(btn))
+        //         btn.Enable = true;
+        // }
     }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartDataLoaded, StartDataLoaded);

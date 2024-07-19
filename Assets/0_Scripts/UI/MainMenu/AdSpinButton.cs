@@ -11,6 +11,7 @@ public class AdSpinButton : MonoBehaviour {
     public int NextSpinDelaySec = 15;
     public TextMeshProUGUI Text;
     public ButtonDisabled ButtonDisabled;
+    public bool KeepDisabled = false;
     [NonSerialized]
     public DateTime DateAvailable;
     public void ApplyFinishDate(DateTime date) {
@@ -20,6 +21,7 @@ public class AdSpinButton : MonoBehaviour {
     }
     public void Spin() {
         DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
+        Text.text = GetTimeText(DateAvailable);
         UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
         UserProgressController.Instance.SaveProgress();
     }
@@ -33,6 +35,10 @@ public class AdSpinButton : MonoBehaviour {
     }
     public void TimerTick() {
         Text.text = GetTimeText(DateAvailable);
-        ButtonDisabled.Enable = DateAvailable < DateTime.Now;
+        if (!KeepDisabled)
+            ButtonDisabled.Enable = DateAvailable < DateTime.Now;
+    }
+    public bool IsTimerRunning {
+        get { return DateAvailable >= DateTime.Now; }
     }
 }
