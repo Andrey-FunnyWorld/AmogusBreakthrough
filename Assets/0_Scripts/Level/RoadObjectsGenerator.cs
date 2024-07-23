@@ -52,17 +52,24 @@ public class RoadObjectsGenerator : MonoBehaviour {
         }
 
         foreach (float pos in positions) {
-            var random = Random.Range(0, 10);
-            if (random == 0) {
-                objects.Add(ProvideWeaponBox(BoxWithRocket, pos, roadTracksCoords));
-            } else {
-                objects.Add(ProvideEnemySimple(EnemySimplePrefab, pos, roadTracksCoords));
+            var random = Random.Range(0, 7);
+            RoadObjectBase nextPrefab = null;
+            switch (random) {
+                case 0: nextPrefab = EnemyGiantPrefab; break;
+                case 1: nextPrefab = CagePrefab; break;
+                default: nextPrefab = EnemySimplePrefab; break;
             }
+            objects.Add(GetNewRoadItem(nextPrefab, pos, roadTracksCoords));
         }
         
         return objects;
     }
-
+    RoadObjectBase GetNewRoadItem(RoadObjectBase prefab, float roadPosition, List<float> roadTracksCoords) {
+        RoadObjectBase newItem = Instantiate(prefab);
+        newItem.RoadPosition = roadPosition;
+        newItem.transform.Translate(ProvideRandomPosition(roadTracksCoords, newItem));
+        return newItem;
+    }
     private Attackable ProvideWeaponBox(
         Weapon Prefab,
         float roadPosition,
@@ -87,11 +94,12 @@ public class RoadObjectsGenerator : MonoBehaviour {
 
     private Vector3 ProvideRandomPosition(
         List<float> roadTracksCoords,
-        Attackable enemy
+        RoadObjectBase newObject
     ) {
         return new Vector3(
             roadTracksCoords[Random.Range(0, roadTracksCoords.Count)],
-            enemy.transform.localScale.y / 2,
+            //enemy.transform.localScale.y / 2,
+            0,
             0
         );
     }

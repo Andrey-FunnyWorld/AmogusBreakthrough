@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8928553826784882796
 Transform:
   m_ObjectHideFlags: 0
@@ -330,6 +330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7301311367787516597}
   - {fileID: 2161144441571208319}
   - {fileID: 2642503079182098242}
   - {fileID: 8928553826784882796}
@@ -350,11 +351,114 @@ MonoBehaviour:
   HealthBar: {fileID: 6422216180927896150}
   RoadPosition: 0
   StartHP: 10
-  MoveSpeed: 0
+  CanBeAttacked: 1
   hitParticle: {fileID: 0}
   WeaponType: 2
   weaponMarker: {fileID: 3724260379435333442}
   boxMarker: {fileID: 4328678368259686510}
+--- !u!1001 &7122937024952300894
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3802586640348939756}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 84.456314
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_Name
+      value: weapon-box
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 5612805099441032426}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 259949950599434673}
+  m_SourcePrefab: {fileID: 100100000, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+--- !u!4 &7301311367787516597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+  m_PrefabInstance: {fileID: 7122937024952300894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7933276208317286415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+  m_PrefabInstance: {fileID: 7122937024952300894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5612805099441032426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933276208317286415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3618efcd9dbb729488c3131694ee1e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSpinning: 1
+  Speed: 90
+--- !u!114 &259949950599434673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933276208317286415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4981a0a831a1a415e92cd7d87617dba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8084753784822338139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -366,6 +470,10 @@ PrefabInstance:
     - target: {fileID: 372912149325809397, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959867571533318320, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7912611037583375908, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_Pivot.x
@@ -433,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7912611037583375908, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.751
+      value: 2.464
       objectReference: {fileID: 0}
     - target: {fileID: 7912611037583375908, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

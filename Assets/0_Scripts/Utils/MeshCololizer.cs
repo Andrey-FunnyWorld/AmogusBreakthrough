@@ -8,11 +8,19 @@ public class MeshCololizer : MonoBehaviour {
     public Color Color;
     public int MaterialIndex;
     public MeshRenderer MeshRenderer;
+    Material newMaterial;
     void Start() {
-        Material newMat = new Material(MeshRenderer.materials[MaterialIndex]);
-        newMat.color = Color;
+        if (newMaterial == null) ApplyStartColor();
+    }
+    void ApplyStartColor() {
+        newMaterial = new Material(MeshRenderer.materials[MaterialIndex]);
+        newMaterial.color = Color;
         List<Material> materials = new List<Material>(MeshRenderer.materials);
-        materials[MaterialIndex] = newMat;
+        materials[MaterialIndex] = newMaterial;
         MeshRenderer.SetMaterials(materials);
+    }
+    public void ChangeColor(Color newColor) {
+        if (newMaterial == null) ApplyStartColor();
+        newMaterial.SetColor("_Color", newColor);
     }
 }

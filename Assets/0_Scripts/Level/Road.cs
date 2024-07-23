@@ -29,6 +29,8 @@ public class Road : MonoBehaviour {
             if (isRunning != value) {
                 isRunning = value;
                 // toggle environment activity if necessary
+                foreach (RoadObjectBase roadObject in roadObjects)
+                    roadObject.IsRunningChanged(isRunning);
             }
         }
     }
