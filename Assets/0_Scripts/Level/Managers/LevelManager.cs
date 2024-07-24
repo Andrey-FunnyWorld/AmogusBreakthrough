@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour {
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
         MovementController.AllowMove = !PerkPanel.ShowOnStart;
-        ApplyProgress(UserProgressController.Instance.ProgressState);
+        //ApplyProgress(UserProgressController.Instance.ProgressState);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void Update() {

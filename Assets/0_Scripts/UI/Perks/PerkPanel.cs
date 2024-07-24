@@ -38,11 +38,6 @@ public class PerkPanel : MonoBehaviour {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
             Debug.Log(perks[i]);
         }
-        StartCoroutine(Utils.WaitAndDo(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * (PerkSelectorCount - 1), () => {
-            foreach (PerkSelector s in selectors) {
-                s.CanSelect = true;
-            }
-        }));
     }
     PerkType[] GetRandomPerks(int perkCount) {
         PerkType[] perks = new PerkType[perkCount];

@@ -7,8 +7,8 @@ public class Weapon : Attackable
     [SerializeField] private WeaponMarker weaponMarker;
     [SerializeField] private WeaponBoxMarker boxMarker;
 
-    public override void Destroyed()
-    {
+    public override void Destroyed() {
+        base.Destroyed();
         boxMarker.gameObject.SetActive(false);
         weaponMarker.gameObject.SetActive(true);
     }

@@ -46,7 +46,7 @@ public class AttackController : MonoBehaviour
             } else if (IsInAttackRange(enemy)) {
                 if (IsInAttackWidth(
                     position: enemy.transform.position.x,
-                    GetRenderer(enemy).bounds.size.x / 2
+                    enemy.Renderer.bounds.size.x / 2
                 )) {
                     AddEnemy(enemy);
                 } else {
@@ -108,14 +108,6 @@ public class AttackController : MonoBehaviour
     private float TeamFarthestPoint() =>
         MainGuy.transform.position.z - MainGuy.transform.lossyScale.z;
 
-    private Renderer GetRenderer(RoadObjectBase enemy) {
-        Renderer r = enemy.GetComponent<Renderer>();
-        if (r == null) {
-            r = enemy.GetComponentInChildren<WeaponBoxMarker>().GetComponent<Renderer>();
-        }
-        return r;
-    }
-
     private void SubscriveEvents() =>
         EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
 
@@ -155,10 +147,11 @@ public class AttackController : MonoBehaviour
 
         attackCoroutine = StartCoroutine(Utils.WaitAndDo(currentWeapon.AttackCooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].HP -= teamDamage;
-                if (enemies[i].HP > 0)
-                    HandleAttackVisualisation();
-
+                if (enemies[i].CanBeAttacked) {
+                    enemies[i].HP -= teamDamage;
+                    if (enemies[i].HP > 0)
+                        HandleAttackVisualisation();
+                }
                 if (enemies[i] == null || enemies[i].HP <= 0) {
                     DoNotAttackIfPickable(enemies[i]);
                     enemies.RemoveAt(i);
