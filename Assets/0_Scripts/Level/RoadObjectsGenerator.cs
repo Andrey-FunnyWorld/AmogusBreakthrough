@@ -57,6 +57,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             switch (random) {
                 case 0: nextPrefab = EnemyGiantPrefab; break;
                 case 1: nextPrefab = CagePrefab; break;
+                case 2: nextPrefab = BoxWithRocket; break;
                 default: nextPrefab = EnemySimplePrefab; break;
             }
             objects.Add(GetNewRoadItem(nextPrefab, pos, roadTracksCoords));

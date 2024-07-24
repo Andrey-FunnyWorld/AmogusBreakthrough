@@ -7,7 +7,7 @@ using UnityEngine;
 public class MeshCololizer : MonoBehaviour {
     public Color Color;
     public int MaterialIndex;
-    public MeshRenderer MeshRenderer;
+    public Renderer MeshRenderer;
     Material newMaterial;
     void Start() {
         if (newMaterial == null) ApplyStartColor();
