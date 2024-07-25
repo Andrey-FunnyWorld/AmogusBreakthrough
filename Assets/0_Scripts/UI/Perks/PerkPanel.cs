@@ -33,8 +33,8 @@ public class PerkPanel : MonoBehaviour {
         UnsubscriveEvents();
     }
     public void RollSelectors() {
-        // PerkType[] perks = GetRandomPerks(PerkSelectorCount); //uncomment
-        PerkType[] perks = GetRandomPerks1(PerkSelectorCount); //remove
+        PerkType[] perks = GetRandomPerks(PerkSelectorCount); //uncomment
+        // PerkType[] perks = GetRandomPerks1(PerkSelectorCount); //remove
         for (int i = 0; i < PerkSelectorCount; i++) {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
             Debug.Log(perks[i]);
