@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySimple : EnemyBase {
     protected override void Attack() {
+        Animator.SetTrigger("attack");
         // apply damage to the team
     }
 }

@@ -2065,7 +2065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySimplePrefab: {fileID: 7419256989263333393, guid: caf4b6db747eea9479c896d7581d12cc, type: 3}
-  EnemyGiantPrefab: {fileID: 0}
+  EnemyGiantPrefab: {fileID: 8006850031438747880, guid: ceffc9554766e0048b1df2f7a6a99c8d, type: 3}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
   BoxWithRocket: {fileID: 5817935461928733998, guid: 2a5adfee2f08e4ef8a799b10373a2c17, type: 3}
 --- !u!1 &1067913565

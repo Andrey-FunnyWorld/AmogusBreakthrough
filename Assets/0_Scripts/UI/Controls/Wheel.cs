@@ -9,21 +9,26 @@ public class Wheel : MonoBehaviour {
     public AdSpinButton AdSpinButton;
     public ButtonScored FreeSpinButton;
     public float StartSpeed = 1440;
+    public ButtonDisabled CloseButton;
     bool isSpinning = false;
     List<WheelItem> items;
     const float DURATION_EXTENT = 1;
     const int SECTOR_COUNT = 8;
     const int RARE_SECTOR_COUNT = 2;
     const int EPIC_SECTOR_COUNT = 1;
+    const float SPIN_REWARD_DELAY = 0.5f;
+    public ShopList BackpackShop, HatShop;
+    public NewSkinPanel NewSkinPanel;
     public void Spin(float duration) {
         if (!isSpinning) {
             isSpinning = true;
             StartCoroutine(Spinning(GetDuration(duration)));
             EventManager.TriggerEvent(EventNames.WheelSpinStart, this);
+            SetDisabledButtons(false);
         }
     }
     public void ApplyProgress(ProgressState state) {
-        FreeSpinButton.SetScore(state.Spins);
+        FreeSpinButton.Score = state.Spins;
         AdSpinButton.ApplyFinishDate(state.AdSpinWhenAvailable);
     }
     float GetDuration(float baseDuration) {
@@ -44,7 +49,27 @@ public class Wheel : MonoBehaviour {
         const float RANGE = 360 / SECTOR_COUNT;
         int sectorIndex = (int)Mathf.Abs(Mathf.Floor((360 - angle) / RANGE));
         EventManager.TriggerEvent(EventNames.WheelSpinResult, items[sectorIndex]);
+        ShowReward(items[sectorIndex]);
         //Debug.Log(string.Format("Angle: {0}; Index: {1}; Type: {2}", angle, sectorIndex, items[sectorIndex].ItemType));
+    }
+    void ShowReward(WheelItem wheelItem) {
+        int shopType = Random.Range(0, 2);
+        ShopList shopList = shopType == 0 ? BackpackShop : HatShop;
+        ShopItemModel rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
+        if (rewardItem != null) {
+            StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => {
+                NewSkinPanel.ShowItem(rewardItem, shopList.ShopType);
+                SetDisabledButtons(true);
+            }));
+        } else {
+            shopList = shopList == HatShop ? BackpackShop : HatShop;
+            rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
+            if (rewardItem != null) {
+                StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => NewSkinPanel.ShowItem(rewardItem, shopList.ShopType) ));
+            } else {
+                Debug.Log("No appropriate skins left");
+            }
+        }
     }
     public void GenerateItems() {
         float radius = 0.7f * WheelTransform.GetComponent<RectTransform>().sizeDelta.x / 2;
@@ -64,6 +89,16 @@ public class Wheel : MonoBehaviour {
         GenerateItems();
     }
     void OnEnable() {
-        FreeSpinButton.SetScore(UserProgressController.Instance.ProgressState.Spins);
+        FreeSpinButton.Score = UserProgressController.Instance.ProgressState.Spins;
+    }
+    void SetDisabledButtons(bool enabled) {
+        CloseButton.Enable = enabled;
+        if (FreeSpinButton.Score > 0) FreeSpinButton.GetComponent<ButtonDisabled>().Enable = enabled;
+        AdSpinButton.KeepDisabled = !enabled;
+        if (enabled) {
+            if (!AdSpinButton.IsTimerRunning) AdSpinButton.ButtonDisabled.Enable = true;
+        }
+        else
+            AdSpinButton.ButtonDisabled.Enable = false;
     }
 }

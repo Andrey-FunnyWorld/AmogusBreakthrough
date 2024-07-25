@@ -13,6 +13,7 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
     public TextMeshProUGUI PriceText;
     public Transform Buy, Equip;
     public SkinQualityColors SkinQualityColors;
+    public Animator Animator;
     [NonSerialized]
     public bool IsAvaiable = false;
     [NonSerialized]
@@ -36,10 +37,12 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
     public void Unlock() {
         ApplyPurchased(true);
         EventManager.TriggerEvent(EventNames.ShopItemPurchased, this);
+        Animator.SetTrigger("Buy");
     }
     public void OnPointerDown(PointerEventData arg) {
         if (IsAvaiable) {
             EventManager.TriggerEvent(EventNames.SkinItemEquip, new SkinItemEquipArgs() { ItemModel = Model, ShopType = ShopType });
+            Animator.SetTrigger("Press");
         } else {
             EventManager.TriggerEvent(EventNames.ShopItemPurchaseTry, new ShopItemPurchaseArgs() { ItemModel = Model, ForFree = false });
         }

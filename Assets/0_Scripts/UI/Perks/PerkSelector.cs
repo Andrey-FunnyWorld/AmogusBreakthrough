@@ -67,6 +67,7 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         CurrentPerk.SetTextVisibility(true);
         CurrentPerk.RectTransform.anchoredPosition = Vector2.zero;
         CurrentPerk.Alpha = 1;
+        CanSelect = true;
     }
     public void OnPointerDown(PointerEventData e) {
         if (CanSelect) {
