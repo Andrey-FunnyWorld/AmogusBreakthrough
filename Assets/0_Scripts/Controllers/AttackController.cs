@@ -129,11 +129,20 @@ public class AttackController : MonoBehaviour {
     float TeamFarthestPoint() =>
         MainGuy.transform.position.z - MainGuy.transform.lossyScale.z;
 
-    Renderer GetRenderer(RoadObjectBase enemy) {
+    Renderer GetRenderer(RoadObjectBase enemy) {      
         Renderer r = enemy.GetComponent<Renderer>();
-        if (r == null) 
-            r = enemy.GetComponent<Weapon>().BoxRenderer;
-        return r;
+        if (r != null) 
+            return r;
+
+        var weapon = enemy.GetComponent<Weapon>();
+        if (weapon != null)
+            return weapon.BoxRenderer;
+
+        var attackable = enemy.GetComponent<Attackable>();
+        if (attackable != null)
+            return attackable.Renderer;
+
+        return null;
     }
 
     void EventWeaponChanged(object argument) {

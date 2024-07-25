@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class Cage : Attackable {
     public float BlinkDuration = 2;
     public MeshCololizer MeshCololizer;
     const float DESTROY_ANIMATION_LENGTH = 1;
+    Coroutine blinkAnimation;
+
+    void Start() =>
+        blinkAnimation = StartCoroutine(Blink(BlinkDuration));
+
     public override void Destroyed() {
         // add Amogus to the team
         base.Destroyed();
@@ -16,10 +19,7 @@ public class Cage : Attackable {
             StopCoroutine(blinkAnimation);
         }));
     }
-    void Start() {
-        blinkAnimation = StartCoroutine(Blink(BlinkDuration));
-    }
-    Coroutine blinkAnimation;
+
     IEnumerator Blink(float time) {
         float timer = 0;
         while (timer < time) {
