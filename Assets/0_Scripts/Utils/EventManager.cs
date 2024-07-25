@@ -66,11 +66,18 @@ public static class EventNames {
     public static string RoadFinished = "RoadFinished";
     public static string StartDataLoaded = "StartDataLoaded";
     public static string LevelLoaded = "LevelLoaded";
+    public static string TeamDead = "TeamDead";
     // UI ->
     public static string RandomSkins = "RandomSkins";
     public static string WheelSpinResult = "WheelSpinResult";
     public static string WheelSpinStart = "WheelSpinStart";
     public static string SkinItemEquip = "SkinItemEquip";
+
+    public static string HpChanged = "HpChanged";
+    public static string EnemyDied = "EnemyDied";
+
+    public static string AbilityOnePunch = "AbilityOnePunch";
+    public static string AbilityBubble = "AbilityBubble";
     
     public static string FreeSpinChanged = "FreeSpinChanged";
     public static string PerkSelected = "PerkSelected";

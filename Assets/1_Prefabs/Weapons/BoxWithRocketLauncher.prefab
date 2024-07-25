@@ -350,9 +350,10 @@ MonoBehaviour:
   HealthBar: {fileID: 6422216180927896150}
   RoadPosition: 0
   StartHP: 10
-  MoveSpeed: 0
+  CanBeAttacked: 1
   hitParticle: {fileID: 0}
   WeaponType: 2
+  BoxRenderer: {fileID: 7259314584645041164}
   weaponMarker: {fileID: 3724260379435333442}
   boxMarker: {fileID: 4328678368259686510}
 --- !u!1001 &8084753784822338139
@@ -366,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 372912149325809397, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959867571533318320, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7912611037583375908, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_Pivot.x

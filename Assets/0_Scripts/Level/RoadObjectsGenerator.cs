@@ -22,6 +22,10 @@ public class RoadObjectsGenerator : MonoBehaviour {
         return DebugGenerateEnemies(roadTracksCoords);
     }
 
+    public void HandleWeaponBoxTransparencyPerk() {
+        //TODO
+    }
+
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         float[] positions = new float[3] { 15, 35, 37 };

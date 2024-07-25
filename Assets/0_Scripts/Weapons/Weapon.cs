@@ -3,6 +3,7 @@ using UnityEngine;
 public class Weapon : Attackable
 {
     public WeaponType WeaponType;
+    public Renderer BoxRenderer;
 
     [SerializeField] private WeaponMarker weaponMarker;
     [SerializeField] private WeaponBoxMarker boxMarker;

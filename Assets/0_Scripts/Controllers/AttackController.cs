@@ -1,21 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackController : MonoBehaviour
-{
+public class AttackController : MonoBehaviour {
     public Road Road;
     public MainGuy MainGuy;
     public WeaponsList weaponsStaticData;
     public AttackFXController fxController;
+    public GameObject AttackZonePlane;
 
-    private List<Attackable> enemies = new List<Attackable>(20);
-    private Dictionary<WeaponType, WeaponDefinition> weapons;
-    private Coroutine attackCoroutine = null;
-    private WeaponDefinition currentWeapon;
+    List<Attackable> enemies = new List<Attackable>(20);
+    Dictionary<WeaponType, WeaponDefinition> weapons;
+    Coroutine attackCoroutine = null;
+    WeaponDefinition currentWeapon;
+    // PerkType primaryPerk;
+    // PerkType secondaryPerk;
 
-    private float attackStartPosition;
-    private float attackEndPosition;
-    private float teamDamage = 0.5f;
+    float attackStartPosition;
+    float attackEndPosition;
+    float teamDamage = 0.5f;
+
+    bool extraBossDamage;
+    bool extraAttackWidth;
 
     void Start() {
         SubscriveEvents();
@@ -25,7 +30,8 @@ public class AttackController : MonoBehaviour
     void Update() {
         if (Road.MovementStarted && enemies.Count > 0) {
             AttackEnemies();
-        } else if (enemies.Count == 0) {
+        } else if (!Road.MovementStarted) {
+            enemies.Clear();
             fxController.ClearAttackFXs();
         }
     }
@@ -38,16 +44,17 @@ public class AttackController : MonoBehaviour
             return;
 
         if (roadObject is Attackable enemy) {
-            if (!enemy.CanBeAttacked) 
+            if (!enemy.CanBeAttacked)
                 return;
 
             if (IsMainGuyReached(enemy)) {
                 RemoveEnemy(enemy);
             } else if (IsInAttackRange(enemy)) {
                 if (IsInAttackWidth(
-                    position: enemy.transform.position.x,
-                    GetRenderer(enemy).bounds.size.x / 2
-                )) {
+                        position: enemy.transform.position.x,
+                        GetRenderer(enemy).bounds.size.x / 2
+                    )
+                ) {
                     AddEnemy(enemy);
                 } else {
                     RemoveEnemy(enemy);
@@ -55,7 +62,7 @@ public class AttackController : MonoBehaviour
             }
         }
     }
-    
+
     public void Prepare() {
         InitAttackRange();
         PrepareWeapons();
@@ -67,14 +74,12 @@ public class AttackController : MonoBehaviour
             return false;
 
         float nearest = roadObject.transform.position.z - roadObject.transform.lossyScale.z / 2;
-        if (!PlayerIsReached(nearest)) {
+        if (!PlayerIsReached(nearest)) 
             return false;
-        }
         float farthest = roadObject.transform.position.z + roadObject.transform.lossyScale.z / 2;
-        if (PlayerIsDrovePast(farthest)) {
+        if (PlayerIsDrovePast(farthest))
             return false;
-        }
-
+        
         float objectHalfWidth = roadObject.transform.lossyScale.x / 2;
         float objectX = roadObject.transform.position.x;
         float teamNearestLeft = TeamNearestLeftPoint();
@@ -88,79 +93,88 @@ public class AttackController : MonoBehaviour
         return false;
     }
 
-    private bool NotAllInitialized() =>
+    public void ApplyPerk(PerkType perk) {
+        if (perk == PerkType.BossDamage)
+            extraBossDamage = true;
+        else if (perk == PerkType.AttackZoneVisibility)
+            PrepareAttackZoneVisibility();
+        else if (perk == PerkType.ExtraAttackWidth)
+            extraAttackWidth = true;
+    }
+
+    void PrepareAttackZoneVisibility() {
+        var teamSize = MainGuy.Team.GetTeamSize();
+        AttackZonePlane.transform.localPosition = new Vector3(0, 0, teamSize.z / 2);
+        AttackZonePlane.transform.localScale = new Vector3(teamSize.x, 0.01f, teamSize.z);
+        AttackZonePlane.transform.parent.gameObject.SetActive(true);
+    }
+
+    bool NotAllInitialized() =>
         MainGuy == null || MainGuy.Team == null || MainGuy.Team.MostLeftMate == null;
-        
-    private bool PlayerIsReached(float nearestZPointToPlayer) =>
+
+    bool PlayerIsReached(float nearestZPointToPlayer) =>
         nearestZPointToPlayer < MainGuy.transform.position.z + MainGuy.transform.lossyScale.z / 2;
 
-    private bool PlayerIsDrovePast(float farthestZPointToPlayer) =>
+    bool PlayerIsDrovePast(float farthestZPointToPlayer) =>
         farthestZPointToPlayer < MainGuy.transform.position.z - MainGuy.transform.lossyScale.z / 2;
 
-    private float TeamNearestLeftPoint() =>
+    float TeamNearestLeftPoint() =>
         MainGuy.Team.MostLeftMate.transform.position.x
         - MainGuy.Team.MostLeftMate.transform.lossyScale.x / 2;
 
-    private float TeamNearestRightPoint() =>
+    float TeamNearestRightPoint() =>
         MainGuy.Team.MostRightMate.transform.position.x
         + MainGuy.Team.MostRightMate.transform.lossyScale.x / 2;
 
-    private float TeamFarthestPoint() =>
+    float TeamFarthestPoint() =>
         MainGuy.transform.position.z - MainGuy.transform.lossyScale.z;
 
-    private Renderer GetRenderer(RoadObjectBase enemy) {
+    Renderer GetRenderer(RoadObjectBase enemy) {
         Renderer r = enemy.GetComponent<Renderer>();
-        if (r == null) {
-            r = enemy.GetComponentInChildren<WeaponBoxMarker>().GetComponent<Renderer>();
-        }
+        if (r == null) 
+            r = enemy.GetComponent<Weapon>().BoxRenderer;
         return r;
     }
 
-    private void SubscriveEvents() =>
-        EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
-
-    private void UnsubscriveEvents() =>
-        EventManager.StopListening(EventNames.WeaponChanged, EventWeaponChanged);
-
-    private void EventWeaponChanged(object argument) {
-        if (argument is WeaponType weaponType) {
+    void EventWeaponChanged(object argument) {
+        if (argument is WeaponType weaponType) 
             HandleWeaponChanged(weaponType);
-        }
     }
 
-    private void InitAttackRange() {
+    void InitAttackRange() {
         float MainGuyZCoord = MainGuy.transform.position.z;
         attackStartPosition = MainGuyZCoord + MainGuy.Team.AttackRange + 1;
         attackEndPosition = MainGuyZCoord + 1;
     }
 
-    private void PrepareWeapons() {
+    void PrepareWeapons() {
         weapons = new Dictionary<WeaponType, WeaponDefinition>(weaponsStaticData.Items.Length);
-        foreach (WeaponDefinition weapon in weaponsStaticData.Items) {
+        foreach (WeaponDefinition weapon in weaponsStaticData.Items) 
             weapons.Add(weapon.Type, weapon);
-        }
     }
 
-    private void HandleWeaponChanged(WeaponType weaponType) {
+    void HandleWeaponChanged(WeaponType weaponType) {
         currentWeapon = weapons[weaponType];
         InitTeamDamage();
     }
 
-    private void InitTeamDamage() =>
+    void InitTeamDamage() =>
         teamDamage = currentWeapon.Damage * MainGuy.DamageMultiplier
             + MainGuy.Team.MatesCount * currentWeapon.Damage;
 
-    private void AttackEnemies() {
+    void AttackEnemies() {
         if (attackCoroutine != null) return;
 
         attackCoroutine = StartCoroutine(Utils.WaitAndDo(currentWeapon.AttackCooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].HP -= teamDamage;
+                enemies[i].HP -= GetDamage(enemies[i]);
                 if (enemies[i].HP > 0)
                     HandleAttackVisualisation();
 
                 if (enemies[i] == null || enemies[i].HP <= 0) {
-                    DoNotAttackIfPickable(enemies[i]);
+                    if (!IsPickable(enemies[i])) {
+                        EventManager.TriggerEvent(EventNames.EnemyDied);
+                    }
                     enemies.RemoveAt(i);
                     i--;
                 }
@@ -170,15 +184,22 @@ public class AttackController : MonoBehaviour
         }));
     }
 
-    private void DoNotAttackIfPickable(Attackable enemy) {
+    float GetDamage(Attackable enemy) {
+        //TODO if enemy is boss and extraBossDamage==true -> extra damage
+        return teamDamage;
+    }
+
+    bool IsPickable(Attackable enemy) {
         if (enemy != null) {
             if (enemy is Weapon weapon) {
                 weapon.DisableBeenAttacked();
+                return true;
             }
         }
+        return false;
     }
 
-    private void HandleAttackVisualisation() {
+    void HandleAttackVisualisation() {
         if (!fxController.IsPrepared(currentWeapon.Type)) {
             fxController.PrepareAttackFXs(
                 weapon: currentWeapon,
@@ -191,25 +212,32 @@ public class AttackController : MonoBehaviour
         }
     }
 
-    private bool IsInAttackRange(Attackable enemy) =>
+    bool IsInAttackRange(Attackable enemy) =>
         enemy.transform.position.z - enemy.transform.lossyScale.z <= attackStartPosition;
 
-    private bool IsMainGuyReached(Attackable enemy) =>
+    bool IsMainGuyReached(Attackable enemy) =>
         enemy.transform.position.z <= attackEndPosition;
 
-    private bool IsInAttackWidth(float position, float halfWidth) {
-        return position >= MainGuy.Team.MostLeftMate.position.x - halfWidth
-            && position <= MainGuy.Team.MostRightMate.position.x + halfWidth;
+    bool IsInAttackWidth(float position, float halfWidth) {
+        int extraAttackZone = extraAttackWidth ? 1 : 0;
+        return position >= MainGuy.Team.MostLeftMate.position.x - halfWidth - extraAttackZone
+            && position <= MainGuy.Team.MostRightMate.position.x + halfWidth + extraAttackZone;
     }
 
-    private void AddEnemy(Attackable enemy) {
+    void AddEnemy(Attackable enemy) {
         if (enemies.Contains(enemy))
             return;
         enemies.Add(enemy);
     }
 
-    private void RemoveEnemy(Attackable enemy) {
+    void RemoveEnemy(Attackable enemy) {
         enemy.VisualiseTakeDamage(false);
         enemies.Remove(enemy);
     }
+
+    void SubscriveEvents() =>
+        EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
+
+    void UnsubscriveEvents() =>
+        EventManager.StopListening(EventNames.WeaponChanged, EventWeaponChanged);
 }

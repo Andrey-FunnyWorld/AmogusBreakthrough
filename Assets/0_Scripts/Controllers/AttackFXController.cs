@@ -73,6 +73,9 @@ public class AttackFXController : MonoBehaviour {
     }
 
     private void VisualiseAttack() {
+        if (enemies == null || enemies.Count == 0)
+            return;
+            
         for (int i = 0; i < maxEffectsCount; i++) {
             if (Time.time >= cooldowns[i]) {
                 cooldowns[i] = GetNextEmitionTime();
@@ -134,6 +137,7 @@ public class AttackFXController : MonoBehaviour {
         );
     }
 
-    private Vector3 GetRandomEnemyPosition() =>
-        enemies[Random.Range(0, enemies.Count)].transform.position;
+    private Vector3 GetRandomEnemyPosition() {
+        return enemies[Random.Range(0, enemies.Count)].transform.position;
+    }
 }

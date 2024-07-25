@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class UserProgressController : MonoBehaviour {
     public static UserProgressController Instance;
-    [System.NonSerialized]
-    public ProgressState ProgressState;
-    [System.NonSerialized]
-    public PlayerSettings PlayerSettings;
+    [NonSerialized] public ProgressState ProgressState;
+    [NonSerialized] public PlayerSettings PlayerSettings;
     public bool IsLogged = false;
     public bool ProgressLoaded;
     public static string TRUE = "true";
@@ -40,11 +35,11 @@ public class UserProgressController : MonoBehaviour {
 
     }
     public void SaveSettings() {
-        
+
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class ProgressState {
     public int Money;
     public int Spins;
@@ -57,11 +52,10 @@ public class ProgressState {
     public int UpgradeLevelAttackSpeed;
     public int UpgradeLevelDamage;
     public int SkipAdRounds = 0;
-    [System.NonSerialized]
-    public bool SkipSaveTargetDialog;
+    [NonSerialized] public bool SkipSaveTargetDialog;
     public string AdSpinWhenAvailableString;
     public DateTime AdSpinWhenAvailable {
-        get { 
+        get {
             if (AdSpinWhenAvailableString != string.Empty)
                 return DateTime.Parse(AdSpinWhenAvailableString);
             else return new DateTime(1900, 0, 0);
@@ -117,7 +111,8 @@ public class ProgressState {
         }
     }
 }
-[System.Serializable]
+
+[Serializable]
 public class PlayerSettings {
     public PlayerSettings() {
         MusicVolume = 0.5f;

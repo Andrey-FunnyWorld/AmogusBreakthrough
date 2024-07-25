@@ -9,12 +9,13 @@ public class MainGuy : TeamMember {
         transform.position = newPosition;
         Team.ApplyMovement(newPosition);
     }
-    
     public void StartMove() {
         // start move animation for the guy and team
     }
-
     public void ApplyProgress(ProgressState progress) {
         Team.CreateTeam(progress);
+    }
+    public void ApplyExtraGuyPerk(PerkType type) {
+        Team.ApplyExtraGuyPerk(type);
     }
 }

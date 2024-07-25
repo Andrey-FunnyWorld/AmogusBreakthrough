@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
-public class Team : MonoBehaviour
-{
+public class Team : MonoBehaviour {
     public MainGuy MainGuy;
     public Amogus AmogusPrefab;
     public TeamLayout Layout = TeamLayout.Battle;
@@ -32,19 +28,16 @@ public class Team : MonoBehaviour
     const float MIN_RANGE = 0.4f;
     public const int MAX_CAPACITY = 10;
 
-    void Start() {
-        SubscriveEvents();
-    }
+    PerkType perkPrimary;
+    PerkType perkSecondary;
 
-    void OnDestroy() {
-        UnsubscriveEvents();
-    }
+    void Start() => SubscribeEvents();
+    void OnDestroy() => UnsubscribeEvents();
 
     public void CreateTeam(ProgressState state) {
         Mates = new List<Amogus>(StartupCount);
         colors = new List<Color>(StartupCount);
-        for (int i = 0; i < StartupCount; i++)
-        {
+        for (int i = 0; i < StartupCount; i++) {
             CreateMate((SkinItemName)state.EquippedBackpacks[i + 1], (SkinItemName)state.EquippedHats[i + 1]);
         }
         CalcTeamRange();
@@ -55,6 +48,22 @@ public class Team : MonoBehaviour
         CreateMate(skinBackpack, skinHat);
         CalcTeamRange();
     }
+    public void ApplyMovement(Vector3 newPosition) {
+        foreach (Amogus amogus in Mates) {
+            amogus.ApplyMovement(newPosition);
+        }
+    }
+    public void ApplyExtraGuyPerk(PerkType perk) {
+        perkPrimary = perk;
+
+        if (perk == PerkType.ExtraGuy) {
+            if (Count == MAX_CAPACITY)
+                Debug.LogError("Perk Extra Guy: TEAM ALREADY FULL");
+            else
+                AddNewMate();
+        }
+    }
+
     void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
         Vector3 offset = CalcOffset();
@@ -65,14 +74,10 @@ public class Team : MonoBehaviour
         ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
 
-        if (MostLeftMate == null || MostLeftMate.position.x > offset.x)
-        {
+        if (MostLeftMate == null || MostLeftMate.position.x > offset.x) 
             MostLeftMate = newMate.transform;
-        }
-        if (MostRightMate == null || MostRightMate.position.x < offset.x)
-        {
+        if (MostRightMate == null || MostRightMate.position.x < offset.x) 
             MostRightMate = newMate.transform;
-        }
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -97,8 +102,7 @@ public class Team : MonoBehaviour
                 0,
                 Z_OFFSET * ((Mates.Count / 2) % 2 == 0 ? -1 : 1)
             );
-        }
-        else if (Layout == TeamLayout.Line) {
+        } else if (Layout == TeamLayout.Line) {
             offset = new Vector3(
                 X_OFFSET_LINE * (Mates.Count / 2 + 1) * (Mates.Count % 2 == 0 ? -1 : 1),
                 0, 0
@@ -109,11 +113,6 @@ public class Team : MonoBehaviour
     void CalcTeamRange() {
         teamRange.Start = Mathf.Min(-MIN_RANGE, -X_OFFSET * ((Mates.Count + 1) / 2));
         teamRange.End = Mathf.Max(MIN_RANGE, X_OFFSET * (Mates.Count / 2));
-    }
-    public void ApplyMovement(Vector3 newPosition) {
-        foreach (Amogus amogus in Mates) {
-            amogus.ApplyMovement(newPosition);
-        }
     }
     Color GetNextColor() {
         return TeamColors[colors.Count];
@@ -126,14 +125,14 @@ public class Team : MonoBehaviour
     };
 
     #region Events
-    void SubscriveEvents() {
+    void SubscribeEvents() {
         EventManager.StartListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StartListening(EventNames.RandomSkins, ApplyRandomSkins);
         EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
     }
-    void UnsubscriveEvents() {
+    void UnsubscribeEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
         EventManager.StopListening(EventNames.RandomSkins, ApplyRandomSkins);
         EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
@@ -166,8 +165,8 @@ public class Team : MonoBehaviour
         for (int i = 0; i < Mates.Count; i++) {
             if (args.ShopType == SkinType.Backpack) {
                 Material skinMaterial = args.ItemModel.SkinName != SkinItemName.None
-                    ? MaterialStorage.Instance.GetBackpackMaterial(args.ItemModel.SkinName):
-                    null;
+                    ? MaterialStorage.Instance.GetBackpackMaterial(args.ItemModel.SkinName)
+                    : null;
                 Mates[i].ApplyBackpack(skinMaterial);
             } else {
                 ApplyHat(Mates[i], args.ItemModel.SkinName);
@@ -189,14 +188,14 @@ public class Team : MonoBehaviour
             Gizmos.DrawCube(GetTeamPosition(), GetTeamSize());
         }
     }
-    private Vector3 GetTeamPosition() {
+    public Vector3 GetTeamPosition() {
         return new Vector3(
             (MostLeftMate.position.x + MostRightMate.position.x) / 2,
             2,
             transform.position.z + AttackRange / 2 + 1
         );
     }
-    private Vector3 GetTeamSize() {
+    public Vector3 GetTeamSize() {
         return new Vector3(Mathf.Abs(teamRange.Start) + Mathf.Abs(teamRange.End), 4, AttackRange);
     }
 }

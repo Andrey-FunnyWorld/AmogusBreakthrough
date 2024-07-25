@@ -4,23 +4,22 @@ using UnityEngine;
 public class Road : MonoBehaviour {
     public float StartSpeed = 2;
     public MeshRenderer RoadMeshRenderer;
-    [HideInInspector]
-    public float ZeroPointInWorld;
+    [HideInInspector] public float ZeroPointInWorld;
+    [SerializeField] private AttackController AttackHandler;
+    public List<RoadObjectBase> roadObjects;
 
     public float Width;
     public float Length = 40;
 
     public float tracksCount = 10; //todo
 
-    [SerializeField] private AttackController AttackHandler;
-
+    List<float> tracksCoords;
     float texOffsetFactor = 0;
     bool isRunning = false;
     float moveTime = 0;
     float currentPosition = 0;
-    public List<RoadObjectBase> roadObjects;
-    List<float> tracksCoords;
     float speed = 0;
+    float speedReduceFactor = 0.75f;
 
     public bool MovementStarted { get; set; }
 
@@ -73,14 +72,19 @@ public class Road : MonoBehaviour {
         return tracksCoords;
     }
 
-    public void PrepareAttackController() {
+    public void PrepareAttackController() =>
         AttackHandler.Prepare();
-    }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
         roadObjects = objects;
         MoveObjects();
     }
+
+    public void ApplySlowerMoveSpeedPerk() =>
+        Speed *= speedReduceFactor;
+
+    public void HandlePerk(PerkType perk) =>
+        AttackHandler.ApplyPerk(perk);
 
     void MoveRoadTexture() {
         float texOffset = moveTime / texOffsetFactor;
