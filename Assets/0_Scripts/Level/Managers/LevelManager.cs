@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour {
     public RoadObjectsGenerator ObjectsGenerator;
     public MainGuy MainGuy;
     public LevelUIManager LevelUIManager;
+    public StartGate StartGate;
     public MovementController MovementController;
     public PerkPanel PerkPanel;
     void Start() {
@@ -32,6 +33,7 @@ public class LevelManager : MonoBehaviour {
         Road.IsRunning = true;
         Road.MovementStarted = true;
         LevelUIManager.LetsRoll();
+        StartGate.Open();
     }
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);

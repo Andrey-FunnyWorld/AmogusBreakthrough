@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Road : MonoBehaviour {
     public float StartSpeed = 2;
-    public MeshRenderer RoadMeshRenderer;
+    public RunningTexture[] RunningTextures;
+    public RoadDecorationGenerator RoadDecorationGenerator;
     [HideInInspector]
     public float ZeroPointInWorld;
 
@@ -14,7 +15,6 @@ public class Road : MonoBehaviour {
 
     [SerializeField] private AttackController AttackHandler;
 
-    float texOffsetFactor = 0;
     bool isRunning = false;
     float moveTime = 0;
     float currentPosition = 0;
@@ -31,6 +31,8 @@ public class Road : MonoBehaviour {
                 // toggle environment activity if necessary
                 foreach (RoadObjectBase roadObject in roadObjects)
                     roadObject.IsRunningChanged(isRunning);
+                foreach (RunningTexture tex in RunningTextures)
+                    tex.IsRunning = isRunning;
             }
         }
     }
@@ -40,25 +42,32 @@ public class Road : MonoBehaviour {
         set {
             if (speed != value) {
                 speed = value;
-                texOffsetFactor = 10 / ((RoadMeshRenderer.material.mainTextureScale.y / transform.localScale.z) * Speed);
+                foreach (RunningTexture tex in RunningTextures)
+                    tex.SetSpeed(speed);
             }
         }
     }
 
     void Start() {
         Speed = StartSpeed;
+        roadObjects.AddRange(RoadDecorationGenerator.GenerateStartDecoration());
     }
 
     void Update() {
         if (IsRunning) {
             moveTime += Time.deltaTime;
             currentPosition = moveTime * Speed;
+            NotifyDecorationGenerator();
             MoveObjects();
-            MoveRoadTexture();
+            //MoveRoadTexture();
             HandleFinishReached();
         }
     }
-
+    void NotifyDecorationGenerator() {
+        RoadObjectBase roadObject = RoadDecorationGenerator.PositionChanged(currentPosition);
+        if (roadObject != null)
+            roadObjects.Add(roadObject);
+    }
     public List<float> InitTracks() {
         tracksCoords = new List<float>();
 
@@ -80,13 +89,8 @@ public class Road : MonoBehaviour {
     }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
-        roadObjects = objects;
+        roadObjects.AddRange(objects);
         MoveObjects();
-    }
-
-    void MoveRoadTexture() {
-        float texOffset = moveTime / texOffsetFactor;
-        RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
     }
 
     void HandleFinishReached() {
@@ -133,10 +137,18 @@ public class Road : MonoBehaviour {
     }
 
     void CleanupObjects() {
+        // remove destroyed objects
         for (int i = 0; i < roadObjects.Count; i++) {
             if (roadObjects[i] == null) {
                 roadObjects.RemoveAt(i);
                 i--;
+            }
+        }
+        // remove objects you passed by
+        for (int i = 0; i < roadObjects.Count; i++) {
+            if (roadObjects[i].RoadPosition < currentPosition - 10) {
+                Destroy(roadObjects[i].gameObject);
+                roadObjects.RemoveAt(i);
             }
         }
     }
