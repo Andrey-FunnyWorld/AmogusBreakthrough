@@ -21,4 +21,5 @@ public static class Utils {
     public static float EaseInSquare(float x) {
         return Mathf.Pow(x, 2);
     }
+    public static float Gravity = 9.8f;
 }
