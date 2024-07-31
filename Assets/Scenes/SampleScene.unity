@@ -2061,7 +2061,7 @@ MonoBehaviour:
   RoadDecorationGenerator: {fileID: 1456129684}
   ZeroPointInWorld: 0
   Width: 10
-  Length: 40
+  Length: 90
   tracksCount: 10
   AttackHandler: {fileID: 802100786}
   roadObjects:
@@ -2446,7 +2446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: {fileID: 565776720}
   AnimateValueChange: 1
-  Format: 0 <sprite name="diamond">
+  Format: '{0} <sprite name="diamond">'
   AnimationDuration: 0.5
 --- !u!1 &583020458
 GameObject:
@@ -9357,6 +9357,7 @@ MonoBehaviour:
   EndGate: {fileID: 370711256}
   MovementController: {fileID: 545052289}
   PerkPanel: {fileID: 514675589}
+  ImposterManager: {fileID: 1468848079}
 --- !u!1 &1971944821
 GameObject:
   m_ObjectHideFlags: 0
@@ -10547,6 +10548,10 @@ PrefabInstance:
       propertyPath: MainGuy
       value: 
       objectReference: {fileID: 959194257}
+    - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
+      propertyPath: StartupCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8933173661979025443, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

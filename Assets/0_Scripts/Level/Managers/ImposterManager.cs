@@ -14,7 +14,7 @@ public class ImposterManager : MonoBehaviour {
     int maxSteps = 3;
     int imposterIndex = 0;
     bool imposterDetected = false;
-    public void RunPredatorScene() {
+    public void RunImposterScene() {
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
         Debug.Log("imposterIndex: " + imposterIndex);
@@ -58,11 +58,6 @@ public class ImposterManager : MonoBehaviour {
                 if (!finePlatformIndices.Contains(i))
                     DropPlatforms[i].ReadyForSelection();
             }
-        }
-    }
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.B)) {
-            RunPredatorScene();
         }
     }
     List<Dictionary<int, int>> checkedMatesByStep = new List<Dictionary<int, int>>() {

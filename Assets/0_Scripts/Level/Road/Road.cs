@@ -21,6 +21,7 @@ public class Road : MonoBehaviour {
     public List<RoadObjectBase> roadObjects;
     List<float> tracksCoords;
     float speed = 0;
+    bool finished = false;
 
     public bool MovementStarted { get; set; }
 
@@ -94,8 +95,9 @@ public class Road : MonoBehaviour {
     }
 
     void HandleFinishReached() {
-        if (currentPosition >= Length) {
+        if (!finished && currentPosition >= Length) {
             IsRunning = false;
+            finished = true;
             EventManager.TriggerEvent(EventNames.RoadFinished, this);
         }
     }
