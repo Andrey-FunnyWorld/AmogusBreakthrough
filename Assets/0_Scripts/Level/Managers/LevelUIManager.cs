@@ -6,9 +6,9 @@ public class LevelUIManager : MonoBehaviour {
     public Transform StartupMsg;
     public Transform RoadFinishedMsg;
     public void LetsRoll() {
-        StartupMsg.gameObject.SetActive(false);
+        //StartupMsg.gameObject.SetActive(false);
     }
     public void RoadFinished() {
-        RoadFinishedMsg.gameObject.SetActive(true);
+        //RoadFinishedMsg.gameObject.SetActive(true);
     }
 }

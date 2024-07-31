@@ -41,7 +41,8 @@ public class RoadObjectsGenerator : MonoBehaviour {
     }
 
     List<RoadObjectBase> DebugGenerateEnemies(List<float> roadTracksCoords) {
-        int enemiesCount = Random.Range(20, 50);
+        //int enemiesCount = Random.Range(20, 50);
+        int enemiesCount = 30;
         List<RoadObjectBase> objects = new List<RoadObjectBase>(enemiesCount);
         float nextPosition = 15;
         List<float> positions = new List<float>(enemiesCount) { nextPosition };

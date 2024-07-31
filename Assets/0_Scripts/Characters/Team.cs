@@ -13,7 +13,6 @@ public class Team : MonoBehaviour
     public TeamLayout Layout = TeamLayout.Battle;
     public HatNamePrefabMap HatNamePrefabMap;
     public float AmogusDamage = 0.1f;
-    [HideInInspector] public int Count;
     public int StartupCount = 3;
     List<Color> colors;
     List<Amogus> Mates;
@@ -39,7 +38,9 @@ public class Team : MonoBehaviour
     void OnDestroy() {
         UnsubscriveEvents();
     }
-
+    public Amogus GetMate(int index) {
+        return Mates[index];
+    }
     public void CreateTeam(ProgressState state) {
         Mates = new List<Amogus>(StartupCount);
         colors = new List<Color>(StartupCount);
@@ -50,8 +51,8 @@ public class Team : MonoBehaviour
         CalcTeamRange();
     }
     public void AddNewMate() {
-        SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[Count];
-        SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[Count];
+        SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[MatesCount];
+        SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[MatesCount];
         CreateMate(skinBackpack, skinHat);
         CalcTeamRange();
     }
@@ -120,7 +121,7 @@ public class Team : MonoBehaviour
         // List<Color> availableColors = TeamColors.Except(colors).ToList();
         // return availableColors[Random.Range(0, availableColors.Count)];
     }
-    static Color[] TeamColors = new Color[10] {
+    public static Color[] TeamColors = new Color[10] {
         Color.red, Color.blue, Color.green, Color.magenta, Color.yellow, Color.grey,
         new Color(1, 0.49f, 0.19f), new Color(0.54f, 0.17f, 0.88f), new Color(0.57f, 0.44f, 0.86f), new Color(0.5f, 0.5f,0)
     };
@@ -175,7 +176,7 @@ public class Team : MonoBehaviour
         }
     }
     void CageDestroyed(object arg) {
-        if (Count == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
+        if (MatesCount == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
         else {
             Cage cage = (Cage)arg;
             AddNewMate();
@@ -198,6 +199,12 @@ public class Team : MonoBehaviour
     }
     private Vector3 GetTeamSize() {
         return new Vector3(Mathf.Abs(teamRange.Start) + Mathf.Abs(teamRange.End), 4, AttackRange);
+    }
+    public void HideGuns() {
+        foreach (Amogus mate in Mates) {
+            mate.GunPlaceholderLeft.GetChild(0).gameObject.SetActive(false);
+            mate.GunPlaceholderRight.GetChild(0).gameObject.SetActive(false);
+        }
     }
 }
 

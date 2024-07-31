@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class ScoreText : MonoBehaviour {
     public TMP_Text Text;
     public bool AnimateValueChange = true;
-    const float ANIMATION_DURATION = 0.7f;
+    public string Format = "{0} <sprite name=\"coin\">";
+    public float AnimationDuration = 0.7f;
     int score = 0;
     int prevValue = 0;
-    string format = "{0} <sprite name=\"coin\">";
     public int Score {
         get { return score;}
         set {
@@ -25,16 +25,16 @@ public class ScoreText : MonoBehaviour {
         if (AnimateValueChange)
             StartCoroutine(AnimateValueTextChange());
         else
-            Text.text = string.Format(format, score);
+            Text.text = string.Format(Format, score);
     }
     IEnumerator AnimateValueTextChange() {
         float timer = 0;
-        while (timer < ANIMATION_DURATION) {
+        while (timer < AnimationDuration) {
             timer += Time.deltaTime;
-            float animRatio = timer / ANIMATION_DURATION;
+            float animRatio = timer / AnimationDuration;
             float animProgress = MathUtils.EaseOutCubic(animRatio);
             float animValue = Mathf.Round(prevValue + (score - prevValue) * animProgress);
-            Text.text = string.Format(format, animValue);
+            Text.text = string.Format(Format, animValue);
             yield return null;
         }
     }
