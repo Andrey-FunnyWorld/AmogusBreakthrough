@@ -10,6 +10,7 @@ public class ResultUI : MonoBehaviour {
     public Animator Animator;
     public UnityEvent[] AnimationSteps;
     public LevelLoader LevelLoader;
+    public MyDialog LoginDialog;
     ResultUIViewModel viewModel;
     public void ShowImposterResult(bool success) {
         ImposterResultUI.ShowResult(success);
@@ -34,8 +35,29 @@ public class ResultUI : MonoBehaviour {
     public void SetAnimationStep(int index) {
         AnimationSteps[index].Invoke();
     }
+    public void FinishLevel() {
+        if (!UserProgressController.Instance.ProgressState.SkipSaveTargetDialog) {
+            LoginDialog.Show(() => {
+                HtmlBridge.Instance.AskToLogin();
+            }, () => {
+                LoadMenuLevel();
+            });
+        } else {
+            LoadMenuLevel();
+        }
+    }
     public void LoadMenuLevel() {
+        UserProgressController.Instance.SaveProgress();
         LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+    }
+    void AuthStatusRecieved(object arg) {
+        LoadMenuLevel();
+    }
+    void Start() {
+        EventManager.StartListening(EventNames.AuthStatusRecieved, AuthStatusRecieved);
+    }
+    void OnDestroy() {
+        EventManager.StopListening(EventNames.AuthStatusRecieved, AuthStatusRecieved);
     }
 }
 

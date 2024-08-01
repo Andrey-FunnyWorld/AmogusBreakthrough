@@ -70,6 +70,7 @@ public class ImposterManager : MonoBehaviour {
     }
     public void Dropped(int index) {
         imposterDetected = index == imposterIndex;
+        UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
         CameraFocusPlatform(DropPlatforms[index]);
         StartCoroutine(Utils.WaitAndDo(2, () => {
             // stop drums sound

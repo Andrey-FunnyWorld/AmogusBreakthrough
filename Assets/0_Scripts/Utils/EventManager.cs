@@ -66,6 +66,7 @@ public static class EventNames {
     public static string RoadFinished = "RoadFinished";
     public static string StartDataLoaded = "StartDataLoaded";
     public static string LevelLoaded = "LevelLoaded";
+    public static string AuthStatusRecieved = "AuthStatusRecieved";
     // UI ->
     public static string RandomSkins = "RandomSkins";
     public static string WheelSpinResult = "WheelSpinResult";

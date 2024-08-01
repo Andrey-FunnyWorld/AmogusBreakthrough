@@ -65,6 +65,7 @@ public class Team : MonoBehaviour
         ApplyMaterials(newMate, backpackSkin);
         ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
+        newMate.SetRun(true);
 
         if (MostLeftMate == null || MostLeftMate.position.x > offset.x)
         {

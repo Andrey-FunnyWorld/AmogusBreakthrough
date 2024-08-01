@@ -18,6 +18,8 @@ public class MainMenuManager : MonoBehaviour {
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Start() {
         SubscriveEvents();
+        if (UserProgressController.ProgressLoaded)
+            ApplyProgressAll();
     }
     void OnDestroy() {
         UnsubscriveEvents();
@@ -66,7 +68,7 @@ public class MainMenuManager : MonoBehaviour {
     void SkipAdPurchased(object arg) {
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
     }
-    void StartDataLoaded(object arg) {
+    void ApplyProgressAll() {
         ApplyProgress(UserProgressController.Instance.ProgressState);
         SettingsPanel.ApplyProgress(UserProgressController.Instance.PlayerSettings);
         ShopBackpacks.GenerateItems(UserProgressController.Instance.ProgressState);
@@ -75,6 +77,9 @@ public class MainMenuManager : MonoBehaviour {
         UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
         SkipAdButton.ApplyProgress(UserProgressController.Instance.ProgressState.SkipAdRounds);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
+    }
+    void StartDataLoaded(object arg) {
+        ApplyProgressAll();
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);

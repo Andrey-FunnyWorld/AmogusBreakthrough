@@ -10,8 +10,11 @@ public class UserProgressController : MonoBehaviour {
     public ProgressState ProgressState;
     [System.NonSerialized]
     public PlayerSettings PlayerSettings;
+    [NonSerialized]
     public bool IsLogged = false;
-    public bool ProgressLoaded;
+    #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
+    public static bool ProgressLoaded = false;
+    #endif
     public static string TRUE = "true";
     public SkinItems BackpackItems;
 
@@ -30,17 +33,18 @@ public class UserProgressController : MonoBehaviour {
     public void LoadFromFile() {
         PlayerSettings = ProgressFileSaver.LoadSettings();
         ProgressState = ProgressFileSaver.LoadProgress();
-        ProgressState.AdjustHats(BackpackItems.Items.Length - 1); // 1 is for None
+        ProgressState.SkipSaveTargetDialog = true;
+        //ProgressState.AdjustHats(BackpackItems.Items.Length - 1); // 1 is for None
         StartCoroutine(Utils.WaitAndDo(0.1f, () => {
-            Instance.ProgressLoaded = true;
+            ProgressLoaded = true;
             EventManager.TriggerEvent(EventNames.StartDataLoaded, null);
         }));
     }
     public void SaveProgress() {
-
+        HtmlBridge.Instance.SaveProgress();
     }
     public void SaveSettings() {
-        
+        HtmlBridge.Instance.SaveSettings();
     }
 }
 
@@ -58,8 +62,10 @@ public class ProgressState {
     public int UpgradeLevelDamage;
     public int SkipAdRounds = 0;
     [System.NonSerialized]
-    public bool SkipSaveTargetDialog;
+    public bool SkipSaveTargetDialog; // атрибут делает так, чтобы запрос на логин происходил каждый раз при перезаходе в игру не под аккаунтом
     public string AdSpinWhenAvailableString;
+    public int CompletedRoundsCount = 0;
+    public int ImposterDetectedCount = 0;
     public DateTime AdSpinWhenAvailable {
         get { 
             if (AdSpinWhenAvailableString != string.Empty)
@@ -68,7 +74,7 @@ public class ProgressState {
         }
     }
     public ProgressState() {
-        DefaultValues();
+        //DefaultValues();
     }
     void DefaultValues() {
         EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
@@ -81,6 +87,12 @@ public class ProgressState {
         AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
         PurchasedPerks = new int[4] { 0, 1, 2, 3 };
         UpgradeLevelDamage = 7;
+    }
+    public void Equipp(SkinType skinType, SkinItemName skinName) {
+        int[] skinItemArray = skinType == SkinType.Hat ? EquippedHats : EquippedBackpacks;
+        for (int i = 0; i < skinItemArray.Length; i++) {
+            skinItemArray[i] = (int)skinName;
+        }
     }
     public void AddPurchased(SkinType skinType, SkinItemName skinName) {
         int[] skinItemArray = skinType == SkinType.Hat ? PurchasedHats : PurchasedBackpacks;
@@ -106,16 +118,16 @@ public class ProgressState {
             case UpgradeType.HP: UpgradeLevelHP = level; break;
         }
     }
-    public void AdjustHats(int startIndex) {
-        for (int i = 0; i < EquippedHats.Length; i++) {
-            if (EquippedHats[i] > 0)
-                EquippedHats[i] += startIndex;
-        }
-        for (int i = 0; i < PurchasedHats.Length; i++) {
-            if (PurchasedHats[i] > 0)
-                PurchasedHats[i] += startIndex;
-        }
-    }
+    // public void AdjustHats(int startIndex) {
+    //     for (int i = 0; i < EquippedHats.Length; i++) {
+    //         if (EquippedHats[i] > 0)
+    //             EquippedHats[i] += startIndex;
+    //     }
+    //     for (int i = 0; i < PurchasedHats.Length; i++) {
+    //         if (PurchasedHats[i] > 0)
+    //             PurchasedHats[i] += startIndex;
+    //     }
+    // }
 }
 [System.Serializable]
 public class PlayerSettings {
