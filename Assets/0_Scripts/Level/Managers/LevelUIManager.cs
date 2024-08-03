@@ -18,11 +18,13 @@ public class LevelUIManager : MonoBehaviour {
 
     void OnDestroy() => UnsubscribeEvents();
 
-    public void LetsRoll() =>
-        StartupMsg.gameObject.SetActive(false);
+    public void LetsRoll() {
+        //StartupMsg.gameObject.SetActive(false);
+    }
 
-    public void RoadFinished() =>
-        RoadFinishedMsg.gameObject.SetActive(true);
+    public void RoadFinished() {
+        //RoadFinishedMsg.gameObject.SetActive(true);
+    }
 
     public void HandlePerk(PerkType perk) {
         currentAbility = perk;

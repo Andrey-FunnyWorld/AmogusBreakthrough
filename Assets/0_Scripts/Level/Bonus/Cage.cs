@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cage : Attackable {
     public float BlinkDuration = 2;
     public MeshCololizer MeshCololizer;
+    public Transform ChainedAmogus;
     const float DESTROY_ANIMATION_LENGTH = 1;
     Coroutine blinkAnimation;
 
@@ -12,14 +13,13 @@ public class Cage : Attackable {
         blinkAnimation = StartCoroutine(Blink(BlinkDuration));
 
     public override void Destroyed() {
-        // add Amogus to the team
         base.Destroyed();
         EventManager.TriggerEvent(EventNames.CageDestroyed, this);
         StartCoroutine(Utils.WaitAndDo(DESTROY_ANIMATION_LENGTH, () => {
             StopCoroutine(blinkAnimation);
         }));
+        Destroy(ChainedAmogus.gameObject);
     }
-
     IEnumerator Blink(float time) {
         float timer = 0;
         while (timer < time) {

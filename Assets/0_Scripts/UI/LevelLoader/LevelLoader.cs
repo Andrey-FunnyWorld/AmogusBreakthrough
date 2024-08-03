@@ -9,6 +9,7 @@ public class LevelLoader : MonoBehaviour {
     public const int MENU_BUILD_INDEX = 0;
     public const int BATTLE_BUILD_INDEX = 1;
     public static Difficulty Difficulty;
+    bool isLoading = false;
     //public AdsManager AdsManager;
     void Awake() {
         SubscribeEvents();
@@ -17,11 +18,14 @@ public class LevelLoader : MonoBehaviour {
         UnsubscribeEvents();
     }
     public void LoadScene(int buildIndex) {
-        Time.timeScale = 1;
-        if (TransitionTime == 0)
-            SceneManager.LoadScene(buildIndex);
-        else {
-            StartCoroutine(TransitionToLevel(buildIndex));
+        if (!isLoading) {
+            isLoading = true;
+            Time.timeScale = 1;
+            if (TransitionTime == 0)
+                SceneManager.LoadScene(buildIndex);
+            else {
+                StartCoroutine(TransitionToLevel(buildIndex));
+            }
         }
     }
     IEnumerator TransitionToLevel(int buildIndex) {

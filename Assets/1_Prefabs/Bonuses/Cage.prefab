@@ -48,15 +48,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be1a203a4121824b85a91f82c9651e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 1048954554630594232}
   RoadPosition: 0
-  StartHP: 50
   Renderer: {fileID: 4472956077750493333}
   CanBeAttacked: 1
   hitParticle: {fileID: 0}
+  HealthBar: {fileID: 1048954554630594232}
+  StartHP: 20
   Animator: {fileID: 922541405734045614}
   BlinkDuration: 2
   MeshCololizer: {fileID: 5833231759337093076}
+  ChainedAmogus: {fileID: 612844759449452270}
 --- !u!114 &5833231759337093076
 MonoBehaviour:
   m_ObjectHideFlags: 0
