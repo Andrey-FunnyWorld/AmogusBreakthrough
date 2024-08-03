@@ -76,19 +76,23 @@ public class ProgressState {
         }
     }
     public ProgressState() {
-        //DefaultValues();
+        DefaultValues(false);
     }
-    void DefaultValues() {
-        EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
-        EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
+    void DefaultValues(bool debug = false) {
+        AdSpinWhenAvailableString = DateTime.Now.ToString();
+        PurchasedPerks = new int[4] { 0, 1, 2, 3 };
         PurchasedBackpacks = new int[1] { 0 };
         PurchasedHats = new int[1] { 0 };
-        SkipSaveTargetDialog = false;
-        Spins = 2;
-        Money = 900;
-        AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
-        PurchasedPerks = new int[4] { 0, 1, 2, 3 };
-        UpgradeLevelDamage = 7;
+        if (debug) {
+            EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
+            EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
+            SkipSaveTargetDialog = false;
+            Spins = 2;
+            Money = 900;
+            AdSpinWhenAvailableString = DateTime.Now.AddSeconds(15).ToString();// "05/19/2024 19:41:35";
+            PurchasedPerks = new int[4] { 0, 1, 2, 3 };
+            UpgradeLevelDamage = 7;
+        }
     }
     public void Equipp(SkinType skinType, SkinItemName skinName) {
         int[] skinItemArray = skinType == SkinType.Hat ? EquippedHats : EquippedBackpacks;

@@ -10,6 +10,7 @@ public class DefeatUI : MonoBehaviour {
     DefeatViewModel viewModel;
     public void AdRewardCoins(int multiplier) {
         canLoadNextLevel = false;
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
         HtmlBridge.Instance.ShowRewarded(() => {
             viewModel.CoinReward *= multiplier;
             SetCoins();
@@ -23,6 +24,7 @@ public class DefeatUI : MonoBehaviour {
         gameObject.SetActive(true);
         AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
         SetCoins();
+        HtmlBridge.Instance.ReportMetric(MetricNames.Lose);
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;

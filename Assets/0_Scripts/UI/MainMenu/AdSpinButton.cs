@@ -22,6 +22,7 @@ public class AdSpinButton : MonoBehaviour {
         ButtonDisabled.Enable = DateAvailable < DateTime.Now;
     }
     public void Spin() {
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWheel);
         HtmlBridge.Instance.ShowRewarded(() => {
             DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
             Text.text = GetTimeText(DateAvailable);

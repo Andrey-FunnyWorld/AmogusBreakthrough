@@ -13,12 +13,20 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
     UnityAction interstitialClosedCallback;
     bool rewardSuccess = false;
     bool boot = true;
+    bool readyToPlayPinged = false;
 
     #region Load and Save
+    PlatformType GetPlatformTypeByString(string platformTypeStr) {
+        switch (platformTypeStr) {
+            case "android": return PlatformType.Android;
+            case "ios": return PlatformType.IOS;
+            default: return PlatformType.Desktop;
+        }
+    }
     public void ReceiveStartupData(string startupData) {
         StartupViewModel vm = startupData != string.Empty ? JsonUtility.FromJson<StartupViewModel>(startupData) : new StartupViewModel();
-        PlatformType = vm.Platform;
-        IsLogged = vm.IsLogged;
+        PlatformType = GetPlatformTypeByString(vm.Platform);
+        IsLogged = vm.IsLogged == TRUE;
         MyLocalization.Instance.CurrentLanguage = vm.Locale;
         UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = IsLogged;
         UserProgressController.Instance.ProgressState = vm.Progress;
@@ -112,13 +120,20 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
     #endregion
 
     public void ReadyToPlay() {
-        PingYandexReadyExtern();
+        if (!readyToPlayPinged) {
+            readyToPlayPinged = true;
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            PingYandexReadyExtern();
+            #endif
+        }
     }
     public void RateGame() {
         RateGameExtern();
     }
     public void ReportMetric(string id) {
+        #if UNITY_WEBGL && !UNITY_EDITOR
         ReportMetricExtern(id);
+        #endif
     }
     [DllImport("__Internal")]
     private static extern void SaveExtern(string data);

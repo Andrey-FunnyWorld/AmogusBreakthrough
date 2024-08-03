@@ -17,7 +17,7 @@ public class ImposterManager : MonoBehaviour {
     public void RunImposterScene() {
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
-        Debug.Log("imposterIndex: " + imposterIndex);
+        //Debug.Log("imposterIndex: " + imposterIndex);
         ImposterUI.Transition(true);
         StartCoroutine(Utils.WaitAndDo(ImposterUI.TransitionDuration + 0.1f, () => {
             ImposterUI.Init(Team);
@@ -70,6 +70,7 @@ public class ImposterManager : MonoBehaviour {
     }
     public void Dropped(int index) {
         imposterDetected = index == imposterIndex;
+        HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
         UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
         CameraFocusPlatform(DropPlatforms[index]);
         StartCoroutine(Utils.WaitAndDo(2, () => {

@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour {
         //LevelUIManager.LetsRoll();
         StartGate.Open();
         EndGate.GetComponent<RoadObjectBase>().RoadPosition = Road.Length + END_GATE_OFFSET;
+        HtmlBridge.Instance.ReportMetric(MetricNames.BattleLevelStarted);
     }
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);

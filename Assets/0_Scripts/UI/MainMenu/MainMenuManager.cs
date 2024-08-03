@@ -49,6 +49,7 @@ public class MainMenuManager : MonoBehaviour {
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
         UserProgressController.Instance.SaveProgress();
+        HtmlBridge.Instance.ReportMetric(MetricNames.SkinPurchased);
     }
     void PerkItemPurchased(object arg) {
         PerkModel model = (PerkModel)arg;
@@ -57,6 +58,7 @@ public class MainMenuManager : MonoBehaviour {
         UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
         UserProgressController.Instance.SaveProgress();
+        HtmlBridge.Instance.ReportMetric(MetricNames.PerkPurchased);
     }
     void UpgradeItemPurchased(object arg) {
         UpgradeItem upgradeItem = (UpgradeItem)arg;
@@ -64,6 +66,7 @@ public class MainMenuManager : MonoBehaviour {
         UserProgressController.Instance.ProgressState.AddUpgrade(upgradeItem.UpgradeType, upgradeItem.CurrentLevel);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
         UserProgressController.Instance.SaveProgress();
+        HtmlBridge.Instance.ReportMetric(MetricNames.UpgradePurchased);
     }
     void SkipAdPurchased(object arg) {
         ApplyProgressLight(UserProgressController.Instance.ProgressState);

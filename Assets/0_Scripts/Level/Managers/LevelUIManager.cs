@@ -12,7 +12,7 @@ public class LevelUIManager : MonoBehaviour {
         }
     }
     public void AdjustToPlatform(PlatformType platformType) {
-        IPlatformAdaptable[] adaptables = GetComponentsInChildren<IPlatformAdaptable>();
+        IPlatformAdaptable[] adaptables = GetComponentsInChildren<IPlatformAdaptable>(true);
         foreach (IPlatformAdaptable adaptable in adaptables)
             adaptable.Adapt(platformType);
         //TouchControls.gameObject.SetActive(platformType != PlatformType.Desktop);

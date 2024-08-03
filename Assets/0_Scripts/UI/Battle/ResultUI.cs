@@ -23,6 +23,7 @@ public class ResultUI : MonoBehaviour {
         ImposterNotDetected.gameObject.SetActive(false);
         Animator.SetTrigger("show");
         UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
+        HtmlBridge.Instance.ReportMetric(MetricNames.Win);
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;
@@ -74,6 +75,7 @@ public class ResultUI : MonoBehaviour {
     }
     public void AdRewardCoins(int multiplier) {
         canLoadNextLevel = false;
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWinCoin);
         HtmlBridge.Instance.ShowRewarded(() => {
             viewModel.CoinReward *= multiplier;
             SetCoins();

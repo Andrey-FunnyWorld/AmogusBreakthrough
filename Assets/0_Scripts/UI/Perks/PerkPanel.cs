@@ -45,7 +45,7 @@ public class PerkPanel : MonoBehaviour {
         PerkType[] perks = GetRandomPerks(PerkSelectorCount, takenExtraPerk);
         for (int i = 0; i < PerkSelectorCount; i++) {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
-            Debug.Log(perks[i]);
+            //Debug.Log(perks[i]);
         }
     }
     PerkType[] GetRandomPerks(int perkCount, PerkType? perkType) {
