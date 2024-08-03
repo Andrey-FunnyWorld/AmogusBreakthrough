@@ -74,19 +74,22 @@ public class Road : MonoBehaviour {
         return tracksCoords;
     }
 
-    public void PrepareAttackController() =>
+    public void PrepareAttackController() {
         AttackHandler.Prepare();
+    }
 
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
         roadObjects = objects;
         MoveObjects();
     }
 
-    public void ApplySlowerMoveSpeedPerk() =>
+    public void ApplySlowerMoveSpeedPerk() {
         Speed *= speedReduceFactor;
+    }
 
-    public void HandlePerk(PerkType perk) =>
+    public void HandlePerk(PerkType perk) {
         AttackHandler.ApplyPerk(perk);
+    }
 
     void MoveRoadTexture() {
         float texOffset = moveTime / texOffsetFactor;
