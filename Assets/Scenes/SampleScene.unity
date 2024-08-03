@@ -2246,7 +2246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4475153430503592960, guid: 5bf26909e0e212747a4eb222e590d3f2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5424280474797783236, guid: 5bf26909e0e212747a4eb222e590d3f2, type: 3}
       propertyPath: en
@@ -2404,6 +2404,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5450550595541848367, guid: 5bf26909e0e212747a4eb222e590d3f2, type: 3}
   m_PrefabInstance: {fileID: 448848291}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &448848294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8405795113179522274, guid: 5bf26909e0e212747a4eb222e590d3f2, type: 3}
+  m_PrefabInstance: {fileID: 448848291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a36d5edf84c9f44842512f0fa40ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &480155376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &514675586
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7914,7 +7925,7 @@ MonoBehaviour:
         m_CallState: 2
   LevelLoader: {fileID: 506962321}
   LoginDialog: {fileID: 172160303}
-  RateDialog: {fileID: 0}
+  RateDialog: {fileID: 448848294}
 --- !u!95 &1461843902
 Animator:
   serializedVersion: 5
