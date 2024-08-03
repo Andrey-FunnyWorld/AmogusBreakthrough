@@ -23,6 +23,7 @@ public class Road : MonoBehaviour {
     public List<RoadObjectBase> roadObjects;
     List<float> tracksCoords;
     float speed = 0;
+    float speedReduceFactor = 0.75f;
     bool finished = false;
 
     public bool MovementStarted { get; set; }
@@ -96,6 +97,14 @@ public class Road : MonoBehaviour {
     public void AssignRoadObjects(List<RoadObjectBase> objects) {
         roadObjects.AddRange(objects);
         MoveObjects();
+    }
+
+    public void ApplySlowerMoveSpeedPerk() {
+        Speed *= speedReduceFactor;
+    }
+
+    public void HandlePerk(PerkType perk) {
+        AttackHandler.ApplyPerk(perk);
     }
 
     // void MoveRoadTexture() {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,12 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public EnemyGiant EnemyGiantPrefab;
     public Cage CagePrefab;
     public Weapon BoxWithRocket;
+    public Transform enemiesContainer;
+
+    public GameObject IonGunPrefab;
+    public GameObject BlasterPrefab;
+    public GameObject RifflePrefab;
+    public GameObject BazookaPrefab;
 
     Dictionary<EnemyType, float> enemyWeights = new Dictionary<EnemyType, float>() {
         { EnemyType.Simple, 1 },
@@ -22,6 +29,10 @@ public class RoadObjectsGenerator : MonoBehaviour {
         return DebugGenerateEnemies(roadTracksCoords);
     }
 
+    public void HandleWeaponBoxTransparencyPerk() {
+        //TODO
+    }
+
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         float[] positions = new float[3] { 15, 35, 37 };
@@ -30,7 +41,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             cage.RoadPosition = pos;
             cage.transform.Translate(
                 new Vector3(
-                    roadTracksCoords[Random.Range(0, roadTracksCoords.Count)],
+                    roadTracksCoords[UnityEngine.Random.Range(0, roadTracksCoords.Count)],
                     cage.transform.localScale.y / 2,
                     0
                 )
@@ -48,12 +59,12 @@ public class RoadObjectsGenerator : MonoBehaviour {
         List<float> positions = new List<float>(enemiesCount) { nextPosition };
         
         for (int i = 1; i < enemiesCount; i++) {
-            nextPosition += Random.Range(1, 3);
+            nextPosition += UnityEngine.Random.Range(1, 3);
             positions.Add(nextPosition);
         }
 
         foreach (float pos in positions) {
-            var random = Random.Range(0, 7);
+            var random = UnityEngine.Random.Range(0, 7);
             RoadObjectBase nextPrefab = null;
             switch (random) {
                 case 0: nextPrefab = EnemyGiantPrefab; break;
@@ -70,7 +81,28 @@ public class RoadObjectsGenerator : MonoBehaviour {
         RoadObjectBase newItem = Instantiate(prefab);
         newItem.RoadPosition = roadPosition;
         newItem.transform.Translate(ProvideRandomPosition(roadTracksCoords, newItem));
+        if (newItem is Weapon weapon) {
+            weapon.TurnOffDieFx();
+            weapon.WeaponType = GetRandomWeapon();
+            GenerateWeaponForBox(weapon.weaponMarker.transform, weapon.WeaponType);
+        }
+        newItem.transform.parent = enemiesContainer;
         return newItem;
+    }
+    WeaponType GetRandomWeapon() {
+        var values = Enum.GetValues(typeof(WeaponType));
+        return (WeaponType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+    }
+    void GenerateWeaponForBox(Transform transform, WeaponType weapon) {
+        if (weapon == WeaponType.Rifle) {
+            Instantiate(RifflePrefab, transform);
+        } else if (weapon == WeaponType.Blaster) {
+            Instantiate(BlasterPrefab, transform);
+        } else if (weapon == WeaponType.Bazooka) {
+            Instantiate(BazookaPrefab, transform);
+        } else if (weapon == WeaponType.IonGun) {
+            Instantiate(IonGunPrefab, transform);
+        }
     }
     private Attackable ProvideWeaponBox(
         Weapon Prefab,
@@ -99,7 +131,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         RoadObjectBase newObject
     ) {
         return new Vector3(
-            roadTracksCoords[Random.Range(0, roadTracksCoords.Count)],
+            roadTracksCoords[UnityEngine.Random.Range(0, roadTracksCoords.Count)],
             //enemy.transform.localScale.y / 2,
             0,
             0
