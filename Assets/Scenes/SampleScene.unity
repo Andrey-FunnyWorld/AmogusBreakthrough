@@ -2688,6 +2688,7 @@ MonoBehaviour:
   ExtraRollPrice: 100
   ExtraRollText: {fileID: 1425707131}
   YourCoinsText: {fileID: 516797048}
+  PerkBar: {fileID: 1023350268}
 --- !u!1 &516797046
 GameObject:
   m_ObjectHideFlags: 0
@@ -5826,6 +5827,90 @@ MonoBehaviour:
   EnemyGiantPrefab: {fileID: 8006850031438747880, guid: ceffc9554766e0048b1df2f7a6a99c8d, type: 3}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
   BoxWithRocket: {fileID: 5817935461928733998, guid: 2a5adfee2f08e4ef8a799b10373a2c17, type: 3}
+--- !u!1 &1023350265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023350266}
+  - component: {fileID: 1023350269}
+  - component: {fileID: 1023350268}
+  - component: {fileID: 1023350267}
+  m_Layer: 5
+  m_Name: PerksBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1023350266
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1067913569}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 15, y: 15}
+  m_SizeDelta: {x: 150, y: 70}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1023350267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_StartCorner: 0
+  m_StartAxis: 1
+  m_CellSize: {x: 70, y: 70}
+  m_Spacing: {x: 10, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &1023350268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c731491a3e9864f45b6caf7b3b75680e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationDuration: 0.7
+  PerkContainer: {fileID: 1023350267}
+--- !u!222 &1023350269
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350265}
+  m_CullTransparentMesh: 1
 --- !u!224 &1031006949 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8063757826466485041, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
@@ -6051,6 +6136,7 @@ RectTransform:
   - {fileID: 896444374}
   - {fileID: 480155377}
   - {fileID: 514675586}
+  - {fileID: 1023350266}
   - {fileID: 1885099917}
   - {fileID: 1461843900}
   - {fileID: 1883750008}

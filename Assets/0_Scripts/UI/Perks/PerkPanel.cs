@@ -14,16 +14,18 @@ public class PerkPanel : MonoBehaviour {
     public bool ExtraPerkTaken = false;
     public int ExtraRollPrice = 100;
     public TMPro.TextMeshProUGUI ExtraRollText, YourCoinsText;
+    public PerkBar PerkBar;
     PerkType? takenExtraPerk = null;
     List<PerkSelector> selectors;
     const float ROLL_BASE_DURATION = 2f;
     const float ROLL_DURATION_OFFSET = 1f;
-    void CreateSelectors() {
+    PerkType[] availablePerks;
+    void CreateSelectors(PerkType[] availablePerks) {
         selectors = new List<PerkSelector>(PerkSelectorCount);
         for (int i = 0; i < PerkSelectorCount; i++) {
             PerkSelector selector = Instantiate(PerkSelectorPrefab, Grid.transform);
-            selector.CreatePerkItems(Grid.cellSize.y);
-            selector.ItemRollDuration = Random.Range(0.1f, 0.2f);
+            selector.CreatePerkItems(Grid.cellSize.y, availablePerks);
+            selector.ItemRollDuration = Random.Range(0.1f, 0.15f);
             selectors.Add(selector);
         }
     }
@@ -31,8 +33,6 @@ public class PerkPanel : MonoBehaviour {
         gameObject.SetActive(ShowOnStart);
         if (ShowOnStart) {
             SubscriveEvents();
-            CreateSelectors();
-            RollSelectors();
             ExtraRollText.text = string.Format(
                 MyLocalization.Instance.GetLocalizedText(LocalizationKeys.ExtraPerkFormat), ExtraRollPrice
             );
@@ -50,10 +50,10 @@ public class PerkPanel : MonoBehaviour {
     }
     PerkType[] GetRandomPerks(int perkCount, PerkType? perkType) {
         PerkType[] perks = new PerkType[perkCount];
-        List<PerkType> availablePerks = PerkSelectorPrefab.PerkStorage.Perks.Select(p => p.PerkType).Where(p => p != perkType).ToList();
+        List<PerkType> perksToPick = availablePerks.Where(p => p != perkType).ToList();
         for (int i = 0; i < perkCount; i++) {
-            perks[i] = availablePerks[Random.Range(0, availablePerks.Count)];
-            availablePerks.Remove(perks[i]);
+            perks[i] = perksToPick[Random.Range(0, perksToPick.Count)];
+            perksToPick.Remove(perks[i]);
         }
         return perks;
     }
@@ -72,13 +72,15 @@ public class PerkPanel : MonoBehaviour {
         UserProgressController.Instance.SaveProgress();
     }
     void PerkSelected(object arg) {
-        if (ExtraPerkTaken)
+        PerkItem perkItem = (PerkItem)arg;
+        if (ExtraPerkTaken) {
             gameObject.SetActive(false);
-        else {
+            PerkBar.AcceptPerk(perkItem);
+        } else {
             Grid.gameObject.SetActive(false);
             Buttons.gameObject.SetActive(true);
-            PerkItem perkItem = (PerkItem)arg;
             takenExtraPerk = perkItem.PerkType;
+            PerkBar.AcceptPerk(perkItem);
         }
     }
     public void ApplyProgress(ProgressState state) {
@@ -86,5 +88,8 @@ public class PerkPanel : MonoBehaviour {
             MyLocalization.Instance.GetLocalizedText(LocalizationKeys.YouHaveCoins), state.Money
         );
         ExtraRollText.transform.parent.GetComponent<ButtonDisabled>().Enable = state.Money >= ExtraRollPrice;
+        availablePerks = state.PurchasedPerks.Select(p => (PerkType)p).ToArray();
+        CreateSelectors(availablePerks);
+        RollSelectors();
     }
 }
