@@ -351,10 +351,11 @@ MonoBehaviour:
   HealthBar: {fileID: 6422216180927896150}
   RoadPosition: 0
   StartHP: 10
+  Animator: {fileID: 5209589766713078537}
+  Renderer: {fileID: 0}
   CanBeAttacked: 1
   hitParticle: {fileID: 0}
-  Animator: {fileID: 5209589766713078537}
-  WeaponType: 2
+  WeaponType: 3
   BoxRenderer: {fileID: 7259314584645041164}
   weaponMarker: {fileID: 3724260379435333442}
   boxMarker: {fileID: 4328678368259686510}
@@ -485,11 +486,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!23 &8437587213992126938 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
-  m_PrefabInstance: {fileID: 7122937024952300894}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8084753784822338139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -501,10 +497,6 @@ PrefabInstance:
     - target: {fileID: 372912149325809397, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1959867571533318320, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1959867571533318320, guid: 3784d4f6cbdbfac449ca3982731a8a35, type: 3}
       propertyPath: m_PresetInfoIsWorld

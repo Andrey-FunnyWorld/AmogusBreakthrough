@@ -7,13 +7,15 @@ public class AttackController : MonoBehaviour {
     public WeaponsList weaponsStaticData;
     public AttackFXController fxController;
     public GameObject AttackZonePlane;
+    public Transform AttackZoneParent;
+
+    public float bossExtraMin = 1.1f;
+    public float bossExtraMax = 1.4f;
 
     List<Attackable> enemies = new List<Attackable>(20);
     Dictionary<WeaponType, WeaponDefinition> weapons;
     Coroutine attackCoroutine = null;
     WeaponDefinition currentWeapon;
-    // PerkType primaryPerk;
-    // PerkType secondaryPerk;
 
     float attackStartPosition;
     float attackEndPosition;
@@ -97,16 +99,32 @@ public class AttackController : MonoBehaviour {
         if (perk == PerkType.BossDamage)
             extraBossDamage = true;
         else if (perk == PerkType.AttackZoneVisibility)
-            PrepareAttackZoneVisibility();
+            CalcAndActivateAttackZoneVisibility();
         else if (perk == PerkType.ExtraAttackWidth)
             extraAttackWidth = true;
+            CalcAttackZone();
     }
 
-    void PrepareAttackZoneVisibility() {
-        var teamSize = MainGuy.Team.GetTeamSize();
+    void CalcAttackZone() {
+        Vector3 teamSize = MainGuy.Team.GetTeamSize(extraAttackWidth);
+        Vector3 zoneParentPrevLocal = AttackZoneParent.localPosition;
+        Vector3 teamPosition = MainGuy.Team.GetTeamPosition();
+        Vector3 worldToLocal = MainGuy.transform.InverseTransformPoint(teamPosition);
+
+        AttackZoneParent.localPosition = new Vector3(worldToLocal.x, zoneParentPrevLocal.y, zoneParentPrevLocal.z);
         AttackZonePlane.transform.localPosition = new Vector3(0, 0, teamSize.z / 2);
         AttackZonePlane.transform.localScale = new Vector3(teamSize.x, 0.01f, teamSize.z);
+    }
+
+    void CalcAndActivateAttackZoneVisibility() {
+        CalcAttackZone();
         AttackZonePlane.transform.parent.gameObject.SetActive(true);
+    }
+
+    private void HandleMatesChanged(object arg0) {
+        CalcAttackZone();
+        // AttackZonePlane.transform.parent.gameObject.SetActive(true); //debug, remove later
+        MainGuy.Team.SwitchWeapon(currentWeapon.Type);
     }
 
     bool NotAllInitialized() =>
@@ -165,6 +183,7 @@ public class AttackController : MonoBehaviour {
     void HandleWeaponChanged(WeaponType weaponType) {
         currentWeapon = weapons[weaponType];
         InitTeamDamage();
+        MainGuy.Team.SwitchWeapon(weaponType);
     }
 
     void InitTeamDamage() =>
@@ -194,7 +213,9 @@ public class AttackController : MonoBehaviour {
     }
 
     float GetDamage(Attackable enemy) {
-        //TODO if enemy is boss and extraBossDamage==true -> extra damage
+        if (extraBossDamage && enemy.GetComponent<EnemyGiant>() != null) {
+            return teamDamage * UnityEngine.Random.Range(bossExtraMin, bossExtraMax);
+        }
         return teamDamage;
     }
 
@@ -244,9 +265,13 @@ public class AttackController : MonoBehaviour {
         enemies.Remove(enemy);
     }
 
-    void SubscriveEvents() =>
+    void SubscriveEvents() {
         EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
+        EventManager.StartListening(EventNames.MatesChanged, HandleMatesChanged);
+    }
 
-    void UnsubscriveEvents() =>
+    void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.WeaponChanged, EventWeaponChanged);
+        EventManager.StopListening(EventNames.MatesChanged, HandleMatesChanged);
+    }
 }

@@ -11,7 +11,7 @@ public class Road : MonoBehaviour {
     public float Width;
     public float Length = 40;
 
-    public float tracksCount = 10; //todo
+    public float tracksCount = 10;
 
     List<float> tracksCoords;
     float texOffsetFactor = 0;

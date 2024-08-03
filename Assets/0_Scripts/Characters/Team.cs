@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,17 +18,16 @@ public class Team : MonoBehaviour {
     public int MatesCount => Mates.Count;
 
     public float AttackRange = 10f;
-    [NonSerialized] public Transform MostLeftMate;
-    [NonSerialized] public Transform MostRightMate;
+    public Transform MostLeftMate;
+    public Transform MostRightMate;
+    float leftMateHalfSize;
+    float rightMateHalfSize;
 
     const float X_OFFSET_LINE = 1.5f;
     const float X_OFFSET = 0.6f;
     const float Z_OFFSET = 0.7f;
     const float MIN_RANGE = 0.4f;
     public const int MAX_CAPACITY = 10;
-
-    PerkType perkPrimary;
-    PerkType perkSecondary;
 
     void Start() => SubscribeEvents();
     void OnDestroy() => UnsubscribeEvents();
@@ -47,6 +45,7 @@ public class Team : MonoBehaviour {
         SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[Count];
         CreateMate(skinBackpack, skinHat);
         CalcTeamRange();
+        EventManager.TriggerEvent(EventNames.MatesChanged);
     }
     public void ApplyMovement(Vector3 newPosition) {
         foreach (Amogus amogus in Mates) {
@@ -54,14 +53,16 @@ public class Team : MonoBehaviour {
         }
     }
     public void ApplyExtraGuyPerk(PerkType perk) {
-        perkPrimary = perk;
-
         if (perk == PerkType.ExtraGuy) {
             if (Count == MAX_CAPACITY)
                 Debug.LogError("Perk Extra Guy: TEAM ALREADY FULL");
             else
                 AddNewMate();
         }
+    }
+    public void SwitchWeapon(WeaponType weaponType) {
+        foreach (var mate in Mates)
+            mate.SwitchWeapon(weaponType);
     }
 
     void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin) {
@@ -74,10 +75,16 @@ public class Team : MonoBehaviour {
         ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
 
-        if (MostLeftMate == null || MostLeftMate.position.x > offset.x) 
+        if (MostLeftMate == null || MostLeftMate.position.x > newMate.transform.position.x) {
             MostLeftMate = newMate.transform;
-        if (MostRightMate == null || MostRightMate.position.x < offset.x) 
+            leftMateHalfSize = GetHalfScaleX(MostLeftMate);
+        }
+        
+        if (MostRightMate == null || MostRightMate.position.x < newMate.transform.position.x) {
             MostRightMate = newMate.transform;
+            rightMateHalfSize = GetHalfScaleX(MostRightMate);
+        }
+        
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -131,6 +138,7 @@ public class Team : MonoBehaviour {
         EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
+        // EventManager.StartListening(EventNames.WeaponChanged, WeaponChanged);
     }
     void UnsubscribeEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
@@ -138,7 +146,9 @@ public class Team : MonoBehaviour {
         EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
+        // EventManager.StopListening(EventNames.MatesChanged, WeaponChanged);
     }
+
     void StartMovement(object arg) {
         MainGuy.SetRun(true);
         foreach (Amogus mate in Mates)
@@ -182,21 +192,30 @@ public class Team : MonoBehaviour {
     }
     #endregion
 
+    float GetHalfScaleX(Transform transform) {
+        return transform.localScale.x / 2;
+    }
+
     void OnDrawGizmos() {
         if (MostLeftMate != null) {
-            Gizmos.color = new Color(1, 1, 0, 0.25F);
+            Gizmos.color = new Color(1, 1, 0, 0.15F);
             Gizmos.DrawCube(GetTeamPosition(), GetTeamSize());
         }
     }
     public Vector3 GetTeamPosition() {
         return new Vector3(
             (MostLeftMate.position.x + MostRightMate.position.x) / 2,
-            2,
+            0,
             transform.position.z + AttackRange / 2 + 1
         );
     }
-    public Vector3 GetTeamSize() {
-        return new Vector3(Mathf.Abs(teamRange.Start) + Mathf.Abs(teamRange.End), 4, AttackRange);
+    public Vector3 GetTeamSize(bool extraAttackWidth = false) {
+        float extraWidth = extraAttackWidth ? 2f : 0f;
+        return new Vector3(
+            MostRightMate.position.x - MostLeftMate.position.x + extraWidth + leftMateHalfSize + rightMateHalfSize,
+            1,
+            AttackRange
+        );
     }
 }
 

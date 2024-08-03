@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Amogus : TeamMember {
@@ -11,9 +9,26 @@ public class Amogus : TeamMember {
     [NonSerialized]
     public Transform ActiveHat;
     Material colorMat;
+
+    const int MATERIAL_INDEX_BODY = 0;
+    const int MATERIAL_INDEX_BACKPACK = 1;
+    const int MATERIAL_INDEX_BACKPACK_SKIN = 3;
+    const float LOOK_AROUND_ANIMATION_MIN_DELAY = 4;
+    const float LOOK_AROUND_ANIMATION_MAX_DELAY = 12;
+
+    void Start() {
+        LookAroundAnimation();
+    }
     public void SetGun(bool isLeft) { // add gun type
         GunPlaceholderLeft.gameObject.SetActive(isLeft);
         GunPlaceholderRight.gameObject.SetActive(!isLeft);
+    }
+    public void SwitchWeapon(WeaponType weapon) {
+        if (GunPlaceholderLeft.gameObject.activeSelf) {
+            GunPlaceholderLeft.GetComponent<WeaponSwitcher>()?.SwitchWeapon(weapon);
+        } else {
+            GunPlaceholderRight.GetComponent<WeaponSwitcher>()?.SwitchWeapon(weapon);
+        }
     }
     public void ApplyMovement(Vector3 newPosition) {
         Vector3 newPos = newPosition + PositionOffset;
@@ -40,9 +55,6 @@ public class Amogus : TeamMember {
             hat.rotation = Quaternion.Euler(0, HatPlaceholder.parent.rotation.eulerAngles.y, 0);
         }
     }
-    void Start() {
-        LookAroundAnimation();
-    }
     void LookAroundAnimation() {
         StartCoroutine(Utils.WaitAndDo(
             UnityEngine.Random.Range(LOOK_AROUND_ANIMATION_MIN_DELAY, LOOK_AROUND_ANIMATION_MAX_DELAY),
@@ -53,9 +65,4 @@ public class Amogus : TeamMember {
         ));
         
     }
-    const int MATERIAL_INDEX_BODY = 0;
-    const int MATERIAL_INDEX_BACKPACK = 1;
-    const int MATERIAL_INDEX_BACKPACK_SKIN = 3;
-    const float LOOK_AROUND_ANIMATION_MIN_DELAY = 4;
-    const float LOOK_AROUND_ANIMATION_MAX_DELAY = 12;
 }

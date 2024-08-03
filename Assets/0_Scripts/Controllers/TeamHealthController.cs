@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TeamHealthController : MonoBehaviour {
 
-    public Image HpBar;
+    public ProgressBarUI HpBar;
     public float maxHealth = 100;
 
     bool recoverHealth;
@@ -18,6 +17,11 @@ public class TeamHealthController : MonoBehaviour {
     void Start() => SubscribeEvents();
     void Update() => RecoverHealth();
     void OnDestroy() => UnsubscribeEvents();
+
+    [ContextMenu("DebugAddExtraHpPerk")]
+    public void DebugAddExtraHpPerk() {
+        ChangeHealthBy(additionalUltraHealthFactor);
+    }
 
     public void HandlePerk(PerkType perk) {
         if (perk == PerkType.ExtraHealth) {
@@ -47,11 +51,15 @@ public class TeamHealthController : MonoBehaviour {
     void ChangeHealthBy(float factor) {
         maxHealth = (int)(maxHealth * factor);
         currentHealth = (int)(currentHealth * factor);
-        UpdateHealthUI();
+        UpdateHealthUI(true);
     }
 
-    void UpdateHealthUI() =>
-        HpBar.fillAmount = currentHealth / maxHealth;
+    void UpdateHealthUI(bool isPerk = false) {
+        // HpBar.Value = currentHealth / maxHealth;
+        if (isPerk)
+            HpBar.MaxValue = maxHealth;
+        HpBar.Value = currentHealth;
+    }
 
     void RecoverHealth() {
         if (!recoverHealth)

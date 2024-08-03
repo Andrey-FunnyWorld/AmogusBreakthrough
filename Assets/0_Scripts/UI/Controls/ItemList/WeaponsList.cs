@@ -7,7 +7,7 @@ public class WeaponsList : ScriptableObject {
 }
 
 public enum WeaponType {
-    NoWeapon, MachineGun, RocketLauncher
+    Rifle, Blaster, Bazooka, IonGun
 }
 
 public enum ImpactType {

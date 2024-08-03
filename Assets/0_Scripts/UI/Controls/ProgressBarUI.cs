@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -9,10 +8,12 @@ public class ProgressBarUI : MonoBehaviour {
     public bool EnableValueChangeAnimation = false;
     public bool EnableTextChangeAnimation = false;
     public bool HideWhenFull = true;
+    float fValue, prevValue, maxValue = 100;
 
     protected float animationDuration = 1.0f;
     [HideInInspector]
     public bool isInitialized = false;
+
     public float Value {
         get { return fValue; }
         set {
@@ -38,8 +39,6 @@ public class ProgressBarUI : MonoBehaviour {
             valueText.gameObject.SetActive(value);
         }
     }
-    
-    float fValue, prevValue, maxValue = 100;
     void UpdateProgressCore() {
         if (MaxValue > 0) {
             if (HideWhenFull) gameObject.SetActive(Value != MaxValue);

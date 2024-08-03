@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2465088543046934974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalPosition: {x: 0, y: 0.8, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: -1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4964,8 +4964,8 @@ MonoBehaviour:
   Renderer: {fileID: 2383089308004213011}
   CanBeAttacked: 1
   hitParticle: {fileID: 6775084311524504222}
-  MoveSpeed: 2
   Animator: {fileID: 5736885936295551656}
+  MoveSpeed: 2
 --- !u!1001 &3579837300054623986
 PrefabInstance:
   m_ObjectHideFlags: 0

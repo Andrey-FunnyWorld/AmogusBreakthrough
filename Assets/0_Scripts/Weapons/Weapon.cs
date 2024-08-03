@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class Weapon : Attackable
-{
+public class Weapon : Attackable {
+    
+    [SerializeField] private WeaponBoxMarker boxMarker;
+    public WeaponMarker weaponMarker;
     public WeaponType WeaponType;
     public Renderer BoxRenderer;
-
-    [SerializeField] private WeaponMarker weaponMarker;
-    [SerializeField] private WeaponBoxMarker boxMarker;
 
     public override void Destroyed() {
         base.Destroyed();
@@ -18,4 +17,7 @@ public class Weapon : Attackable
         EventManager.TriggerEvent(EventNames.WeaponChanged, WeaponType);
         Destroy(gameObject);
     }
+
+    public void TurnOffDieFx() =>
+        base.TurnOffDieFx();
 }

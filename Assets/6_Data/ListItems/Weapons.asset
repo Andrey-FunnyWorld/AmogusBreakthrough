@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapons
   m_EditorClassIdentifier: 
   Items:
-  - Type: 1
+  - Type: 0
     ImpactType: 0
     Damage: 0.4
     FxSpawner: {fileID: 1716007089488228450, guid: b95cabe89052c47b39a8530e66566828, type: 3}
@@ -21,7 +21,19 @@ MonoBehaviour:
     FxEmissionFrequency: 6
   - Type: 2
     ImpactType: 1
+    Damage: 0.5
+    FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
+    AttackCooldown: 0.3
+    FxEmissionFrequency: 5
+  - Type: 3
+    ImpactType: 1
     Damage: 1
     FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
     AttackCooldown: 0.7
     FxEmissionFrequency: 3
+  - Type: 1
+    ImpactType: 0
+    Damage: 0.3
+    FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
+    AttackCooldown: 0.1
+    FxEmissionFrequency: 6

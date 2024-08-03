@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour {
     public PerkPanel PerkPanel;
     public TeamHealthController HealthController;
     public CoinsController CoinsController;
+    public bool DEBUG; //TODO remove later
 
     void Start() {
         SubscribeEvents();
@@ -38,6 +39,8 @@ public class LevelManager : MonoBehaviour {
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         LetsRoll();
+        if (DEBUG)
+            EventManager.TriggerEvent(EventNames.MatesChanged);
     }
     void RoadFinished(object arg) {
         Road.MovementStarted = false;

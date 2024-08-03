@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,8 +32,7 @@ public class PerkPanel : MonoBehaviour {
         UnsubscriveEvents();
     }
     public void RollSelectors() {
-        PerkType[] perks = GetRandomPerks(PerkSelectorCount); //uncomment
-        // PerkType[] perks = GetRandomPerks1(PerkSelectorCount); //remove
+        PerkType[] perks = GetRandomPerks1(PerkSelectorCount);
         for (int i = 0; i < PerkSelectorCount; i++) {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
             Debug.Log(perks[i]);
@@ -52,8 +50,7 @@ public class PerkPanel : MonoBehaviour {
     PerkType[] GetRandomPerks1(int perkCount) {
         PerkType[] perks = new PerkType[perkCount];
         List<PerkType> availablePerks = PerkSelectorPrefab.PerkStorage.Perks.Select(p => p.PerkType).ToList();
-        // perks[0] = PerkType.AttackZoneVisibility;
-        perks[0] = PerkType.RegenHP;
+        perks[0] = PerkType.Bubble;
         for (int i = 1; i < perkCount; i++) {
             perks[i] = availablePerks[Random.Range(0, availablePerks.Count)];
             availablePerks.Remove(perks[i]);

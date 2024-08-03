@@ -59,7 +59,7 @@ public class AttackFXController : MonoBehaviour {
         attackFx = null;
         leftEdge = null;
         rightEdge = null;
-        currentWeaponType = WeaponType.NoWeapon;
+        currentWeaponType = WeaponType.Rifle;
     }
 
     private void PrepareFXSpawnerObject(WeaponType weaponType, GameObject fxEmitter) {
@@ -138,6 +138,6 @@ public class AttackFXController : MonoBehaviour {
     }
 
     private Vector3 GetRandomEnemyPosition() {
-        return enemies[Random.Range(0, enemies.Count)].transform.position;
+        return enemies[Random.Range(0, enemies.Count)]?.transform.position ?? GetPointRandom();
     }
 }
