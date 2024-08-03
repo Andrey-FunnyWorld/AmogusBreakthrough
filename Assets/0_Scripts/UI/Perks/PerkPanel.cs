@@ -84,12 +84,14 @@ public class PerkPanel : MonoBehaviour {
         }
     }
     public void ApplyProgress(ProgressState state) {
-        YourCoinsText.text = string.Format(
-            MyLocalization.Instance.GetLocalizedText(LocalizationKeys.YouHaveCoins), state.Money
-        );
-        ExtraRollText.transform.parent.GetComponent<ButtonDisabled>().Enable = state.Money >= ExtraRollPrice;
-        availablePerks = state.PurchasedPerks.Select(p => (PerkType)p).ToArray();
-        CreateSelectors(availablePerks);
-        RollSelectors();
+        if (ShowOnStart) {
+            YourCoinsText.text = string.Format(
+                MyLocalization.Instance.GetLocalizedText(LocalizationKeys.YouHaveCoins), state.Money
+            );
+            ExtraRollText.transform.parent.GetComponent<ButtonDisabled>().Enable = state.Money >= ExtraRollPrice;
+            availablePerks = state.PurchasedPerks.Select(p => (PerkType)p).ToArray();
+            CreateSelectors(availablePerks);
+            RollSelectors();
+        }
     }
 }

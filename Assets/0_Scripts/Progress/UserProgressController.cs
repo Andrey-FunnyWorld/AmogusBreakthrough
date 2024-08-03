@@ -35,6 +35,7 @@ public class UserProgressController : MonoBehaviour {
         ProgressState = ProgressFileSaver.LoadProgress();
         ProgressState.SkipSaveTargetDialog = true;
         //ProgressState.AdjustHats(BackpackItems.Items.Length - 1); // 1 is for None
+        //HtmlBridge.PlatformType = PlatformType.Android;
         StartCoroutine(Utils.WaitAndDo(0.1f, () => {
             ProgressLoaded = true;
             EventManager.TriggerEvent(EventNames.StartDataLoaded, null);
