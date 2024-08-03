@@ -99,6 +99,11 @@ public class MainMenuManager : MonoBehaviour {
         //         btn.Enable = true;
         // }
     }
+    void SkinItemEquip(object arg) {
+        SkinItemEquipArgs args = (SkinItemEquipArgs)arg;
+        UserProgressController.Instance.ProgressState.Equipp(args.ShopType, args.ItemModel.SkinName);
+        UserProgressController.Instance.SaveProgress();
+    }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartDataLoaded, StartDataLoaded);
         EventManager.StartListening(EventNames.WheelSpinStart, WheelSpinStart);
@@ -108,6 +113,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StartListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StartListening(EventNames.NotEnoughMoney, NotEnoughMoney);
         EventManager.StartListening(EventNames.SkipAdPurchased, SkipAdPurchased);
+        EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
@@ -118,6 +124,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.UpgradeItemPurchased, UpgradeItemPurchased);
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
         EventManager.StopListening(EventNames.SkipAdPurchased, SkipAdPurchased);
+        EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
     }
     public void HideShops() {
         ShopBackpacks.gameObject.SetActive(false);

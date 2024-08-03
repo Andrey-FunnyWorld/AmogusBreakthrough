@@ -42,8 +42,6 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
     public void OnPointerDown(PointerEventData arg) {
         if (IsAvaiable) {
             EventManager.TriggerEvent(EventNames.SkinItemEquip, new SkinItemEquipArgs() { ItemModel = Model, ShopType = ShopType });
-            UserProgressController.Instance.ProgressState.Equipp(ShopType, Model.SkinName);
-            UserProgressController.Instance.SaveProgress();
             Animator.SetTrigger("Press");
         } else {
             EventManager.TriggerEvent(EventNames.ShopItemPurchaseTry, new ShopItemPurchaseArgs() { ItemModel = Model, ForFree = false });

@@ -22,11 +22,6 @@ public class LevelManager : MonoBehaviour {
             ApplyProgress(UserProgressController.Instance.ProgressState);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
-    void Update() {
-        // if (Input.GetKeyDown(KeyCode.Space)) {
-        //     Road.IsRunning = !Road.IsRunning;
-        // }
-    }
     void OnDestroy() {
         UnsubscriveEvents();
     }
@@ -35,7 +30,7 @@ public class LevelManager : MonoBehaviour {
         MainGuy.StartMove();
         Road.IsRunning = true;
         Road.MovementStarted = true;
-        LevelUIManager.LetsRoll();
+        //LevelUIManager.LetsRoll();
         StartGate.Open();
         EndGate.GetComponent<RoadObjectBase>().RoadPosition = Road.Length + END_GATE_OFFSET;
     }
@@ -44,7 +39,7 @@ public class LevelManager : MonoBehaviour {
         LetsRoll();
     }
     void RoadFinished(object arg) {
-        LevelUIManager.RoadFinished();
+        //LevelUIManager.RoadFinished();
         StartCoroutine(Utils.ChainActions(new List<ChainedAction>() {
             new ChainedAction() { DeltaTime = 1, Callback = () => { EndGate.Open(); }},
             new ChainedAction() { DeltaTime = 0.5f, Callback = () => { Road.IsRunning = true; }},
@@ -55,6 +50,7 @@ public class LevelManager : MonoBehaviour {
     }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);
+        PerkPanel.ApplyProgress(progress);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void StartDataLoaded(object arg) {
@@ -62,8 +58,13 @@ public class LevelManager : MonoBehaviour {
     }
     void PerkSelected(object arg) {
         PerkItem perkItem = (PerkItem)arg;
-        MovementController.AllowMove = true;
+        if (PerkPanel.ExtraPerkTaken)
+            MovementController.AllowMove = true;
         Debug.Log("TO-DO. Apply Perk: " + perkItem.PerkType);
+    }
+    public void StartGame() {
+        MovementController.AllowMove = true;
+        PerkPanel.gameObject.SetActive(false);
     }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartMovement, StartMovement);

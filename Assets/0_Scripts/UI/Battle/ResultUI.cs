@@ -10,8 +10,9 @@ public class ResultUI : MonoBehaviour {
     public Animator Animator;
     public UnityEvent[] AnimationSteps;
     public LevelLoader LevelLoader;
-    public MyDialog LoginDialog;
+    public MyDialog LoginDialog, RateDialog;
     ResultUIViewModel viewModel;
+    bool canLoadNextLevel = true;
     public void ShowImposterResult(bool success) {
         ImposterResultUI.ShowResult(success);
     }
@@ -21,6 +22,7 @@ public class ResultUI : MonoBehaviour {
         ImposterDetected.gameObject.SetActive(false);
         ImposterNotDetected.gameObject.SetActive(false);
         Animator.SetTrigger("show");
+        UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;
@@ -47,8 +49,38 @@ public class ResultUI : MonoBehaviour {
         }
     }
     public void LoadMenuLevel() {
-        UserProgressController.Instance.SaveProgress();
-        LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+        if (canLoadNextLevel) {
+            gameObject.SetActive(false);
+            ProgressState state = UserProgressController.Instance.ProgressState;
+            if (!state.AskedForRating && state.CompletedRoundsCount >= 3 && viewModel.ImposterDetected) {
+                state.AskedForRating = true;
+                RateDialog.Show(() => {
+                    HtmlBridge.Instance.RateGame();
+                }, () => {
+                    HtmlBridge.Instance.ShowInterstitial(() => {
+                        LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+                    });
+                });
+            } else {
+                HtmlBridge.Instance.ShowInterstitial(() => {
+                    LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+                });
+            }
+            UserProgressController.Instance.SaveProgress();
+            #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
+            LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+            #endif
+        }
+    }
+    public void AdRewardCoins(int multiplier) {
+        canLoadNextLevel = false;
+        HtmlBridge.Instance.ShowRewarded(() => {
+            viewModel.CoinReward *= multiplier;
+            SetCoins();
+            canLoadNextLevel = true;
+        }, () => {
+            canLoadNextLevel = true;
+        });
     }
     void AuthStatusRecieved(object arg) {
         LoadMenuLevel();

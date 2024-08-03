@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUIManager : MonoBehaviour {
-    public Transform StartupMsg;
-    public Transform RoadFinishedMsg;
-    public void LetsRoll() {
-        //StartupMsg.gameObject.SetActive(false);
-    }
-    public void RoadFinished() {
-        //RoadFinishedMsg.gameObject.SetActive(true);
+    public DefeatUI DefeatUI;
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.B)) {
+            DefeatViewModel vm = new DefeatViewModel() { CoinReward = 70 };
+            DefeatUI.ShowResult(vm);
+        }
     }
 }

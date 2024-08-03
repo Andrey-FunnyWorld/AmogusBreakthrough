@@ -32,7 +32,5 @@ public class NewSkinPanel : MonoBehaviour {
             ShopType = shopType,
         };
         EventManager.TriggerEvent(EventNames.SkinItemEquip, args);
-        UserProgressController.Instance.ProgressState.Equipp(shopType, item.SkinName);
-        UserProgressController.Instance.SaveProgress();
     }
 }

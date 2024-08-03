@@ -110,7 +110,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8900092904405357301}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.32}
+  m_LocalPosition: {x: 0, y: 0, z: 0.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,7 +118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.39, y: 3.32}
+  m_AnchoredPosition: {x: -0.06, y: 3.32}
   m_SizeDelta: {x: 9.586, y: 1.9771}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7799132137924623315
@@ -141,7 +141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6969964487963048819, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
+  - {fileID: -2338394592285478315, guid: 9cf524d4d4b8a4d48bce955da28e6069, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17af9c059e078945b9c57800eaf16dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ru: "\u0428\u043B\u044F\u043F\u044B"
-  en: Hats
+  ru: "\u0428\u041B\u042F\u041F\u042B"
+  en: HATS
 --- !u!114 &4404501108277084415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +197,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0428\u043B\u044F\u043F\u044B"
+  m_text: "\u0428\u041B\u042F\u041F\u042B 100%"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
-  m_sharedMaterial: {fileID: -6969964487963048819, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9cf524d4d4b8a4d48bce955da28e6069, type: 2}
+  m_sharedMaterial: {fileID: -2338394592285478315, guid: 9cf524d4d4b8a4d48bce955da28e6069, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -224,8 +224,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 11
+  m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

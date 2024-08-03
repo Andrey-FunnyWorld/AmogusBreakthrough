@@ -65,13 +65,15 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
 
     #region ads
     public void ShowRewarded(UnityAction successCallback, UnityAction failCallback) {
-        rewardSuccess = false;
-        if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.None;
-        AdsIsVisible = true;
-        AudioListener.volume = 0;
-        rewardedSuccessCallback = successCallback;
-        rewardedFailCallback = failCallback;
-        ShowRewardedExtern();
+        if (!AdsIsVisible) {
+            rewardSuccess = false;
+            if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.None;
+            AdsIsVisible = true;
+            AudioListener.volume = 0;
+            rewardedSuccessCallback = successCallback;
+            rewardedFailCallback = failCallback;
+            ShowRewardedExtern();
+        }
     }
     public void ReceiveRewardedResultString(string success) {
         ReceiveRewardedResult(success == TRUE);
@@ -92,10 +94,14 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
         (rewardSuccess ? rewardedSuccessCallback : rewardedFailCallback).Invoke();
     }
     public void ShowInterstitial(UnityAction closedCallback) {
-        AdsIsVisible = true;
-        interstitialClosedCallback = closedCallback;
-        AudioListener.volume = 0;
-        ShowInterstitialExtern();
+        if (!AdsIsVisible) {
+            #if UNITY_WEBGL && !UNITY_EDITOR
+            AdsIsVisible = true;
+            interstitialClosedCallback = closedCallback;
+            AudioListener.volume = 0;
+            ShowInterstitialExtern();
+            #endif
+        }
     }
     public void InterstitialClosed() {
         AudioListener.volume = 1;
