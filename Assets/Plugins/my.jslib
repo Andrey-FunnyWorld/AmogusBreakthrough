@@ -1,14 +1,14 @@
 mergeInto(LibraryManager.library, {
   SaveExtern: function(data) {
     const dataString = UTF8ToString(data);
-    if (player && player.getMode() !== 'lite') {
+    if (getPlayerStatus()) {
       SaveDataYandex(player, dataString);
     } else {
       SaveDataLocal(dataString);
     }
   },
   AskToLoginExtern: function() {
-    let clientMethod = "ReceiveAuthRequestResultString";
+    const clientMethod = "ReceiveAuthRequestResultString";
     ysdk.auth.openAuthDialog().then(() => {
       initPlayer().then(_player => {
         sendStartupData(true); // see index

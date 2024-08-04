@@ -37,6 +37,18 @@ public class MainMenuManager : MonoBehaviour {
         ScoreText.SetScoreSilent(progress.Money);
         Wheel.ApplyProgress(progress);
     }
+    void ChooseQualityLevel(PlatformType platform) {
+        int currentLevel = QualitySettings.GetQualityLevel();
+        int desiredIndex;
+        switch (platform) {
+            case PlatformType.Android: desiredIndex = 0; break;
+            case PlatformType.IOS: desiredIndex = 1; break;
+            default: desiredIndex = 2; break;
+        }
+        if (desiredIndex != currentLevel) {
+            QualitySettings.SetQualityLevel(desiredIndex);
+        }
+    }
     void UpdateProgressTexts(ProgressState progress) {
         HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
         BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
@@ -57,7 +69,6 @@ public class MainMenuManager : MonoBehaviour {
         PerkModel model = (PerkModel)arg;
         UserProgressController.Instance.ProgressState.AddPurchased(model.PerkType);
         UserProgressController.Instance.ProgressState.Money -= model.Price;
-        UpdateProgressTexts(UserProgressController.Instance.ProgressState);
         ApplyProgressLight(UserProgressController.Instance.ProgressState);
         UserProgressController.Instance.SaveProgress();
         HtmlBridge.Instance.ReportMetric(MetricNames.PerkPurchased);
@@ -85,6 +96,7 @@ public class MainMenuManager : MonoBehaviour {
     }
     void StartDataLoaded(object arg) {
         ApplyProgressAll();
+        ChooseQualityLevel(HtmlBridge.PlatformType);
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);

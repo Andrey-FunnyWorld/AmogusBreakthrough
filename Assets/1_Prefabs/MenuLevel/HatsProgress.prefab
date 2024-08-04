@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5051141445948640847}
   - component: {fileID: 7799132137924623315}
-  - component: {fileID: 1248113139795731418}
   - component: {fileID: 4404501108277084415}
   m_Layer: 0
   m_Name: ProgressText
@@ -163,20 +162,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1248113139795731418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8900092904405357301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b17af9c059e078945b9c57800eaf16dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ru: "\u0428\u041B\u042F\u041F\u042B"
-  en: HATS
 --- !u!114 &4404501108277084415
 MonoBehaviour:
   m_ObjectHideFlags: 0

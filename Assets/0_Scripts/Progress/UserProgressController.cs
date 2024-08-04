@@ -59,8 +59,7 @@ public class ProgressState {
     public int UpgradeLevelAttackSpeed;
     public int UpgradeLevelDamage;
     public int SkipAdRounds = 0;
-    [System.NonSerialized]
-    public bool SkipSaveTargetDialog; // атрибут делает так, чтобы запрос на логин происходил каждый раз при перезаходе в игру не под аккаунтом
+    public bool SkipSaveTargetDialog;
     public string AdSpinWhenAvailableString;
     public int CompletedRoundsCount = 0;
     public int ImposterDetectedCount = 0;

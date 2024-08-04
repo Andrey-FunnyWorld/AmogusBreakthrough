@@ -55,21 +55,28 @@ public class Wheel : MonoBehaviour {
     void ShowReward(WheelItem wheelItem) {
         int shopType = Random.Range(0, 2);
         ShopList shopList = shopType == 0 ? BackpackShop : HatShop;
-        ShopItemModel rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
+        ListItem rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
         if (rewardItem != null) {
             StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => {
-                NewSkinPanel.ShowItem(rewardItem, shopList.ShopType);
-                SetDisabledButtons(true);
+                ShowRewardItem(rewardItem, shopList.ShopType);
             }));
         } else {
             shopList = shopList == HatShop ? BackpackShop : HatShop;
             rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
             if (rewardItem != null) {
-                StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => NewSkinPanel.ShowItem(rewardItem, shopList.ShopType) ));
+                rewardItem.Unlock(false);
+                StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => {
+                    ShowRewardItem(rewardItem, shopList.ShopType);
+                }));
             } else {
                 Debug.Log("No appropriate skins left");
             }
         }
+    }
+    void ShowRewardItem(ListItem rewardItem, SkinType shopType) {
+        NewSkinPanel.ShowItem(rewardItem.Model, shopType);
+        rewardItem.Unlock(false);
+        SetDisabledButtons(true);
     }
     public void GenerateItems() {
         float radius = 0.7f * WheelTransform.GetComponent<RectTransform>().sizeDelta.x / 2;

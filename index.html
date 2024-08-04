@@ -80,7 +80,7 @@
             }
         }
         function getPlayerStatus() {
-            player && player.getMode() !== 'lite';
+            return player && player.getMode() !== 'lite';
         }
         function toJSONNullSafe(data) {
             let myJSON = JSON.stringify(data);

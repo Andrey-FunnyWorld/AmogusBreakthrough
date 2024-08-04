@@ -41,6 +41,7 @@ public class ResultUI : MonoBehaviour {
     public void FinishLevel() {
         if (!UserProgressController.Instance.ProgressState.SkipSaveTargetDialog) {
             LoginDialog.Show(() => {
+                UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
                 HtmlBridge.Instance.AskToLogin();
             }, () => {
                 LoadMenuLevel();

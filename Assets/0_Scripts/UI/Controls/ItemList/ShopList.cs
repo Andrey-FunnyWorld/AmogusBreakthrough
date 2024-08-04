@@ -104,7 +104,7 @@ public class ShopList : MonoBehaviour {
             listItem.Unlock();
         }
     }
-    public ShopItemModel GetRandomItem(SkinItemQuality quality) {
+    public ListItem GetRandomItem(SkinItemQuality quality) {
         int[] purchasedItems = ShopType == SkinType.Backpack ? progressState.PurchasedBackpacks : progressState.PurchasedHats;
         HashSet<int> purchasedSet = new HashSet<int>(purchasedItems);
         ShopItemModel[] availableItems = Items.Items.Where(i => !purchasedItems.Any(p => i.SkinName == (SkinItemName)p)).ToArray();
@@ -112,7 +112,8 @@ public class ShopList : MonoBehaviour {
             availableItems = availableItems.Where(i => i.Quality == quality).ToArray();
             if (availableItems.Length > 0) {
                 ShopItemModel reward = availableItems[Random.Range(0, availableItems.Length)];
-                return reward;
+                ListItem listItem = liveItems.FirstOrDefault(i => i.Model.SkinName == reward.SkinName);
+                return listItem;
             }
         }
         return null;

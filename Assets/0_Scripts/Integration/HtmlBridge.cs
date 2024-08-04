@@ -31,9 +31,9 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
         UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = IsLogged;
         UserProgressController.Instance.ProgressState = vm.Progress;
         UserProgressController.Instance.PlayerSettings = vm.Settings;
-        UserProgressController.ProgressLoaded = true;
         if (boot) {
             StartCoroutine(Utils.WaitAndDo(0.1f, () => {
+                UserProgressController.ProgressLoaded = true;
                 EventManager.TriggerEvent(EventNames.StartDataLoaded, vm);
             }));
         }
@@ -56,12 +56,8 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
         ProgressFileSaver.SaveProgress(UserProgressController.Instance.ProgressState);
         #endif
         #if UNITY_WEBGL && !UNITY_EDITOR
-        if (!UserProgressController.Instance.ProgressState.SkipSaveTargetDialog) {
-            AskToLogin();
-        } else {
-            string json = JsonUtility.ToJson(UserProgressController.Instance.ProgressState);
-            SaveExtern(json);
-        }
+        string json = JsonUtility.ToJson(UserProgressController.Instance.ProgressState);
+        SaveExtern(json);
         #endif
     }
     public void SaveSettings() {
