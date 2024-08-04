@@ -28,7 +28,6 @@ public class Team : MonoBehaviour {
     const float MIN_RANGE = 0.4f;
     public const int MAX_CAPACITY = 10;
 
-
     void Start() => SubscribeEvents();
     void OnDestroy() => UnsubscribeEvents();
 
@@ -142,7 +141,6 @@ public class Team : MonoBehaviour {
         EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
         EventManager.StartListening(EventNames.StartMovement, StartMovement);
         EventManager.StartListening(EventNames.RoadFinished, RoadFinished);
-        // EventManager.StartListening(EventNames.WeaponChanged, WeaponChanged);
     }
     void UnsubscribeEvents() {
         EventManager.StopListening(EventNames.CageDestroyed, CageDestroyed);
@@ -150,7 +148,6 @@ public class Team : MonoBehaviour {
         EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         EventManager.StopListening(EventNames.RoadFinished, RoadFinished);
-        // EventManager.StopListening(EventNames.MatesChanged, WeaponChanged);
     }
 
     void StartMovement(object arg) {

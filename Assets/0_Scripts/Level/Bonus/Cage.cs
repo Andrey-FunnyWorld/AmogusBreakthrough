@@ -9,9 +9,6 @@ public class Cage : Attackable {
     const float DESTROY_ANIMATION_LENGTH = 1;
     Coroutine blinkAnimation;
 
-    void Start() =>
-        blinkAnimation = StartCoroutine(Blink(BlinkDuration));
-
     public override void Destroyed() {
         base.Destroyed();
         EventManager.TriggerEvent(EventNames.CageDestroyed, this);
@@ -20,6 +17,12 @@ public class Cage : Attackable {
         }));
         Destroy(ChainedAmogus.gameObject);
     }
+
+    protected override void Init() {
+        base.Init();
+        blinkAnimation = StartCoroutine(Blink(BlinkDuration));
+    }
+
     IEnumerator Blink(float time) {
         float timer = 0;
         while (timer < time) {
