@@ -11,7 +11,7 @@ mergeInto(LibraryManager.library, {
     let clientMethod = "ReceiveAuthRequestResultString";
     ysdk.auth.openAuthDialog().then(() => {
       initPlayer().then(_player => {
-        sendStartupData(); // see index
+        sendStartupData(true); // see index
         myGameInstance.SendMessage(HtmlBridge, clientMethod, "true");
       }).catch(err => {
         console.log("AskToLoginExtern: Player init ERROR ", err);

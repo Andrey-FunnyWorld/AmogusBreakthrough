@@ -31,8 +31,12 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
         UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = IsLogged;
         UserProgressController.Instance.ProgressState = vm.Progress;
         UserProgressController.Instance.PlayerSettings = vm.Settings;
-        if (boot)
-            EventManager.TriggerEvent(EventNames.StartDataLoaded, vm);
+        UserProgressController.ProgressLoaded = true;
+        if (boot) {
+            StartCoroutine(Utils.WaitAndDo(0.1f, () => {
+                EventManager.TriggerEvent(EventNames.StartDataLoaded, vm);
+            }));
+        }
         boot = false;
     }
     public void AskToLogin() {
@@ -75,7 +79,7 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
     public void ShowRewarded(UnityAction successCallback, UnityAction failCallback) {
         if (!AdsIsVisible) {
             rewardSuccess = false;
-            if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.None;
+            //if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.None;
             AdsIsVisible = true;
             AudioListener.volume = 0;
             rewardedSuccessCallback = successCallback;
@@ -91,14 +95,14 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
             rewardSuccess = true;
         else {
             AudioListener.volume = 1;
-            if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.Locked;
+            //if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.Locked;
             rewardedFailCallback.Invoke();
         }
     }
     public void RewardedClosed() {
         AudioListener.volume = 1;
         AdsIsVisible = false;
-        if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.Locked;
+        //if (PlatformType == PlatformType.Desktop) Cursor.lockState = CursorLockMode.Locked;
         (rewardSuccess ? rewardedSuccessCallback : rewardedFailCallback).Invoke();
     }
     public void ShowInterstitial(UnityAction closedCallback) {

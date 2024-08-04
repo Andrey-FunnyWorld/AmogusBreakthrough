@@ -8,8 +8,18 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <!-- Yandex Games SDK -->
     <script src="https://yandex.ru/games/sdk/v2"></script>
+    <style> 
+        .noselect { 
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none; 
+            -khtml-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+    </style>
 </head>
-  <body>
+  <body class="noselect">
       <div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0%; top: 0%;">
           <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%;"></canvas>
           <div id="unity-loading-bar">
@@ -34,16 +44,11 @@
         var player;
         const storageKey = "yandexGamesAmogusBreakthroughKey";
         const HtmlBridge = "HtmlBridge";
-        function initPlayer() {
-            return ysdk.getPlayer().then(_player => {
-                player = _player;
-                console.log("Player is: ", player);
-                return player;
-            });
-        }
         function waitForInit() {
             if (ysdk && myGameInstance) {
-                initPlayer().then(_player => {
+                ysdk.getPlayer().then(_player => {
+                    player = _player;
+                    console.log("Player is: ", player)
                     sendStartupData();
                 }).catch(err => {
                     console.log("initPlayerData ERROR: ", err);
@@ -110,8 +115,8 @@
                     let myJSON = window.localStorage.getItem(storageKey);
                     if (myJSON == null) {
                         resolve({
-                            progress: null,
-                            settings: null
+                            progress: {},
+                            settings: {}
                         });
                     } else {
                         const allData = JSON.parse(myJSON);
@@ -122,8 +127,9 @@
                     }
                 }
             });
+            return promise;
         }
-        function sendStartupData() {
+        function sendStartupData(isAuthRequest) {
             getPlayerSavedData().then(playerData => {
                 const data = {
                     Locale: getLanguage(),
@@ -132,28 +138,35 @@
                     Settings: playerData.settings,
                     Progress: playerData.progress,
                 }
-                if (data.Progress.CompletedRoundsCount > 1) {
+                if (!isAuthRequest)
                     myGameInstance.SendMessage(HtmlBridge, "ReceiveStartupData", toJSONNullSafe(data));
+                else {
+                    if (data.Progress.CompletedRoundsCount > 0)
+                        myGameInstance.SendMessage(HtmlBridge, "ReceiveStartupData", toJSONNullSafe(data));
+                    myGameInstance.SendMessage(HtmlBridge, "ReceiveAuthRequestResultString", getPlayerStatus() ? "true" : "false");
                 }
-                myGameInstance.SendMessage(HtmlBridge, "ReceiveAuthRequestResult", getPlayerStatus() ? "true" : "false");
             });
         }
         function SaveDataYandex(player, dataString) {
-            player.getData().then(playerData => {
-                const dataPartToSave = JSON.parse(dataString);
-                const allData = { ...playerData, ...dataPartToSave };
-                //console.log("Save Yandex: ", allData);
-                player.setData(allData);
-            });
+            if (dataString) {
+                player.getData().then(playerData => {
+                    const dataPartToSave = JSON.parse(dataString);
+                    const allData = { ...playerData, ...dataPartToSave };
+                    //console.log("Save Yandex: ", allData);
+                    player.setData(allData);
+                });
+            }
         }
         function SaveDataLocal(dataString) {
-            const allJSON = window.localStorage.getItem(storageKey);
-            if (!allJSON) {
-                let allData = { ...JSON.parse(allJSON), ...JSON.parse(dataString) };
-                dataString = JSON.stringify(allData);
+            if (dataString) {
+                const allJSON = window.localStorage.getItem(storageKey);
+                if (!allJSON) {
+                    let allData = { ...JSON.parse(allJSON), ...JSON.parse(dataString) };
+                    dataString = JSON.stringify(allData);
+                }
+                //console.log("Save Local: ", dataString);
+                window.localStorage.setItem(storageKey, dataString);
             }
-            //console.log("Save Local: ", dataString);
-            window.localStorage.setItem(storageKey, dataString);
         }
     // <--- YANDEX-related scripts
 

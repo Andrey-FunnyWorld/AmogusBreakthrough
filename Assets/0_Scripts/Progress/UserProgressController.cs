@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class UserProgressController : MonoBehaviour {
@@ -12,9 +11,7 @@ public class UserProgressController : MonoBehaviour {
     public PlayerSettings PlayerSettings;
     [NonSerialized]
     public bool IsLogged = false;
-    #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
     public static bool ProgressLoaded = false;
-    #endif
     public static string TRUE = "true";
     public SkinItems BackpackItems;
 
@@ -83,6 +80,8 @@ public class ProgressState {
         PurchasedPerks = new int[4] { 0, 1, 2, 3 };
         PurchasedBackpacks = new int[1] { 0 };
         PurchasedHats = new int[1] { 0 };
+        EquippedBackpacks = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
+        EquippedHats = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
         if (debug) {
             EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
             EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses

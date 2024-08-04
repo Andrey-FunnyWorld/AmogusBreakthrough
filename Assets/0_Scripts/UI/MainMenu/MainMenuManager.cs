@@ -16,8 +16,10 @@ public class MainMenuManager : MonoBehaviour {
     public SkipAdButton SkipAdButton;
     public Wheel Wheel;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
-    void Start() {
+    void Awake() {
         SubscriveEvents();
+    }
+    void Start() {
         if (UserProgressController.ProgressLoaded)
             ApplyProgressAll();
     }
