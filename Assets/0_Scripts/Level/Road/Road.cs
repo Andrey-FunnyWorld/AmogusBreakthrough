@@ -107,6 +107,15 @@ public class Road : MonoBehaviour {
         AttackHandler.ApplyPerk(perk);
     }
 
+    [ContextMenu("MakeWeaponBoxesTransparent")]
+    public void HandleTransparencyWeaponBoxPerk() {
+        foreach (var roadObject in roadObjects) {
+            if (roadObject is Weapon weapon) {
+                weapon.MakeTransparent();
+            }
+        }
+    }
+
     // void MoveRoadTexture() {
     //     float texOffset = moveTime / texOffsetFactor;
     //     RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);

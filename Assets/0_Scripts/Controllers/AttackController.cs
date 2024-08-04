@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,12 +77,12 @@ public class AttackController : MonoBehaviour {
             return false;
 
         float nearest = roadObject.transform.position.z - roadObject.transform.lossyScale.z / 2;
-        if (!PlayerIsReached(nearest)) 
+        if (!PlayerIsReached(nearest))
             return false;
         float farthest = roadObject.transform.position.z + roadObject.transform.lossyScale.z / 2;
         if (PlayerIsDrovePast(farthest))
             return false;
-        
+
         float objectHalfWidth = roadObject.transform.lossyScale.x / 2;
         float objectX = roadObject.transform.position.x;
         float teamNearestLeft = TeamNearestLeftPoint();
@@ -96,13 +97,14 @@ public class AttackController : MonoBehaviour {
     }
 
     public void ApplyPerk(PerkType perk) {
-        if (perk == PerkType.BossDamage)
+        if (perk == PerkType.BossDamage) {
             extraBossDamage = true;
-        else if (perk == PerkType.AttackZoneVisibility)
+        } else if (perk == PerkType.AttackZoneVisibility) {
             CalcAndActivateAttackZoneVisibility();
-        else if (perk == PerkType.ExtraAttackWidth)
+        } else if (perk == PerkType.ExtraAttackWidth) {
             extraAttackWidth = true;
             CalcAttackZone();
+        }
     }
 
     void CalcAttackZone() {
@@ -121,10 +123,15 @@ public class AttackController : MonoBehaviour {
         AttackZonePlane.transform.parent.gameObject.SetActive(true);
     }
 
-    private void HandleMatesChanged(object arg0) {
+    private void HandleMatesChanged(object arg) {
         CalcAttackZone();
         // AttackZonePlane.transform.parent.gameObject.SetActive(true); //debug, remove later
         MainGuy.Team.SwitchWeapon(currentWeapon.Type);
+    }
+
+    void HandleOnePunchAbility(object arg) {
+        foreach (var enemy in enemies)
+            enemy.HP -= enemy.HP;
     }
 
     bool NotAllInitialized() =>
@@ -147,9 +154,9 @@ public class AttackController : MonoBehaviour {
     float TeamFarthestPoint() =>
         MainGuy.transform.position.z - MainGuy.transform.lossyScale.z;
 
-    Renderer GetRenderer(RoadObjectBase enemy) {      
+    Renderer GetRenderer(RoadObjectBase enemy) {
         Renderer r = enemy.GetComponent<Renderer>();
-        if (r != null) 
+        if (r != null)
             return r;
 
         var weapon = enemy.GetComponent<Weapon>();
@@ -164,7 +171,7 @@ public class AttackController : MonoBehaviour {
     }
 
     void EventWeaponChanged(object argument) {
-        if (argument is WeaponType weaponType) 
+        if (argument is WeaponType weaponType)
             HandleWeaponChanged(weaponType);
     }
 
@@ -176,7 +183,7 @@ public class AttackController : MonoBehaviour {
 
     void PrepareWeapons() {
         weapons = new Dictionary<WeaponType, WeaponDefinition>(weaponsStaticData.Items.Length);
-        foreach (WeaponDefinition weapon in weaponsStaticData.Items) 
+        foreach (WeaponDefinition weapon in weaponsStaticData.Items)
             weapons.Add(weapon.Type, weapon);
     }
 
@@ -268,10 +275,12 @@ public class AttackController : MonoBehaviour {
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
         EventManager.StartListening(EventNames.MatesChanged, HandleMatesChanged);
+        EventManager.StartListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.WeaponChanged, EventWeaponChanged);
         EventManager.StopListening(EventNames.MatesChanged, HandleMatesChanged);
+        EventManager.StopListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 }

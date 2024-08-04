@@ -72,7 +72,6 @@ public class LevelManager : MonoBehaviour {
     void PerkSelected(object arg) {
         PerkItem perkItem = (PerkItem)arg;
         MovementController.AllowMove = true;
-        Debug.Log($"TO-DO. Apply Perk: {perkItem.PerkType}");
         HandlePerk(perkItem);
     }
     void HandlePerk(PerkItem perkItem) {
@@ -84,7 +83,7 @@ public class LevelManager : MonoBehaviour {
         } else if (perk == PerkType.ExtraHealth || perk == PerkType.ExtraHealthUltra || perk == PerkType.RegenHP) {
             HealthController.HandlePerk(perk);
         } else if (perk == PerkType.WeaponBoxTransparency) {
-            ObjectsGenerator.HandleWeaponBoxTransparencyPerk();
+            Road.HandleTransparencyWeaponBoxPerk();
         } else if (perk == PerkType.OnePunchKill || perk == PerkType.Bubble) {
             LevelUIManager.HandlePerk(perk);
         } else if (perk == PerkType.ExtraCoins) {

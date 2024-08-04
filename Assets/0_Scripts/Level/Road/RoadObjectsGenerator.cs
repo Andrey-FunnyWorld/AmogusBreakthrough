@@ -29,10 +29,6 @@ public class RoadObjectsGenerator : MonoBehaviour {
         return DebugGenerateEnemies(roadTracksCoords);
     }
 
-    public void HandleWeaponBoxTransparencyPerk() {
-        //TODO
-    }
-
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         float[] positions = new float[3] { 15, 35, 37 };
@@ -94,15 +90,17 @@ public class RoadObjectsGenerator : MonoBehaviour {
         return (WeaponType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
     }
     void GenerateWeaponForBox(Transform transform, WeaponType weapon) {
+        GameObject newInstance = null;
         if (weapon == WeaponType.Rifle) {
-            Instantiate(RifflePrefab, transform);
+            newInstance = Instantiate(RifflePrefab, transform);
         } else if (weapon == WeaponType.Blaster) {
-            Instantiate(BlasterPrefab, transform);
+            newInstance = Instantiate(BlasterPrefab, transform);
         } else if (weapon == WeaponType.Bazooka) {
-            Instantiate(BazookaPrefab, transform);
+            newInstance = Instantiate(BazookaPrefab, transform);
         } else if (weapon == WeaponType.IonGun) {
-            Instantiate(IonGunPrefab, transform);
+            newInstance = Instantiate(IonGunPrefab, transform);
         }
+        newInstance.gameObject.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
     }
     private Attackable ProvideWeaponBox(
         Weapon Prefab,

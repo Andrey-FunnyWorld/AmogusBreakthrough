@@ -47,17 +47,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0ee40255a6c41d9b5d627b58be122a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 5076144651205234972}
   RoadPosition: 0
-  StartHP: 10
   Animator: {fileID: 0}
-  Renderer: {fileID: 0}
-  CanBeAttacked: 1
+  Renderer: {fileID: 3650938993549010617}
   hitParticle: {fileID: 0}
+  CanBeAttacked: 1
+  HealthBar: {fileID: 5076144651205234972}
+  StartHP: 10
+  boxMarker: {fileID: 596978386421863097}
+  weaponMarker: {fileID: 7616055480413785391}
   WeaponType: 0
   BoxRenderer: {fileID: 3650938993549010617}
-  weaponMarker: {fileID: 7616055480413785391}
-  boxMarker: {fileID: 596978386421863097}
+  TranspaerntMaterial: {fileID: 2100000, guid: c4e719d142d95664395abeb5cd526493, type: 2}
 --- !u!1 &5871633318390899235
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6911606730911114093
 Transform:
   m_ObjectHideFlags: 0
@@ -169,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
       propertyPath: m_Name
       value: weapon-box
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8888e5891d8107f4084e34dec429382c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

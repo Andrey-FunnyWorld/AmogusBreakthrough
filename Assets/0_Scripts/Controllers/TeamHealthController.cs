@@ -5,6 +5,9 @@ public class TeamHealthController : MonoBehaviour {
     public ProgressBarUI HpBar;
     public float maxHealth = 100;
 
+    public float bubbleTime = 2f;
+    bool isBubbleActive;
+
     bool recoverHealth;
     float currentHealth;
     float additionalHealthFactor = 1.5f;
@@ -13,15 +16,31 @@ public class TeamHealthController : MonoBehaviour {
     float healthRecoveryDuration = 0.5f; //every 0.5s increase health by minRecoverHealthValue
     float minRecoverHealthValue = 0.1f;
 
+    [ContextMenu("DEBUG_TakeRandomDamage")]
+    public void ForDebugTakeDamage() { //TODO remove later
+        TakeDamage(UnityEngine.Random.Range(1f, 50f));
+    }
+
+    [ContextMenu("DEBUG_AddExtraHpPerk")]
+    public void DebugAddExtraHpPerk() { //todo remove later
+        ChangeHealthBy(additionalUltraHealthFactor);
+    }
+
+    [ContextMenu("DEBUG_BUBBLE!!!")]
+    public void DebugEnableBubble() {
+        isBubbleActive = true;
+        Debug.Log("BUBBLE start");
+        StartCoroutine(Utils.WaitAndDo(bubbleTime, () => {
+            isBubbleActive = false;
+            Debug.Log("BUBBLE end");
+        }));
+    }
+
     void Awake() => currentHealth = maxHealth;
     void Start() => SubscribeEvents();
     void Update() => RecoverHealth();
     void OnDestroy() => UnsubscribeEvents();
 
-    [ContextMenu("DebugAddExtraHpPerk")]
-    public void DebugAddExtraHpPerk() {
-        ChangeHealthBy(additionalUltraHealthFactor);
-    }
 
     public void HandlePerk(PerkType perk) {
         if (perk == PerkType.ExtraHealth) {
@@ -33,12 +52,10 @@ public class TeamHealthController : MonoBehaviour {
         }
     }
 
-    [ContextMenu("DEBUG_TakeRandomDamage")]
-    public void ForDebugTakeDamage() { //TODO remove later
-        TakeDamage(UnityEngine.Random.Range(1f, 50f));
-    }
-
     void TakeDamage(float damage) {
+        if (isBubbleActive)
+            return;
+
         float realDamage = Mathf.Min(currentHealth, damage);
         currentHealth -= realDamage;
 
@@ -48,6 +65,11 @@ public class TeamHealthController : MonoBehaviour {
             OnTeamDie();
     }
 
+    void HandleUseBubbleAbility(object arg) {
+        isBubbleActive = true;
+        StartCoroutine(Utils.WaitAndDo(bubbleTime, () => { isBubbleActive = false; }));
+    }
+
     void ChangeHealthBy(float factor) {
         maxHealth = (int)(maxHealth * factor);
         currentHealth = (int)(currentHealth * factor);
@@ -55,7 +77,6 @@ public class TeamHealthController : MonoBehaviour {
     }
 
     void UpdateHealthUI(bool isPerk = false) {
-        // HpBar.Value = currentHealth / maxHealth;
         if (isPerk)
             HpBar.MaxValue = maxHealth;
         HpBar.Value = currentHealth;
@@ -75,7 +96,6 @@ public class TeamHealthController : MonoBehaviour {
 
             float healthToAdd = Mathf.Min(minRecoverHealthValue, maxHealth - currentHealth);
             currentHealth += healthToAdd;
-            Debug.Log($"Health recovery, curent: {currentHealth}");
 
             UpdateHealthUI();
         }
@@ -87,10 +107,11 @@ public class TeamHealthController : MonoBehaviour {
 
     #region Events
     void SubscribeEvents() {
-        //
+        EventManager.StartListening(EventNames.AbilityBubble, HandleUseBubbleAbility);
     }
+
     void UnsubscribeEvents() {
-        //
+        EventManager.StopListening(EventNames.AbilityBubble, HandleUseBubbleAbility);
     }
     #endregion
 }
