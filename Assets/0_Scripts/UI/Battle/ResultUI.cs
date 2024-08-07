@@ -40,8 +40,8 @@ public class ResultUI : MonoBehaviour {
     }
     public void FinishLevel() {
         if (!UserProgressController.Instance.ProgressState.SkipSaveTargetDialog) {
+            UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
             LoginDialog.Show(() => {
-                UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
                 HtmlBridge.Instance.AskToLogin();
             }, () => {
                 LoadMenuLevel();
@@ -58,6 +58,7 @@ public class ResultUI : MonoBehaviour {
                 state.AskedForRating = true;
                 RateDialog.Show(() => {
                     HtmlBridge.Instance.RateGame();
+                    LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
                 }, () => {
                     HtmlBridge.Instance.ShowInterstitial(() => {
                         LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
@@ -68,11 +69,16 @@ public class ResultUI : MonoBehaviour {
                     LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
                 });
             }
+            AddProgress();
             UserProgressController.Instance.SaveProgress();
             #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
             LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
             #endif
         }
+    }
+    void AddProgress() {
+        UserProgressController.Instance.ProgressState.Money += viewModel.CoinReward;
+        UserProgressController.Instance.ProgressState.Spins += viewModel.DiamondReward;
     }
     public void AdRewardCoins(int multiplier) {
         canLoadNextLevel = false;

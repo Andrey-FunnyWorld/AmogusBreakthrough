@@ -31,8 +31,10 @@ public class DefeatUI : MonoBehaviour {
     }
     public void FinishLevel() {
         if (canLoadNextLevel) {
-            if (UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0)
+            if (UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0) {
+                UserProgressController.Instance.ProgressState.Money += viewModel.CoinReward;
                 UserProgressController.Instance.SaveProgress();
+            }
             HtmlBridge.Instance.ShowInterstitial(() => {
                 gameObject.SetActive(false);
                 LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);

@@ -34,10 +34,11 @@ public class ListItem : MonoBehaviour, IPointerDownHandler {
         Buy.gameObject.SetActive(!purchased);
         IsAvaiable = purchased;
     }
-    public void Unlock(bool animate = true) {
+    public void Unlock(bool animate = true, bool forFree = false) {
         ApplyPurchased(true);
         int price = Model.Price;
-        Model.Price = 0;
+        if (forFree)
+            Model.Price = 0;
         EventManager.TriggerEvent(EventNames.ShopItemPurchased, this);
         Model.Price = price;
         if (animate)

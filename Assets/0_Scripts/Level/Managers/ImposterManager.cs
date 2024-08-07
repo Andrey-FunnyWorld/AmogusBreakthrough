@@ -68,6 +68,9 @@ public class ImposterManager : MonoBehaviour {
         return checkedMatesByStep[step][Team.MatesCount];
     }
     public void Dropped(int index) {
+        foreach (DropPlatform platform in DropPlatforms) {
+            platform.BlockSelection();
+        }
         imposterDetected = index == imposterIndex;
         HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
         UserProgressController.Instance.ProgressState.ImposterDetectedCount++;

@@ -20,8 +20,8 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsRu = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Ваш рекорд" },
         { LocalizationKeys.AdSpinReady, "Готово" },
-        { LocalizationKeys.HatsProgress, "ШЛЯПЫ: {0}%" },
-        { LocalizationKeys.BackpackProgress, "РЮКЗАКИ: {0}%" },
+        { LocalizationKeys.HatsProgress, "ШЛЯПЫ: {0}" },
+        { LocalizationKeys.BackpackProgress, "РЮКЗАКИ: {0}" },
         { LocalizationKeys.Yes, "Да" },
         { LocalizationKeys.No, "Нет" },
         { LocalizationKeys.ExtraPerkFormat, "+1 Перк за {0} <sprite name=\"coin\">" },
@@ -56,8 +56,8 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsEn = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Your record" },
         { LocalizationKeys.AdSpinReady, "Ready" },
-        { LocalizationKeys.HatsProgress, "HATS: {0}%" },
-        { LocalizationKeys.BackpackProgress, "BACKPACKS: {0}%" },
+        { LocalizationKeys.HatsProgress, "HATS: {0}" },
+        { LocalizationKeys.BackpackProgress, "BACKPACKS: {0}" },
         { LocalizationKeys.Yes, "Yes" },
         { LocalizationKeys.No, "No" },
         { LocalizationKeys.ExtraPerkFormat, "+1 Perk for {0} <sprite name=\"coin\">" },

@@ -49,9 +49,16 @@ public class MainMenuManager : MonoBehaviour {
             QualitySettings.SetQualityLevel(desiredIndex);
         }
     }
+    string GetSkinRatio(SkinType skinType, ProgressState progress) {
+        SkinItems skinItems = skinType == SkinType.Hat ? ShopHats.Items  : ShopBackpacks.Items;
+        int maxItems = skinType == SkinType.Hat ? progress.PurchasedHats.Length : progress.PurchasedBackpacks.Length;
+        return string.Format("{0}/{1}", maxItems - 1, skinItems.Items.Length - 1);
+    }
     void UpdateProgressTexts(ProgressState progress) {
-        HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
-        BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
+        HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress), GetSkinRatio(SkinType.Hat, progress));
+        BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress), GetSkinRatio(SkinType.Backpack, progress));
+        // HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
+        // BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
     }
     void ApplyProgressLight(ProgressState progress) {
         ScoreText.Score = progress.Money;

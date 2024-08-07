@@ -11,6 +11,7 @@ mergeInto(LibraryManager.library, {
     const clientMethod = "ReceiveAuthRequestResultString";
     ysdk.auth.openAuthDialog().then(() => {
       initPlayer().then(_player => {
+        player = _player;
         sendStartupData(true); // see index
         myGameInstance.SendMessage(HtmlBridge, clientMethod, "true");
       }).catch(err => {
