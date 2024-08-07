@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class LevelLoaderTransition : MonoBehaviour {
     public void TransitionEnd() {
-        //HtmlBridge.Instance.PingGameReady();
+        HtmlBridge.Instance.ReadyToPlay();
     }
 }

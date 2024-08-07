@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class ImposterManager : MonoBehaviour {
@@ -17,7 +16,7 @@ public class ImposterManager : MonoBehaviour {
     public void RunImposterScene() {
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
-        Debug.Log("imposterIndex: " + imposterIndex);
+        //Debug.Log("imposterIndex: " + imposterIndex);
         ImposterUI.Transition(true);
         StartCoroutine(Utils.WaitAndDo(ImposterUI.TransitionDuration + 0.1f, () => {
             ImposterUI.Init(Team);
@@ -69,7 +68,12 @@ public class ImposterManager : MonoBehaviour {
         return checkedMatesByStep[step][Team.MatesCount];
     }
     public void Dropped(int index) {
+        foreach (DropPlatform platform in DropPlatforms) {
+            platform.BlockSelection();
+        }
         imposterDetected = index == imposterIndex;
+        HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
+        UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
         CameraFocusPlatform(DropPlatforms[index]);
         StartCoroutine(Utils.WaitAndDo(2, () => {
             // stop drums sound

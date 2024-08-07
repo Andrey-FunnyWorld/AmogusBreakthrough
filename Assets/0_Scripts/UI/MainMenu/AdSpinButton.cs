@@ -14,16 +14,22 @@ public class AdSpinButton : MonoBehaviour {
     public bool KeepDisabled = false;
     [NonSerialized]
     public DateTime DateAvailable;
+    public Wheel Wheel;
+    public float SpinDuration = 7;
     public void ApplyFinishDate(DateTime date) {
         Text.text = GetTimeText(date);
         DateAvailable = date;
         ButtonDisabled.Enable = DateAvailable < DateTime.Now;
     }
     public void Spin() {
-        DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
-        Text.text = GetTimeText(DateAvailable);
-        UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
-        UserProgressController.Instance.SaveProgress();
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWheel);
+        HtmlBridge.Instance.ShowRewarded(() => {
+            DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
+            Text.text = GetTimeText(DateAvailable);
+            UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
+            UserProgressController.Instance.SaveProgress();
+            Wheel.Spin(SpinDuration);
+        }, () => {});
     }
     string GetTimeText(DateTime date) {
         if (date < DateTime.Now) {

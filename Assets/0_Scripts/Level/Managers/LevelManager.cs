@@ -8,7 +8,9 @@ public class LevelManager : MonoBehaviour {
     public MainGuy MainGuy;
     public LevelUIManager LevelUIManager;
     public StartGate StartGate, EndGate;
+    [HideInInspector]
     public MovementController MovementController;
+    public MovementController KeyboardController, TouchController;
     public PerkPanel PerkPanel;
     public ImposterManager ImposterManager;
     const float END_GATE_OFFSET = 15;
@@ -17,14 +19,8 @@ public class LevelManager : MonoBehaviour {
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
-        MovementController.AllowMove = !PerkPanel.ShowOnStart;
-        //ApplyProgress(UserProgressController.Instance.ProgressState);
-        EventManager.TriggerEvent(EventNames.LevelLoaded, this);
-    }
-    void Update() {
-        // if (Input.GetKeyDown(KeyCode.Space)) {
-        //     Road.IsRunning = !Road.IsRunning;
-        // }
+        if (UserProgressController.ProgressLoaded)
+            StartDataLoaded(null);
     }
     void OnDestroy() {
         UnsubscriveEvents();
@@ -34,16 +30,19 @@ public class LevelManager : MonoBehaviour {
         MainGuy.StartMove();
         Road.IsRunning = true;
         Road.MovementStarted = true;
-        LevelUIManager.LetsRoll();
+        //LevelUIManager.LetsRoll();
         StartGate.Open();
         EndGate.GetComponent<RoadObjectBase>().RoadPosition = Road.Length + END_GATE_OFFSET;
+        HtmlBridge.Instance.ReportMetric(MetricNames.BattleLevelStarted);
     }
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
         LetsRoll();
     }
     void RoadFinished(object arg) {
-        LevelUIManager.RoadFinished();
+        //LevelUIManager.RoadFinished();
+        MovementController.AllowMove = false;
+        MovementController.gameObject.SetActive(false);
         StartCoroutine(Utils.ChainActions(new List<ChainedAction>() {
             new ChainedAction() { DeltaTime = 1, Callback = () => { EndGate.Open(); }},
             new ChainedAction() { DeltaTime = 0.5f, Callback = () => { Road.IsRunning = true; }},
@@ -54,15 +53,33 @@ public class LevelManager : MonoBehaviour {
     }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);
+        PerkPanel.ApplyProgress(progress);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
+        AdjustToPlatform(HtmlBridge.PlatformType);
+    }
+    void AdjustToPlatform(PlatformType platformType) {
+        StartGate.AdjustToPlatform(platformType);
+        LevelUIManager.AdjustToPlatform(platformType);
     }
     void StartDataLoaded(object arg) {
         ApplyProgress(UserProgressController.Instance.ProgressState);
+        MovementController = HtmlBridge.PlatformType == PlatformType.Desktop ? KeyboardController : TouchController;
+        MovementController.gameObject.SetActive(true);
+        MovementController.AllowMove = !PerkPanel.ShowOnStart;
     }
     void PerkSelected(object arg) {
         PerkItem perkItem = (PerkItem)arg;
-        MovementController.AllowMove = true;
+        if (PerkPanel.ExtraPerkTaken)
+            StartCoroutine(Utils.WaitAndDo(0.2f, () => {
+                MovementController.AllowMove = true;
+            }));
         Debug.Log("TO-DO. Apply Perk: " + perkItem.PerkType);
+    }
+    public void StartGame() {
+        StartCoroutine(Utils.WaitAndDo(0.2f, () => {
+            MovementController.AllowMove = true;
+        }));
+        PerkPanel.gameObject.SetActive(false);
     }
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.StartMovement, StartMovement);

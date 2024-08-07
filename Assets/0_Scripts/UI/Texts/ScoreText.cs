@@ -11,6 +11,9 @@ public class ScoreText : MonoBehaviour {
     public float AnimationDuration = 0.7f;
     int score = 0;
     int prevValue = 0;
+    void Awake() {
+        Text.text = string.Format(Format, score);
+    }
     public int Score {
         get { return score;}
         set {

@@ -10,7 +10,9 @@ public class ResultUI : MonoBehaviour {
     public Animator Animator;
     public UnityEvent[] AnimationSteps;
     public LevelLoader LevelLoader;
+    public MyDialog LoginDialog, RateDialog;
     ResultUIViewModel viewModel;
+    bool canLoadNextLevel = true;
     public void ShowImposterResult(bool success) {
         ImposterResultUI.ShowResult(success);
     }
@@ -20,6 +22,8 @@ public class ResultUI : MonoBehaviour {
         ImposterDetected.gameObject.SetActive(false);
         ImposterNotDetected.gameObject.SetActive(false);
         Animator.SetTrigger("show");
+        UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
+        HtmlBridge.Instance.ReportMetric(MetricNames.Win);
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;
@@ -34,8 +38,67 @@ public class ResultUI : MonoBehaviour {
     public void SetAnimationStep(int index) {
         AnimationSteps[index].Invoke();
     }
+    public void FinishLevel() {
+        if (!UserProgressController.Instance.ProgressState.SkipSaveTargetDialog) {
+            UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
+            LoginDialog.Show(() => {
+                HtmlBridge.Instance.AskToLogin();
+            }, () => {
+                LoadMenuLevel();
+            });
+        } else {
+            LoadMenuLevel();
+        }
+    }
     public void LoadMenuLevel() {
-        LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+        if (canLoadNextLevel) {
+            gameObject.SetActive(false);
+            ProgressState state = UserProgressController.Instance.ProgressState;
+            if (!state.AskedForRating && state.CompletedRoundsCount >= 3 && viewModel.ImposterDetected) {
+                state.AskedForRating = true;
+                RateDialog.Show(() => {
+                    HtmlBridge.Instance.RateGame();
+                    LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+                }, () => {
+                    HtmlBridge.Instance.ShowInterstitial(() => {
+                        LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+                    });
+                });
+            } else {
+                HtmlBridge.Instance.ShowInterstitial(() => {
+                    LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+                });
+            }
+            AddProgress();
+            UserProgressController.Instance.SaveProgress();
+            #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
+            LevelLoader.LoadScene(LevelLoader.MENU_BUILD_INDEX);
+            #endif
+        }
+    }
+    void AddProgress() {
+        UserProgressController.Instance.ProgressState.Money += viewModel.CoinReward;
+        UserProgressController.Instance.ProgressState.Spins += viewModel.DiamondReward;
+    }
+    public void AdRewardCoins(int multiplier) {
+        canLoadNextLevel = false;
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWinCoin);
+        HtmlBridge.Instance.ShowRewarded(() => {
+            viewModel.CoinReward *= multiplier;
+            SetCoins();
+            canLoadNextLevel = true;
+        }, () => {
+            canLoadNextLevel = true;
+        });
+    }
+    void AuthStatusRecieved(object arg) {
+        LoadMenuLevel();
+    }
+    void Start() {
+        EventManager.StartListening(EventNames.AuthStatusRecieved, AuthStatusRecieved);
+    }
+    void OnDestroy() {
+        EventManager.StopListening(EventNames.AuthStatusRecieved, AuthStatusRecieved);
     }
 }
 
