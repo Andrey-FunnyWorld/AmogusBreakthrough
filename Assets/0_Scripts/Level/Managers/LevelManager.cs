@@ -25,10 +25,19 @@ public class LevelManager : MonoBehaviour {
         // ApplyProgress(UserProgressController.Instance.ProgressState);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
+
+    public Sprite spriteOnePunch; //TODO REMOVE
+    public Sprite spriteBubble; //TODO REMOVE
     void Update() {
         // if (Input.GetKeyDown(KeyCode.Space)) {
         //     Road.IsRunning = !Road.IsRunning;
         // }
+        if (Input.GetKeyDown(KeyCode.M)) { //TODO REMOVE
+            LevelUIManager.HandlePerk(PerkType.OnePunchKill, spriteOnePunch);
+        }
+        if (Input.GetKeyDown(KeyCode.N)) { //TODO REMOVE
+            LevelUIManager.HandlePerk(PerkType.Bubble, spriteBubble);
+        }
     }
     void OnDestroy() {
         UnsubscribeEvents();
@@ -62,6 +71,9 @@ public class LevelManager : MonoBehaviour {
     void TeamDead(object arg0) {
         //TODO game over
     }
+    void HandleOnePunchAbility(object arg) {
+        Road.AbilityOnePunchUsed();
+    }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
@@ -85,7 +97,7 @@ public class LevelManager : MonoBehaviour {
         } else if (perk == PerkType.WeaponBoxTransparency) {
             Road.HandleTransparencyWeaponBoxPerk();
         } else if (perk == PerkType.OnePunchKill || perk == PerkType.Bubble) {
-            LevelUIManager.HandlePerk(perk);
+            LevelUIManager.HandlePerk(perkItem);
         } else if (perk == PerkType.ExtraCoins) {
             CoinsController.ApplyExtraCoinsPerk();
         } else if (perk == PerkType.ExtraGuy) {
@@ -100,6 +112,7 @@ public class LevelManager : MonoBehaviour {
         #endif
         EventManager.StartListening(EventNames.PerkSelected, PerkSelected);
         EventManager.StartListening(EventNames.TeamDead, TeamDead);
+        EventManager.StartListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 
     void UnsubscribeEvents() {
@@ -110,5 +123,6 @@ public class LevelManager : MonoBehaviour {
         #endif
         EventManager.StopListening(EventNames.PerkSelected, PerkSelected);
         EventManager.StopListening(EventNames.TeamDead, TeamDead);
+        EventManager.StopListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 }

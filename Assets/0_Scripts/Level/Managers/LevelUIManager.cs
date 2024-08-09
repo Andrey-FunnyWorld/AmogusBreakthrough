@@ -1,22 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LevelUIManager : MonoBehaviour {
     public Transform StartupMsg;
     public Transform RoadFinishedMsg;
-    public Button AbilityButton;
-    public Image HpBar;
 
-    PerkType? currentAbility;
-
-    void Awake() {
-        SubscribeEvents();
-        AbilityButton.onClick.RemoveAllListeners();
-        AbilityButton.onClick.AddListener(() => UseAbility());
-        AbilityButton.gameObject.SetActive(false);
-    }
-
-    void OnDestroy() => UnsubscribeEvents();
+    public AbilityButton FirstAbility;
+    public AbilityButton SecondAbility;
 
     public void LetsRoll() {
         //StartupMsg.gameObject.SetActive(false);
@@ -26,32 +15,20 @@ public class LevelUIManager : MonoBehaviour {
         //RoadFinishedMsg.gameObject.SetActive(true);
     }
 
-    public void HandlePerk(PerkType perk) {
-        currentAbility = perk;
-        //button with ability (change sprite?)
-        if (!AbilityButton.gameObject.activeSelf)
-            AbilityButton.gameObject.SetActive(true);
-    }
-
-    void UpdateHP(object currentHp) =>
-        HpBar.fillAmount = (float)currentHp;
-
-    void UseAbility() {
-        if (currentAbility == null)
-            return;
-
-        if (currentAbility == PerkType.OnePunchKill) {
-            EventManager.TriggerEvent(EventNames.AbilityOnePunch);
-        } else if (currentAbility == PerkType.Bubble) {
-            EventManager.TriggerEvent(EventNames.AbilityBubble);
+    public void HandlePerk(PerkItem perk) {
+        if (!FirstAbility.gameObject.activeSelf) {
+            FirstAbility.Init(perk);
+        } else {
+            SecondAbility.Init(perk);
         }
-        currentAbility = null;
-        AbilityButton.gameObject.SetActive(false);
     }
 
-    void SubscribeEvents() =>
-        EventManager.StartListening(EventNames.HpChanged, UpdateHP);
+    public void HandlePerk(PerkType type, Sprite sprite) {
+        if (!FirstAbility.gameObject.activeSelf) {
+            FirstAbility.Init(type, sprite);
+        } else {
+            SecondAbility.Init(type, sprite);
+        }
+    }
 
-    void UnsubscribeEvents() =>
-        EventManager.StopListening(EventNames.HpChanged, UpdateHP);
 }

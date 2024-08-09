@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TeamHealthController : MonoBehaviour {
@@ -5,6 +6,7 @@ public class TeamHealthController : MonoBehaviour {
     public ProgressBarUI HpBar;
     public float maxHealth = 100;
 
+    public RunningTexture BubbleShield;
     public float bubbleTime = 2f;
     bool isBubbleActive;
 
@@ -26,17 +28,10 @@ public class TeamHealthController : MonoBehaviour {
         ChangeHealthBy(additionalUltraHealthFactor);
     }
 
-    [ContextMenu("DEBUG_BUBBLE!!!")]
-    public void DebugEnableBubble() {
-        isBubbleActive = true;
-        Debug.Log("BUBBLE start");
-        StartCoroutine(Utils.WaitAndDo(bubbleTime, () => {
-            isBubbleActive = false;
-            Debug.Log("BUBBLE end");
-        }));
+    void Awake() {
+        currentHealth = maxHealth;
+        InitBubbleShield();
     }
-
-    void Awake() => currentHealth = maxHealth;
     void Start() => SubscribeEvents();
     void Update() => RecoverHealth();
     void OnDestroy() => UnsubscribeEvents();
@@ -49,6 +44,30 @@ public class TeamHealthController : MonoBehaviour {
             ChangeHealthBy(additionalUltraHealthFactor);
         } else if (perk == PerkType.RegenHP) {
             recoverHealth = true;
+        }
+    }
+
+    void InitBubbleShield() {
+        BubbleShield.SetSpeed(7f);
+    }
+
+    void RunBubble(bool run) {
+        BubbleShield.gameObject.SetActive(run);
+        BubbleShield.IsRunning = run;
+
+        if (run)
+            StartCoroutine(nameof(BubbleVFXRoutine));
+    }
+
+    IEnumerator BubbleVFXRoutine() {
+        float timer = 0f;
+        float counter = 0f;
+        while(timer < bubbleTime) {
+            timer += Time.deltaTime;
+            counter = timer * 3;
+            var value = Mathf.Sin(counter) * 0.5f + 7.5f;
+            BubbleShield.transform.localScale = Vector3.one * value;
+            yield return null;
         }
     }
 
@@ -65,9 +84,13 @@ public class TeamHealthController : MonoBehaviour {
             OnTeamDie();
     }
 
-    void HandleUseBubbleAbility(object arg) {
+    void HandleBubbleAbility(object arg) {
         isBubbleActive = true;
-        StartCoroutine(Utils.WaitAndDo(bubbleTime, () => { isBubbleActive = false; }));
+        RunBubble(isBubbleActive);
+        StartCoroutine(Utils.WaitAndDo(bubbleTime, () => {
+            isBubbleActive = false;
+            RunBubble(isBubbleActive);
+        }));
     }
 
     void ChangeHealthBy(float factor) {
@@ -107,11 +130,11 @@ public class TeamHealthController : MonoBehaviour {
 
     #region Events
     void SubscribeEvents() {
-        EventManager.StartListening(EventNames.AbilityBubble, HandleUseBubbleAbility);
+        EventManager.StartListening(EventNames.AbilityBubble, HandleBubbleAbility);
     }
 
     void UnsubscribeEvents() {
-        EventManager.StopListening(EventNames.AbilityBubble, HandleUseBubbleAbility);
+        EventManager.StopListening(EventNames.AbilityBubble, HandleBubbleAbility);
     }
     #endregion
 }

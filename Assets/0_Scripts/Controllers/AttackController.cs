@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ public class AttackController : MonoBehaviour {
     public AttackFXController fxController;
     public GameObject AttackZonePlane;
     public Transform AttackZoneParent;
+    public float OnePunchZone = 20f;
 
     public float bossExtraMin = 1.1f;
     public float bossExtraMax = 1.4f;
@@ -21,6 +21,7 @@ public class AttackController : MonoBehaviour {
     float attackStartPosition;
     float attackEndPosition;
     float teamDamage = 0.5f;
+    float attackOnePunchStartPosition;
 
     bool extraBossDamage;
     bool extraAttackWidth;
@@ -68,6 +69,7 @@ public class AttackController : MonoBehaviour {
 
     public void Prepare() {
         InitAttackRange();
+        InitAttackOnePunchRange();
         PrepareWeapons();
         HandleWeaponChanged(MainGuy.CurrentWeaponType);
     }
@@ -125,13 +127,21 @@ public class AttackController : MonoBehaviour {
 
     private void HandleMatesChanged(object arg) {
         CalcAttackZone();
-        // AttackZonePlane.transform.parent.gameObject.SetActive(true); //debug, remove later
         MainGuy.Team.SwitchWeapon(currentWeapon.Type);
     }
 
-    void HandleOnePunchAbility(object arg) {
-        foreach (var enemy in enemies)
-            enemy.HP -= enemy.HP;
+    public void HandleOnePunchAbility(List<RoadObjectBase> objects) {
+        foreach (RoadObjectBase obj in objects) {
+            if (obj is EnemyBase enemy) {
+                if (IsInOnePunchRange(enemy))
+                    enemy.HP = 0;
+            }
+        }
+    }
+
+    bool IsInOnePunchRange(EnemyBase enemy) {
+        return enemy.transform.position.z - enemy.transform.lossyScale.z <= attackOnePunchStartPosition
+            && enemy.transform.position.z > attackEndPosition;
     }
 
     bool NotAllInitialized() =>
@@ -181,6 +191,10 @@ public class AttackController : MonoBehaviour {
         attackEndPosition = MainGuyZCoord + 1;
     }
 
+    void InitAttackOnePunchRange() {
+        attackOnePunchStartPosition = MainGuy.transform.position.z + OnePunchZone + 1;
+    }
+
     void PrepareWeapons() {
         weapons = new Dictionary<WeaponType, WeaponDefinition>(weaponsStaticData.Items.Length);
         foreach (WeaponDefinition weapon in weaponsStaticData.Items)
@@ -202,6 +216,13 @@ public class AttackController : MonoBehaviour {
 
         attackCoroutine = StartCoroutine(Utils.WaitAndDo(currentWeapon.AttackCooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
+
+                if (enemies[i] == null) {
+                    enemies.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
                 enemies[i].HP -= GetDamage(enemies[i]);
                 if (enemies[i].HP > 0)
                     HandleAttackVisualisation();
@@ -275,12 +296,10 @@ public class AttackController : MonoBehaviour {
     void SubscriveEvents() {
         EventManager.StartListening(EventNames.WeaponChanged, EventWeaponChanged);
         EventManager.StartListening(EventNames.MatesChanged, HandleMatesChanged);
-        EventManager.StartListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.WeaponChanged, EventWeaponChanged);
         EventManager.StopListening(EventNames.MatesChanged, HandleMatesChanged);
-        EventManager.StopListening(EventNames.AbilityOnePunch, HandleOnePunchAbility);
     }
 }

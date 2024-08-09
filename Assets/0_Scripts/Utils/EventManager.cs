@@ -68,7 +68,6 @@ public static class EventNames {
     public static string LevelLoaded = "LevelLoaded";
     public static string TeamDead = "TeamDead";
 
-    public static string HpChanged = "HpChanged";
     public static string EnemyDied = "EnemyDied";
 
     public static string AbilityOnePunch = "AbilityOnePunch";

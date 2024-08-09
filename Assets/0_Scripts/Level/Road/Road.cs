@@ -68,12 +68,6 @@ public class Road : MonoBehaviour {
         }
     }
 
-    void NotifyDecorationGenerator() {
-        RoadObjectBase roadObject = RoadDecorationGenerator.PositionChanged(currentPosition);
-        if (roadObject != null)
-            roadObjects.Add(roadObject);
-    }
-
     public List<float> InitTracks() {
         tracksCoords = new List<float>();
 
@@ -107,7 +101,11 @@ public class Road : MonoBehaviour {
         AttackHandler.ApplyPerk(perk);
     }
 
-    [ContextMenu("MakeWeaponBoxesTransparent")]
+    public void AbilityOnePunchUsed() {
+        AttackHandler.HandleOnePunchAbility(roadObjects);
+    }
+
+    [ContextMenu("MakeWeaponBoxesTransparent")] //todo remove later
     public void HandleTransparencyWeaponBoxPerk() {
         foreach (var roadObject in roadObjects) {
             if (roadObject is Weapon weapon) {
@@ -120,6 +118,12 @@ public class Road : MonoBehaviour {
     //     float texOffset = moveTime / texOffsetFactor;
     //     RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
     // }
+
+    void NotifyDecorationGenerator() {
+        RoadObjectBase roadObject = RoadDecorationGenerator.PositionChanged(currentPosition);
+        if (roadObject != null)
+            roadObjects.Add(roadObject);
+    }
 
     void HandleFinishReached() {
         if (!finished && currentPosition >= Length) {

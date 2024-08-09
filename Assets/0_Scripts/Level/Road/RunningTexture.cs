@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RunningTexture : MonoBehaviour {
@@ -13,6 +11,17 @@ public class RunningTexture : MonoBehaviour {
     float moveTime = 0;
     float texOffsetFactor = 0;
     float speed = 0;
+
+    void Update() {
+        if (IsRunning) {
+            moveTime += Time.deltaTime;
+            float texOffset = moveTime / texOffsetFactor;
+            float x = AnimateX ? (-texOffset % 1) * (AnimateForward ? 1 : -1) : 0;
+            float y = AnimateX ? 0 : (-texOffset % 1) * (AnimateForward ? 1 : -1);
+            Renderer.material.mainTextureOffset = new Vector2(x, y);
+        }
+    }
+
     public void SetSpeed(float newSpeed) {
         speed = newSpeed;
         float texScale = AnimateX ? Renderer.material.mainTextureScale.x : Renderer.material.mainTextureScale.y;
@@ -23,15 +32,6 @@ public class RunningTexture : MonoBehaviour {
             case Axis.Z: transformScale = transform.localScale.z; break;
         }
         texOffsetFactor = 10 / ((texScale / transformScale) * speed);
-    }
-    void Update() {
-        if (IsRunning) {
-            moveTime += Time.deltaTime;
-            float texOffset = moveTime / texOffsetFactor;
-            float x = AnimateX ? (-texOffset % 1) * (AnimateForward ? 1 : -1) : 0;
-            float y = AnimateX ? 0 : (-texOffset % 1) * (AnimateForward ? 1 : -1);
-            Renderer.material.mainTextureOffset = new Vector2(x, y);
-        }
     }
 }
 

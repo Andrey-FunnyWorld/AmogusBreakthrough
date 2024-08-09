@@ -100,7 +100,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         } else if (weapon == WeaponType.IonGun) {
             newInstance = Instantiate(IonGunPrefab, transform);
         }
-        newInstance.gameObject.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+        transform.gameObject.SetActive(false);
     }
     private Attackable ProvideWeaponBox(
         Weapon Prefab,

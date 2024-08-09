@@ -79,9 +79,12 @@ public class AttackFXController : MonoBehaviour {
         for (int i = 0; i < maxEffectsCount; i++) {
             if (Time.time >= cooldowns[i]) {
                 cooldowns[i] = GetNextEmitionTime();
-                Vector3 fxSpawnPoint = GetFxSpawnPoint();
-                effectsSpawner.transform.position = fxSpawnPoint;
-                attackFx.Play();
+                Vector3? fxSpawnPoint = GetFxSpawnPoint();
+                if (fxSpawnPoint != null) {
+                    effectsSpawner.transform.position = fxSpawnPoint.Value;
+                    attackFx.Play();
+                }
+                
             }
         }
     }
@@ -97,7 +100,7 @@ public class AttackFXController : MonoBehaviour {
     private float GetNextEmitionTime() =>
         Time.time + Random.Range(0.2f, 0.8f);
 
-    private Vector3 GetFxSpawnPoint() {
+    private Vector3? GetFxSpawnPoint() {
         switch (currentWeaponImpactType) {
             case ImpactType.Direct:
                 return GetFxSpawnPointDirectImpact();
@@ -106,18 +109,14 @@ public class AttackFXController : MonoBehaviour {
             default: return GetPointRandom();
 
         }
-        // return enemies.Count > 0
-        //     ? GetPointNearRandomEnemy()
-        //     : GetPointRandom();
     }
 
-    private Vector3 GetFxSpawnPointDirectImpact() {
-        Vector3 pos = GetRandomEnemyPosition();
-        return new Vector3(
-            pos.x,
-            pos.y,
-            pos.z - 1.5f
-        );
+    private Vector3? GetFxSpawnPointDirectImpact() {
+        Vector3? pos = GetRandomEnemyPosition();
+        if (pos != null)
+            return new Vector3(pos.Value.x, pos.Value.y, pos.Value.z - 1.5f);
+        else
+            return null;
     }
 
     private Vector3 GetPointRandom() {
