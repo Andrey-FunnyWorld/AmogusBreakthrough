@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour {
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
+        UserProgressController.Instance.ProgressState.ShowMenuOnStart = true;
         if (UserProgressController.ProgressLoaded)
             StartDataLoaded(null);
     }

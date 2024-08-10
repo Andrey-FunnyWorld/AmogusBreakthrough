@@ -64,6 +64,8 @@ public class ProgressState {
     public int CompletedRoundsCount = 0;
     public int ImposterDetectedCount = 0;
     public bool AskedForRating = false;
+    public bool SkipTutorial = false;
+    public bool ShowMenuOnStart = false;
     public DateTime AdSpinWhenAvailable {
         get { 
             if (AdSpinWhenAvailableString != string.Empty)

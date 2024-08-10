@@ -5,12 +5,19 @@ using UnityEngine;
 public class ExpandButton : MonoBehaviour {
     public float RollingTime = 0.3f;
     public RectTransform ContentToRoll, MaskRect, Icon;
+    public ButtonHint[] ButtonHints;
+    public float TimeForHints = 4;
     bool isOpened = false;
+    Coroutine waitHintsCoroutine;
     public void SetOpened(bool open) {
         isOpened = open;
+        if (waitHintsCoroutine != null)
+            StopCoroutine(waitHintsCoroutine);
         if (open) {
             StartCoroutine(Roll());
+            waitHintsCoroutine = StartCoroutine(Utils.WaitAndDo(TimeForHints, () => SetHintsVisibility(true)));
         } else {
+            SetHintsVisibility(false);
             ContentToRoll.anchoredPosition = new Vector2(0, -MaskRect.sizeDelta.y);
         }
     }
@@ -31,5 +38,10 @@ public class ExpandButton : MonoBehaviour {
     }
     public void ToggleButton() {
         SetOpened(!isOpened);
+    }
+    public bool IsOpened { get { return isOpened; }}
+    public void SetHintsVisibility(bool visible) {
+        foreach (ButtonHint hint in ButtonHints)
+            hint.gameObject.SetActive(visible);
     }
 }
