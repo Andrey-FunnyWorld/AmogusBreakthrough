@@ -111,4 +111,5 @@ public class Wheel : MonoBehaviour {
         else
             AdSpinButton.ButtonDisabled.Enable = false;
     }
+    public bool IsSpinning { get { return isSpinning; }}
 }

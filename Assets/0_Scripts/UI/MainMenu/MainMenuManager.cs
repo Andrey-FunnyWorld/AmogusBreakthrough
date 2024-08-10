@@ -15,13 +15,27 @@ public class MainMenuManager : MonoBehaviour {
     public SettingsPanel SettingsPanel;
     public SkipAdButton SkipAdButton;
     public Wheel Wheel;
+    public CollectAllBlock CollectAllBlock;
+    public MenuTutorial MenuTutorial;
+    public LevelLoader LevelLoader;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
     }
     void Start() {
         if (UserProgressController.ProgressLoaded)
-            ApplyProgressAll();
+            if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
+                ApplyProgressAll();
+                if (!UserProgressController.Instance.ProgressState.SkipTutorial) {
+                    UserProgressController.Instance.ProgressState.SkipTutorial = true;
+                    StartCoroutine(Utils.WaitAndDo(1, () => {
+                        MenuTutorial.gameObject.SetActive(true);
+                        MenuTutorial.RunTutorial();
+                    }));
+                }
+            } else {
+                LevelLoader.LoadScene(LevelLoader.BATTLE_BUILD_INDEX);
+            }
     }
     void OnDestroy() {
         UnsubscriveEvents();
@@ -52,7 +66,7 @@ public class MainMenuManager : MonoBehaviour {
     string GetSkinRatio(SkinType skinType, ProgressState progress) {
         SkinItems skinItems = skinType == SkinType.Hat ? ShopHats.Items  : ShopBackpacks.Items;
         int maxItems = skinType == SkinType.Hat ? progress.PurchasedHats.Length : progress.PurchasedBackpacks.Length;
-        return string.Format("{0}/{1}", maxItems - 1, skinItems.Items.Length - 1);
+        return string.Format("{0} {2} {1}", maxItems - 1, skinItems.Items.Length - 1, MyLocalization.Instance.GetLocalizedText(LocalizationKeys.Of));
     }
     void UpdateProgressTexts(ProgressState progress) {
         HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress), GetSkinRatio(SkinType.Hat, progress));
@@ -100,9 +114,14 @@ public class MainMenuManager : MonoBehaviour {
         UpgradeShop.ApplyProgress(UserProgressController.Instance.ProgressState);
         SkipAdButton.ApplyProgress(UserProgressController.Instance.ProgressState.SkipAdRounds);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
+        CollectAllBlock.Show();
     }
     void StartDataLoaded(object arg) {
-        ApplyProgressAll();
+        if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
+            ApplyProgressAll();
+        } else {
+            LevelLoader.LoadScene(LevelLoader.BATTLE_BUILD_INDEX);
+        }
         ChooseQualityLevel(HtmlBridge.PlatformType);
     }
     public void ShowShopAction(bool show) {

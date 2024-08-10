@@ -20,12 +20,15 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsRu = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Ваш рекорд" },
         { LocalizationKeys.AdSpinReady, "Готово" },
-        { LocalizationKeys.HatsProgress, "ШЛЯПЫ: {0}" },
-        { LocalizationKeys.BackpackProgress, "РЮКЗАКИ: {0}" },
+        //{ LocalizationKeys.HatsProgress, "ШЛЯПЫ: {0}" },
+        //{ LocalizationKeys.BackpackProgress, "РЮКЗАКИ: {0}" },
+        { LocalizationKeys.HatsProgress, "{0}" },
+        { LocalizationKeys.BackpackProgress, "{0}" },
         { LocalizationKeys.Yes, "Да" },
         { LocalizationKeys.No, "Нет" },
         { LocalizationKeys.ExtraPerkFormat, "+1 Перк за {0} <sprite name=\"coin\">" },
         { LocalizationKeys.YouHaveCoins, "У Вас {0} <sprite name=\"coin\">" },
+        { LocalizationKeys.Of, "из" },
 
         { LocalizationKeys.PerkNameAttackZoneVisibility, "Зона атаки" },
         { LocalizationKeys.PerkNameBossDamage, "Урон по боссам" },
@@ -56,8 +59,11 @@ public class MyLocalization : MonoBehaviour {
     public Dictionary<string, string> LocalizedStringsEn = new Dictionary<string, string>() {
         { LocalizationKeys.YourRecord, "Your record" },
         { LocalizationKeys.AdSpinReady, "Ready" },
-        { LocalizationKeys.HatsProgress, "HATS: {0}" },
-        { LocalizationKeys.BackpackProgress, "BACKPACKS: {0}" },
+        //{ LocalizationKeys.HatsProgress, "HATS: {0}" },
+        //{ LocalizationKeys.BackpackProgress, "BACKPACKS: {0}" },
+        { LocalizationKeys.HatsProgress, "{0}" },
+        { LocalizationKeys.BackpackProgress, "{0}" },
+        { LocalizationKeys.Of, "of" },
         { LocalizationKeys.Yes, "Yes" },
         { LocalizationKeys.No, "No" },
         { LocalizationKeys.ExtraPerkFormat, "+1 Perk for {0} <sprite name=\"coin\">" },
@@ -133,6 +139,7 @@ public static class LocalizationKeys {
     public static string No = "No";
     public static string ExtraPerkFormat = "ExtraPerkFormat";
     public static string YouHaveCoins = "YouHaveCoins";
+    public static string Of = "Of";
 
     public static string PerkNameExtraGuy = "PerkNameExtraGuy";
     public static string PerkNameBossDamage = "PerkNameBossDamage";
