@@ -10,6 +10,8 @@ public class Wheel : MonoBehaviour {
     public ButtonScored FreeSpinButton;
     public float BaseSpinsToRotate = 7;
     public ButtonDisabled CloseButton;
+    public AudioSource AudioSource;
+    public AudioClip SpinSound, Skin1Sound, Skin2Sound;
     bool isSpinning = false;
     List<WheelItem> items;
     const float DURATION_EXTENT = 1;
@@ -22,6 +24,9 @@ public class Wheel : MonoBehaviour {
     public NewSkinPanel NewSkinPanel;
     public void Spin(float duration) {
         if (!isSpinning) {
+            AudioSource.clip = SpinSound;
+            AudioSource.loop = true;
+            AudioSource.Play();
             isSpinning = true;
             StartCoroutine(Spinning(GetRandom(BaseSpinsToRotate * 360, DEGREE_EXTENT), GetRandom(duration, DURATION_EXTENT)));
             EventManager.TriggerEvent(EventNames.WheelSpinStart, this);
@@ -80,6 +85,10 @@ public class Wheel : MonoBehaviour {
         NewSkinPanel.ShowItem(rewardItem.Model, shopType);
         rewardItem.Unlock(false, true);
         SetDisabledButtons(true);
+        AudioSource.Stop();
+        AudioSource.loop = false;
+        AudioSource.clip = rewardItem.Model.Quality == SkinItemQuality.Epic ? Skin2Sound : Skin1Sound;
+        AudioSource.Play();
     }
     public void GenerateItems() {
         float radius = 0.7f * WheelTransform.GetComponent<RectTransform>().sizeDelta.x / 2;

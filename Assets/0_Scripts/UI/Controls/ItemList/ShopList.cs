@@ -11,6 +11,7 @@ public class ShopList : MonoBehaviour {
     public SkinType ShopType;
     public MenuCameraController cameraController;
     public CameraType[] Cameras;
+    public AudioSource AudioSource;
     List<ListItem> liveItems = new List<ListItem>();
     const float collapsedTop = 310;
     ProgressState progressState;
@@ -78,6 +79,7 @@ public class ShopList : MonoBehaviour {
         } else {
             bool enoughMoney = progressState.Money >= args.ItemModel.Price;
             if (enoughMoney) {
+                AudioSource.Play();
                 UnlockItem(args.ItemModel);
             } else {
                 EventManager.TriggerEvent(EventNames.NotEnoughMoney, args);

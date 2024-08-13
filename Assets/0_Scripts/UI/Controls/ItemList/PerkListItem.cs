@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class PerkListItem : MonoBehaviour, IPointerDownHandler {
     public Image Image;
+    public AudioSource AudioSource;
     public TextMeshProUGUI PriceText, NameText, DescriptionText;
     public Transform Buy, Available;
     [NonSerialized]
@@ -30,6 +31,7 @@ public class PerkListItem : MonoBehaviour, IPointerDownHandler {
     public void Unlock() {
         ApplyPurchased(true);
         EventManager.TriggerEvent(EventNames.PerkItemPurchased, Model);
+        AudioSource.Play();
     }
     public void OnPointerDown(PointerEventData arg) {
         if (!IsPurchased) {
