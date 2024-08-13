@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class AttackFXController : MonoBehaviour {
 
+    public ParticleSystem RifleAttackFx;
+    public ParticleSystem IonicAttackFx;
+    public ParticleSystem BlasterAttackFx;
+
     private int maxEffectsCount;
     private bool processAttackVisualisation;
     private GameObject effectsSpawner;
@@ -13,6 +17,7 @@ public class AttackFXController : MonoBehaviour {
     private float endAttackPoint;
     private List<float> cooldowns;
     private Dictionary<WeaponType, GameObject> emitters = new Dictionary<WeaponType, GameObject>(3);
+
     private WeaponType currentWeaponType;
     private ImpactType currentWeaponImpactType;
     private List<Attackable> enemies;
@@ -43,23 +48,66 @@ public class AttackFXController : MonoBehaviour {
         this.rightEdge = rightEdge;
         this.startAttackPoint = startAttackPoint;
         this.endAttackPoint = endAttackPoint;
-        PrepareFXSpawnerObject(weapon.Type, fxSpawner);
 
-        attackFx = effectsSpawner.GetComponent<ParticleSystem>();
-        InitFXsCooldowns(weapon.FxEmissionFrequency);
+        StopPlayAnyFX();
+
+        if (currentWeaponImpactType == ImpactType.Direct) {
+            PlaySelectedDirectFX();
+        } else {
+            PrepareFXSpawnerObject(weapon.Type, fxSpawner);
+
+            attackFx = effectsSpawner.GetComponent<ParticleSystem>();
+            InitFXsCooldowns(weapon.FxEmissionFrequency);
+        }
+        
         processAttackVisualisation = true;
+    }
+
+    public void TeamSizeChanged(float width, float center) {
+        var currentScale = RifleAttackFx.transform.localScale;
+        var currentPosition = RifleAttackFx.transform.localPosition;
+        RifleAttackFx.transform.localScale = new Vector3(width, currentScale.y, currentScale.z);
+        RifleAttackFx.transform.localPosition = new Vector3(center, currentPosition.y, currentPosition.z);
+
+        currentScale = IonicAttackFx.transform.localScale;
+        currentPosition = IonicAttackFx.transform.localPosition;
+        IonicAttackFx.transform.localScale = new Vector3(width, currentScale.y, currentScale.z);
+        IonicAttackFx.transform.localPosition = new Vector3(center, currentPosition.y, currentPosition.z);
+
+        currentScale = BlasterAttackFx.transform.localScale;
+        currentPosition = BlasterAttackFx.transform.localPosition;
+        BlasterAttackFx.transform.localScale = new Vector3(width, currentScale.y, currentScale.z);
+        BlasterAttackFx.transform.localPosition = new Vector3(center, currentPosition.y, currentPosition.z);
     }
 
     public void ClearAttackFXs() {
         if (!processAttackVisualisation)
             return;
-            
+
+        StopPlayAnyFX();
         processAttackVisualisation = false;
         effectsSpawner = null;
         attackFx = null;
         leftEdge = null;
         rightEdge = null;
         currentWeaponType = WeaponType.Rifle;
+    }
+
+    private void PlaySelectedDirectFX() {
+        StopPlayAnyFX();
+        if (currentWeaponType == WeaponType.Rifle) {
+            RifleAttackFx.Play();
+        } else if (currentWeaponType == WeaponType.IonGun) {
+            IonicAttackFx.Play();
+        } else if (currentWeaponType == WeaponType.Blaster) {
+            BlasterAttackFx.Play();
+        }
+    }
+
+    private void StopPlayAnyFX() {
+        RifleAttackFx.Stop();
+        IonicAttackFx.Stop();
+        BlasterAttackFx.Stop();
     }
 
     private void PrepareFXSpawnerObject(WeaponType weaponType, GameObject fxEmitter) {

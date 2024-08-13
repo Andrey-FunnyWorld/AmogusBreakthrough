@@ -37,6 +37,8 @@ public class AttackController : MonoBehaviour {
         } else if (!Road.MovementStarted) {
             enemies.Clear();
             fxController.ClearAttackFXs();
+        } else {
+            fxController.ClearAttackFXs();
         }
     }
 
@@ -118,6 +120,8 @@ public class AttackController : MonoBehaviour {
         AttackZoneParent.localPosition = new Vector3(worldToLocal.x, zoneParentPrevLocal.y, zoneParentPrevLocal.z);
         AttackZonePlane.transform.localPosition = new Vector3(0, 0, teamSize.z / 2);
         AttackZonePlane.transform.localScale = new Vector3(teamSize.x, 0.01f, teamSize.z);
+
+        fxController.TeamSizeChanged(teamSize.x, worldToLocal.x);
     }
 
     void CalcAndActivateAttackZoneVisibility() {

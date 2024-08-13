@@ -22,11 +22,11 @@ MonoBehaviour:
   - Type: 2
     ImpactType: 1
     Damage: 0.5
-    FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
+    FxSpawner: {fileID: 6565533563183685118, guid: 1da8162a061d3a341b28b6c6417b4430, type: 3}
     AttackCooldown: 0.3
-    FxEmissionFrequency: 5
+    FxEmissionFrequency: 3
   - Type: 3
-    ImpactType: 1
+    ImpactType: 0
     Damage: 1
     FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
     AttackCooldown: 0.7
