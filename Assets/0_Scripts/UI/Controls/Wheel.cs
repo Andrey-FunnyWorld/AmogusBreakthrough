@@ -8,11 +8,14 @@ public class Wheel : MonoBehaviour {
     public Transform WheelTransform;
     public AdSpinButton AdSpinButton;
     public ButtonScored FreeSpinButton;
-    public float StartSpeed = 1440;
+    public float BaseSpinsToRotate = 7;
     public ButtonDisabled CloseButton;
+    public AudioSource AudioSource;
+    public AudioClip SpinSound, Skin1Sound, Skin2Sound;
     bool isSpinning = false;
     List<WheelItem> items;
     const float DURATION_EXTENT = 1;
+    const float DEGREE_EXTENT = 360;
     const int SECTOR_COUNT = 8;
     const int RARE_SECTOR_COUNT = 2;
     const int EPIC_SECTOR_COUNT = 1;
@@ -21,8 +24,11 @@ public class Wheel : MonoBehaviour {
     public NewSkinPanel NewSkinPanel;
     public void Spin(float duration) {
         if (!isSpinning) {
+            AudioSource.clip = SpinSound;
+            AudioSource.loop = true;
+            AudioSource.Play();
             isSpinning = true;
-            StartCoroutine(Spinning(GetDuration(duration)));
+            StartCoroutine(Spinning(GetRandom(BaseSpinsToRotate * 360, DEGREE_EXTENT), GetRandom(duration, DURATION_EXTENT)));
             EventManager.TriggerEvent(EventNames.WheelSpinStart, this);
             SetDisabledButtons(false);
         }
@@ -31,15 +37,16 @@ public class Wheel : MonoBehaviour {
         FreeSpinButton.Score = state.Spins;
         AdSpinButton.ApplyFinishDate(state.AdSpinWhenAvailable);
     }
-    float GetDuration(float baseDuration) {
-        return Random.Range(baseDuration - DURATION_EXTENT, baseDuration + DURATION_EXTENT);
+    float GetRandom(float baseValue, float extent) {
+        return Random.Range(baseValue - extent, baseValue + extent);
     }
-    IEnumerator Spinning(float duration) {
+    IEnumerator Spinning(float degrees, float duration) {
         float timer = 0;
+        float startAngle = WheelTransform.rotation.eulerAngles.z;
         while (timer < duration) {
             timer += Time.deltaTime;
-            float speed = StartSpeed * Utils.EaseInSquare(1 - timer / duration);
-            WheelTransform.Rotate(0, 0, -speed / 360);
+            float degree = degrees * Utils.EaseOutCubic(1 - timer / duration);
+            WheelTransform.rotation = Quaternion.Euler(0, 0, startAngle - degree);
             yield return null;
         }
         isSpinning = false;
@@ -48,6 +55,7 @@ public class Wheel : MonoBehaviour {
     void HandleSpinResult(float angle) {
         const float RANGE = 360 / SECTOR_COUNT;
         int sectorIndex = (int)Mathf.Abs(Mathf.Floor((360 - angle) / RANGE));
+        if (sectorIndex < 0 || sectorIndex >= SECTOR_COUNT) sectorIndex = 0;
         EventManager.TriggerEvent(EventNames.WheelSpinResult, items[sectorIndex]);
         ShowReward(items[sectorIndex]);
         //Debug.Log(string.Format("Angle: {0}; Index: {1}; Type: {2}", angle, sectorIndex, items[sectorIndex].ItemType));
@@ -55,21 +63,32 @@ public class Wheel : MonoBehaviour {
     void ShowReward(WheelItem wheelItem) {
         int shopType = Random.Range(0, 2);
         ShopList shopList = shopType == 0 ? BackpackShop : HatShop;
-        ShopItemModel rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
+        ListItem rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
         if (rewardItem != null) {
             StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => {
-                NewSkinPanel.ShowItem(rewardItem, shopList.ShopType);
-                SetDisabledButtons(true);
+                ShowRewardItem(rewardItem, shopList.ShopType);
             }));
         } else {
             shopList = shopList == HatShop ? BackpackShop : HatShop;
             rewardItem = shopList.GetRandomItem(wheelItem.ItemType);
             if (rewardItem != null) {
-                StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => NewSkinPanel.ShowItem(rewardItem, shopList.ShopType) ));
+                StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => {
+                    ShowRewardItem(rewardItem, shopList.ShopType);
+                }));
             } else {
+                SetDisabledButtons(true);
                 Debug.Log("No appropriate skins left");
             }
         }
+    }
+    void ShowRewardItem(ListItem rewardItem, SkinType shopType) {
+        NewSkinPanel.ShowItem(rewardItem.Model, shopType);
+        rewardItem.Unlock(false, true);
+        SetDisabledButtons(true);
+        AudioSource.Stop();
+        AudioSource.loop = false;
+        AudioSource.clip = rewardItem.Model.Quality == SkinItemQuality.Epic ? Skin2Sound : Skin1Sound;
+        AudioSource.Play();
     }
     public void GenerateItems() {
         float radius = 0.7f * WheelTransform.GetComponent<RectTransform>().sizeDelta.x / 2;
@@ -101,4 +120,5 @@ public class Wheel : MonoBehaviour {
         else
             AdSpinButton.ButtonDisabled.Enable = false;
     }
+    public bool IsSpinning { get { return isSpinning; }}
 }

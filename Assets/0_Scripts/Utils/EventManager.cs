@@ -75,6 +75,7 @@ public static class EventNames {
 
     public static string MatesChanged = "MatesChanged";
     public static string RequestSpawnWeapon = "RequestSpawnWeapon";
+    public static string AuthStatusRecieved = "AuthStatusRecieved";
     // UI ->
     public static string RandomSkins = "RandomSkins";
     public static string WheelSpinResult = "WheelSpinResult";

@@ -43,6 +43,9 @@ public class DropPlatform : MonoBehaviour {
         canSelect = true;
         Animator.SetBool("question", true);
     }
+    public void BlockSelection() {
+        canSelect = false;
+    }
     void OnMouseDown() {
         HandleClick();
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ButtonScored : MonoBehaviour {
     public TextMeshProUGUI ScoreText;
     public ButtonDisabled ButtonDisabled;
-    int score = 0;
+    int score = -1;
     public int Score {
         get { return score; }
         set {

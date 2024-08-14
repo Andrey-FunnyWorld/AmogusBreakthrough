@@ -13,6 +13,8 @@ public class Road : MonoBehaviour {
     public float Length = 40;
 
     public float tracksCount = 10; //todo
+    public Transform BeaconLeft, BeaconRight;
+    float roadScreenWidth = 0;
 
     [SerializeField] private AttackController AttackHandler;
 
@@ -184,5 +186,12 @@ public class Road : MonoBehaviour {
                 roadObjects.RemoveAt(i);
             }
         }
+    }
+    public float GetScreenWidth() {
+        if (roadScreenWidth == 0) {
+            Camera cam = Camera.main;
+            roadScreenWidth = cam.WorldToScreenPoint(BeaconRight.position).x - cam.WorldToScreenPoint(BeaconLeft.position).x;
+        }
+        return roadScreenWidth;
     }
 }

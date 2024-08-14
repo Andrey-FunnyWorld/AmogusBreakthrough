@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Team : MonoBehaviour {
@@ -43,10 +47,10 @@ public class Team : MonoBehaviour {
         }
         CalcTeamRange();
     }
-    public void AddNewMate() {
+    public void AddNewMate(bool isRunning = false) {
         SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[MatesCount];
         SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[MatesCount];
-        CreateMate(skinBackpack, skinHat);
+        CreateMate(skinBackpack, skinHat, isRunning);
         CalcTeamRange();
         EventManager.TriggerEvent(EventNames.MatesChanged);
     }
@@ -68,7 +72,7 @@ public class Team : MonoBehaviour {
             mate.SwitchWeapon(weaponType);
     }
 
-    void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin) {
+    void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin, bool isRunning = false) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
         Vector3 offset = CalcOffset();
         newMate.SetGun(Mates.Count % 2 == 0);
@@ -77,7 +81,7 @@ public class Team : MonoBehaviour {
         ApplyMaterials(newMate, backpackSkin);
         ApplyHat(newMate, hatSkin);
         Mates.Add(newMate);
-
+        newMate.SetRun(isRunning);
         if (MostLeftMate == null || MostLeftMate.position.x > newMate.transform.position.x) {
             MostLeftMate = newMate.transform;
             leftMateHalfSize = GetHalfScaleX(MostLeftMate);
@@ -188,7 +192,7 @@ public class Team : MonoBehaviour {
         if (MatesCount == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
         else {
             Cage cage = (Cage)arg;
-            AddNewMate();
+            AddNewMate(true);
         }
     }
     #endregion

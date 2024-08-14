@@ -10,6 +10,8 @@ public class ImposterUI : MonoBehaviour {
     public Animator Animator;
     public Image TransitionImage;
     public float TransitionDuration = 0.5f;
+    public AudioSource AudioSource;
+    public AudioClip SuccessClip, FailClip;
     const string ANIMATION_TRIGGER_INTRO = "intro";
     const string ANIMATION_TRIGGER_FULLINTRO = "fullintro";
     const string ANIMATION_TRIGGER_HELP = "help";
@@ -34,6 +36,8 @@ public class ImposterUI : MonoBehaviour {
         Animator.SetTrigger(ANIMATION_TRIGGER_HELP);
     }
     public void HitTestRangeBar(bool isHit) {
+        AudioSource.clip = isHit ? SuccessClip : FailClip;
+        AudioSource.Play();
         Animator.SetTrigger(isHit ? ANIMATION_TRIGGER_SUCCESS : ANIMATION_TRIGGER_FAIL);
         StartCoroutine(Utils.WaitAndDo(PAUSE_BETWEEN_HIT_TESTS, () => {
             stepIndex++;

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEditor;
-using UnityEditor.UI;
 
 public class KeyDownButton : Button {
     public bool HandleDownKey = true;

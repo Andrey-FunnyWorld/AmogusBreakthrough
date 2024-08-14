@@ -11,15 +11,13 @@ public class ShopList : MonoBehaviour {
     public SkinType ShopType;
     public MenuCameraController cameraController;
     public CameraType[] Cameras;
-    //public Wheel Wheel;
+    public AudioSource AudioSource;
     List<ListItem> liveItems = new List<ListItem>();
     const float collapsedTop = 310;
     ProgressState progressState;
     bool isCollapsed = false;
     int currentCameraView = 0;
-    //public NewSkinPanel NewSkinPanel;
     public void GenerateItems(ProgressState state) {
-        //Wheel.ApplyProgress(state);
         progressState = state;
         int[] purchasedItems = ShopType == SkinType.Backpack ? state.PurchasedBackpacks : state.PurchasedHats; 
         foreach (ShopItemModel model in Items.Items) {
@@ -69,22 +67,11 @@ public class ShopList : MonoBehaviour {
         UnsubscriveEvents();
     }
     void SubscriveEvents() {
-        //EventManager.StartListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StartListening(EventNames.ShopItemPurchaseTry, ShopItemPurchaseTry);
     }
     void UnsubscriveEvents() {
-        //EventManager.StopListening(EventNames.WheelSpinResult, WheelSpinResult);
         EventManager.StopListening(EventNames.ShopItemPurchaseTry, ShopItemPurchaseTry);
     }
-    // void WheelSpinResult(object arg) {
-    //     WheelItem wheelItem = (WheelItem)arg;
-    //     ShopItemModel rewardItem = GetRandomItem(wheelItem.ItemType);
-    //     if (rewardItem != null) {
-    //         StartCoroutine(Utils.WaitAndDo(SPIN_REWARD_DELAY, () => NewSkinPanel.ShowItem(rewardItem, ShopType) ));
-    //     } else {
-    //         Debug.Log("No appropriate skins left");
-    //     }
-    // }
     void ShopItemPurchaseTry(object arg) {
         ShopItemPurchaseArgs args = (ShopItemPurchaseArgs)arg;
         if (args.ForFree) {
@@ -92,6 +79,7 @@ public class ShopList : MonoBehaviour {
         } else {
             bool enoughMoney = progressState.Money >= args.ItemModel.Price;
             if (enoughMoney) {
+                AudioSource.Play();
                 UnlockItem(args.ItemModel);
             } else {
                 EventManager.TriggerEvent(EventNames.NotEnoughMoney, args);
@@ -104,7 +92,7 @@ public class ShopList : MonoBehaviour {
             listItem.Unlock();
         }
     }
-    public ShopItemModel GetRandomItem(SkinItemQuality quality) {
+    public ListItem GetRandomItem(SkinItemQuality quality) {
         int[] purchasedItems = ShopType == SkinType.Backpack ? progressState.PurchasedBackpacks : progressState.PurchasedHats;
         HashSet<int> purchasedSet = new HashSet<int>(purchasedItems);
         ShopItemModel[] availableItems = Items.Items.Where(i => !purchasedItems.Any(p => i.SkinName == (SkinItemName)p)).ToArray();
@@ -112,7 +100,8 @@ public class ShopList : MonoBehaviour {
             availableItems = availableItems.Where(i => i.Quality == quality).ToArray();
             if (availableItems.Length > 0) {
                 ShopItemModel reward = availableItems[Random.Range(0, availableItems.Length)];
-                return reward;
+                ListItem listItem = liveItems.FirstOrDefault(i => i.Model.SkinName == reward.SkinName);
+                return listItem;
             }
         }
         return null;

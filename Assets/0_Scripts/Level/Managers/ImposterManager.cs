@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class ImposterManager : MonoBehaviour {
@@ -10,6 +9,8 @@ public class ImposterManager : MonoBehaviour {
     public DropPlatform[] DropPlatforms;
     public ImposterSkinned Imposter;
     public ResultUI ResultUI;
+    public AudioSource AudioSource;
+    public AudioClip DrumClip, SuccessClip, FailClip;
     List<int> finePlatformIndices = new List<int>();
     int maxSteps = 3;
     int imposterIndex = 0;
@@ -17,7 +18,7 @@ public class ImposterManager : MonoBehaviour {
     public void RunImposterScene() {
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
-        Debug.Log("imposterIndex: " + imposterIndex);
+        //Debug.Log("imposterIndex: " + imposterIndex);
         ImposterUI.Transition(true);
         StartCoroutine(Utils.WaitAndDo(ImposterUI.TransitionDuration + 0.1f, () => {
             ImposterUI.Init(Team);
@@ -69,11 +70,23 @@ public class ImposterManager : MonoBehaviour {
         return checkedMatesByStep[step][Team.MatesCount];
     }
     public void Dropped(int index) {
+        foreach (DropPlatform platform in DropPlatforms) {
+            platform.BlockSelection();
+        }
+        AudioSource.clip = DrumClip;
+        AudioSource.loop = true;
+        AudioSource.Play();
         imposterDetected = index == imposterIndex;
+        HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
+        UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
         CameraFocusPlatform(DropPlatforms[index]);
         StartCoroutine(Utils.WaitAndDo(2, () => {
             // stop drums sound
             ImposterUI.HandleDropResult(imposterDetected);
+            AudioSource.Stop();
+            AudioSource.clip = imposterDetected ? SuccessClip : FailClip;
+            AudioSource.loop = false;
+            AudioSource.Play();
             if (imposterDetected) {
                 DropSuccess();
             } else {

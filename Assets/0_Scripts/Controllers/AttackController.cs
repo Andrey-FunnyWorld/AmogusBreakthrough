@@ -200,7 +200,6 @@ public class AttackController : MonoBehaviour {
     }
 
     void PrepareWeapons() {
-        Debug.Log("PrepareWeapons");
         weapons = new Dictionary<WeaponType, WeaponDefinition>(weaponsStaticData.Items.Length);
         foreach (WeaponDefinition weapon in weaponsStaticData.Items)
             weapons.Add(weapon.Type, weapon);

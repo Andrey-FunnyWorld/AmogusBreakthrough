@@ -11,6 +11,13 @@ public class DifficultyItem : MonoBehaviour, IPointerDownHandler {
         if (canPress) {
             canPress = false;
             LevelLoader.Difficulty = Difficulty;
+            string metricName = string.Empty;
+            switch (Difficulty) {
+                case Difficulty.Noob: metricName = MetricNames.DifficultyNoob; break;
+                case Difficulty.Pro: metricName = MetricNames.DifficultyPro; break;
+                case Difficulty.Hacker: metricName = MetricNames.DifficultyHacker; break;
+            }
+            HtmlBridge.Instance.ReportMetric(metricName);
             LevelLoader.LoadScene(LevelLoader.BATTLE_BUILD_INDEX);
         }
     }

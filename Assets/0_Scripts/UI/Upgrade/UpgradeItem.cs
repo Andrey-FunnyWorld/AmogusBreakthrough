@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UpgradeItem : MonoBehaviour, IPointerDownHandler {
     public TextMeshProUGUI PriceText, LevelText;
+    public AudioSource AudioSource;
     [NonSerialized]
     public int Price;
     public UpgradeType UpgradeType;
@@ -26,6 +27,7 @@ public class UpgradeItem : MonoBehaviour, IPointerDownHandler {
         SetLevel(CurrentLevel + 1);
         EventManager.TriggerEvent(EventNames.UpgradeItemPurchased, this);
         LevelText.text = CurrentLevel.ToString();
+        AudioSource.Play();
     }
     void SetLevel(int newLevel) {
         CurrentLevel = newLevel;
