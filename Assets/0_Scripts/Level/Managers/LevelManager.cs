@@ -27,19 +27,6 @@ public class LevelManager : MonoBehaviour {
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
 
-    public Sprite spriteOnePunch; //TODO REMOVE
-    public Sprite spriteBubble; //TODO REMOVE
-    void Update() {
-        // if (Input.GetKeyDown(KeyCode.Space)) {
-        //     Road.IsRunning = !Road.IsRunning;
-        // }
-        if (Input.GetKeyDown(KeyCode.M)) { //TODO REMOVE
-            LevelUIManager.HandlePerk(PerkType.OnePunchKill, spriteOnePunch);
-        }
-        if (Input.GetKeyDown(KeyCode.N)) { //TODO REMOVE
-            LevelUIManager.HandlePerk(PerkType.Bubble, spriteBubble);
-        }
-    }
     void OnDestroy() {
         UnsubscribeEvents();
     }
