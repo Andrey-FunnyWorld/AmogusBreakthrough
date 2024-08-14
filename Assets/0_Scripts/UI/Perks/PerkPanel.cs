@@ -15,6 +15,7 @@ public class PerkPanel : MonoBehaviour {
     public int ExtraRollPrice = 100;
     public TMPro.TextMeshProUGUI ExtraRollText, YourCoinsText;
     public PerkBar PerkBar;
+    public AudioSource AudioSelected, AudioRolling;
     PerkType? takenExtraPerk = null;
     List<PerkSelector> selectors;
     const float ROLL_BASE_DURATION = 2f;
@@ -43,10 +44,19 @@ public class PerkPanel : MonoBehaviour {
     }
     public void RollSelectors() {
         PerkType[] perks = GetRandomPerks(PerkSelectorCount, takenExtraPerk);
+        AudioRolling.Play();
+        StartCoroutine(WaitForRollers());
         for (int i = 0; i < PerkSelectorCount; i++) {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
-            //Debug.Log(perks[i]);
         }
+    }
+    IEnumerator WaitForRollers() {
+        bool rolling = true;
+        while (rolling) {
+            rolling = selectors.Any(s => !s.CanSelect);
+            yield return null;
+        }
+        AudioRolling.Stop();
     }
     PerkType[] GetRandomPerks(int perkCount, PerkType? perkType) {
         PerkType[] perks = new PerkType[perkCount];
@@ -73,6 +83,7 @@ public class PerkPanel : MonoBehaviour {
     }
     void PerkSelected(object arg) {
         PerkItem perkItem = (PerkItem)arg;
+        AudioSelected.Play();
         if (ExtraPerkTaken) {
             gameObject.SetActive(false);
             PerkBar.AcceptPerk(perkItem);

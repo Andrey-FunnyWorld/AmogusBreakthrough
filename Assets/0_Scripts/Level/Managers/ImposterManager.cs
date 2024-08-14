@@ -9,6 +9,8 @@ public class ImposterManager : MonoBehaviour {
     public DropPlatform[] DropPlatforms;
     public ImposterSkinned Imposter;
     public ResultUI ResultUI;
+    public AudioSource AudioSource;
+    public AudioClip DrumClip, SuccessClip, FailClip;
     List<int> finePlatformIndices = new List<int>();
     int maxSteps = 3;
     int imposterIndex = 0;
@@ -71,6 +73,9 @@ public class ImposterManager : MonoBehaviour {
         foreach (DropPlatform platform in DropPlatforms) {
             platform.BlockSelection();
         }
+        AudioSource.clip = DrumClip;
+        AudioSource.loop = true;
+        AudioSource.Play();
         imposterDetected = index == imposterIndex;
         HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
         UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
@@ -78,6 +83,10 @@ public class ImposterManager : MonoBehaviour {
         StartCoroutine(Utils.WaitAndDo(2, () => {
             // stop drums sound
             ImposterUI.HandleDropResult(imposterDetected);
+            AudioSource.Stop();
+            AudioSource.clip = imposterDetected ? SuccessClip : FailClip;
+            AudioSource.loop = false;
+            AudioSource.Play();
             if (imposterDetected) {
                 DropSuccess();
             } else {

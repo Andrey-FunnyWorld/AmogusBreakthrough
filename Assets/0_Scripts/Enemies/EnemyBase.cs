@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class EnemyBase : Attackable {
     public float MoveSpeed;
+    public AudioClip AttackSound;
     protected abstract void Attack();
 
     public override void Destroyed() {

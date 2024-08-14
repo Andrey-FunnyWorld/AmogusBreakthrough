@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour {
     public MovementController KeyboardController, TouchController;
     public PerkPanel PerkPanel;
     public ImposterManager ImposterManager;
+    public AudioSource BattleMusic, RoadWin;
+    public float FadeBattleMusicDuration = 1.5f;
     const float END_GATE_OFFSET = 15;
     void Start() {
         SubscriveEvents();
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour {
         StartGate.Open();
         EndGate.GetComponent<RoadObjectBase>().RoadPosition = Road.Length + END_GATE_OFFSET;
         HtmlBridge.Instance.ReportMetric(MetricNames.BattleLevelStarted);
+        BattleMusic.Play();
     }
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
@@ -42,6 +45,8 @@ public class LevelManager : MonoBehaviour {
     }
     void RoadFinished(object arg) {
         //LevelUIManager.RoadFinished();
+        StartCoroutine(FadeMusic(FadeBattleMusicDuration));
+        RoadWin.Play();
         MovementController.AllowMove = false;
         MovementController.gameObject.SetActive(false);
         StartCoroutine(Utils.ChainActions(new List<ChainedAction>() {
@@ -51,6 +56,16 @@ public class LevelManager : MonoBehaviour {
             new ChainedAction() { DeltaTime = ImposterManager.ImposterUI.TransitionDuration,
                 Callback = () => { Road.IsRunning = false; }},
         }));
+    }
+    IEnumerator FadeMusic(float time) {
+        float timer = 0;
+        float start = BattleMusic.volume;
+        while (timer < time) {
+            timer += Time.deltaTime;
+            BattleMusic.volume = start * (1 - timer / time);
+            yield return null;
+        }
+        BattleMusic.Stop();
     }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);

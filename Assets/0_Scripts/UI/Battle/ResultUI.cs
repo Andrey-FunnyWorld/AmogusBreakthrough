@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class ResultUI : MonoBehaviour {
     public ImposterResultUI ImposterResultUI;
     public ScoreText CoinText, DiamondText;
+    public ScoreTextSound CoinSound, DiamondSound;
     public Transform ImposterDetected, ImposterNotDetected, ResultPanel;
     public Animator Animator;
     public UnityEvent[] AnimationSteps;
@@ -27,9 +28,11 @@ public class ResultUI : MonoBehaviour {
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;
+        CoinSound.Play();
     }
     public void SetDiamonds() {
         DiamondText.Score = viewModel.DiamondReward;
+        DiamondSound.Play();
     }
     public void SetImposterStatus() {
         ImposterDetected.gameObject.SetActive(viewModel.ImposterDetected);

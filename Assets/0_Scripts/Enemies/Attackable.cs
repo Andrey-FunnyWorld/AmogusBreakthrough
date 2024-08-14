@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class Attackable : RoadObjectBase {
     public Renderer Renderer;
+    public AudioSource AudioSource;
+    public AudioClip DeathSound;
     public bool CanBeAttacked = true;
     const float CORPSE_VISIBLE_DURATION = 1;
 
@@ -43,6 +45,10 @@ public abstract class Attackable : RoadObjectBase {
         if (Animator != null)
             Animator.SetTrigger("die");
         CanBeAttacked = false;
+        if (DeathSound != null) {
+            AudioSource.clip = DeathSound;
+            AudioSource.Play();
+        }
         StartCoroutine(Utils.WaitAndDo(CORPSE_VISIBLE_DURATION, () => {
             StartCoroutine(AnimateCorpseDecay());
         }));
