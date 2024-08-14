@@ -50,7 +50,7 @@ public class PerkPanel : MonoBehaviour {
     PerkType[] GetRandomPerks1(int perkCount) {
         PerkType[] perks = new PerkType[perkCount];
         List<PerkType> availablePerks = PerkSelectorPrefab.PerkStorage.Perks.Select(p => p.PerkType).ToList();
-        perks[0] = PerkType.OnePunchKill;
+        perks[0] = PerkType.ExtraGuy;
         for (int i = 1; i < perkCount; i++) {
             perks[i] = availablePerks[Random.Range(0, availablePerks.Count)];
             availablePerks.Remove(perks[i]);

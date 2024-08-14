@@ -4,6 +4,7 @@ public class MainGuy : TeamMember {
     public Team Team;
     public WeaponType CurrentWeaponType;
     public float DamageMultiplier = 1.5f;
+    public WeaponSwitcher WeaponSwitcher;
 
     public void ApplyMovement(Vector3 newPosition) {
         transform.position = newPosition;
@@ -17,5 +18,9 @@ public class MainGuy : TeamMember {
     }
     public void ApplyExtraGuyPerk(PerkType type) {
         Team.ApplyExtraGuyPerk(type);
+    }
+    public void SwitchWeapon(WeaponType type) {
+        WeaponSwitcher.SwitchWeapon(type);
+        Team.SwitchWeapon(type);
     }
 }

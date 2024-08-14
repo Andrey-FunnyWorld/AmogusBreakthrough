@@ -220,8 +220,8 @@ public class Team : MonoBehaviour {
     }
     public void HideGuns() {
         foreach (Amogus mate in Mates) {
-            mate.GunPlaceholderLeft.GetChild(0).gameObject.SetActive(false);
-            mate.GunPlaceholderRight.GetChild(0).gameObject.SetActive(false);
+            mate.GunPlaceholderLeft.DeactivateChildren();
+            mate.GunPlaceholderRight.DeactivateChildren();
         }
     }
 }

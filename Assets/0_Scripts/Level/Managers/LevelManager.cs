@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour {
 
     void Start() {
         SubscribeEvents();
+        //Road.PrepareAttackController();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
         List<float> roadTracksCoords = Road.InitTracks();
         Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
@@ -43,7 +44,6 @@ public class LevelManager : MonoBehaviour {
         UnsubscribeEvents();
     }
     void LetsRoll() {
-        Road.PrepareAttackController();
         MainGuy.StartMove();
         Road.IsRunning = true;
         Road.MovementStarted = true;
@@ -76,6 +76,7 @@ public class LevelManager : MonoBehaviour {
     }
     void ApplyProgress(ProgressState progress) {
         MainGuy.ApplyProgress(progress);
+        Road.PrepareAttackController();
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void StartDataLoaded(object arg) {
