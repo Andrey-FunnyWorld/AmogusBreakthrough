@@ -11,6 +11,8 @@ public class ImposterManager : MonoBehaviour {
     public ResultUI ResultUI;
     public AudioSource AudioSource;
     public AudioClip DrumClip, SuccessClip, FailClip;
+    public AudioRandomize AudioRandomize;
+    public LevelManager LevelManager;
     List<int> finePlatformIndices = new List<int>();
     int maxSteps = 3;
     int imposterIndex = 0;
@@ -70,6 +72,7 @@ public class ImposterManager : MonoBehaviour {
         return checkedMatesByStep[step][Team.MatesCount];
     }
     public void Dropped(int index) {
+        LevelManager.BattleMusic.Stop();
         foreach (DropPlatform platform in DropPlatforms) {
             platform.BlockSelection();
         }
@@ -124,6 +127,7 @@ public class ImposterManager : MonoBehaviour {
         amogus.transform.Translate(0, -30, 0);
         Imposter.transform.position = DropPlatforms[index].ObjectToDrop.position;
         Imposter.Laugh();
+        AudioRandomize.Play();
         StartCoroutine(Utils.WaitAndDo(1, () => {
             CameraController.Brain.m_DefaultBlend.m_Time = 10;
             CameraController.SwitchToCamera(BattleCameraType.ImposterEnd);
@@ -132,6 +136,7 @@ public class ImposterManager : MonoBehaviour {
         }));
     }
     public void ShowLevelResult() {
+        AudioRandomize.Stop(false);
         ResultUIViewModel vm = new ResultUIViewModel() { 
             CoinReward = 100,
             DiamondReward = 1,

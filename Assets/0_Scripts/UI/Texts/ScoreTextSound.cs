@@ -7,8 +7,9 @@ public class ScoreTextSound : MonoBehaviour {
     public AudioSource AudioSource;
     ScoreText scoreText;
     public void Play() {
-        scoreText = GetComponent<ScoreText>();
+        Debug.Log("ScoreTextSound Play");
         AudioSource.Play();
+        scoreText = GetComponent<ScoreText>();
         StartCoroutine(Utils.WaitAndDo(scoreText.AnimationDuration, () => {
             AudioSource.Stop();
         }));

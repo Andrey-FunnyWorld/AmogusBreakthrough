@@ -44,7 +44,6 @@ public class PerkPanel : MonoBehaviour {
     }
     public void RollSelectors() {
         PerkType[] perks = GetRandomPerks(PerkSelectorCount, takenExtraPerk);
-        Debug.Log($"PerkPanel -> RollSelectors -> AudioRolling.Play()");
         AudioRolling.Play();
         StartCoroutine(WaitForRollers());
         for (int i = 0; i < PerkSelectorCount; i++) {
@@ -68,10 +67,10 @@ public class PerkPanel : MonoBehaviour {
         }
         return perks;
     }
-    PerkType[] GetRandomPerks1(int perkCount) {
+    PerkType[] GetRandomPerks1(int perkCount, PerkType? perkType) {
         PerkType[] perks = new PerkType[perkCount];
         List<PerkType> availablePerks = PerkSelectorPrefab.PerkStorage.Perks.Select(p => p.PerkType).ToList();
-        perks[0] = PerkType.ExtraGuy;
+        perks[0] = PerkType.Bubble;
         for (int i = 1; i < perkCount; i++) {
             perks[i] = availablePerks[Random.Range(0, availablePerks.Count)];
             availablePerks.Remove(perks[i]);
@@ -113,7 +112,11 @@ public class PerkPanel : MonoBehaviour {
             ExtraRollText.transform.parent.GetComponent<ButtonDisabled>().Enable = state.Money >= ExtraRollPrice;
             availablePerks = state.PurchasedPerks.Select(p => (PerkType)p).ToArray();
             CreateSelectors(availablePerks);
-            RollSelectors();
+            if (gameObject.activeSelf) {
+                StartCoroutine(Utils.WaitAndDo(0.8f, () => {
+                    RollSelectors();
+                }));
+            }
         }
     }
 }

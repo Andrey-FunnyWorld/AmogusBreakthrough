@@ -94,4 +94,5 @@ public static class EventNames {
     public static string UpgradeItemPurchased = "UpgradeItemPurchased";
     public static string SkipAdPurchased = "SkipAdPurchased";
     public static string NotEnoughMoney = "NotEnoughMoney";
+    public static string PlayUISound = "PlayUISound";
 }

@@ -8,6 +8,7 @@ public class TeamHealthController : MonoBehaviour {
 
     public RunningTexture BubbleShield;
     public float bubbleTime = 2f;
+    public MultiStepSound MultiStepSound;
     bool isBubbleActive;
 
     bool recoverHealth;
@@ -54,9 +55,12 @@ public class TeamHealthController : MonoBehaviour {
     void RunBubble(bool run) {
         BubbleShield.gameObject.SetActive(run);
         BubbleShield.IsRunning = run;
-
-        if (run)
+        if (run) {
+            MultiStepSound.Play();
             StartCoroutine(nameof(BubbleVFXRoutine));
+        } else {
+            MultiStepSound.Stop();
+        }
     }
 
     IEnumerator BubbleVFXRoutine() {

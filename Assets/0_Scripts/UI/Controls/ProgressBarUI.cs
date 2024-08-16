@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting.Dependencies.NCalc;
 
 public class ProgressBarUI : MonoBehaviour {
     public RectTransform barRectTransform, progressImage;
@@ -8,6 +9,7 @@ public class ProgressBarUI : MonoBehaviour {
     public bool EnableValueChangeAnimation = false;
     public bool EnableTextChangeAnimation = false;
     public bool HideWhenFull = true;
+    public bool HideWhenZero = true;
     float fValue, prevValue, maxValue = 100;
 
     protected float animationDuration = 1.0f;
@@ -41,7 +43,10 @@ public class ProgressBarUI : MonoBehaviour {
     }
     void UpdateProgressCore() {
         if (MaxValue > 0) {
-            if (HideWhenFull) gameObject.SetActive(Value != MaxValue);
+            bool visible = true;
+            if (HideWhenFull) visible = visible && Value != MaxValue;
+            if (HideWhenZero) visible = visible && Value > 0;
+            gameObject.SetActive(visible);
             if (EnableValueChangeAnimation)
                 StartCoroutine(AnimateValueChange());
             else

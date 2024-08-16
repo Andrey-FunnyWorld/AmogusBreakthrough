@@ -33,7 +33,9 @@ public class AttackFXController : MonoBehaviour {
 
     public bool IsPrepared(WeaponType weapon) =>
         processAttackVisualisation && currentWeaponType == weapon;
-
+    void SetCurrentWeaponType(WeaponType weaponType) {
+        currentWeaponType = weaponType;
+    }
     public void PrepareAttackFXs(
         WeaponDefinition weapon,
         GameObject fxSpawner,
@@ -42,7 +44,8 @@ public class AttackFXController : MonoBehaviour {
         float startAttackPoint,
         float endAttackPoint
     ) {
-        currentWeaponType = weapon.Type;
+        SetCurrentWeaponType(weapon.Type);
+        //currentWeaponType = weapon.Type;
         currentWeaponImpactType = weapon.ImpactType;
         this.leftEdge = leftEdge;
         this.rightEdge = rightEdge;
@@ -90,7 +93,8 @@ public class AttackFXController : MonoBehaviour {
         attackFx = null;
         leftEdge = null;
         rightEdge = null;
-        currentWeaponType = WeaponType.Rifle;
+        SetCurrentWeaponType(WeaponType.Rifle);
+        //currentWeaponType = WeaponType.Rifle;
     }
 
     private void PlaySelectedDirectFX() {

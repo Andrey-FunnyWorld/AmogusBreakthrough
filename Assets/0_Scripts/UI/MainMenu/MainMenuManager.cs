@@ -18,6 +18,7 @@ public class MainMenuManager : MonoBehaviour {
     public CollectAllBlock CollectAllBlock;
     public MenuTutorial MenuTutorial;
     public LevelLoader LevelLoader;
+    public AudioSource MusicSource;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
@@ -115,6 +116,7 @@ public class MainMenuManager : MonoBehaviour {
         SkipAdButton.ApplyProgress(UserProgressController.Instance.ProgressState.SkipAdRounds);
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
         CollectAllBlock.Show();
+        MusicSource.Play();
     }
     void StartDataLoaded(object arg) {
         if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {

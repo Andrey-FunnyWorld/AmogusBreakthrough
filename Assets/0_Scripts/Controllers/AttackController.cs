@@ -8,6 +8,7 @@ public class AttackController : MonoBehaviour {
     public AttackFXController fxController;
     public GameObject AttackZonePlane;
     public Transform AttackZoneParent;
+    public ShotSoundManager ShotSoundManager;
     public float OnePunchZone = 20f;
 
     public float bossExtraMin = 1.1f;
@@ -34,10 +35,13 @@ public class AttackController : MonoBehaviour {
     void Update() {
         if (Road.MovementStarted && enemies.Count > 0) {
             AttackEnemies();
+            ShotSoundManager.Play();
         } else if (!Road.MovementStarted) {
+            ShotSoundManager.Stop();
             enemies.Clear();
             fxController.ClearAttackFXs();
         } else {
+            ShotSoundManager.Stop();
             fxController.ClearAttackFXs();
         }
     }
@@ -210,6 +214,7 @@ public class AttackController : MonoBehaviour {
         currentWeapon = weapons[weaponType];
         InitTeamDamage();
         MainGuy.SwitchWeapon(weaponType);
+        ShotSoundManager.SetWeapon(weaponType);
     }
 
     void InitTeamDamage() =>

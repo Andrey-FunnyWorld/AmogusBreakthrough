@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour {
     public ImposterManager ImposterManager;
     public AudioSource BattleMusic, RoadWin;
     public float FadeBattleMusicDuration = 1.5f;
+    public float MinBattleMusicVolume = 0.07f;
     const float END_GATE_OFFSET = 15;
 
     void Start() {
@@ -72,12 +73,13 @@ public class LevelManager : MonoBehaviour {
     IEnumerator FadeMusic(float time) {
         float timer = 0;
         float start = BattleMusic.volume;
+        float end = MinBattleMusicVolume;
         while (timer < time) {
             timer += Time.deltaTime;
-            BattleMusic.volume = start * (1 - timer / time);
+            BattleMusic.volume = end + (start - end) * (1 - timer / time);
             yield return null;
         }
-        BattleMusic.Stop();
+        //BattleMusic.Stop();
     }
     void TeamDead(object arg0) {
         //TODO game over
@@ -111,7 +113,6 @@ public class LevelManager : MonoBehaviour {
         HandlePerk(perkItem);
     }
     void HandlePerk(PerkItem perkItem) {
-        Debug.Log($"Handle perk - {perkItem.PerkName}");
         PerkType perk = perkItem.PerkType;
         if (perk == PerkType.SlowWalkSpeed) {
             Road.ApplySlowerMoveSpeedPerk();
