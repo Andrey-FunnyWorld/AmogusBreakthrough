@@ -11,7 +11,7 @@ public class ImposterUI : MonoBehaviour {
     public Image TransitionImage;
     public float TransitionDuration = 0.5f;
     public AudioSource AudioSource;
-    public AudioClip SuccessClip, FailClip;
+    public AudioClip SuccessClip, FailClip, StartClip;
     const string ANIMATION_TRIGGER_INTRO = "intro";
     const string ANIMATION_TRIGGER_FULLINTRO = "fullintro";
     const string ANIMATION_TRIGGER_HELP = "help";
@@ -31,6 +31,8 @@ public class ImposterUI : MonoBehaviour {
     public void Intro(bool full = false) {
         string trigger = full ? ANIMATION_TRIGGER_FULLINTRO : ANIMATION_TRIGGER_INTRO;
         Animator.SetTrigger(trigger);
+        AudioSource.clip = StartClip;
+        AudioSource.Play();
     }
     public void ShowHelp() {
         Animator.SetTrigger(ANIMATION_TRIGGER_HELP);

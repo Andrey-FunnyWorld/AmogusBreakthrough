@@ -18,14 +18,21 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         thisHeight = itemHeight;
         availablePerks = unlockedPerks;
         items = new List<PerkItem>(unlockedPerks.Length);
-        foreach (PerkModel model in PerkStorage.Perks) {
-            if (availablePerks.Contains(model.PerkType)) {
-                PerkItem perkItem = Instantiate(PerkItemPrefab, transform);
-                perkItem.Init(model);
-                items.Add(perkItem);
-                perkItem.RectTransform.anchoredPosition = new Vector2(0, (items.Count - 1) * (thisHeight + ITEM_SPACING));
-            }
+        foreach (PerkType perkType in availablePerks) {
+            PerkItem perkItem = Instantiate(PerkItemPrefab, transform);
+            PerkModel model = PerkStorage.Perks.First(p => p.PerkType == perkType);
+            perkItem.Init(model);
+            items.Add(perkItem);
+            perkItem.RectTransform.anchoredPosition = new Vector2(0, (items.Count - 1) * (thisHeight + ITEM_SPACING));
         }
+        // foreach (PerkModel model in PerkStorage.Perks) {
+        //     if (availablePerks.Contains(model.PerkType)) {
+        //         PerkItem perkItem = Instantiate(PerkItemPrefab, transform);
+        //         perkItem.Init(model);
+        //         items.Add(perkItem);
+        //         perkItem.RectTransform.anchoredPosition = new Vector2(0, (items.Count - 1) * (thisHeight + ITEM_SPACING));
+        //     }
+        // }
     }
     void Start() {
     }

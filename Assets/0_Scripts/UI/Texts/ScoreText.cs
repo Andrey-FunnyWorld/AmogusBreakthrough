@@ -9,6 +9,7 @@ public class ScoreText : MonoBehaviour {
     public bool AnimateValueChange = true;
     public string Format = "{0} <sprite name=\"coin\">";
     public float AnimationDuration = 0.7f;
+    public AudioSource AnimationAudio;
     int score = 0;
     int prevValue = 0;
     void Awake() {
@@ -31,6 +32,8 @@ public class ScoreText : MonoBehaviour {
             Text.text = string.Format(Format, score);
     }
     IEnumerator AnimateValueTextChange() {
+        if (AnimationAudio != null)
+            AnimationAudio.Play();
         float timer = 0;
         while (timer < AnimationDuration) {
             timer += Time.deltaTime;
@@ -40,6 +43,8 @@ public class ScoreText : MonoBehaviour {
             Text.text = string.Format(Format, animValue);
             yield return null;
         }
+        if (AnimationAudio != null)
+            AnimationAudio.Stop();
     }
     public void SetScoreSilent(int newScore) {
         bool prevAnimateValueChange = AnimateValueChange;
