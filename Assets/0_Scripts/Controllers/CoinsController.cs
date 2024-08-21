@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CoinsController : MonoBehaviour {
 
-    public TextMeshProUGUI casualCoinsText;
+    public ScoreText casualCoinsText;
     public TextMeshProUGUI premiumCoinsText;
 
     int casualCoins;
@@ -34,7 +34,7 @@ public class CoinsController : MonoBehaviour {
 
     void UpdateUI() {
         if (casualCoinsText != null)
-            casualCoinsText.text = casualCoins.ToString();
+            casualCoinsText.Score = casualCoins;
         if (premiumCoinsText != null)
             premiumCoinsText.text = premiumCoins.ToString();
     }
