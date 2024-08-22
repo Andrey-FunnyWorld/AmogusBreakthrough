@@ -45,7 +45,6 @@ public class AttackFXController : MonoBehaviour {
         float endAttackPoint
     ) {
         SetCurrentWeaponType(weapon.Type);
-        //currentWeaponType = weapon.Type;
         currentWeaponImpactType = weapon.ImpactType;
         this.leftEdge = leftEdge;
         this.rightEdge = rightEdge;
@@ -94,7 +93,6 @@ public class AttackFXController : MonoBehaviour {
         leftEdge = null;
         rightEdge = null;
         SetCurrentWeaponType(WeaponType.Rifle);
-        //currentWeaponType = WeaponType.Rifle;
     }
 
     private void PlaySelectedDirectFX() {
