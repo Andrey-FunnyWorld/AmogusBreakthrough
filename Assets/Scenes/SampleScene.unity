@@ -4614,6 +4614,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 506316468}
     m_Modifications:
+    - target: {fileID: 1143587525203533510, guid: 973c375e3de6da84bb95b8312fcbab37, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172455811654375410, guid: 973c375e3de6da84bb95b8312fcbab37, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4690838538788536924, guid: 973c375e3de6da84bb95b8312fcbab37, type: 3}
       propertyPath: m_Name
       value: Lightning
@@ -4664,7 +4672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5715826895847124755, guid: 973c375e3de6da84bb95b8312fcbab37, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17245,7 +17253,7 @@ PrefabInstance:
       objectReference: {fileID: 995826725}
     - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: CurrentWeaponType
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2068762374282775936, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: m_IsActive
