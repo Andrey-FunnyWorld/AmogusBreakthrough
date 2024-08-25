@@ -66,6 +66,7 @@ public class ProgressState {
     public bool AskedForRating = false;
     public bool SkipTutorial = false;
     public bool ShowMenuOnStart = false;
+    public int LastGiftedMilestone;
     public DateTime AdSpinWhenAvailable {
         get {
             if (AdSpinWhenAvailableString != string.Empty)
@@ -83,6 +84,7 @@ public class ProgressState {
         PurchasedHats = new int[1] { 0 };
         EquippedBackpacks = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
         EquippedHats = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses
+        LastGiftedMilestone = -1;
         if (debug) {
             EquippedBackpacks = new int[11] { 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - skin for robby. 1 - 10 skins for amoguses
             EquippedHats = new int[11] { 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0 }; // 0 - hat for robby. 1 - 10 hats for amoguses

@@ -38,4 +38,7 @@ public class PerkListItem : MonoBehaviour, IPointerDownHandler {
             EventManager.TriggerEvent(EventNames.PerkItemPurchaseTry, Model);
         }
     }
+    public void MakeFree(bool free) {
+        PriceText.text = free ? MyLocalization.Instance.GetLocalizedText(LocalizationKeys.ForFree) : string.Format(priceFormat, Model.Price);
+    }
 }

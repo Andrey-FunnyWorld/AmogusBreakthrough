@@ -29,6 +29,11 @@ public class MyLocalization : MonoBehaviour {
         { LocalizationKeys.ExtraPerkFormat, "+1 Перк за {0} <sprite name=\"coin\">" },
         { LocalizationKeys.YouHaveCoins, "У Вас {0} <sprite name=\"coin\">" },
         { LocalizationKeys.Of, "из" },
+        { LocalizationKeys.GiftDiamond, "+{0} кристалл" },
+        { LocalizationKeys.GiftMoney, "+{0}" },
+        { LocalizationKeys.GiftPerk, "Перк" },
+        { LocalizationKeys.GiftUpgrade, "Улучшение" },
+        { LocalizationKeys.ForFree, "Взять" },
 
         { LocalizationKeys.PerkNameAttackZoneVisibility, "Зона атаки" },
         { LocalizationKeys.PerkNameBossDamage, "Урон по боссам" },
@@ -68,6 +73,11 @@ public class MyLocalization : MonoBehaviour {
         { LocalizationKeys.No, "No" },
         { LocalizationKeys.ExtraPerkFormat, "+1 Perk for {0} <sprite name=\"coin\">" },
         { LocalizationKeys.YouHaveCoins, "You Have {0} <sprite name=\"coin\">" },
+        { LocalizationKeys.GiftDiamond, "+{0} diamond" },
+        { LocalizationKeys.GiftMoney, "+{0}" },
+        { LocalizationKeys.GiftPerk, "Free Perk" },
+        { LocalizationKeys.GiftUpgrade, "Free Upgrade" },
+        { LocalizationKeys.ForFree, "Free" },
         
         { LocalizationKeys.PerkNameAttackZoneVisibility, "Attack Zone" },
         { LocalizationKeys.PerkNameBossDamage, "Boss Damage" },
@@ -140,6 +150,11 @@ public static class LocalizationKeys {
     public static string ExtraPerkFormat = "ExtraPerkFormat";
     public static string YouHaveCoins = "YouHaveCoins";
     public static string Of = "Of";
+    public static string GiftDiamond = "GiftDiamond";
+    public static string GiftMoney = "GiftMoney";
+    public static string GiftUpgrade = "GiftUpgrade";
+    public static string GiftPerk = "GiftPerk";
+    public static string ForFree = "ForFree";
 
     public static string PerkNameExtraGuy = "PerkNameExtraGuy";
     public static string PerkNameBossDamage = "PerkNameBossDamage";

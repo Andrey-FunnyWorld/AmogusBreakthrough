@@ -10,6 +10,7 @@ public class ProgressBarUI : MonoBehaviour {
     public bool EnableTextChangeAnimation = false;
     public bool HideWhenFull = true;
     public bool HideWhenZero = true;
+    public bool Horizontal = true;
     float fValue, prevValue, maxValue = 100;
 
     protected float animationDuration = 1.0f;
@@ -58,8 +59,8 @@ public class ProgressBarUI : MonoBehaviour {
         }
     }
     protected virtual void UpdateProgress(float value) {
-        float width = barRectTransform.rect.width * (value / MaxValue);
-        progressImage.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        float dimensionValue = (Horizontal ? barRectTransform.rect.width : barRectTransform.rect.height) * (value / MaxValue);
+        progressImage.SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical, dimensionValue);
     }
     IEnumerator AnimateValueChange() {
         float timer = 0;

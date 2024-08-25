@@ -10,8 +10,9 @@ public class PerkShopList : MonoBehaviour {
     [NonSerialized]
     public List<PerkListItem> liveItems = new List<PerkListItem>();
     public PerkStorage PerkStorage;
+    public Transform CloseButton;
     ProgressState progressState;
-
+    bool nextForFree = false;
     public void GenerateItems(ProgressState state) {
         progressState = state;
         int[] purchasedItems = state.PurchasedPerks;
@@ -34,12 +35,26 @@ public class PerkShopList : MonoBehaviour {
     }
     void PerkItemPurchaseTry(object arg) {
         PerkModel args = (PerkModel)arg;
+        int price = args.Price;
+        if (nextForFree) {
+            args.Price = 0;
+        }
         bool enoughMoney = progressState.Money >= args.Price;
         if (enoughMoney) {
             UnlockItem(args);
+            args.Price = price;
+            SetFreeMode(false);
         } else {
             EventManager.TriggerEvent(EventNames.NotEnoughMoney, args);
         }
+    }
+    public void SetFreeMode(bool free) {
+        nextForFree = free;
+        foreach (PerkListItem perk in liveItems) {
+            if (!perk.IsPurchased)
+                perk.MakeFree(free);
+        }
+        CloseButton.gameObject.SetActive(!free);
     }
     void OnDisable() {
         UnsubscriveEvents();

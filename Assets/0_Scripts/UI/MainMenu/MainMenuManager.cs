@@ -19,6 +19,8 @@ public class MainMenuManager : MonoBehaviour {
     public MenuTutorial MenuTutorial;
     public LevelLoader LevelLoader;
     public AudioSource MusicSource;
+    public Transform[] ShopButtons;
+    public DesintegratorPanel DesintegratorPanel;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
@@ -70,8 +72,11 @@ public class MainMenuManager : MonoBehaviour {
         return string.Format("{0} {2} {1}", maxItems - 1, skinItems.Items.Length - 1, MyLocalization.Instance.GetLocalizedText(LocalizationKeys.Of));
     }
     void UpdateProgressTexts(ProgressState progress) {
-        HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress), GetSkinRatio(SkinType.Hat, progress));
-        BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress), GetSkinRatio(SkinType.Backpack, progress));
+        int hatProgress = CalcSkinProgress(SkinType.Hat, progress);
+        int backpackProgress = CalcSkinProgress(SkinType.Backpack, progress);
+        HatText.SetProgress(hatProgress, GetSkinRatio(SkinType.Hat, progress));
+        BackpackText.SetProgress(backpackProgress, GetSkinRatio(SkinType.Backpack, progress));
+        DesintegratorPanel.SetProgress((hatProgress + backpackProgress) / 2);
         // HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
         // BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
     }
@@ -128,6 +133,11 @@ public class MainMenuManager : MonoBehaviour {
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
+    }
+    public void ShowDesintegatorAction(bool show) {
+        MainMenu.gameObject.SetActive(!show);
+        foreach (Transform tr in ShopButtons)
+            tr.gameObject.SetActive(!show);
     }
     void NotEnoughMoney(object arg) {
         ScoreText.HighlightError();
