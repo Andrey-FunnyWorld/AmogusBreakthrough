@@ -16,6 +16,8 @@ public class DesintegratorPanel : MonoBehaviour {
     public DesintegratorScene Scene;
     public GiftBoxButton GiftBoxButton;
     public Button CloseButton;
+    public ButtonDisabled BoomButton;
+    public RectTransform ChargeIcon;
      
     List<DesintegratorLegendItem> liveLegends = new List<DesintegratorLegendItem>();
     [NonSerialized]
@@ -31,9 +33,11 @@ public class DesintegratorPanel : MonoBehaviour {
                 UpdateMilestones();
                 HtmlBridge.Instance.SaveProgress();
                 Scene.Show(() => {
+                    Desintegrator.IsRunning = false;
                     GiveReward();
                 });
             } else {
+                Desintegrator.IsRunning = false;
                 SetTesting(false);
                 StartCoroutine(Utils.AnimateScale(0.5f, CollectMsg, 0.3f, true));
             }
@@ -61,7 +65,7 @@ public class DesintegratorPanel : MonoBehaviour {
                 break;
         }
     }
-    void SetTesting(bool testing) {
+    public void SetTesting(bool testing) {
         ButtonDisabled[] buttons = GetComponentsInChildren<ButtonDisabled>();
         foreach (ButtonDisabled btn in buttons) {
             btn.Enable = !testing;

@@ -30,4 +30,5 @@ public static class MetricNames {
     public static string SkinPurchased = "SkinPurchased";
     public static string PerkPurchased = "PerkPurchased";
     public static string UpgradePurchased = "UpgradePurchased";
+    public static string GiftAd = "GiftAd";
 }

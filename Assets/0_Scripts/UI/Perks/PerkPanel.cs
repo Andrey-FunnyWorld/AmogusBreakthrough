@@ -31,6 +31,7 @@ public class PerkPanel : MonoBehaviour {
         }
     }
     void Start() {
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 0) ShowOnStart = false;
         gameObject.SetActive(ShowOnStart);
         if (ShowOnStart) {
             SubscriveEvents();

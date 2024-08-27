@@ -26,14 +26,18 @@ public class MainMenuManager : MonoBehaviour {
         SubscriveEvents();
     }
     void Start() {
+        // StartCoroutine(Utils.WaitAndDo(1, () => {
+        //                 MenuTutorial.gameObject.SetActive(true);
+        //                 MenuTutorial.RunTutorial(1);
+        //             }));
         if (UserProgressController.ProgressLoaded)
             if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
                 ApplyProgressAll();
-                if (!UserProgressController.Instance.ProgressState.SkipTutorial) {
-                    UserProgressController.Instance.ProgressState.SkipTutorial = true;
+                if (UserProgressController.Instance.ProgressState.TutorialStage < MenuTutorial.StageCount) {
+                    UserProgressController.Instance.ProgressState.TutorialStage++;
                     StartCoroutine(Utils.WaitAndDo(1, () => {
                         MenuTutorial.gameObject.SetActive(true);
-                        MenuTutorial.RunTutorial();
+                        MenuTutorial.RunTutorial(UserProgressController.Instance.ProgressState.TutorialStage - 1);
                     }));
                 }
             } else {

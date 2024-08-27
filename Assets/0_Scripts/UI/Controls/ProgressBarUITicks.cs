@@ -8,6 +8,7 @@ public class ProgressBarUITicks : ProgressBarUI {
     List<RectTransform> Ticks = new List<RectTransform>();
     float longDimension = 0;
     public void AddTick(float value, DesintegratorLegendItem legend, bool hideTick = false) {
+        if (value == 1) value = 3;
         float indent = (value / MaxValue) * GetLongSide();
         if (!hideTick) {
             RectTransform newTick = Instantiate(Tick, transform);

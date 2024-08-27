@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +9,18 @@ public class Desintegrator : MonoBehaviour {
     public float VFXDuration = 0.6f;
     public float MaxScale = 5f;
     public Transform VFXPrefab;
+    [NonSerialized]
+    public bool IsRunning = false;
     UnityAction finishAction;
     bool success = false;
     public void Test(bool success, UnityAction finishAction) {
         this.success = success;
         Animator.SetTrigger(success ? "success" : "fail");
+        IsRunning = true;
         this.finishAction = finishAction;
     }
     public void FinishAttempt() {
+        //IsRunning = false;
         finishAction.Invoke();
         if (success) {
             Success();

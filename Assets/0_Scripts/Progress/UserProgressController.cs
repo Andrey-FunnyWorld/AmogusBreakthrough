@@ -64,7 +64,7 @@ public class ProgressState {
     public int CompletedRoundsCount = 0;
     public int ImposterDetectedCount = 0;
     public bool AskedForRating = false;
-    public bool SkipTutorial = false;
+    public int TutorialStage = 0;
     public bool ShowMenuOnStart = false;
     public int LastGiftedMilestone;
     public DateTime AdSpinWhenAvailable {

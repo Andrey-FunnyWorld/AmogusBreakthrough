@@ -59,6 +59,23 @@ public static class Utils {
         }
         tr.localScale = originalScale;
     }
+    public static IEnumerator AnimateScaleLoop(float time, Transform tr, float extent, bool scaleUp) {
+        Vector3 pivotScale = tr.localScale;
+        bool forward = true;
+        float timer = 0;
+        while (true) {
+            timer += Time.deltaTime;
+            float diff = (scaleUp ? 1 : -1) * extent * timer / time;
+            tr.localScale = pivotScale + new Vector3(diff, diff, diff);
+            if (timer > time) {
+                forward = !forward;
+                timer = 0;
+                scaleUp = !scaleUp;
+                pivotScale = tr.localScale;
+            }
+            yield return null;
+        }
+    }
 }
 public class ChainedAction {
     public float DeltaTime;
