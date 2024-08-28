@@ -32,13 +32,10 @@ public class MenuTutorial : MonoBehaviour {
     bool isRunning = false;
     ListItem boughtHat = null;
     bool equipped = false;
-    Camera cam;
-    Coroutine chargeCoroutine;
     void Start() {
         SubscriveEvents();
     }
     void Init() {
-        cam = Camera.main;
         if (StagesSteps.Count == 0) {
             StagesSteps.Add(new List<TutorialStep>());
             InitStage1(StagesSteps[0]);
@@ -207,15 +204,14 @@ public class MenuTutorial : MonoBehaviour {
         Steps.Add(new TutorialStep() {
             StepAction = () => {
                 DesintegratorHints[3].gameObject.SetActive(true);
-                chargeCoroutine = StartCoroutine(Utils.AnimateScaleLoop(0.3f, DesintegratorPanel.ChargeIcon, 0.6f, true));
+                DesintegratorPanel.ChargeIcon.IsRunning = true;
                 DesintegratorPanel.SetTesting(true);
             },
             CompleteCondition = () => { return !DesintegratorHints[3].gameObject.activeSelf; }
         });
         Steps.Add(new TutorialStep() {
             StepAction = () => {
-                StopCoroutine(chargeCoroutine);
-                DesintegratorPanel.ChargeIcon.localScale = Vector2.one;
+                DesintegratorPanel.ChargeIcon.IsRunning = false;
                 DesintegratorHints[3].gameObject.SetActive(false);
                 DesintegratorHints[4].gameObject.SetActive(true);
             },

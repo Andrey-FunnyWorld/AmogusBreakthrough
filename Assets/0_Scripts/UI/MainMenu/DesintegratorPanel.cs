@@ -17,15 +17,18 @@ public class DesintegratorPanel : MonoBehaviour {
     public GiftBoxButton GiftBoxButton;
     public Button CloseButton;
     public ButtonDisabled BoomButton;
-    public RectTransform ChargeIcon;
+    public LoopScaler ChargeIcon;
      
     List<DesintegratorLegendItem> liveLegends = new List<DesintegratorLegendItem>();
     [NonSerialized]
     public float Progress;
-    public void Test() {
+    public bool CanBoom() {
         int lastAvailableMilestoneIndex = Milestones.Count(m => m.Progress < Progress) - 1;
         int lastTakenMilestoneIndex = UserProgressController.Instance.ProgressState.LastGiftedMilestone;
-        bool canBoom = lastAvailableMilestoneIndex > lastTakenMilestoneIndex;
+        return lastAvailableMilestoneIndex > lastTakenMilestoneIndex;
+    }
+    public void Test() {
+        bool canBoom = CanBoom();
         SetTesting(true);
         Desintegrator.Test(canBoom, () => {
             if (canBoom) {

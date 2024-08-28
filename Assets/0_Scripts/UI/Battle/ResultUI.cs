@@ -24,6 +24,7 @@ public class ResultUI : MonoBehaviour {
         Animator.SetTrigger("show");
         UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
         HtmlBridge.Instance.ReportMetric(MetricNames.Win);
+        LoserAssistant.RoundsPlayed++;
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;

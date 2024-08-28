@@ -25,6 +25,8 @@ public class DefeatUI : MonoBehaviour {
         AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
         SetCoins();
         HtmlBridge.Instance.ReportMetric(MetricNames.Lose);
+        LoserAssistant.LostRounds++;
+        LoserAssistant.RoundsPlayed++;
     }
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;

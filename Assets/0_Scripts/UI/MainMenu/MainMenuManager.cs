@@ -21,6 +21,8 @@ public class MainMenuManager : MonoBehaviour {
     public AudioSource MusicSource;
     public Transform[] ShopButtons;
     public DesintegratorPanel DesintegratorPanel;
+    public LoopScaler DesintegratorButton;
+    public LoserAssistant LoserAssistant;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
@@ -86,6 +88,7 @@ public class MainMenuManager : MonoBehaviour {
     }
     void ApplyProgressLight(ProgressState progress) {
         ScoreText.Score = progress.Money;
+        ActivateDesintegratorButton();
     }
     void ShopItemPurchased(object arg) {
         ListItem listItem = (ListItem)arg;
@@ -126,6 +129,16 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
         CollectAllBlock.Show();
         MusicSource.Play();
+        ActivateDesintegratorButton();
+        CheckRecommendations();
+    }
+    void ActivateDesintegratorButton() {
+        DesintegratorButton.IsRunning = DesintegratorPanel.CanBoom();
+    }
+    void CheckRecommendations() {
+        StartCoroutine(Utils.WaitAndDo(LevelLoader.TransitionTime, () => {
+            LoserAssistant.CheckToRecommend();
+        }));
     }
     void StartDataLoaded(object arg) {
         if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
