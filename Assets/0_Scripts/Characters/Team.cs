@@ -13,6 +13,7 @@ public class Team : MonoBehaviour {
     public HatNamePrefabMap HatNamePrefabMap;
     public float AmogusDamage = 0.1f;
     public int StartupCount = 3;
+    public TeamHealthController TeamHealth;
     List<Color> colors;
     List<Amogus> Mates;
     MyRange teamRange = new MyRange();

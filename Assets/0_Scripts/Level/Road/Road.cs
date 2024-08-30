@@ -166,6 +166,9 @@ public class Road : MonoBehaviour {
                     weapon.OnPickedUp();
                 }
             }
+            if (roadObject is RoadObstacle obstacle) {
+                obstacle.DamageTeam(AttackHandler.MainGuy.Team);
+            }
 
             //else if is EnemyBase...
         }
