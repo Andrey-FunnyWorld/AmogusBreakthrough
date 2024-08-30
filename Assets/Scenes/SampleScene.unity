@@ -4246,7 +4246,7 @@ MonoBehaviour:
   PerkSelectorPrefab: {fileID: 4425356734203546442, guid: c2f11f63236301b43a48b07bb17540b8, type: 3}
   Grid: {fileID: 1564404428}
   Buttons: {fileID: 113977400}
-  ShowOnStart: 1
+  ShowOnStart: 0
   ExtraRollPrice: 100
   ExtraRollText: {fileID: 1425707131}
   YourCoinsText: {fileID: 516797048}
@@ -8456,6 +8456,7 @@ MonoBehaviour:
   EnemyGiantPrefab: {fileID: 8006850031438747880, guid: ceffc9554766e0048b1df2f7a6a99c8d, type: 3}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
   BoxWithRocket: {fileID: 521104844271740559, guid: f101b83854a1d0748a863a2a39db154c, type: 3}
+  ObstaclePrefab: {fileID: 1155834549058377873, guid: 46fd39837eca6994a8529ad7e41a14b8, type: 3}
   enemiesContainer: {fileID: 0}
   IonGunPrefab: {fileID: 3878054282646143861, guid: 4af18acbaeeeea046b022d629f5f3f90, type: 3}
   BlasterPrefab: {fileID: 4082270750096778977, guid: e4cecc4f45825ac40960e973b283c8eb, type: 3}
@@ -17457,8 +17458,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 959194257}
     - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
+      propertyPath: TeamHealth
+      value: 
+      objectReference: {fileID: 675337109}
+    - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
       propertyPath: StartupCount
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8933173661979025443, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
       propertyPath: m_LocalPosition.x

@@ -8,13 +8,17 @@ public class ExpandButton : MonoBehaviour {
     public ButtonHint[] ButtonHints;
     public float TimeForHints = 4;
     bool isOpened = false;
-    Coroutine waitHintsCoroutine;
+    Coroutine waitHintsCoroutine, rollCoroutine;
     public void SetOpened(bool open) {
+        if (rollCoroutine != null) {
+            StopCoroutine(rollCoroutine);
+            Icon.localRotation = Quaternion.identity;
+        }
         isOpened = open;
         if (waitHintsCoroutine != null)
             StopCoroutine(waitHintsCoroutine);
         if (open) {
-            StartCoroutine(Roll());
+            rollCoroutine = StartCoroutine(Roll());
             waitHintsCoroutine = StartCoroutine(Utils.WaitAndDo(TimeForHints, () => SetHintsVisibility(true)));
         } else {
             SetHintsVisibility(false);

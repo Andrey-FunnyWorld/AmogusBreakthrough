@@ -5,11 +5,11 @@ using Cinemachine;
 
 public class MenuCameraController : MonoBehaviour {
     public CinemachineVirtualCamera FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera,
-        BackpackMedium, HatMedium;
+        BackpackMedium, HatMedium, Desintegrator, DesintegratorScene;
     CameraType currentCamera;
     CinemachineVirtualCamera[] cameras;
     void Start() {
-        cameras = new CinemachineVirtualCamera[6] { FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera, BackpackMedium };
+        cameras = new CinemachineVirtualCamera[8] { FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera, BackpackMedium, Desintegrator, DesintegratorScene };
     }
     public void SwitchToCamera(int cameraType) {
         currentCamera = (CameraType)cameraType;
@@ -21,6 +21,8 @@ public class MenuCameraController : MonoBehaviour {
             case CameraType.HatFar: targetCam = HatFarCamera; break;
             case CameraType.HatClose: targetCam = HatCloseCamera; break;
             case CameraType.BackpackMedium: targetCam = BackpackMedium; break;
+            case CameraType.Desintegrator: targetCam = Desintegrator; break;
+            case CameraType.DesintegratorScene: targetCam = DesintegratorScene; break;
             //case CameraType.HatMedium: targetCam = BackpackMedium; break;
             default: targetCam = FaceCamera; break;
         }
@@ -42,5 +44,5 @@ public class MenuCameraController : MonoBehaviour {
     // }
 }
 public enum CameraType {
-    Face, BackpackFar, BackpackClose, HatClose, HatFar, BackpackMedium, HatMedium
+    Face, BackpackFar, BackpackClose, HatClose, HatFar, BackpackMedium, Desintegrator, DesintegratorScene
 }

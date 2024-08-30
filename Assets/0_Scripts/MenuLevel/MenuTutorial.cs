@@ -10,143 +10,232 @@ public class MenuTutorial : MonoBehaviour {
     public UnityEngine.UI.Image Hand;
     public ExpandButton ShopButton;
     public ShopList HatShop;
-    public ButtonDisabled HatShopButton, CloseWheelButton, CloseShopButton, BattleButton;
+    public ButtonDisabled HatShopButton, CloseWheelButton, CloseShopButton, BattleButton, DesintegratorButton;
     public RectTransform OpenWheelButton, WheelButton, DifficultyPanel;
     public Wheel Wheel;
     public Transform MainPart;
     public NewSkinPanel NewSkinPanel;
+    public DesintegratorPanel DesintegratorPanel;
+    public RectTransform[] DesintegratorHints;
 
     public float HandLoopDuration = 0.5f;
     public float HandDistance = 150;
     public float AimTextDuration = 3;
 
     public Transform BuyText, AimText, ToBattleText;
+    [NonSerialized]
+    public int CurrentStage;
+    public const int StageCount = 2;
 
     Coroutine handCoroutine;
-    List<TutorialStep> Steps = new List<TutorialStep>();
+    List<List<TutorialStep>> StagesSteps = new List<List<TutorialStep>>();
     bool isRunning = false;
     ListItem boughtHat = null;
     bool equipped = false;
-    Camera cam;
     void Start() {
         SubscriveEvents();
     }
     void Init() {
-        cam = Camera.main;
-        if (Steps.Count == 0) {
-            Steps.Add(new TutorialStep() {
-                StepAction = () => { 
-                    DisableButtonsExceptFor(ShopButton.GetComponent<ButtonDisabled>());
-                    AttachHand(ShopButton.transform, new Vector2(-1, 1));
-                },
-                CompleteCondition = () => { return ShopButton.IsOpened; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => { 
-                    StopCoroutine(handCoroutine);
-                    Hand.gameObject.SetActive(false);
-                    ShopButton.SetHintsVisibility(true);
-                    DisableButtonsExceptFor(HatShopButton.GetComponent<ButtonDisabled>());
-                    StartCoroutine(Utils.WaitAndDo(1.5f, () => {
-                        AttachHand(HatShopButton.transform, Vector2.left);
-                    }));
-                },
-                CompleteCondition = () => { return HatShop.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => { 
-                    ShopButton.SetHintsVisibility(false);
-                    BuyText.gameObject.SetActive(true);
-                    DisableButtonsExceptFor(null);
-                    StopCoroutine(handCoroutine);
-                },
-                CompleteCondition = () => { return boughtHat != null; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => { 
-                    AttachHand(boughtHat.transform, Vector2.right);
-                    BuyText.gameObject.SetActive(false);
-                },
-                CompleteCondition = () => { return equipped; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    DisableButtonsExceptFor(OpenWheelButton.GetComponent<ButtonDisabled>());
-                    AttachHand(OpenWheelButton.transform, Vector2.up);
-                },
-                CompleteCondition = () => { return Wheel.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    DisableButtonsExceptFor(WheelButton.GetComponent<ButtonDisabled>());
-                    AttachHand(WheelButton.transform, Vector2.right);
-                },
-                CompleteCondition = () => { return Wheel.IsSpinning; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    StopCoroutine(handCoroutine);
-                    Hand.gameObject.SetActive(false);
-                },
-                CompleteCondition = () => { return !Wheel.IsSpinning; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    DisableButtonsExceptFor(CloseWheelButton);
-                    AttachHand(CloseWheelButton.transform, new Vector2(1, 1));
-                },
-                CompleteCondition = () => { return !Wheel.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    DisableButtonsExceptFor(CloseShopButton);
-                    AttachHand(CloseShopButton.transform, new Vector2(1, 0));
-                },
-                CompleteCondition = () => { return !HatShop.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    StopCoroutine(handCoroutine);
-                    Hand.gameObject.SetActive(false);
-                    AimText.gameObject.SetActive(true);
-                    HatProgress.AnimateProgress(true);
-                    BackpackProgress.AnimateProgress(false);
-                    StartCoroutine(Utils.WaitAndDo(AimTextDuration, () => {
-                        AimText.gameObject.SetActive(false);
-                    }));
-                },
-                CompleteCondition = () => { return !AimText.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    ToBattleText.gameObject.SetActive(true);
-                    HatProgress.StopAnimation();
-                    BackpackProgress.StopAnimation();
-                    AttachHand(BattleButton.transform, Vector2.up);
-                    ButtonDisabled[] buttons = MainPart.GetComponentsInChildren<ButtonDisabled>();
-                    foreach (ButtonDisabled btn in buttons) {
-                        btn.Enable = true;
-                    }
-                    buttons = HatShop.GetComponentsInChildren<ButtonDisabled>(true);
-                    foreach (ButtonDisabled btn in buttons) {
-                        btn.Enable = true;
-                    }
-                },
-                CompleteCondition = () => { return DifficultyPanel.gameObject.activeSelf; }
-            });
-            Steps.Add(new TutorialStep() {
-                StepAction = () => {
-                    ToBattleText.gameObject.SetActive(false);
-                    StopCoroutine(handCoroutine);
-                    Hand.gameObject.SetActive(false);
-                    ButtonDisabled[] buttons = FindObjectsOfType<ButtonDisabled>();
-                    foreach (ButtonDisabled btn in buttons) {
-                        btn.Enable = true;
-                    }
-                },
-                CompleteCondition = () => { return true; }
-            });
+        if (StagesSteps.Count == 0) {
+            StagesSteps.Add(new List<TutorialStep>());
+            InitStage1(StagesSteps[0]);
+            StagesSteps.Add(new List<TutorialStep>());
+            InitStage2(StagesSteps[1]);
         }
+    }
+    void InitStage1(List<TutorialStep> Steps) {
+        Steps.Add(new TutorialStep() {
+            StepAction = () => { 
+                DisableButtonsExceptFor(ShopButton.GetComponent<ButtonDisabled>());
+                AttachHand(ShopButton.transform, new Vector2(-1, 1));
+            },
+            CompleteCondition = () => { return ShopButton.IsOpened; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => { 
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+                ShopButton.SetHintsVisibility(true);
+                DisableButtonsExceptFor(HatShopButton.GetComponent<ButtonDisabled>());
+                StartCoroutine(Utils.WaitAndDo(1.5f, () => {
+                    AttachHand(HatShopButton.transform, Vector2.left);
+                }));
+            },
+            CompleteCondition = () => { return HatShop.gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => { 
+                ShopButton.SetHintsVisibility(false);
+                BuyText.gameObject.SetActive(true);
+                DisableButtonsExceptFor(null);
+                StopCoroutine(handCoroutine);
+            },
+            CompleteCondition = () => { return boughtHat != null; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => { 
+                AttachHand(boughtHat.transform, Vector2.right);
+                BuyText.gameObject.SetActive(false);
+            },
+            CompleteCondition = () => { return equipped; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DisableButtonsExceptFor(OpenWheelButton.GetComponent<ButtonDisabled>());
+                AttachHand(OpenWheelButton.transform, Vector2.up);
+            },
+            CompleteCondition = () => { return Wheel.gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DisableButtonsExceptFor(WheelButton.GetComponent<ButtonDisabled>());
+                AttachHand(WheelButton.transform, Vector2.right);
+            },
+            CompleteCondition = () => { return Wheel.IsSpinning; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+            },
+            CompleteCondition = () => { return !Wheel.IsSpinning; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DisableButtonsExceptFor(CloseWheelButton);
+                AttachHand(CloseWheelButton.transform, new Vector2(1, 1));
+            },
+            CompleteCondition = () => { return !Wheel.gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DisableButtonsExceptFor(CloseShopButton);
+                AttachHand(CloseShopButton.transform, new Vector2(1, 0));
+            },
+            CompleteCondition = () => { return !HatShop.gameObject.activeSelf; }
+        });
+        // Steps.Add(new TutorialStep() {
+        //     StepAction = () => {
+        //         StopCoroutine(handCoroutine);
+        //         Hand.gameObject.SetActive(false);
+        //         AimText.gameObject.SetActive(true);
+        //         HatProgress.AnimateProgress(true);
+        //         BackpackProgress.AnimateProgress(false);
+        //         StartCoroutine(Utils.WaitAndDo(AimTextDuration, () => {
+        //             AimText.gameObject.SetActive(false);
+        //         }));
+        //     },
+        //     CompleteCondition = () => { return !AimText.gameObject.activeSelf; }
+        // });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                ToBattleText.gameObject.SetActive(true);
+                //HatProgress.StopAnimation();
+                //BackpackProgress.StopAnimation();
+                AttachHand(BattleButton.transform, Vector2.up);
+                DisableButtonsExceptFor(BattleButton);
+                // ButtonDisabled[] buttons = MainPart.GetComponentsInChildren<ButtonDisabled>();
+                // foreach (ButtonDisabled btn in buttons) {
+                //     btn.Enable = true;
+                // }
+                // buttons = HatShop.GetComponentsInChildren<ButtonDisabled>(true);
+                // foreach (ButtonDisabled btn in buttons) {
+                //     btn.Enable = true;
+                // }
+            },
+            CompleteCondition = () => { return DifficultyPanel.gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                ToBattleText.gameObject.SetActive(false);
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+                DisableButtonsExceptFor(null);
+            },
+            CompleteCondition = () => { return true; }
+        });
+    }
+    void InitStage2(List<TutorialStep> Steps) {
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DesintegratorPanel.CollectMsg.gameObject.SetActive(false);
+                DisableButtonsExceptFor(DesintegratorButton);
+                AttachHand(DesintegratorButton.transform, Vector2.right);
+            },
+            CompleteCondition = () => { return DesintegratorPanel.gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                StopCoroutine(handCoroutine);
+                AttachHand(DesintegratorHints[0].transform, Vector2.down);
+                DesintegratorHints[0].gameObject.SetActive(true);
+                DisableButtonsExceptFor(null);
+            },
+            CompleteCondition = () => { return !DesintegratorHints[0].gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+                DesintegratorHints[0].gameObject.SetActive(false);
+                DesintegratorHints[1].gameObject.SetActive(true);
+            },
+            CompleteCondition = () => { return !DesintegratorHints[1].gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                StopCoroutine(handCoroutine);
+                DesintegratorHints[1].gameObject.SetActive(false);
+                DesintegratorHints[2].gameObject.SetActive(true);
+                DisableButtonsExceptFor(DesintegratorPanel.BoomButton);
+                Hand.gameObject.SetActive(true);
+                AttachHand(DesintegratorPanel.BoomButton.transform, Vector2.right);
+            },
+            CompleteCondition = () => { return DesintegratorPanel.Desintegrator.IsRunning; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+                DesintegratorHints[2].gameObject.SetActive(false);
+            },
+            CompleteCondition = () => { return !DesintegratorPanel.Desintegrator.IsRunning; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DesintegratorHints[3].gameObject.SetActive(true);
+                DesintegratorPanel.ChargeIcon.IsRunning = true;
+                DesintegratorPanel.SetTesting(true);
+            },
+            CompleteCondition = () => { return !DesintegratorHints[3].gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DesintegratorPanel.ChargeIcon.IsRunning = false;
+                DesintegratorHints[3].gameObject.SetActive(false);
+                DesintegratorHints[4].gameObject.SetActive(true);
+            },
+            CompleteCondition = () => { return !DesintegratorHints[4].gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DesintegratorHints[4].gameObject.SetActive(false);
+                DesintegratorHints[5].gameObject.SetActive(true);
+            },
+            CompleteCondition = () => { return !DesintegratorHints[5].gameObject.activeSelf; }
+        });
+        Steps.Add(new TutorialStep() {
+            StepAction = () => {
+                DesintegratorHints[5].gameObject.SetActive(false);
+                StopCoroutine(handCoroutine);
+                Hand.gameObject.SetActive(false);
+                DesintegratorPanel.SetTesting(false);
+                ButtonDisabled[] disabledBtns = GameObject.FindObjectsOfType<ButtonDisabled>(true);
+                foreach (ButtonDisabled btn in disabledBtns)
+                    btn.Enable = true;
+            },
+            CompleteCondition = () => { return true; }
+        });
     }
     void AttachHand(Transform target, Vector2 direction) {
         Hand.gameObject.SetActive(true);
@@ -158,14 +247,15 @@ public class MenuTutorial : MonoBehaviour {
         handCoroutine = StartCoroutine(AttachHand(startPos, targetPos, HandLoopDuration));
         //Debug.Log(string.Format("Start: {0}; End: {1}", startPos, targetPos));
     }
-    public void RunTutorial() {
+    public void RunTutorial(int stage) {
         if (!isRunning){
+            CurrentStage = stage;
             isRunning = true;
             Init();
-            StartCoroutine(Tutorial());
+            StartCoroutine(Tutorial(StagesSteps[CurrentStage]));
         }
     }
-    IEnumerator Tutorial() {
+    IEnumerator Tutorial(List<TutorialStep> Steps) {
         for (int i = 0; i < Steps.Count; i++) {
             Steps[i].StepAction();
             while (!Steps[i].CompleteCondition()) {

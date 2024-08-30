@@ -19,19 +19,27 @@ public class MainMenuManager : MonoBehaviour {
     public MenuTutorial MenuTutorial;
     public LevelLoader LevelLoader;
     public AudioSource MusicSource;
+    public Transform[] ShopButtons;
+    public DesintegratorPanel DesintegratorPanel;
+    public LoopScaler DesintegratorButton;
+    public LoserAssistant LoserAssistant;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
     }
     void Start() {
+        // StartCoroutine(Utils.WaitAndDo(1, () => {
+        //                 MenuTutorial.gameObject.SetActive(true);
+        //                 MenuTutorial.RunTutorial(1);
+        //             }));
         if (UserProgressController.ProgressLoaded)
             if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
                 ApplyProgressAll();
-                if (!UserProgressController.Instance.ProgressState.SkipTutorial) {
-                    UserProgressController.Instance.ProgressState.SkipTutorial = true;
+                if (UserProgressController.Instance.ProgressState.TutorialStage < MenuTutorial.StageCount) {
+                    UserProgressController.Instance.ProgressState.TutorialStage++;
                     StartCoroutine(Utils.WaitAndDo(1, () => {
                         MenuTutorial.gameObject.SetActive(true);
-                        MenuTutorial.RunTutorial();
+                        MenuTutorial.RunTutorial(UserProgressController.Instance.ProgressState.TutorialStage - 1);
                     }));
                 }
             } else {
@@ -70,13 +78,17 @@ public class MainMenuManager : MonoBehaviour {
         return string.Format("{0} {2} {1}", maxItems - 1, skinItems.Items.Length - 1, MyLocalization.Instance.GetLocalizedText(LocalizationKeys.Of));
     }
     void UpdateProgressTexts(ProgressState progress) {
-        HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress), GetSkinRatio(SkinType.Hat, progress));
-        BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress), GetSkinRatio(SkinType.Backpack, progress));
+        int hatProgress = CalcSkinProgress(SkinType.Hat, progress);
+        int backpackProgress = CalcSkinProgress(SkinType.Backpack, progress);
+        HatText.SetProgress(hatProgress, GetSkinRatio(SkinType.Hat, progress));
+        BackpackText.SetProgress(backpackProgress, GetSkinRatio(SkinType.Backpack, progress));
+        DesintegratorPanel.SetProgress((hatProgress + backpackProgress) / 2);
         // HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
         // BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
     }
     void ApplyProgressLight(ProgressState progress) {
         ScoreText.Score = progress.Money;
+        ActivateDesintegratorButton();
     }
     void ShopItemPurchased(object arg) {
         ListItem listItem = (ListItem)arg;
@@ -117,6 +129,16 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
         CollectAllBlock.Show();
         MusicSource.Play();
+        ActivateDesintegratorButton();
+        CheckRecommendations();
+    }
+    void ActivateDesintegratorButton() {
+        DesintegratorButton.IsRunning = DesintegratorPanel.CanBoom();
+    }
+    void CheckRecommendations() {
+        StartCoroutine(Utils.WaitAndDo(LevelLoader.TransitionTime, () => {
+            LoserAssistant.CheckToRecommend();
+        }));
     }
     void StartDataLoaded(object arg) {
         if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
@@ -128,6 +150,11 @@ public class MainMenuManager : MonoBehaviour {
     }
     public void ShowShopAction(bool show) {
         MainMenu.gameObject.SetActive(!show);
+    }
+    public void ShowDesintegatorAction(bool show) {
+        MainMenu.gameObject.SetActive(!show);
+        foreach (Transform tr in ShopButtons)
+            tr.gameObject.SetActive(!show);
     }
     void NotEnoughMoney(object arg) {
         ScoreText.HighlightError();

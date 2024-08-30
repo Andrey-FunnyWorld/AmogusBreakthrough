@@ -7,6 +7,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public EnemyGiant EnemyGiantPrefab;
     public Cage CagePrefab;
     public Weapon BoxWithRocket;
+    public RoadObstacle ObstaclePrefab;
     public Transform enemiesContainer;
 
     public GameObject IonGunPrefab;
@@ -26,7 +27,8 @@ public class RoadObjectsGenerator : MonoBehaviour {
         List<float> roadTracksCoords,
         float budget
     ) {
-        return DebugGenerateEnemies(roadTracksCoords);
+        return GenerateObstacles(roadTracksCoords);
+        //return DebugGenerateEnemies(roadTracksCoords);
     }
 
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
@@ -46,7 +48,15 @@ public class RoadObjectsGenerator : MonoBehaviour {
         }
         return objects;
     }
-
+    List<RoadObjectBase> GenerateObstacles(List<float> roadTracksCoords) {
+        List<RoadObjectBase> objects = new List<RoadObjectBase>(10);
+        for (int i = 0; i < 10; i++) {
+            RoadObjectBase roadObject = GetNewRoadItem(ObstaclePrefab, 10 + i * 5, roadTracksCoords);
+            roadObject.transform.position = new Vector3(roadTracksCoords[9 - i], 0, 0);
+            objects.Add(roadObject);
+        }
+        return objects;
+    }
     List<RoadObjectBase> DebugGenerateEnemies(List<float> roadTracksCoords) {
         //int enemiesCount = Random.Range(20, 50);
         int enemiesCount = 30;

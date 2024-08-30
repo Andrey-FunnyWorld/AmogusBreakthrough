@@ -14,6 +14,7 @@ public class UpgradeItem : MonoBehaviour, IPointerDownHandler {
     public Transform BuyButton;
     public int CurrentLevel = 0;
     public const int MAX_LEVEL = 10;
+    int originalPrice;
     string format = "{0} <sprite name=\"coin\">";
     bool CanBuy() {
         return CurrentLevel < MAX_LEVEL;
@@ -34,14 +35,20 @@ public class UpgradeItem : MonoBehaviour, IPointerDownHandler {
         BuyButton.gameObject.SetActive(CanBuy());
     }
     public void ApplyProgress(ProgressState progress, int price) {
+        originalPrice = price;
         Price = price;
         PriceText.text = string.Format(format, price);
         switch (UpgradeType) {
-            case UpgradeType.AttackSpeed: CurrentLevel = progress.UpgradeLevelAttackSpeed; break;
-            case UpgradeType.Damage: CurrentLevel = progress.UpgradeLevelDamage; break;
-            case UpgradeType.HP: CurrentLevel = progress.UpgradeLevelHP; break;
+            case UpgradeType.AttackSpeed: SetLevel(progress.UpgradeLevelAttackSpeed); break;
+            case UpgradeType.Damage: SetLevel(progress.UpgradeLevelDamage); break;
+            case UpgradeType.HP: SetLevel(progress.UpgradeLevelHP); break;
         }
         LevelText.text = CurrentLevel.ToString();
+    }
+    public void MakeFree(bool free) {
+        Price = free ? 0 : originalPrice;
+        PriceText.text = free ? MyLocalization.Instance.GetLocalizedText(LocalizationKeys.ForFree) : string.Format(format, Price);
+        BuyButton.gameObject.SetActive(CanBuy());
     }
 }
 

@@ -40,6 +40,25 @@ public static class Utils {
             yield return null;
         }
     }
+    public static IEnumerator AnimateScale(float time, Transform tr, float extent, bool scaleUp) {
+        Vector3 pivotScale = tr.localScale;
+        Vector3 originalScale = tr.localScale;
+        bool forward = true;
+        float timer = 0;
+        while (timer < time / 2) {
+            timer += Time.deltaTime;
+            float diff = (scaleUp ? 1 : -1) * extent * timer / time;
+            tr.localScale = pivotScale + new Vector3(diff, diff, diff);
+            if (forward && timer > time / 2) {
+                forward = false;
+                timer = 0;
+                scaleUp = !scaleUp;
+                pivotScale = tr.localScale;
+            }
+            yield return null;
+        }
+        tr.localScale = originalScale;
+    }
 }
 public class ChainedAction {
     public float DeltaTime;
