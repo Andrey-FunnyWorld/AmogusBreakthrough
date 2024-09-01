@@ -6,7 +6,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public EnemySimple EnemySimplePrefab;
     public EnemyGiant EnemyGiantPrefab;
     public Cage CagePrefab;
-    public Weapon BoxWithRocket;
+    public Weapon WeaponBoxPrefab;
     public RoadObstacle ObstaclePrefab;
     public Transform enemiesContainer;
 
@@ -14,23 +14,55 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public GameObject BlasterPrefab;
     public GameObject RifflePrefab;
     public GameObject BazookaPrefab;
-
-    Dictionary<EnemyType, float> enemyWeights = new Dictionary<EnemyType, float>() {
-        { EnemyType.Simple, 1 },
-        { EnemyType.Giant, 5 },
-    };
     
     public List<RoadObjectBase> GetObjects(
-        int levelNumber,
+        RoadDataViewModel vm,
         float roadLength,
         float roadWidth,
-        List<float> roadTracksCoords,
-        float budget
+        List<float> roadTracksCoords
     ) {
-        return GenerateObstacles(roadTracksCoords);
+        return GenerateRealObjects(vm, roadTracksCoords);
+        //return GenerateObstacles(roadTracksCoords);
         //return DebugGenerateEnemies(roadTracksCoords);
     }
-
+    
+    List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords) {
+        List<RoadObjectBase> objects = new List<RoadObjectBase>();
+        foreach (RoadObjectViewModel ovm in vm.Objects) {
+            objects.Add(CreateObject(ovm, GetXOnRoad(ovm.TrackNo, roadTracksCoords)));
+        }
+        return objects;
+    }
+    RoadObjectBase CreateObject(RoadObjectViewModel ovm, float x) {
+        RoadObjectBase newItem = Instantiate(GetPrefabByObjectType(ovm.RoadObjectType));
+        AdjustNewItem(newItem);
+        newItem.RoadPosition = ovm.Position;
+        newItem.transform.Translate(new Vector3(x, 0, 0));
+        newItem.transform.parent = enemiesContainer;
+        return newItem;
+    }
+    void AdjustNewItem(RoadObjectBase newItem) {
+        if (newItem is Weapon weapon) {
+            weapon.TurnOffDieFx();
+            weapon.WeaponType = GetRandomWeapon();
+            GenerateWeaponForBox(weapon.weaponMarker.transform, weapon.WeaponType);
+        }
+    }
+    float GetXOnRoad(int trackNo, List<float> roadTracksCoords) {
+        int index = trackNo == -1 ? UnityEngine.Random.Range(0, roadTracksCoords.Count) : trackNo;
+        return roadTracksCoords[index];
+    }
+    RoadObjectBase GetPrefabByObjectType(RoadObjectType objectType) {
+        switch (objectType) {
+            case RoadObjectType.EnemySimple: return EnemySimplePrefab;
+            case RoadObjectType.EnemyGiant: return EnemyGiantPrefab;
+            case RoadObjectType.Cage: return CagePrefab;
+            case RoadObjectType.ObstacleSaw: return ObstaclePrefab;
+            case RoadObjectType.WeaponBox: return WeaponBoxPrefab;
+        }
+        return null;
+    }
+    #region DEBUG GENERATION
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         float[] positions = new float[3] { 15, 35, 37 };
@@ -75,7 +107,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             switch (random) {
                 case 0: nextPrefab = EnemyGiantPrefab; break;
                 case 1: nextPrefab = CagePrefab; break;
-                case 2: nextPrefab = BoxWithRocket; break;
+                case 2: nextPrefab = WeaponBoxPrefab; break;
                 default: nextPrefab = EnemySimplePrefab; break;
             }
             objects.Add(GetNewRoadItem(nextPrefab, pos, roadTracksCoords));
@@ -83,6 +115,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         
         return objects;
     }
+    #endregion
     RoadObjectBase GetNewRoadItem(RoadObjectBase prefab, float roadPosition, List<float> roadTracksCoords) {
         RoadObjectBase newItem = Instantiate(prefab);
         newItem.RoadPosition = roadPosition;
@@ -112,27 +145,27 @@ public class RoadObjectsGenerator : MonoBehaviour {
         }
         transform.gameObject.SetActive(false);
     }
-    private Attackable ProvideWeaponBox(
-        Weapon Prefab,
-        float roadPosition,
-        List<float> roadTracksCoords
-    ) {
-        Weapon weaponBox = Instantiate(Prefab);
-        weaponBox.RoadPosition = roadPosition;
-        weaponBox.transform.Translate(ProvideRandomPosition(roadTracksCoords, weaponBox));
-        return weaponBox;
-    }
+    // private Attackable ProvideWeaponBox(
+    //     Weapon Prefab,
+    //     float roadPosition,
+    //     List<float> roadTracksCoords
+    // ) {
+    //     Weapon weaponBox = Instantiate(Prefab);
+    //     weaponBox.RoadPosition = roadPosition;
+    //     weaponBox.transform.Translate(ProvideRandomPosition(roadTracksCoords, weaponBox));
+    //     return weaponBox;
+    // }
 
-    private Attackable ProvideEnemySimple(
-        EnemySimple prefab,
-        float roadPosition,
-        List<float> roadTracksCoords
-    ) {
-        EnemySimple enemy = Instantiate(prefab);
-        enemy.RoadPosition = roadPosition;
-        enemy.transform.Translate(ProvideRandomPosition(roadTracksCoords, enemy));
-        return enemy;
-    }
+    // private Attackable ProvideEnemySimple(
+    //     EnemySimple prefab,
+    //     float roadPosition,
+    //     List<float> roadTracksCoords
+    // ) {
+    //     EnemySimple enemy = Instantiate(prefab);
+    //     enemy.RoadPosition = roadPosition;
+    //     enemy.transform.Translate(ProvideRandomPosition(roadTracksCoords, enemy));
+    //     return enemy;
+    // }
 
     private Vector3 ProvideRandomPosition(
         List<float> roadTracksCoords,

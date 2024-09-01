@@ -50,14 +50,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadPosition: 0
+  Animator: {fileID: 922541405734045614}
   Renderer: {fileID: 4472956077750493333}
   AudioSource: {fileID: 3673984524970460603}
   DeathSound: {fileID: 8300000, guid: 7c1e1349ff19e0f40ae05f57a5e005e3, type: 3}
-  CanBeAttacked: 1
   hitParticle: {fileID: 0}
+  CanBeAttacked: 1
   HealthBar: {fileID: 1048954554630594232}
-  StartHP: 20
-  Animator: {fileID: 922541405734045614}
+  StartHP: 15
   BlinkDuration: 2
   MeshCololizer: {fileID: 5833231759337093076}
   ChainedAmogus: {fileID: 612844759449452270}

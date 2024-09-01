@@ -4887,14 +4887,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadPosition: 0
+  Animator: {fileID: 4120529553061271667}
   Renderer: {fileID: 5736448679718271843}
   AudioSource: {fileID: 7021841867365450452}
   DeathSound: {fileID: 8300000, guid: 8fea0f9d5b344a042904525094f7a54d, type: 3}
-  CanBeAttacked: 1
   hitParticle: {fileID: 4177640524334644572}
+  CanBeAttacked: 1
   HealthBar: {fileID: 2245257231703399913}
-  StartHP: 10
-  Animator: {fileID: 4120529553061271667}
+  StartHP: 15
   MoveSpeed: 2
   AttackSound: {fileID: 8300000, guid: ad9b05481f297a14a8b1623e797111d7, type: 3}
 --- !u!65 &5408051918937688034
