@@ -92,7 +92,7 @@ public class Team : MonoBehaviour {
             MostRightMate = newMate.transform;
             rightMateHalfSize = GetHalfScaleX(MostRightMate);
         }
-        
+        Debug.Log("Team Width: " + (MostRightMate.position.x - MostLeftMate.position.x + leftMateHalfSize + rightMateHalfSize));
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());

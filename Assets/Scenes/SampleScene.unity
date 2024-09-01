@@ -3857,6 +3857,7 @@ MonoBehaviour:
   - {fileID: 1719095252}
   ObjectsGenerator: {fileID: 1018137057}
   RoadDecorationGenerator: {fileID: 1456129684}
+  RoadSkinStorage: {fileID: 11400000, guid: 0f9b56a5b1e5a57448ef8424ddf90279, type: 2}
   ZeroPointInWorld: 0
   Width: 10
   Length: 90

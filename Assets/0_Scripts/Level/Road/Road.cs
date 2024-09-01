@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +8,8 @@ public class Road : MonoBehaviour {
     public RunningTexture[] RunningTextures;
     public RoadObjectsGenerator ObjectsGenerator;
     public RoadDecorationGenerator RoadDecorationGenerator;
-    [NonSerialized]
+    public RoadSkin RoadSkinStorage;
+    [System.NonSerialized]
     public RoadDataViewModel ViewModel;
     [HideInInspector]
     public float ZeroPointInWorld;
@@ -23,7 +23,6 @@ public class Road : MonoBehaviour {
 
     [SerializeField] private AttackController AttackHandler;
 
-    float texOffsetFactor = 0;
     bool isRunning = false;
     float moveTime = 0;
     float currentPosition = 0;
@@ -63,8 +62,15 @@ public class Road : MonoBehaviour {
         Speed = StartSpeed;
         roadObjects.AddRange(RoadDecorationGenerator.GenerateStartDecoration());
         InitTracks();
+        ApplyRoadSkin();
     }
-
+    void ApplyRoadSkin() {
+        RoadSkinData skin = RoadSkinStorage.Skins[Random.Range(0, RoadSkinStorage.Skins.Length)];
+        MeshRenderer roadRenderer = RunningTextures[0].Renderer;
+        roadRenderer.material = skin.RoadMaterial;
+        RunningTextures[1].Renderer.material = skin.WallMaterial;
+        RunningTextures[2].Renderer.material = skin.WallMaterial;
+    }
     void Update() {
         if (IsRunning) {
             moveTime += Time.deltaTime;
