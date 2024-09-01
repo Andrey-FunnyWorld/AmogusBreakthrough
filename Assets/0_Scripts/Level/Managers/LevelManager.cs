@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour {
     public Road Road;
     public RoadObjectsGenerator ObjectsGenerator;
+    public RoadDataGenerator RoadDataGenerator;
     public MainGuy MainGuy;
     public LevelUIManager LevelUIManager;
     public StartGate StartGate, EndGate;
@@ -27,7 +28,11 @@ public class LevelManager : MonoBehaviour {
         //Road.PrepareAttackController();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
         List<float> roadTracksCoords = Road.InitTracks();
-        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(0, Road.Length, Road.Width, roadTracksCoords, 0));
+        int levelNumber = UserProgressController.Instance.ProgressState.CompletedRoundsCount;
+        RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
+        Road.Length = vm.Length;
+        Debug.Log(vm.ToString());
+        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(vm, Road.Length, Road.Width, roadTracksCoords));
         UserProgressController.Instance.ProgressState.ShowMenuOnStart = true;
         if (UserProgressController.ProgressLoaded)
             StartDataLoaded(null);

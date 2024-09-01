@@ -4877,10 +4877,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3096621361269415222}
+  - component: {fileID: 7419256989263333393}
   - component: {fileID: 9074245652093621910}
   - component: {fileID: 4067130567160746918}
   - component: {fileID: 5390595089832401541}
-  - component: {fileID: 7419256989263333393}
   - component: {fileID: 2537545161999371890}
   m_Layer: 0
   m_Name: EnemySimpleWithHitParticle
@@ -4907,6 +4907,29 @@ Transform:
   - {fileID: 2420213771937406004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7419256989263333393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8338302473668724209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b142a153470df0a429c4eae7d511dcdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoadPosition: 0
+  Animator: {fileID: 3597374386165110395}
+  Renderer: {fileID: 3008735068420547368}
+  AudioSource: {fileID: 2537545161999371890}
+  DeathSound: {fileID: 0}
+  hitParticle: {fileID: 6775084311524504222}
+  CanBeAttacked: 1
+  HealthBar: {fileID: 7705714998564481262}
+  StartHP: 10
+  MoveSpeed: 2
+  AttackSound: {fileID: 8300000, guid: 6641232ffb360084db8d2db206d48e64, type: 3}
 --- !u!33 &9074245652093621910
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4978,29 +5001,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4043678, y: 1.680411, z: 0.5547851}
   m_Center: {x: 0, y: 0.82743996, z: 0}
---- !u!114 &7419256989263333393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8338302473668724209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b142a153470df0a429c4eae7d511dcdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoadPosition: 0
-  Renderer: {fileID: 3008735068420547368}
-  AudioSource: {fileID: 2537545161999371890}
-  DeathSound: {fileID: 0}
-  CanBeAttacked: 1
-  hitParticle: {fileID: 6775084311524504222}
-  HealthBar: {fileID: 7705714998564481262}
-  StartHP: 12
-  Animator: {fileID: 3597374386165110395}
-  MoveSpeed: 2
-  AttackSound: {fileID: 8300000, guid: 6641232ffb360084db8d2db206d48e64, type: 3}
 --- !u!82 &2537545161999371890
 AudioSource:
   m_ObjectHideFlags: 0

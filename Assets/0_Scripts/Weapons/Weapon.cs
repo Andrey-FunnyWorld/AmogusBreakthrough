@@ -15,7 +15,8 @@ public class Weapon : Attackable {
     int interpolationFramesCount = 360;
     int elapsedFrames = 0;
 
-    void Start() {
+    protected override void Init() {
+        base.Init();
         initialWeaponPosition = weaponMarker.transform.localPosition;
     }
 
