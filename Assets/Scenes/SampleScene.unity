@@ -3855,6 +3855,7 @@ MonoBehaviour:
   - {fileID: 505870335}
   - {fileID: 1293173071}
   - {fileID: 1719095252}
+  ObjectsGenerator: {fileID: 1018137057}
   RoadDecorationGenerator: {fileID: 1456129684}
   ZeroPointInWorld: 0
   Width: 10
@@ -8462,6 +8463,7 @@ MonoBehaviour:
   BlasterPrefab: {fileID: 4082270750096778977, guid: e4cecc4f45825ac40960e973b283c8eb, type: 3}
   RifflePrefab: {fileID: 4427827604290941968, guid: cb058ea0be0258441b4344e294faf4c9, type: 3}
   BazookaPrefab: {fileID: 8748192931737106672, guid: ab2b38db8be01f24087b8d602c00e4a6, type: 3}
+  DistanceToGenerate: 65
 --- !u!1 &1023350265
 GameObject:
   m_ObjectHideFlags: 0

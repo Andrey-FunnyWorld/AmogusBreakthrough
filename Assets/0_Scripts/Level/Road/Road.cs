@@ -1,11 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Road : MonoBehaviour {
     public float StartSpeed = 2;
     public MeshRenderer RoadMeshRenderer;
     public RunningTexture[] RunningTextures;
+    public RoadObjectsGenerator ObjectsGenerator;
     public RoadDecorationGenerator RoadDecorationGenerator;
+    [NonSerialized]
+    public RoadDataViewModel ViewModel;
     [HideInInspector]
     public float ZeroPointInWorld;
 
@@ -57,6 +62,7 @@ public class Road : MonoBehaviour {
     void Start() {
         Speed = StartSpeed;
         roadObjects.AddRange(RoadDecorationGenerator.GenerateStartDecoration());
+        InitTracks();
     }
 
     void Update() {
@@ -64,8 +70,8 @@ public class Road : MonoBehaviour {
             moveTime += Time.deltaTime;
             currentPosition = moveTime * Speed;
             NotifyDecorationGenerator();
+            NotifyObjectGenerator();
             MoveObjects();
-            //MoveRoadTexture();
             HandleFinishReached();
         }
     }
@@ -90,10 +96,13 @@ public class Road : MonoBehaviour {
         AttackHandler.Prepare();
     }
 
-    public void AssignRoadObjects(List<RoadObjectBase> objects) {
-        roadObjects.AddRange(objects);
-        MoveObjects();
+    public void StartAction() {
+        NotifyObjectGenerator(true);
     }
+    // public void AssignRoadObjects(List<RoadObjectBase> objects) {
+    //     roadObjects.AddRange(objects);
+    //     MoveObjects();
+    // }
 
     public void ApplySlowerMoveSpeedPerk() {
         Speed *= speedReduceFactor;
@@ -116,17 +125,18 @@ public class Road : MonoBehaviour {
         }
     }
 
-    // void MoveRoadTexture() {
-    //     float texOffset = moveTime / texOffsetFactor;
-    //     RoadMeshRenderer.material.mainTextureOffset = new Vector2(0, -texOffset % 1);
-    // }
-
     void NotifyDecorationGenerator() {
         RoadObjectBase roadObject = RoadDecorationGenerator.PositionChanged(currentPosition);
         if (roadObject != null)
             roadObjects.Add(roadObject);
     }
-
+    void NotifyObjectGenerator(bool move = false) {
+        List<RoadObjectBase> objects = ObjectsGenerator.GetObjects(ViewModel, Length, Width, tracksCoords, currentPosition);
+        if (objects.Count > 0) {
+            roadObjects.AddRange(objects);
+        }
+        if (move) MoveObjects();
+    }
     void HandleFinishReached() {
         if (!finished && currentPosition >= Length) {
             IsRunning = false;

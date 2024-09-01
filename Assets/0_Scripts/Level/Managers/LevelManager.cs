@@ -25,20 +25,17 @@ public class LevelManager : MonoBehaviour {
 
     void Start() {
         SubscribeEvents();
-        //Road.PrepareAttackController();
         Road.ZeroPointInWorld = MainGuy.transform.position.z;
-        List<float> roadTracksCoords = Road.InitTracks();
         int levelNumber = UserProgressController.Instance.ProgressState.CompletedRoundsCount;
         RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
         Road.Length = vm.Length;
         Debug.Log(vm.ToString());
-        Road.AssignRoadObjects(ObjectsGenerator.GetObjects(vm, Road.Length, Road.Width, roadTracksCoords));
+        Road.ViewModel = vm;
+        Road.StartAction();
+        //Road.AssignRoadObjects(ObjectsGenerator.GetObjects(vm, Road.Length, Road.Width, roadTracksCoords));
         UserProgressController.Instance.ProgressState.ShowMenuOnStart = true;
         if (UserProgressController.ProgressLoaded)
             StartDataLoaded(null);
-        //MovementController.AllowMove = !PerkPanel.ShowOnStart;
-        //// ApplyProgress(UserProgressController.Instance.ProgressState);
-        //EventManager.TriggerEvent(EventNames.LevelLoaded, this);
     }
     void OnDestroy() {
         UnsubscribeEvents();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoadObjectsGenerator : MonoBehaviour {
@@ -14,22 +15,28 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public GameObject BlasterPrefab;
     public GameObject RifflePrefab;
     public GameObject BazookaPrefab;
+
+    public float DistanceToGenerate = 65;
+    int lastIndexToGenerate = 0;
     
     public List<RoadObjectBase> GetObjects(
         RoadDataViewModel vm,
         float roadLength,
         float roadWidth,
-        List<float> roadTracksCoords
+        List<float> roadTracksCoords,
+        float roadPosition
     ) {
-        return GenerateRealObjects(vm, roadTracksCoords);
+        return GenerateRealObjects(vm, roadTracksCoords, roadPosition + DistanceToGenerate);
         //return GenerateObstacles(roadTracksCoords);
         //return DebugGenerateEnemies(roadTracksCoords);
     }
     
-    List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords) {
+    List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords, float roadPosition) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
-        foreach (RoadObjectViewModel ovm in vm.Objects) {
+        while (lastIndexToGenerate < vm.Objects.Length && vm.Objects[lastIndexToGenerate].Position <= roadPosition) {
+            RoadObjectViewModel ovm = vm.Objects[lastIndexToGenerate];
             objects.Add(CreateObject(ovm, GetXOnRoad(ovm.TrackNo, roadTracksCoords)));
+            lastIndexToGenerate++;
         }
         return objects;
     }

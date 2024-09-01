@@ -33,7 +33,9 @@ public class RoadDataGenerator : MonoBehaviour {
     };
     public RoadDataViewModel GetLevelViewModel(int levelNo, Difficulty difficulty) {
         RoadDataViewModel vm = RoadDataStorage.Levels.FirstOrDefault(l => l.LevelNo == levelNo);
-        return vm == null ? GenerateLevelData(levelNo, difficulty) : vm;
+        vm = vm == null ? GenerateLevelData(levelNo, difficulty) : vm;
+        System.Array.Sort(vm.Objects, (RoadObjectViewModel a, RoadObjectViewModel b) => { return a.Position.CompareTo(b.Position); });
+        return vm;
     }
     RoadDataViewModel GenerateLevelData(int levelNo, Difficulty difficulty) {
         RoadDataViewModel vm = new RoadDataViewModel() { LevelNo = levelNo };
