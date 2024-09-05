@@ -4894,7 +4894,7 @@ MonoBehaviour:
   hitParticle: {fileID: 4177640524334644572}
   CanBeAttacked: 1
   HealthBar: {fileID: 2245257231703399913}
-  StartHP: 15
+  StartHP: 25
   MoveSpeed: 2
   AttackSound: {fileID: 8300000, guid: ad9b05481f297a14a8b1623e797111d7, type: 3}
 --- !u!65 &5408051918937688034

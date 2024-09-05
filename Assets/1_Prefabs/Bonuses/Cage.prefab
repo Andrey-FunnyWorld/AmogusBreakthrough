@@ -57,7 +57,7 @@ MonoBehaviour:
   hitParticle: {fileID: 0}
   CanBeAttacked: 1
   HealthBar: {fileID: 1048954554630594232}
-  StartHP: 15
+  StartHP: 12
   BlinkDuration: 2
   MeshCololizer: {fileID: 5833231759337093076}
   ChainedAmogus: {fileID: 612844759449452270}

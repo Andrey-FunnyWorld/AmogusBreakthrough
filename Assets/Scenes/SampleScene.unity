@@ -17523,6 +17523,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 675337109}
     - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
+      propertyPath: AttackRange
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
       propertyPath: StartupCount
       value: 2
       objectReference: {fileID: 0}

@@ -26,6 +26,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         List<float> roadTracksCoords,
         float roadPosition
     ) {
+        //vm.Objects = GenerateCages().ToArray();
         return GenerateRealObjects(vm, roadTracksCoords, roadPosition + DistanceToGenerate);
         //return GenerateObstacles(roadTracksCoords);
         //return DebugGenerateEnemies(roadTracksCoords);
@@ -70,6 +71,13 @@ public class RoadObjectsGenerator : MonoBehaviour {
         return null;
     }
     #region DEBUG GENERATION
+    List<RoadObjectViewModel> GenerateCages() {
+        List<RoadObjectViewModel> objects = new List<RoadObjectViewModel>();
+        for (int i = 0; i < 10; i++) {
+            objects.Add(new RoadObjectViewModel() { Position = 15 + 5 * i, TrackNo = 5, RoadObjectType= RoadObjectType.Cage});
+        }
+        return objects;
+    }
     List<RoadObjectBase> DebugObjectSetup(List<float> roadTracksCoords) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         float[] positions = new float[3] { 15, 35, 37 };
