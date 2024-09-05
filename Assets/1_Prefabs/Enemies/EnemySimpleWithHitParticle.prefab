@@ -5159,6 +5159,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3597374386165110395}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3270573562229991725}
   m_SourcePrefab: {fileID: 100100000, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}
 --- !u!137 &3008735068420547368 stripped
 SkinnedMeshRenderer:
@@ -5191,6 +5194,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3270573562229991725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3871980073537436056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060f72b5407b75a478b49df7be87ba5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventAttackFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7419256989263333393}
+        m_TargetAssemblyTypeName: EnemySimple, Assembly-CSharp
+        m_MethodName: OnAttackFinish
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &4537334775054508834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}

@@ -4,6 +4,7 @@ public abstract class EnemyBase : Attackable {
     public float MoveSpeed;
     public AudioClip AttackSound;
     protected abstract void Attack();
+    public abstract void Attack(Team team);
 
     public override void Destroyed() {
         base.Destroyed();

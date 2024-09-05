@@ -1,9 +1,6 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Team : MonoBehaviour {
@@ -87,12 +84,12 @@ public class Team : MonoBehaviour {
             MostLeftMate = newMate.transform;
             leftMateHalfSize = GetHalfScaleX(MostLeftMate);
         }
-        
+
         if (MostRightMate == null || MostRightMate.position.x < newMate.transform.position.x) {
             MostRightMate = newMate.transform;
             rightMateHalfSize = GetHalfScaleX(MostRightMate);
         }
-        
+
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -193,6 +190,18 @@ public class Team : MonoBehaviour {
         if (MatesCount == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
         else {
             Cage cage = (Cage)arg;
+            AddNewMate(true);
+        }
+    }
+    [ContextMenu("Debug_addMate")] //TODO REMOVE
+    public void DEBUG_addMate() {
+        StartCoroutine(createMateSeq());
+    }
+
+    IEnumerator createMateSeq() { //TODO REMOVE
+        var rand = Random.Range(3, 9);
+        for(int i = 0; i < rand; i++) {
+            yield return new WaitForSeconds(.1f);
             AddNewMate(true);
         }
     }

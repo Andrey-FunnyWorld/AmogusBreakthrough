@@ -165,12 +165,11 @@ public class Road : MonoBehaviour {
                 if (!weapon.CanBeAttacked) {
                     weapon.OnPickedUp();
                 }
-            }
-            if (roadObject is RoadObstacle obstacle) {
+            } else if (roadObject is RoadObstacle obstacle) {
                 obstacle.DamageTeam(AttackHandler.MainGuy.Team);
+            } else if (roadObject is EnemyBase enemy) {
+                enemy.Attack(AttackHandler.MainGuy.Team);
             }
-
-            //else if is EnemyBase...
         }
     }
 
