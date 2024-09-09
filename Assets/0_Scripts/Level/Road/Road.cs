@@ -142,8 +142,6 @@ public class Road : MonoBehaviour {
                     float newPos = roadObject.RoadPosition - currentPosition;
                     HandleObjectPosition(roadObject, newPos);
                 }
-                // float newPos = roadObject.RoadPosition - currentPosition;
-                // HandleObjectPosition(roadObject, newPos);
                 AttackHandler.HandleAttackObject(roadObject);
                 HandleObjectReachedPlayer(roadObject);
                 HandleOjectAttackPlayer(roadObject);
