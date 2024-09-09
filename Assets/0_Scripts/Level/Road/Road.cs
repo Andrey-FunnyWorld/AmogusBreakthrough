@@ -138,10 +138,15 @@ public class Road : MonoBehaviour {
     void MoveObjects() {
         foreach (RoadObjectBase roadObject in roadObjects) {
             if (roadObject != null) {
-                float newPos = roadObject.RoadPosition - currentPosition;
-                HandleObjectPosition(roadObject, newPos);
+                if (roadObject.CanBeMoved) {
+                    float newPos = roadObject.RoadPosition - currentPosition;
+                    HandleObjectPosition(roadObject, newPos);
+                }
+                // float newPos = roadObject.RoadPosition - currentPosition;
+                // HandleObjectPosition(roadObject, newPos);
                 AttackHandler.HandleAttackObject(roadObject);
                 HandleObjectReachedPlayer(roadObject);
+                HandleOjectAttackPlayer(roadObject);
             }
         }
         CleanupObjects();
@@ -159,6 +164,14 @@ public class Road : MonoBehaviour {
         return ZeroPointInWorld + roadPosition;
     }
 
+    void HandleOjectAttackPlayer(RoadObjectBase roadObject) {
+        if (roadObject is EnemyBase enemy) {
+            if (AttackHandler.ReachedTeamAttackThreshhold(roadObject)) {
+                enemy.Attack(AttackHandler.MainGuy.Team, Speed);     
+            }
+        }
+    }
+
     void HandleObjectReachedPlayer(RoadObjectBase roadObject) {
         if (AttackHandler.IntersectsTeam(roadObject)) {
             if (roadObject is Weapon weapon) {
@@ -168,7 +181,7 @@ public class Road : MonoBehaviour {
             } else if (roadObject is RoadObstacle obstacle) {
                 obstacle.DamageTeam(AttackHandler.MainGuy.Team);
             } else if (roadObject is EnemyBase enemy) {
-                enemy.Attack(AttackHandler.MainGuy.Team);
+                // enemy.Attack(AttackHandler.MainGuy.Team);
             }
         }
     }

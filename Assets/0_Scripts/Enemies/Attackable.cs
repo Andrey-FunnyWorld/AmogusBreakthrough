@@ -51,8 +51,7 @@ public abstract class Attackable : RoadObjectBase {
             AudioSource.clip = DeathSound;
             AudioSource.Play();
         }
-        if (playDieFx)
-        {
+        if (playDieFx) {
             StartCoroutine(Utils.WaitAndDo(CORPSE_VISIBLE_DURATION, () => {
                 StartCoroutine(AnimateCorpseDecay());
             }));

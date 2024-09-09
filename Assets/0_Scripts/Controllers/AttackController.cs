@@ -10,6 +10,7 @@ public class AttackController : MonoBehaviour {
     public Transform AttackZoneParent;
     public ShotSoundManager ShotSoundManager;
     public float OnePunchZone = 20f;
+    public Transform EnemyAttackThreshhold;
 
     public float bossExtraMin = 1.1f;
     public float bossExtraMax = 1.4f;
@@ -102,6 +103,10 @@ public class AttackController : MonoBehaviour {
             return nearest >= TeamFarthestPoint();
         }
         return false;
+    }
+
+    public bool ReachedTeamAttackThreshhold(RoadObjectBase roadObject) {
+        return roadObject.transform.position.z < EnemyAttackThreshhold.position.z;
     }
 
     public void ApplyPerk(PerkType perk) {
@@ -217,9 +222,10 @@ public class AttackController : MonoBehaviour {
         ShotSoundManager.SetWeapon(weaponType);
     }
 
-    void InitTeamDamage() =>
+    void InitTeamDamage() {
         teamDamage = currentWeapon.Damage * MainGuy.DamageMultiplier
             + MainGuy.Team.MatesCount * currentWeapon.Damage;
+    }
 
     void AttackEnemies() {
         if (attackCoroutine != null) return;

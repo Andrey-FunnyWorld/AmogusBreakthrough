@@ -2750,6 +2750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadPosition: 100
+  CanBeMoved: 1
 --- !u!95 &370711255
 Animator:
   serializedVersion: 5
@@ -7076,6 +7077,7 @@ MonoBehaviour:
   AttackZoneParent: {fileID: 1800330899}
   ShotSoundManager: {fileID: 752896885}
   OnePunchZone: 20
+  EnemyAttackThreshhold: {fileID: 1351245322}
   bossExtraMin: 1.1
   bossExtraMax: 1.4
 --- !u!1 &811746862
@@ -10120,6 +10122,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -92}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1351245321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351245322}
+  m_Layer: 0
+  m_Name: EnemyAttackThreshold
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351245322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351245321}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 995826724}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1369599054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13376,10 +13409,10 @@ MonoBehaviour:
   MinGroupCount: 7
   MaxGroupCount: 20
   MinGroupIndent: 5
-  MinBudget: 25
+  MinBudget: 100
   BudgetStep: 15
   RoadLengthStep: 15
-  MinGroupBudget: 2
+  MinGroupBudget: 5
 --- !u!1001 &1810818268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15665,6 +15698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadPosition: 10
+  CanBeMoved: 1
 --- !u!1001 &2002167162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17374,6 +17408,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6777851106940154430, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       insertIndex: -1
       addedObject: {fileID: 506316468}
+    - targetCorrespondingSourceObject: {fileID: 6777851106940154430, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1351245322}
     - targetCorrespondingSourceObject: {fileID: 4371752579492418144, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1664282205}

@@ -1,64 +1,36 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySimple : EnemyBase {
 
-    float attackDuration = 1f;
-    float offsetX;
-    float timeElapsed;
-    bool canAttack;
-    bool isAttacking;
-    bool madeAttack;
+    float attackPointOffsetWithinTeam;
+    float roadSpeed;
+    float maxHeight = 1.5f;
+    float travelTime = .3f;
+    float elapsedTime = 0f;
+    Vector3 startPosition;
+    Vector3 targetPosition;
+    Coroutine attacking;
     Team _team;
-
-    void Update() {
-        if (canAttack && _team != null)
-            HandleMovingWhileAttackAnimation();
-    }
 
     void OnDestroy() {
         _team = null;
     }
 
-    void HandleMovingWhileAttackAnimation() {
-        if (timeElapsed < attackDuration) {
-            timeElapsed += Time.deltaTime;
-
-            var point = _team.MainGuy.transform.position.x + offsetX;
-            var distance = point > transform.position.x ? point - transform.position.x : transform.position.x - point;
-
-            if (Mathf.Abs(distance) < 0.001f) {
-                canAttack = false;
-                isAttacking = false;
-                madeAttack = true;
-                return;
-            }
-            float factor = GetMoveValue(timeElapsed / attackDuration) * (point > transform.position.x ? 1 : -1);
-            float offset = distance * factor * .3f;
-            if (Mathf.Abs(offset) < 0.0001f) {
-                canAttack = false;
-                isAttacking = false;
-                madeAttack = true;
-                return;
-            }
-
-            transform.Translate(offset, 0, 0);
-        } else {
-            canAttack = false;
-            _team = null;
-        }
-    }
-
-    public override void Attack(Team team) {
-        if (madeAttack || isAttacking || HP <= 0)
+    public override void Attack(Team team, float roadSpeed) {
+        this.roadSpeed = roadSpeed;
+        if (attacking != null || HP <= 0)
             return;
         
-        isAttacking = true;
-
         _team = team;
         CalcOffsetOfAttackPoint();
-        timeElapsed = 0f;
-        canAttack = true;
         Attack();
+        startPosition = transform.position;
+
+        CanBeMoved = false;
+        maxHeight = Random.Range(.3f, 1.5f);
+        travelTime = Random.Range(.2f, .5f);
+        attacking = StartCoroutine(JumpToTeam());
     }
 
     protected override void Attack() {
@@ -69,22 +41,41 @@ public class EnemySimple : EnemyBase {
         }
     }
 
-    float GetMoveValue(float value) {
-        // return value == 1 ? 1 : 1 - Mathf.Pow(2, -10 * value);
-        return 1 - Mathf.Pow(1 - value, 5);
-    }
-
     void CalcOffsetOfAttackPoint() {
         float teamWidth = _team.MostRightMate.transform.position.x - _team.MostLeftMate.transform.position.x;
         float rand = Random.Range(0.01f, teamWidth);
         float percentage = rand / teamWidth;
-        offsetX = percentage > .5f
+        attackPointOffsetWithinTeam = percentage > .5f
             ? (percentage - .5f) * teamWidth
             : -(.5f - percentage) * teamWidth;
     }
 
+    IEnumerator JumpToTeam() {
+        while (elapsedTime < travelTime) {
+            elapsedTime += Time.deltaTime;
+            RoadPosition -= Time.deltaTime * roadSpeed;
+            float t = Mathf.Clamp01(elapsedTime / travelTime);
+            targetPosition = new Vector3(
+                _team.MainGuy.transform.position.x + attackPointOffsetWithinTeam,
+                0,
+                _team.MainGuy.transform.position.z
+            );
+
+            transform.position = CalculateParabolicPoint(startPosition, targetPosition, maxHeight, t);
+            yield return null;
+        }
+        CanBeMoved = true;
+    }
+
+    Vector3 CalculateParabolicPoint(Vector3 start, Vector3 end, float jumpHeight, float t) {
+        Vector3 midPoint = Vector3.Lerp(start, end, t);
+        float parabola = 4 * jumpHeight * (t - t * t);
+        midPoint.y = Mathf.Lerp(start.y, end.y, t) + parabola;
+        return midPoint;
+    }
+
     public void OnAttackFinish() {
-        _team?.TeamHealth.TakeDamage(Random.Range(.1f, 5f));
+        _team?.TeamHealth.TakeDamage(Random.Range(1f, 5f));
         _team = null;
     }
 }

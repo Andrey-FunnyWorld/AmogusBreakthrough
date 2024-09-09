@@ -1,12 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyGiant : EnemyBase {
 
-    private Team _team;
+    Team _team;
+    Coroutine lookAtTeam;
+    float lookTime = 1f;
+    float elapsedTime = 0f;
+    bool attackMade = false;
+
+    void OnDestroy() {
+        _team = null;
+    }
     
-    public override void Attack(Team team) {
-        if (HP <= 0)
+    public override void Attack(Team team, float roadSpeed) {
+        if (lookAtTeam != null || attackMade || HP <= 0)
             return;
+
+        _team = team;
+        lookAtTeam = StartCoroutine(LookAtTeam());
         Attack();
     }
 
@@ -19,8 +31,37 @@ public class EnemyGiant : EnemyBase {
         // ВАНШОТ, ёбба!
     }
 
+    IEnumerator LookAtTeam() {
+        while (elapsedTime < lookTime) {
+            if (HP <= 0)
+                attackMade = true;
+
+            elapsedTime += Time.deltaTime;
+            if (_team != null && HP > 0) {
+                Animator.transform.LookAt(_team.MainGuy.transform);
+            } else {
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator LookForward() {
+        IsRunningChanged(true);
+        while (Vector3.Angle(Animator.transform.forward, -Vector3.forward) > 1f) {
+            Animator.transform.rotation = Quaternion.Slerp(Animator.transform.rotation, Quaternion.LookRotation(-Vector3.forward), 3 * Time.deltaTime);
+            yield return null;
+        }
+    }
+
     public void OnAttackFinish() {
-        _team?.TeamHealth.TakeDamage(1000f);
+        attackMade = true;
+
+        if (HP > 0)
+            _team?.TeamHealth.TakeDamage(30f);
         _team = null;
+
+        StopAllCoroutines();
+        StartCoroutine(LookForward());
     }
 }
