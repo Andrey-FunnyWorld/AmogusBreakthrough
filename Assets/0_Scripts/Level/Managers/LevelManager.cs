@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour {
             EventManager.TriggerEvent(EventNames.MatesChanged);
     }
     void RoadFinished(object arg) {
-        //LevelUIManager.RoadFinished();
+        LevelUIManager.RoadFinished();
         StartCoroutine(FadeMusic(FadeBattleMusicDuration));
         RoadWin.Play();
         MovementController.AllowMove = false;

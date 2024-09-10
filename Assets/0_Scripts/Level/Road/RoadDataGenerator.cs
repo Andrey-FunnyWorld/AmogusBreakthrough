@@ -72,7 +72,7 @@ public class RoadDataGenerator : MonoBehaviour {
     }
     List<RoadObjectViewModel> GetRoadObjects(int levelNo, Difficulty difficulty, float length) {
         float budget = GetBudget(levelNo, difficulty);
-        UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
+        Random.InitState(System.DateTime.Now.Millisecond);
         return SpendBudget(budget, length, difficulty);
     }
     float GetBudget(int levelNo, Difficulty difficulty) {
@@ -130,17 +130,6 @@ public class RoadDataGenerator : MonoBehaviour {
                 potentialDamage, GiantArmoredHp, pivotWeapon.AttackCooldown,
                 extraTeamCountForArmoredGiant[difficulty], potentialTeamCount, rect
             );
-            // if (teamCountForFirstGiant == -1) {
-            //     float timeToClearGiant = CalcPositionClearDuration(potentialDamage, GiantHp, pivotWeapon.AttackCooldown);
-            //     if (timeToClearGiant < timeToEncounter) {
-            //         teamCountForFirstGiant = potentialTeamCount;
-            //         if (potentialTeamCount >= teamCountForFirstGiant + extraTeamCountForGiant[difficulty]) {
-            //             rect.PossibleEnemyTypes.Add(RoadObjectType.EnemyGiant);
-            //         }
-            //     }
-            // } else {
-            //     rect.CanIncludeGiant = potentialTeamCount >= teamCountForFirstGiant + extraTeamCountForGiant[difficulty];
-            // }
             float pivotHp = PivotEnemyHp;
             if (rect.PossibleEnemyTypes.Contains(RoadObjectType.EnemyGiant)) pivotHp = GiantHp;
             if (rect.PossibleEnemyTypes.Contains(RoadObjectType.EnemyGiantArmored)) pivotHp = GiantArmoredHp;
@@ -148,8 +137,8 @@ public class RoadDataGenerator : MonoBehaviour {
             int maxClearedPositions = (int)Mathf.Floor(timeToEncounter / timeToClearPosition);
             float groupWidth = CalcMaxGroupWidth(Team.GetPotentialWidth(potentialTeamCount), maxClearedPositions, difficulty);
             SetGroupWidth(rect, groupWidth);
-            Debug.Log(rect.ToString());
-            Debug.Log("Budget: " + groupBudgets[i]);
+            //Debug.Log(rect.ToString());
+            //Debug.Log("Budget: " + groupBudgets[i]);
             objects.AddRange(GetGroup(groupBudgets[i], rect));
         }
         //objects.AddRange(GenerateObstacles(groupRects, bonuses));
@@ -162,8 +151,8 @@ public class RoadDataGenerator : MonoBehaviour {
         int teamCountForFirstEnemtyResult = teamCountForFirstEnemy;
         if (teamCountForFirstEnemy == -1) {
             float timeToClearGiant = CalcPositionClearDuration(dmg, enemyHp, weaponCooldown);
-            Debug.Log("Time To Clear: " + timeToClearGiant);
-            Debug.Log("potentialTeamCount: " + potentialTeamCount);
+            //Debug.Log("Time To Clear: " + timeToClearGiant);
+            //Debug.Log("potentialTeamCount: " + potentialTeamCount);
             if (timeToClearGiant < timeToEncounter) {
                 teamCountForFirstEnemtyResult = potentialTeamCount;
                 if (potentialTeamCount >= teamCountForFirstEnemtyResult + extraTeamCount) {
