@@ -10,6 +10,8 @@ public class LevelUIManager : MonoBehaviour {
     Coroutine waitTutorialRoutine = null;
     public AbilityButton FirstAbility;
     public AbilityButton SecondAbility;
+    public Transform BattleStats;
+    public Transform HpBar;
 
     void Update() {
         // if (Input.GetKeyDown(KeyCode.B)) {
@@ -25,6 +27,7 @@ public class LevelUIManager : MonoBehaviour {
             yield return null;
         }
         SubscribeEvents();
+        BattleStats.gameObject.SetActive(true);
         float timer = 0;
         while (timer < delay) {
             timer += Time.deltaTime;
@@ -53,6 +56,7 @@ public class LevelUIManager : MonoBehaviour {
     }
 
     public void RoadFinished() {
+        HpBar.gameObject.SetActive(false);
         //RoadFinishedMsg.gameObject.SetActive(true);
     }
 

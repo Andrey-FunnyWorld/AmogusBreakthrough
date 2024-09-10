@@ -14,6 +14,7 @@ public class UpgradeItem : MonoBehaviour, IPointerDownHandler {
     public Transform BuyButton;
     public int CurrentLevel = 0;
     public const int MAX_LEVEL = 10;
+    public const float INCREASE_STEP = 0.1f;
     int originalPrice;
     string format = "{0} <sprite name=\"coin\">";
     bool CanBuy() {

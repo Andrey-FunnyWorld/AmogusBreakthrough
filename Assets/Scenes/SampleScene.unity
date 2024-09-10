@@ -3855,7 +3855,9 @@ MonoBehaviour:
   - {fileID: 505870335}
   - {fileID: 1293173071}
   - {fileID: 1719095252}
+  ObjectsGenerator: {fileID: 1018137057}
   RoadDecorationGenerator: {fileID: 1456129684}
+  RoadSkinStorage: {fileID: 11400000, guid: 0f9b56a5b1e5a57448ef8424ddf90279, type: 2}
   ZeroPointInWorld: 0
   Width: 10
   Length: 90
@@ -4246,7 +4248,7 @@ MonoBehaviour:
   PerkSelectorPrefab: {fileID: 4425356734203546442, guid: c2f11f63236301b43a48b07bb17540b8, type: 3}
   Grid: {fileID: 1564404428}
   Buttons: {fileID: 113977400}
-  ShowOnStart: 0
+  ShowOnStart: 1
   ExtraRollPrice: 100
   ExtraRollText: {fileID: 1425707131}
   YourCoinsText: {fileID: 516797048}
@@ -8159,6 +8161,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8552142345165308981, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}
   m_PrefabInstance: {fileID: 130091887486128103}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &990026173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990026174}
+  m_Layer: 5
+  m_Name: BattleScores
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &990026174
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990026173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1698977538}
+  - {fileID: 609410322}
+  m_Father: {fileID: 1067913569}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &995337380 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6771805259163161212, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
@@ -8454,6 +8493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySimplePrefab: {fileID: 7419256989263333393, guid: caf4b6db747eea9479c896d7581d12cc, type: 3}
   EnemyGiantPrefab: {fileID: 8006850031438747880, guid: ceffc9554766e0048b1df2f7a6a99c8d, type: 3}
+  EnemyArmoredGiantPrefab: {fileID: 3915594868048759417, guid: da29190b6b5a65645a29dd165860c9e9, type: 3}
   CagePrefab: {fileID: 6112450262944845456, guid: 6fc24a0c9233129408b2c6922a344d81, type: 3}
   WeaponBoxPrefab: {fileID: 521104844271740559, guid: f101b83854a1d0748a863a2a39db154c, type: 3}
   ObstaclePrefab: {fileID: 1155834549058377873, guid: 46fd39837eca6994a8529ad7e41a14b8, type: 3}
@@ -8462,6 +8502,8 @@ MonoBehaviour:
   BlasterPrefab: {fileID: 4082270750096778977, guid: e4cecc4f45825ac40960e973b283c8eb, type: 3}
   RifflePrefab: {fileID: 4427827604290941968, guid: cb058ea0be0258441b4344e294faf4c9, type: 3}
   BazookaPrefab: {fileID: 8748192931737106672, guid: ab2b38db8be01f24087b8d602c00e4a6, type: 3}
+  DistanceToGenerate: 300
+  ExpectedLevelCountForAllUpgrades: 50
 --- !u!1 &1023350265
 GameObject:
   m_ObjectHideFlags: 0
@@ -8768,8 +8810,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1698977538}
-  - {fileID: 609410322}
+  - {fileID: 990026174}
   - {fileID: 2063869071}
   - {fileID: 514675586}
   - {fileID: 611851556}
@@ -8805,6 +8846,8 @@ MonoBehaviour:
   BattleTutorial: {fileID: 772446394}
   FirstAbility: {fileID: 125314838}
   SecondAbility: {fileID: 316161121}
+  BattleStats: {fileID: 990026174}
+  HpBar: {fileID: 609410322}
 --- !u!1 &1097980229
 GameObject:
   m_ObjectHideFlags: 0
@@ -10083,6 +10126,53 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2487461071257318049, guid: 3c07dd510efd89749830a0af772979b7, type: 3}
   m_PrefabInstance: {fileID: 549625037}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1341846729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341846730}
+  - component: {fileID: 1341846731}
+  m_Layer: 0
+  m_Name: DEBUGLevelParams
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1341846730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341846729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543382294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1341846731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341846729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b241173d0eddc43ab6bcf8363a568f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseDebugParams: 1
+  LevelNumber: 7
+  Difficulty: 2
 --- !u!1 &1348439050
 GameObject:
   m_ObjectHideFlags: 0
@@ -11386,6 +11476,7 @@ Transform:
   - {fileID: 274705033}
   - {fileID: 1456129683}
   - {fileID: 1808679857}
+  - {fileID: 1341846730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1550760157
@@ -11845,7 +11936,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1067913569}
+    m_TransformParent: {fileID: 990026174}
     m_Modifications:
     - target: {fileID: 3331493161942756661, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_Name
@@ -11909,23 +12000,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -40
+      value: 390.23947
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13371,15 +13462,22 @@ MonoBehaviour:
   RoadDataStorage: {fileID: 11400000, guid: cf626a226b536984b824441a8a5616b4, type: 2}
   MinRoadLength: 100
   MaxRoadLength: 250
-  StartRoadPosition: 14
+  StartRoadPosition: 18
   EndRoadPositionIndent: 11
-  MinGroupCount: 7
-  MaxGroupCount: 20
-  MinGroupIndent: 5
-  MinBudget: 25
-  BudgetStep: 15
+  GroupCountDifBetweenMinMax: 5
+  MaxGroupCount: 25
+  MinGroupHeight: 1
+  MaxGroupHeight: 3
+  MinDistanceBetweenGroupBorders: 5
+  BonusIndentFromGroup: 2
+  MinBudget: 70
+  BudgetStep: 20
   RoadLengthStep: 15
-  MinGroupBudget: 2
+  MinGroupBudget: 3
+  GroupPositionTolerance: 0.2
+  Team: {fileID: 1412597526}
+  AttackController: {fileID: 802100786}
+  Road: {fileID: 505870334}
 --- !u!1001 &1810818268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15530,6 +15628,7 @@ MonoBehaviour:
   PerkPanel: {fileID: 514675589}
   HealthController: {fileID: 675337109}
   CoinsController: {fileID: 1214266518}
+  DebugLevelParams: {fileID: 1341846731}
   DEBUG: 0
   ImposterManager: {fileID: 1468848079}
   BattleMusic: {fileID: 1968311814}
@@ -17048,7 +17147,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1067913569}
+    m_TransformParent: {fileID: 990026174}
     m_Modifications:
     - target: {fileID: 1204818630948516587, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_Name
@@ -17108,23 +17207,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: -390.2395
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17519,6 +17618,10 @@ PrefabInstance:
       propertyPath: TeamHealth
       value: 
       objectReference: {fileID: 675337109}
+    - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
+      propertyPath: AttackRange
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5169368341717764399, guid: b16541eaf7e30cf41b2e2790d5ffe0ce, type: 3}
       propertyPath: StartupCount
       value: 2

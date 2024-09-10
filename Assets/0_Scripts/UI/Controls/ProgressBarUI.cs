@@ -48,11 +48,11 @@ public class ProgressBarUI : MonoBehaviour {
             if (HideWhenFull) visible = visible && Value != MaxValue;
             if (HideWhenZero) visible = visible && Value > 0;
             gameObject.SetActive(visible);
-            if (EnableValueChangeAnimation)
+            if (EnableValueChangeAnimation && gameObject.activeInHierarchy)
                 StartCoroutine(AnimateValueChange());
             else
                 UpdateProgress(Value);
-            if (EnableTextChangeAnimation)
+            if (EnableTextChangeAnimation && gameObject.activeInHierarchy)
                 StartCoroutine(AnimateValueTextChange());
             else
                 valueText.text = Value.ToString();
