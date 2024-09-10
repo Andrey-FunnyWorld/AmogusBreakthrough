@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
     public PerkPanel PerkPanel;
     public TeamHealthController HealthController;
     public CoinsController CoinsController;
+    public DebugLevelParams DebugLevelParams;
     public bool DEBUG; //TODO remove later
 
     public ImposterManager ImposterManager;
@@ -25,13 +26,6 @@ public class LevelManager : MonoBehaviour {
 
     void Start() {
         SubscribeEvents();
-        Road.ZeroPointInWorld = MainGuy.transform.position.z;
-        int levelNumber = UserProgressController.Instance.ProgressState.CompletedRoundsCount;
-        RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
-        Road.Length = vm.Length;
-        Debug.Log(vm.ToString());
-        Road.ViewModel = vm;
-        Road.StartAction();
         //Road.AssignRoadObjects(ObjectsGenerator.GetObjects(vm, Road.Length, Road.Width, roadTracksCoords));
         UserProgressController.Instance.ProgressState.ShowMenuOnStart = true;
         if (UserProgressController.ProgressLoaded)
@@ -95,6 +89,24 @@ public class LevelManager : MonoBehaviour {
         Road.PrepareAttackController();
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
         AdjustToPlatform(HtmlBridge.PlatformType);
+        SetupRoadData();
+    }
+    void SetupRoadData() {
+        int levelNumber = UserProgressController.Instance.ProgressState.CompletedRoundsCount;
+        if (DebugLevelParams.UseDebugParams) {
+            LevelLoader.Difficulty = DebugLevelParams.Difficulty;
+            levelNumber = DebugLevelParams.LevelNumber;
+        }
+        Road.ZeroPointInWorld = MainGuy.transform.position.z;
+        RoadDataGenerator.PivotEnemyHp = ObjectsGenerator.EnemySimplePrefab.StartHP;
+        RoadDataGenerator.GiantHp = ObjectsGenerator.EnemyGiantPrefab.StartHP;
+        RoadDataGenerator.GiantArmoredHp = ObjectsGenerator.EnemyArmoredGiantPrefab.StartHP;
+        RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
+        Road.Length = vm.Length;
+        Debug.Log(vm.ToString());
+        Road.ViewModel = vm;
+        ObjectsGenerator.ApplyProgress(levelNumber);
+        Road.StartAction();
     }
     void AdjustToPlatform(PlatformType platformType) {
         StartGate.AdjustToPlatform(platformType);

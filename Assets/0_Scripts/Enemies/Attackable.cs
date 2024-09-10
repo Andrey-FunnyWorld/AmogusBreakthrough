@@ -24,6 +24,7 @@ public abstract class Attackable : RoadObjectBase {
         set {
             if (hp != value) {
                 hp = value;
+                HpChanged(hp);
                 HealthBar.Value = hp;
                 if (hp <= 0) {
                     Destroyed();
@@ -31,6 +32,7 @@ public abstract class Attackable : RoadObjectBase {
             }
         }
     }
+    protected virtual void HpChanged(float newValue) { }
     void Start() {
         Init();
     }

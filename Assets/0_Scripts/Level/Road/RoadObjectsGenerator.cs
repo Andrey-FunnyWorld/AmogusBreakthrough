@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoadObjectsGenerator : MonoBehaviour {
     public EnemySimple EnemySimplePrefab;
     public EnemyGiant EnemyGiantPrefab;
+    public EnemyGiant EnemyArmoredGiantPrefab;
     public Cage CagePrefab;
     public Weapon WeaponBoxPrefab;
     public RoadObstacle ObstaclePrefab;
@@ -17,8 +18,14 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public GameObject BazookaPrefab;
 
     public float DistanceToGenerate = 65;
+    public float ExpectedLevelCountForAllUpgrades = 50;
     int lastIndexToGenerate = 0;
-    
+    float scaleHPFactor = 1;
+    Dictionary<Difficulty, float> scaleHPDifficulty = new Dictionary<Difficulty, float>() {
+        { Difficulty.Noob, 0.9f },
+        { Difficulty.Pro, 1f },
+        { Difficulty.Hacker, 1f },
+    };
     public List<RoadObjectBase> GetObjects(
         RoadDataViewModel vm,
         float roadLength,
@@ -31,7 +38,13 @@ public class RoadObjectsGenerator : MonoBehaviour {
         //return GenerateObstacles(roadTracksCoords);
         //return DebugGenerateEnemies(roadTracksCoords);
     }
-    
+    public void ApplyProgress(int levelNo) {
+        float maxUpgradeIncrease = UpgradeItem.MAX_LEVEL * UpgradeItem.INCREASE_STEP;
+        float maxDamageFactor = Mathf.Pow(1 + maxUpgradeIncrease, 2); // 2 - two upgrades increase DPS
+        scaleHPFactor = scaleHPFactor + (maxDamageFactor - 1) * Mathf.Min(levelNo, ExpectedLevelCountForAllUpgrades) / ExpectedLevelCountForAllUpgrades;
+        scaleHPFactor *= Mathf.Max(1, scaleHPDifficulty[LevelLoader.Difficulty]);
+        Debug.Log("scaleHPFactor: " + scaleHPFactor);
+    }
     List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords, float roadPosition) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
         while (lastIndexToGenerate < vm.Objects.Length && vm.Objects[lastIndexToGenerate].Position <= roadPosition) {
@@ -55,6 +68,9 @@ public class RoadObjectsGenerator : MonoBehaviour {
             weapon.WeaponType = GetRandomWeapon();
             GenerateWeaponForBox(weapon.weaponMarker.transform, weapon.WeaponType);
         }
+        if (newItem is EnemyBase enemy) {
+            enemy.StartHP *= scaleHPFactor;
+        }
     }
     float GetXOnRoad(int trackNo, List<float> roadTracksCoords) {
         int index = trackNo == -1 ? UnityEngine.Random.Range(0, roadTracksCoords.Count) : trackNo;
@@ -64,6 +80,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         switch (objectType) {
             case RoadObjectType.EnemySimple: return EnemySimplePrefab;
             case RoadObjectType.EnemyGiant: return EnemyGiantPrefab;
+            case RoadObjectType.EnemyGiantArmored: return EnemyArmoredGiantPrefab;
             case RoadObjectType.Cage: return CagePrefab;
             case RoadObjectType.ObstacleSaw: return ObstaclePrefab;
             case RoadObjectType.WeaponBox: return WeaponBoxPrefab;
@@ -194,10 +211,6 @@ public class RoadObjectsGenerator : MonoBehaviour {
         );
     }
 
-}
-
-public enum EnemyType {
-    Simple, Giant
 }
 public enum BonusType {
     Cage, WeaponBlaster

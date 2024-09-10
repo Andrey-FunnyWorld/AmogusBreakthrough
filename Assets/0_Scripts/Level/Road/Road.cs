@@ -139,6 +139,8 @@ public class Road : MonoBehaviour {
     void NotifyObjectGenerator(bool move = false) {
         List<RoadObjectBase> objects = ObjectsGenerator.GetObjects(ViewModel, Length, Width, tracksCoords, currentPosition);
         if (objects.Count > 0) {
+            foreach (RoadObjectBase obj in objects)
+                obj.IsRunningChanged(IsRunning);
             roadObjects.AddRange(objects);
         }
         if (move) MoveObjects();
