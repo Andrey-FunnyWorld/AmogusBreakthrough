@@ -13,6 +13,9 @@ public class MainGuy : TeamMember {
     public void StartMove() {
         // start move animation for the guy and team
     }
+    public void TeamDead() {
+        Team.TeamDefeat();
+    }
     public void ApplyProgress(ProgressState progress) {
         Team.CreateTeam(progress);
     }

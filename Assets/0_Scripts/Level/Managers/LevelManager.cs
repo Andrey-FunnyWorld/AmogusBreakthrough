@@ -78,7 +78,10 @@ public class LevelManager : MonoBehaviour {
         //BattleMusic.Stop();
     }
     void TeamDead(object arg0) {
-        //TODO game over
+        Road.IsRunning = false;
+        Road.MovementStarted = false;
+        MainGuy.TeamDead();
+        LevelUIManager.ShowDefeatPanel(CoinsController.CasualCoins);
     }
     void HandleOnePunchAbility(object arg) {
         Road.AbilityOnePunchUsed();

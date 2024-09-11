@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 
 public class LevelUIManager : MonoBehaviour {
@@ -13,51 +11,38 @@ public class LevelUIManager : MonoBehaviour {
     public Transform BattleStats;
     public Transform HpBar;
 
+    public interface IPlatformAdaptable {
+        void Adapt(PlatformType platformType);
+    }
+
+    void Start() {
+        waitTutorialRoutine = StartCoroutine(WaitForTutorial(BattleTutorial.ShowDelay));
+    }
+
     void Update() {
         // if (Input.GetKeyDown(KeyCode.B)) {
         //     DefeatViewModel vm = new DefeatViewModel() { CoinReward = 70 };
         //     DefeatUI.ShowResult(vm);
         // }
     }
-    void Start() {
-        waitTutorialRoutine = StartCoroutine(WaitForTutorial(BattleTutorial.ShowDelay));
+
+    void OnDestroy() {
+        UnsubscribeEvents();
     }
-    IEnumerator WaitForTutorial(float delay) {
-        while (LevelManager.MovementController == null || !LevelManager.MovementController.AllowMove) {
-            yield return null;
-        }
-        SubscribeEvents();
-        BattleStats.gameObject.SetActive(true);
-        float timer = 0;
-        while (timer < delay) {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        BattleTutorial.gameObject.SetActive(true);
-    }
+
     public void AdjustToPlatform(PlatformType platformType) {
         IPlatformAdaptable[] adaptables = GetComponentsInChildren<IPlatformAdaptable>(true);
         foreach (IPlatformAdaptable adaptable in adaptables)
             adaptable.Adapt(platformType);
     }
-    void StartMovement(object arg) {
-        if (waitTutorialRoutine != null)
-            StopCoroutine(waitTutorialRoutine);
-        BattleTutorial.gameObject.SetActive(false);
-    }
-    void SubscribeEvents() {
-        EventManager.StartListening(EventNames.StartMovement, StartMovement);
-    }
-    void UnsubscribeEvents() {
-        EventManager.StopListening(EventNames.StartMovement, StartMovement);
-    }
-    void OnDestroy() {
-        UnsubscribeEvents();
-    }
 
     public void RoadFinished() {
         HpBar.gameObject.SetActive(false);
         //RoadFinishedMsg.gameObject.SetActive(true);
+    }
+
+    public void ShowDefeatPanel(int coins) {
+        DefeatUI.ShowResult(new DefeatViewModel() { CoinReward = coins });
     }
 
     public void HandlePerk(PerkItem perk) {
@@ -76,8 +61,31 @@ public class LevelUIManager : MonoBehaviour {
         }
     }
 
-    public interface IPlatformAdaptable {
-        void Adapt(PlatformType platformType);
+    void StartMovement(object arg) {
+        if (waitTutorialRoutine != null)
+            StopCoroutine(waitTutorialRoutine);
+        BattleTutorial.gameObject.SetActive(false);
+    }
+
+    IEnumerator WaitForTutorial(float delay) {
+        while (LevelManager.MovementController == null || !LevelManager.MovementController.AllowMove) {
+            yield return null;
+        }
+        SubscribeEvents();
+        BattleStats.gameObject.SetActive(true);
+        float timer = 0;
+        while (timer < delay) {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        BattleTutorial.gameObject.SetActive(true);
+    }
+
+    void SubscribeEvents() {
+        EventManager.StartListening(EventNames.StartMovement, StartMovement);
+    }
+    void UnsubscribeEvents() {
+        EventManager.StopListening(EventNames.StartMovement, StartMovement);
     }
 
 }

@@ -12,6 +12,7 @@ public class ProgressText3D : MonoBehaviour {
     public float AnimationDuration = 0.7f;
     int percentValue = 0;
     Coroutine animationRoutine;
+    
     public void SetProgress(int percent, string ratioText = "") {
         string text = TextType == SkinType.Hat ? LocalizationKeys.HatsProgress : LocalizationKeys.BackpackProgress;
         Text.text = string.Format(MyLocalization.Instance.GetLocalizedText(text), ratioText == "" ? percent : ratioText);

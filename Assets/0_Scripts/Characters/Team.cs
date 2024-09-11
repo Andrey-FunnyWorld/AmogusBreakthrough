@@ -74,6 +74,9 @@ public class Team : MonoBehaviour {
         const float mateWidth = 0.6f;
         return baseWidth + (teamCount - 2) * mateWidth;
     }
+    public void TeamDefeat() {
+        RoadFinished(new object());
+    }
 
     void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin, bool isRunning = false, bool playAppearanceFX = false) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);

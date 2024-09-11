@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public class DefeatViewModel {
+    public int CoinReward;
+}
 
 public class DefeatUI : MonoBehaviour {
     public ScoreText CoinText;
@@ -8,6 +10,7 @@ public class DefeatUI : MonoBehaviour {
     public Transform AdButton;
     bool canLoadNextLevel = true;
     DefeatViewModel viewModel;
+    
     public void AdRewardCoins(int multiplier) {
         canLoadNextLevel = false;
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
@@ -19,6 +22,7 @@ public class DefeatUI : MonoBehaviour {
             canLoadNextLevel = true;
         });
     }
+
     public void ShowResult(DefeatViewModel vm) {
         viewModel = vm;
         gameObject.SetActive(true);
@@ -28,9 +32,11 @@ public class DefeatUI : MonoBehaviour {
         LoserAssistant.LostRounds++;
         LoserAssistant.RoundsPlayed++;
     }
+
     public void SetCoins() {
         CoinText.Score = viewModel.CoinReward;
     }
+
     public void FinishLevel() {
         if (canLoadNextLevel) {
             if (UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0) {
@@ -46,8 +52,4 @@ public class DefeatUI : MonoBehaviour {
             #endif
         }
     }
-}
-
-public class DefeatViewModel {
-    public int CoinReward;
 }

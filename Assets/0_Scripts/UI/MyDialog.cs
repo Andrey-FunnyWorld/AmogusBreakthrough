@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -7,6 +5,7 @@ using UnityEngine.Events;
 public class MyDialog : MonoBehaviour {
     public TextMeshProUGUI Caption, Question, YesText;
     UnityAction yesAction, noAction;
+
     public void Show(string caption, string question, UnityAction yesAction, UnityAction noAction = null) {
         Show(yesAction, noAction);
         Caption.text = caption;
