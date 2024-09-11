@@ -5,12 +5,9 @@ public class EnemySimple : EnemyBase {
 
     float attackPointOffsetWithinTeam;
     float roadSpeed;
-    float maxHeight = 1.5f;
-    float travelTime = .3f;
-    float elapsedTime = 0f;
     Vector3 startPosition;
     Vector3 targetPosition;
-    Coroutine attacking;
+    Coroutine attackCoroutine;
     Team _team;
 
     void OnDestroy() {
@@ -19,18 +16,16 @@ public class EnemySimple : EnemyBase {
 
     public override void Attack(Team team, float roadSpeed) {
         this.roadSpeed = roadSpeed;
-        if (attacking != null || HP <= 0)
+        if (attackCoroutine != null || HP <= 0)
             return;
         
         _team = team;
-        CalcOffsetOfAttackPoint();
+        CalcOffsetOfAttackPointWithinTeam();
         Attack();
         startPosition = transform.position;
 
         CanBeMoved = false;
-        maxHeight = Random.Range(.3f, 1.5f);
-        travelTime = Random.Range(.2f, .5f);
-        attacking = StartCoroutine(JumpToTeam());
+        attackCoroutine = StartCoroutine(JumpToTeam());
     }
 
     protected override void Attack() {
@@ -41,7 +36,7 @@ public class EnemySimple : EnemyBase {
         }
     }
 
-    void CalcOffsetOfAttackPoint() {
+    void CalcOffsetOfAttackPointWithinTeam() {
         float teamWidth = _team.MostRightMate.transform.position.x - _team.MostLeftMate.transform.position.x;
         float rand = Random.Range(0.01f, teamWidth);
         float percentage = rand / teamWidth;
@@ -51,17 +46,21 @@ public class EnemySimple : EnemyBase {
     }
 
     IEnumerator JumpToTeam() {
-        while (elapsedTime < travelTime) {
-            elapsedTime += Time.deltaTime;
+        float timer = 0f;
+        float maxHeightOfJump = Random.Range(.3f, 1.5f);
+        float jumpTravelTime = Random.Range(.2f, .5f);
+
+        while (timer < jumpTravelTime) {
+            timer += Time.deltaTime;
             RoadPosition -= Time.deltaTime * roadSpeed;
-            float t = Mathf.Clamp01(elapsedTime / travelTime);
+            float t = Mathf.Clamp01(timer / jumpTravelTime);
             targetPosition = new Vector3(
                 _team.MainGuy.transform.position.x + attackPointOffsetWithinTeam,
                 0,
                 _team.MainGuy.transform.position.z
             );
 
-            transform.position = CalculateParabolicPoint(startPosition, targetPosition, maxHeight, t);
+            transform.position = CalculateParabolicPoint(startPosition, targetPosition, maxHeightOfJump, t);
             yield return null;
         }
         CanBeMoved = true;
@@ -75,7 +74,7 @@ public class EnemySimple : EnemyBase {
     }
 
     public void OnAttackFinish() {
-        _team?.TeamHealth.TakeDamage(Random.Range(1f, 5f));
+        _team?.TeamHealth.TakeDamage(Damage);
         _team = null;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public abstract class EnemyBase : Attackable {
+    public float Damage;
     public float MoveSpeed;
     public AudioClip AttackSound;
     public abstract void Attack(Team team, float roadSpeed);

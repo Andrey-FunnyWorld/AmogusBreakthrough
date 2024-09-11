@@ -45,10 +45,10 @@ public class Team : MonoBehaviour {
         }
         CalcTeamRange();
     }
-    public void AddNewMate(bool isRunning = false) {
+    public void AddNewMate(bool isRunning = false, bool playAppearanceFX = false) {
         SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[MatesCount];
         SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[MatesCount];
-        CreateMate(skinBackpack, skinHat, isRunning);
+        CreateMate(skinBackpack, skinHat, isRunning, playAppearanceFX);
         CalcTeamRange();
         EventManager.TriggerEvent(EventNames.MatesChanged);
     }
@@ -62,7 +62,7 @@ public class Team : MonoBehaviour {
             if (MatesCount == MAX_CAPACITY)
                 Debug.LogError("Perk Extra Guy: TEAM ALREADY FULL");
             else
-                AddNewMate();
+                AddNewMate(playAppearanceFX: true);
         }
     }
     public void SwitchWeapon(WeaponType weaponType) {
@@ -70,7 +70,7 @@ public class Team : MonoBehaviour {
             mate.SwitchWeapon(weaponType);
     }
 
-    void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin, bool isRunning = false) {
+    void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin, bool isRunning = false, bool playAppearanceFX = false) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
         Vector3 offset = CalcOffset();
         newMate.SetGun(Mates.Count % 2 == 0);
@@ -89,7 +89,8 @@ public class Team : MonoBehaviour {
             MostRightMate = newMate.transform;
             rightMateHalfSize = GetHalfScaleX(MostRightMate);
         }
-
+        if (playAppearanceFX)
+            newMate.PlayAppearanceEffect();
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -190,7 +191,7 @@ public class Team : MonoBehaviour {
         if (MatesCount == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
         else {
             Cage cage = (Cage)arg;
-            AddNewMate(true);
+            AddNewMate(true, true);
         }
     }
     [ContextMenu("Debug_addMate")] //TODO REMOVE
@@ -202,7 +203,7 @@ public class Team : MonoBehaviour {
         var rand = Random.Range(3, 9);
         for(int i = 0; i < rand; i++) {
             yield return new WaitForSeconds(.1f);
-            AddNewMate(true);
+            AddNewMate(true, true);
         }
     }
     #endregion

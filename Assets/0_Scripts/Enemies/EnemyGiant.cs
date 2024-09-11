@@ -6,7 +6,6 @@ public class EnemyGiant : EnemyBase {
     Team _team;
     Coroutine lookAtTeam;
     float lookTime = 1f;
-    float elapsedTime = 0f;
     bool attackMade = false;
 
     void OnDestroy() {
@@ -32,11 +31,12 @@ public class EnemyGiant : EnemyBase {
     }
 
     IEnumerator LookAtTeam() {
-        while (elapsedTime < lookTime) {
+        float timer = 0f;
+        while (timer < lookTime) {
             if (HP <= 0)
                 attackMade = true;
 
-            elapsedTime += Time.deltaTime;
+            timer += Time.deltaTime;
             if (_team != null && HP > 0) {
                 Animator.transform.LookAt(_team.MainGuy.transform);
             } else {
@@ -58,7 +58,7 @@ public class EnemyGiant : EnemyBase {
         attackMade = true;
 
         if (HP > 0)
-            _team?.TeamHealth.TakeDamage(30f);
+            _team?.TeamHealth.TakeDamage(Damage);
         _team = null;
 
         StopAllCoroutines();

@@ -6,8 +6,8 @@ public class Amogus : TeamMember {
     public SkinnedMeshRenderer Renderer;
     public Transform HatPlaceholder;
     public Transform GunPlaceholderLeft, GunPlaceholderRight;
-    [NonSerialized]
-    public Transform ActiveHat;
+    [NonSerialized] public Transform ActiveHat;
+    public ParticleSystem AppearanceFX;
     Material colorMat;
 
     const int MATERIAL_INDEX_BODY = 0;
@@ -54,6 +54,10 @@ public class Amogus : TeamMember {
             hat.localPosition = Vector3.zero;
             hat.rotation = Quaternion.Euler(0, HatPlaceholder.parent.rotation.eulerAngles.y, 0);
         }
+    }
+    public void PlayAppearanceEffect() {
+        StartCoroutine(Utils.AnimateScale(.7f, transform, .4f, true));
+        AppearanceFX.Play();
     }
     void LookAroundAnimation() {
         StartCoroutine(Utils.WaitAndDo(
