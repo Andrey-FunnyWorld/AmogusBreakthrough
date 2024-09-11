@@ -51,10 +51,12 @@ MonoBehaviour:
   RoadPosition: 0
   Animator: {fileID: 0}
   Renderer: {fileID: 3650938993549010617}
+  AudioSource: {fileID: 0}
+  DeathSound: {fileID: 0}
   hitParticle: {fileID: 0}
   CanBeAttacked: 1
   HealthBar: {fileID: 5076144651205234972}
-  StartHP: 10
+  StartHP: 7
   boxMarker: {fileID: 596978386421863097}
   highlightPoint: {fileID: 3171997973984558814}
   weaponMarker: {fileID: 7616055480413785391}
@@ -395,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSpinning: 1
   Speed: 90
+  Axis: 2
 --- !u!114 &596978386421863097
 MonoBehaviour:
   m_ObjectHideFlags: 0

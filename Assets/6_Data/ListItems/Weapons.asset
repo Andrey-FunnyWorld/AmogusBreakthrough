@@ -15,21 +15,21 @@ MonoBehaviour:
   Items:
   - Type: 0
     ImpactType: 0
-    Damage: 0.4
+    Damage: 0.3
     FxSpawner: {fileID: 1716007089488228450, guid: b95cabe89052c47b39a8530e66566828, type: 3}
     AttackCooldown: 0.15
     FxEmissionFrequency: 6
   - Type: 2
     ImpactType: 1
-    Damage: 0.5
+    Damage: 0.8
     FxSpawner: {fileID: 6565533563183685118, guid: 1da8162a061d3a341b28b6c6417b4430, type: 3}
-    AttackCooldown: 0.3
+    AttackCooldown: 0.32
     FxEmissionFrequency: 3
   - Type: 3
     ImpactType: 0
-    Damage: 1
+    Damage: 0.7
     FxSpawner: {fileID: 1451666624105552774, guid: 759d84c2fea664580bc22f3ee26d64c1, type: 3}
-    AttackCooldown: 0.7
+    AttackCooldown: 0.25
     FxEmissionFrequency: 3
   - Type: 1
     ImpactType: 0

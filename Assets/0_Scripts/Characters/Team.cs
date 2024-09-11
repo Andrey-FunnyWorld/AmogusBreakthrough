@@ -69,6 +69,11 @@ public class Team : MonoBehaviour {
         foreach (var mate in Mates)
             mate.SwitchWeapon(weaponType);
     }
+    public float GetPotentialWidth(int teamCount) {
+        const float baseWidth = 1.97f;
+        const float mateWidth = 0.6f;
+        return baseWidth + (teamCount - 2) * mateWidth;
+    }
 
     void CreateMate(SkinItemName backpackSkin, SkinItemName hatSkin, bool isRunning = false, bool playAppearanceFX = false) {
         Amogus newMate = Instantiate(AmogusPrefab, transform);
@@ -90,7 +95,7 @@ public class Team : MonoBehaviour {
             rightMateHalfSize = GetHalfScaleX(MostRightMate);
         }
         if (playAppearanceFX)
-            newMate.PlayAppearanceEffect();
+                    newMate.PlayAppearanceEffect();
     }
     void ApplyMaterials(Amogus mate, SkinItemName backpackSkin) {
         colors.Add(GetNextColor());
@@ -188,8 +193,9 @@ public class Team : MonoBehaviour {
         }
     }
     void CageDestroyed(object arg) {
-        if (MatesCount == MAX_CAPACITY) Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
-        else {
+        if (MatesCount == MAX_CAPACITY) {
+            //Debug.LogError("Cage Destroyed: TEAM ALREADY FULL");
+        } else {
             Cage cage = (Cage)arg;
             AddNewMate(true, true);
         }

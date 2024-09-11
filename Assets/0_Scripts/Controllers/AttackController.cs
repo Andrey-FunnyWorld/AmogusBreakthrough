@@ -141,6 +141,7 @@ public class AttackController : MonoBehaviour {
     private void HandleMatesChanged(object arg) {
         CalcAttackZone();
         MainGuy.Team.SwitchWeapon(currentWeapon.Type);
+        teamDamage = CalcDamage(MainGuy.Team.MatesCount, currentWeapon);
     }
 
     public void HandleOnePunchAbility(List<RoadObjectBase> objects) {
@@ -217,20 +218,26 @@ public class AttackController : MonoBehaviour {
 
     void HandleWeaponChanged(WeaponType weaponType) {
         currentWeapon = weapons[weaponType];
-        InitTeamDamage();
+        teamDamage = CalcDamage(MainGuy.Team.MatesCount, currentWeapon);
         MainGuy.SwitchWeapon(weaponType);
         ShotSoundManager.SetWeapon(weaponType);
     }
-
-    void InitTeamDamage() {
-        teamDamage = currentWeapon.Damage * MainGuy.DamageMultiplier
-            + MainGuy.Team.MatesCount * currentWeapon.Damage;
+    float CalcDamage(int teamCount, WeaponDefinition weapon) {
+        float oneShotDmg = currentWeapon.Damage * (1 + UpgradeItem.INCREASE_STEP * UserProgressController.Instance.ProgressState.UpgradeLevelDamage);
+        return GetPotentialTeamDamage(teamCount, oneShotDmg);
     }
+    public float GetPotentialTeamDamage(int teamCount, float weaponDamage) {
+        float damage = weaponDamage * MainGuy.DamageMultiplier + teamCount * weaponDamage;
+        return damage;
+    }
+    // void InitTeamDamage() =>
+    //     teamDamage = currentWeapon.Damage * MainGuy.DamageMultiplier
+    //         + MainGuy.Team.MatesCount * currentWeapon.Damage;
 
     void AttackEnemies() {
         if (attackCoroutine != null) return;
-
-        attackCoroutine = StartCoroutine(Utils.WaitAndDo(currentWeapon.AttackCooldown, () => {
+        float cooldown = currentWeapon.AttackCooldown / (1 + UpgradeItem.INCREASE_STEP * UserProgressController.Instance.ProgressState.UpgradeLevelAttackSpeed);
+        attackCoroutine = StartCoroutine(Utils.WaitAndDo(cooldown, () => {
             for (int i = 0; i < enemies.Count; i++) {
 
                 if (enemies[i] == null) {
