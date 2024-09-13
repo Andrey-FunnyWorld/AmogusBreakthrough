@@ -8850,6 +8850,16 @@ MonoBehaviour:
   SecondAbility: {fileID: 316161121}
   BattleStats: {fileID: 990026174}
   HpBar: {fileID: 609410322}
+--- !u!4 &1089129877 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+  m_PrefabInstance: {fileID: 1981672100}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1089129879 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3151928541282932949, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+  m_PrefabInstance: {fileID: 1981672100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1097980229
 GameObject:
   m_ObjectHideFlags: 0
@@ -15712,6 +15722,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056ee0be133fc7542912df03b3543831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1981672100
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 995826724}
+    m_Modifications:
+    - target: {fileID: 4055974496076030977, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_Name
+      value: DefeatExplosionVFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735358536162163183, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdcd5c6503a331343ba58072ed382499, type: 3}
 --- !u!1 &1992147950
 GameObject:
   m_ObjectHideFlags: 0
@@ -17440,6 +17523,10 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      propertyPath: defeatFX
+      value: 
+      objectReference: {fileID: 1089129879}
+    - target: {fileID: 1790099470672691933, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       propertyPath: WeaponSwitcher
       value: 
       objectReference: {fileID: 995826725}
@@ -17510,6 +17597,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6777851106940154430, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1351245322}
+    - targetCorrespondingSourceObject: {fileID: 6777851106940154430, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1089129877}
     - targetCorrespondingSourceObject: {fileID: 4371752579492418144, guid: 44b8edaf040546d4c99901f0eed2e043, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1664282205}

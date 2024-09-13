@@ -5,6 +5,7 @@ public class MainGuy : TeamMember {
     public WeaponType CurrentWeaponType;
     public float DamageMultiplier = 1.5f;
     public WeaponSwitcher WeaponSwitcher;
+    public ParticleSystem defeatFX;
 
     public void ApplyMovement(Vector3 newPosition) {
         transform.position = newPosition;
@@ -13,8 +14,12 @@ public class MainGuy : TeamMember {
     public void StartMove() {
         // start move animation for the guy and team
     }
-    public void TeamDead() {
-        Team.TeamDefeat();
+    public float TeamDead() {
+        defeatFX.transform.parent = null;
+        defeatFX.Play();
+        Team.gameObject.SetActive(false);
+        gameObject.SetActive(false);
+        return defeatFX.main.duration;
     }
     public void ApplyProgress(ProgressState progress) {
         Team.CreateTeam(progress);

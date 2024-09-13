@@ -41,7 +41,7 @@ public class LevelUIManager : MonoBehaviour {
         //RoadFinishedMsg.gameObject.SetActive(true);
     }
 
-    public void ShowDefeatPanel(int coins) {
+    public void GameOver(int coins) {
         DefeatUI.ShowResult(new DefeatViewModel() { CoinReward = coins });
     }
 

@@ -80,8 +80,8 @@ public class LevelManager : MonoBehaviour {
     void TeamDead(object arg0) {
         Road.IsRunning = false;
         Road.MovementStarted = false;
-        MainGuy.TeamDead();
-        LevelUIManager.ShowDefeatPanel(CoinsController.CasualCoins);
+        var deathFxDuration = MainGuy.TeamDead();
+        StartCoroutine(Utils.WaitAndDo(deathFxDuration, () => { LevelUIManager.GameOver(CoinsController.CasualCoins); }));
     }
     void HandleOnePunchAbility(object arg) {
         Road.AbilityOnePunchUsed();

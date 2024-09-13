@@ -18,16 +18,7 @@ public class EnemyGiant : EnemyBase {
 
         _team = team;
         lookAtTeam = StartCoroutine(LookAtTeam());
-        Attack();
-    }
-
-    protected override void Attack() {
         Animator.SetTrigger("attack");
-        if (AttackSound != null) {
-            AudioSource.clip = AttackSound;
-            AudioSource.Play();
-        }
-        // ВАНШОТ, ёбба!
     }
 
     IEnumerator LookAtTeam() {
@@ -49,13 +40,21 @@ public class EnemyGiant : EnemyBase {
     IEnumerator LookForward() {
         IsRunningChanged(true);
         while (Vector3.Angle(Animator.transform.forward, -Vector3.forward) > 1f) {
-            Animator.transform.rotation = Quaternion.Slerp(Animator.transform.rotation, Quaternion.LookRotation(-Vector3.forward), 3 * Time.deltaTime);
+            Animator.transform.rotation = Quaternion.Slerp(Animator.transform.rotation, Quaternion.LookRotation(-Vector3.forward), 2 * Time.deltaTime);
             yield return null;
+        }
+    }
+
+    void PlayAttackSound() {
+        if (AttackSound != null) {
+            AudioSource.clip = AttackSound;
+            AudioSource.Play();
         }
     }
 
     public void OnAttackFinish() {
         attackMade = true;
+        PlayAttackSound();
 
         if (HP > 0)
             _team?.TeamHealth.TakeDamage(Damage);

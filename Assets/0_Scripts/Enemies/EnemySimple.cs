@@ -20,20 +20,14 @@ public class EnemySimple : EnemyBase {
             return;
         
         _team = team;
-        CalcOffsetOfAttackPointWithinTeam();
-        Attack();
         startPosition = transform.position;
-
         CanBeMoved = false;
-        attackCoroutine = StartCoroutine(JumpToTeam());
-    }
+        CalcOffsetOfAttackPointWithinTeam();
 
-    protected override void Attack() {
         Animator.SetTrigger("attack");
-        if (AttackSound != null) {
-            AudioSource.clip = AttackSound;
-            AudioSource.Play();
-        }
+        PlayAttackSound();
+
+        attackCoroutine = StartCoroutine(JumpToTeam());
     }
 
     void CalcOffsetOfAttackPointWithinTeam() {
@@ -43,6 +37,13 @@ public class EnemySimple : EnemyBase {
         attackPointOffsetWithinTeam = percentage > .5f
             ? (percentage - .5f) * teamWidth
             : -(.5f - percentage) * teamWidth;
+    }
+
+    void PlayAttackSound() {
+        if (AttackSound != null) {
+            AudioSource.clip = AttackSound;
+            AudioSource.Play();
+        }
     }
 
     IEnumerator JumpToTeam() {
