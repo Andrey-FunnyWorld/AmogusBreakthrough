@@ -13,6 +13,7 @@ public class ImposterManager : MonoBehaviour {
     public AudioClip DrumClip, SuccessClip, FailClip;
     public AudioRandomize AudioRandomize;
     public LevelManager LevelManager;
+    public CoinsController CoinsController;
     List<int> finePlatformIndices = new List<int>();
     int maxSteps = 3;
     int imposterIndex = 0;
@@ -20,7 +21,6 @@ public class ImposterManager : MonoBehaviour {
     public void RunImposterScene() {
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
-        //Debug.Log("imposterIndex: " + imposterIndex);
         ImposterUI.Transition(true);
         StartCoroutine(Utils.WaitAndDo(ImposterUI.TransitionDuration + 0.1f, () => {
             ImposterUI.Init(Team);
@@ -137,8 +137,8 @@ public class ImposterManager : MonoBehaviour {
     }
     public void ShowLevelResult() {
         AudioRandomize.Stop(false);
-        ResultUIViewModel vm = new ResultUIViewModel() { 
-            CoinReward = 100,
+        ResultUIModel vm = new ResultUIModel() { 
+            CoinReward = CoinsController.CasualCoins + (imposterDetected ? ImposterUI.CoinsForImposter : 0),
             DiamondReward = 1,
             ImposterDetected = imposterDetected
         };

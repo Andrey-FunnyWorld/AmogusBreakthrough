@@ -19,161 +19,161 @@ MonoBehaviour:
     Quality: 0
   - SkinName: 41
     Sprite: {fileID: 21300000, guid: 4e4cf5cdf89f3df4e8eb63a095437c89, type: 3}
-    Price: 15
+    Price: 50
     Quality: 0
   - SkinName: 42
     Sprite: {fileID: 21300000, guid: d3f9676410f27f84ea33f67fe6bfb539, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 43
     Sprite: {fileID: 21300000, guid: 70cc047fb8bba04408e39dce2f93682b, type: 3}
-    Price: 15
-    Quality: 2
+    Price: 50
+    Quality: 0
   - SkinName: 44
     Sprite: {fileID: 21300000, guid: 82c8f3c41068f414f8e369bccac6243d, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 45
     Sprite: {fileID: 21300000, guid: d14b831e0cdd79547bde544b4031aa7e, type: 3}
-    Price: 25
+    Price: 125
     Quality: 2
   - SkinName: 46
     Sprite: {fileID: 21300000, guid: e89c0c4e6f491a84b8e7b1f01fb20089, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 47
     Sprite: {fileID: 21300000, guid: 9a7c6ce530a2a874ca6f74e7d78ec747, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 48
     Sprite: {fileID: 21300000, guid: 39bfbc84858928547b6c4e208dccb307, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 125
+    Quality: 2
   - SkinName: 49
     Sprite: {fileID: 21300000, guid: aac46ff684c02264fa3ad15054c85e69, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 50
     Sprite: {fileID: 21300000, guid: 5f890debb20ab664daff3f4b45557a48, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 51
     Sprite: {fileID: 21300000, guid: bf1d169093a11c8499271b32bd48ed17, type: 3}
-    Price: 10
+    Price: 80
     Quality: 1
   - SkinName: 52
     Sprite: {fileID: 21300000, guid: 8156ae4579f0b9a4c9d3c8331e0f458c, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 53
     Sprite: {fileID: 21300000, guid: 8faa32a4dc1eb024fb45dc5c83a76149, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 125
+    Quality: 2
   - SkinName: 54
     Sprite: {fileID: 21300000, guid: 8245aaa44a84633489dcef83c341b615, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 55
     Sprite: {fileID: 21300000, guid: cf0b6e17b99c20f458fbfd2464a10b3e, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 56
     Sprite: {fileID: 21300000, guid: 6ef76729c4438a841a4ed5dce4197db6, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 80
+    Quality: 1
   - SkinName: 57
     Sprite: {fileID: 21300000, guid: a71be57d9c0ad66439e0b89032473ddc, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 58
     Sprite: {fileID: 21300000, guid: ae63e769632687b458334ce3629ad483, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 80
+    Quality: 1
   - SkinName: 59
     Sprite: {fileID: 21300000, guid: 4932dda720b04f84cb035b2b2762a245, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 60
     Sprite: {fileID: 21300000, guid: 258d4aaa60922234cab438525c294961, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 61
     Sprite: {fileID: 21300000, guid: d93b3e4b409a6cf4b828084cd43ceae2, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 62
     Sprite: {fileID: 21300000, guid: ddcc5081b8674814088363d682826930, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 63
     Sprite: {fileID: 21300000, guid: 3e877e27174c08641a45bc0f5ca4ce20, type: 3}
-    Price: 25
+    Price: 125
     Quality: 2
   - SkinName: 64
     Sprite: {fileID: 21300000, guid: 718bc363b77158c45bb23db85877d90a, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 65
     Sprite: {fileID: 21300000, guid: 95603581f75e64b4db0e9d7333df62d0, type: 3}
-    Price: 25
+    Price: 125
     Quality: 2
   - SkinName: 66
     Sprite: {fileID: 21300000, guid: 7acadc9de9536fb42a5f1874169eea71, type: 3}
-    Price: 15
-    Quality: 1
+    Price: 50
+    Quality: 0
   - SkinName: 67
     Sprite: {fileID: 21300000, guid: 81cf83ce78f914642b3f8d3262dc2bfb, type: 3}
-    Price: 25
+    Price: 125
     Quality: 2
   - SkinName: 68
     Sprite: {fileID: 21300000, guid: fab141603508c354795c8a0db49267c4, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 69
     Sprite: {fileID: 21300000, guid: 5480c57ffb0366742aa88a2dca289a47, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 70
     Sprite: {fileID: 21300000, guid: b5cd3081f272ad341afa71f3088baf53, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 71
     Sprite: {fileID: 21300000, guid: 8bf48125edd8ca74785b7f4b0338376d, type: 3}
-    Price: 15
+    Price: 80
     Quality: 1
   - SkinName: 72
     Sprite: {fileID: 21300000, guid: 7ea10be74d969d24786320b1daa2b707, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 125
+    Quality: 2
   - SkinName: 73
     Sprite: {fileID: 21300000, guid: b8b5667b15fb3f744b7e79d20553d8f0, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 74
     Sprite: {fileID: 21300000, guid: 54d8428654a8b2248b55a88918ce67f9, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 75
     Sprite: {fileID: 21300000, guid: 5da6e268535c0d84e9c96c08d0ff2074, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 76
     Sprite: {fileID: 21300000, guid: 770e32a3ae5168741b5c37c952956dbd, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 80
+    Quality: 1
   - SkinName: 77
     Sprite: {fileID: 21300000, guid: 64298e2f0e3c73b409a26b03e9998db9, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 78
     Sprite: {fileID: 21300000, guid: 1d25f2df3f5e3ad4d82d2b462371c861, type: 3}
-    Price: 10
+    Price: 50
     Quality: 0
   - SkinName: 79
     Sprite: {fileID: 21300000, guid: a9348dd513868234bbdd502b072a68eb, type: 3}
-    Price: 10
-    Quality: 0
+    Price: 80
+    Quality: 1
   - SkinName: 80
     Sprite: {fileID: 21300000, guid: c964ae8328ce8694b8ef120fa8ffaf66, type: 3}
-    Price: 100
+    Price: 125
     Quality: 2

@@ -11,12 +11,12 @@ public class ResultUI : MonoBehaviour {
     public UnityEvent[] AnimationSteps;
     public LevelLoader LevelLoader;
     public MyDialog LoginDialog, RateDialog;
-    ResultUIViewModel viewModel;
+    ResultUIModel viewModel;
     bool canLoadNextLevel = true;
     public void ShowImposterResult(bool success) {
         ImposterResultUI.ShowResult(success);
     }
-    public void ShowResult(ResultUIViewModel vm) {
+    public void ShowResult(ResultUIModel vm) {
         viewModel = vm;
         ResultPanel.gameObject.SetActive(true);
         ImposterDetected.gameObject.SetActive(false);
@@ -103,7 +103,7 @@ public class ResultUI : MonoBehaviour {
     }
 }
 
-public class ResultUIViewModel {
+public class ResultUIModel {
     public int CoinReward;
     public int DiamondReward;
     public bool ImposterDetected;

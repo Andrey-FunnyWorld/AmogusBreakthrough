@@ -35,16 +35,19 @@ public class MainMenuManager : MonoBehaviour {
         if (UserProgressController.ProgressLoaded)
             if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
                 ApplyProgressAll();
-                if (UserProgressController.Instance.ProgressState.TutorialStage < MenuTutorial.StageCount) {
-                    UserProgressController.Instance.ProgressState.TutorialStage++;
-                    StartCoroutine(Utils.WaitAndDo(1, () => {
-                        MenuTutorial.gameObject.SetActive(true);
-                        MenuTutorial.RunTutorial(UserProgressController.Instance.ProgressState.TutorialStage - 1);
-                    }));
-                }
+                CheckTutorial();
             } else {
                 LevelLoader.LoadScene(LevelLoader.BATTLE_BUILD_INDEX);
             }
+    }
+    void CheckTutorial() {
+        if (UserProgressController.Instance.ProgressState.TutorialStage < MenuTutorial.StageCount) {
+            UserProgressController.Instance.ProgressState.TutorialStage++;
+            StartCoroutine(Utils.WaitAndDo(1, () => {
+                MenuTutorial.gameObject.SetActive(true);
+                MenuTutorial.RunTutorial(UserProgressController.Instance.ProgressState.TutorialStage - 1);
+            }));
+        }
     }
     void OnDestroy() {
         UnsubscriveEvents();
@@ -88,7 +91,7 @@ public class MainMenuManager : MonoBehaviour {
     }
     void ApplyProgressLight(ProgressState progress) {
         ScoreText.Score = progress.Money;
-        ActivateDesintegratorButton();
+        ActivateDesintegratorButton(progress);
     }
     void ShopItemPurchased(object arg) {
         ListItem listItem = (ListItem)arg;
@@ -129,11 +132,12 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.TriggerEvent(EventNames.LevelLoaded, this);
         CollectAllBlock.Show();
         MusicSource.Play();
-        ActivateDesintegratorButton();
+        ActivateDesintegratorButton(UserProgressController.Instance.ProgressState);
         CheckRecommendations();
     }
-    void ActivateDesintegratorButton() {
-        DesintegratorButton.IsRunning = DesintegratorPanel.CanBoom();
+    void ActivateDesintegratorButton(ProgressState progress) {
+        if (progress.CompletedRoundsCount > 2)
+            DesintegratorButton.IsRunning = DesintegratorPanel.CanBoom();
     }
     void CheckRecommendations() {
         StartCoroutine(Utils.WaitAndDo(LevelLoader.TransitionTime, () => {
@@ -143,6 +147,7 @@ public class MainMenuManager : MonoBehaviour {
     void StartDataLoaded(object arg) {
         if (UserProgressController.Instance.ProgressState.ShowMenuOnStart) {
             ApplyProgressAll();
+            CheckTutorial();
         } else {
             LevelLoader.LoadScene(LevelLoader.BATTLE_BUILD_INDEX);
         }

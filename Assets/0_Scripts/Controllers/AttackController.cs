@@ -252,7 +252,8 @@ public class AttackController : MonoBehaviour {
 
                 if (enemies[i] == null || enemies[i].HP <= 0) {
                     if (!IsPickable(enemies[i])) {
-                        EventManager.TriggerEvent(EventNames.EnemyDied);
+                        if (enemies[i] is EnemyBase enemy)
+                            EventManager.TriggerEvent(EventNames.EnemyDied, enemy);
                     }
                     enemies.RemoveAt(i);
                     i--;

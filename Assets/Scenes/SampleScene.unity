@@ -1140,6 +1140,7 @@ Transform:
   - {fileID: 1968311813}
   - {fileID: 752896884}
   - {fileID: 1859752747}
+  - {fileID: 666330518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &172160301
@@ -5871,6 +5872,134 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 529401f643d2e8144a8817986e26e9a4, type: 3}
+--- !u!1 &666330517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 666330518}
+  - component: {fileID: 666330519}
+  m_Layer: 0
+  m_Name: TeamDefeatHit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &666330518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666330517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 166333584}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &666330519
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666330517}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 9003720126147719258, guid: 9b658400b01be8b4f94a7cf350727a40, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 577dd27b6f2a0da40b10a0a4ea4722a3, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &669764917
 GameObject:
   m_ObjectHideFlags: 0
@@ -5992,6 +6121,9 @@ MonoBehaviour:
   BubbleShield: {fileID: 326387170}
   bubbleTime: 4
   MultiStepSound: {fileID: 1859752749}
+  DefeatHitSource: {fileID: 666330519}
+  HealthRecoveryDuration: 0.5
+  MinRecoverHealthValue: 0.5
 --- !u!4 &675337110
 Transform:
   m_ObjectHideFlags: 0
@@ -8504,7 +8636,7 @@ MonoBehaviour:
   BlasterPrefab: {fileID: 4082270750096778977, guid: e4cecc4f45825ac40960e973b283c8eb, type: 3}
   RifflePrefab: {fileID: 4427827604290941968, guid: cb058ea0be0258441b4344e294faf4c9, type: 3}
   BazookaPrefab: {fileID: 8748192931737106672, guid: ab2b38db8be01f24087b8d602c00e4a6, type: 3}
-  DistanceToGenerate: 300
+  DistanceToGenerate: 65
   ExpectedLevelCountForAllUpgrades: 50
 --- !u!1 &1023350265
 GameObject:
@@ -10182,7 +10314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b241173d0eddc43ab6bcf8363a568f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseDebugParams: 1
+  UseDebugParams: 0
   LevelNumber: 7
   Difficulty: 2
 --- !u!1 &1348439050
@@ -10247,7 +10379,7 @@ Transform:
   m_GameObject: {fileID: 1351245321}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10946,6 +11078,7 @@ MonoBehaviour:
   FailClip: {fileID: 8300000, guid: e36455ad7654aed4d8dcf99af200e0fc, type: 3}
   AudioRandomize: {fileID: 497696349}
   LevelManager: {fileID: 1971497539}
+  CoinsController: {fileID: 1214266518}
 --- !u!82 &1468848080
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14273,6 +14406,8 @@ MonoBehaviour:
   SuccessClip: {fileID: 8300000, guid: 624f6e1d4aa4f644d9bc57ba5067424c, type: 3}
   FailClip: {fileID: 8300000, guid: 5d5d8ac797f8e304b9df8195bec3de21, type: 3}
   StartClip: {fileID: 8300000, guid: 9c4ebe4a43814da4c86deaf4862cd3e2, type: 3}
+  ImposterCoinRewardText: {fileID: 1958058342}
+  CoinsForImposter: 50
 --- !u!95 &1885099919
 Animator:
   serializedVersion: 5
@@ -15354,6 +15489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958058339}
   - component: {fileID: 1958058341}
+  - component: {fileID: 1958058342}
   - component: {fileID: 1958058340}
   m_Layer: 5
   m_Name: CoinText
@@ -15480,6 +15616,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958058338}
   m_CullTransparentMesh: 1
+--- !u!114 &1958058342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958058338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5bf4043c99ae8d4c9909a596f2e5826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: {fileID: 1958058340}
+  AnimateValueChange: 0
+  Format: '{0} <sprite name="coin">'
+  AnimationDuration: 0.7
+  AnimationAudio: {fileID: 0}
 --- !u!137 &1963464080 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -8017449571587430431, guid: 5e88c78ac0a5a834cbca188fe127b1ce, type: 3}

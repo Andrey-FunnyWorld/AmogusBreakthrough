@@ -14,14 +14,452 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Levels:
   - Objects:
-    - Position: 10
-      RoadObjectType: 0
-      TrackNo: -1
     - Position: 20
       RoadObjectType: 0
+      TrackNo: 5
+    - Position: 30
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 45
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 45
+      RoadObjectType: 0
+      TrackNo: 9
+    - Position: 60
+      RoadObjectType: 4
       TrackNo: -1
+    - Position: 70
+      RoadObjectType: 4
+      TrackNo: -1
+    - Position: 85
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 87
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 88
+      RoadObjectType: 0
+      TrackNo: 3
+    Length: 100
+    LevelNo: 0
+  - Objects:
+    - Position: 20
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 35
+      RoadObjectType: 5
+      TrackNo: 7
+    - Position: 50
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 52
+      RoadObjectType: 0
+      TrackNo: 9
+    - Position: 55
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 65
+      RoadObjectType: 4
+      TrackNo: -1
+    - Position: 77
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 78
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 80
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 80
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 81
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 90
+      RoadObjectType: 5
+      TrackNo: 7
+    - Position: 102
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 103
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 105
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 105
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 105
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 106
+      RoadObjectType: 0
+      TrackNo: 1
+    Length: 120
+    LevelNo: 1
+  - Objects:
+    - Position: 18
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 22
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 25
+      RoadObjectType: 5
+      TrackNo: 8
+    - Position: 35
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 35
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 36
+      RoadObjectType: 0
+      TrackNo: 0
+    - Position: 38
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 45
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 52
+      RoadObjectType: 5
+      TrackNo: -1
+    - Position: 70
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 71
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 71
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 72
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 72
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 74
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 75
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 80
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 80
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 81
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 82
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 84
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 85
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 86
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 87
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 95
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 96
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 97
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 98
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 100
+      RoadObjectType: 3
+      TrackNo: 9
+    - Position: 105
+      RoadObjectType: 3
+      TrackNo: 6
+    - Position: 120
+      RoadObjectType: 0
+      TrackNo: 5
+    Length: 135
+    LevelNo: 2
+  - Objects:
+    - Position: 18
+      RoadObjectType: 4
+      TrackNo: 6
     - Position: 25
       RoadObjectType: 0
-      TrackNo: -1
-    Length: 50
-    LevelNo: 0
+      TrackNo: 2
+    - Position: 25
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 26
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 33
+      RoadObjectType: 4
+      TrackNo: 2
+    - Position: 36
+      RoadObjectType: 3
+      TrackNo: 6
+    - Position: 45
+      RoadObjectType: 4
+      TrackNo: 5
+    - Position: 52
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 52
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 53
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 53
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 54
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 69
+      RoadObjectType: 4
+      TrackNo: 1
+    - Position: 72
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 74
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 75
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 85
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 85
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 86
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 87
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 88
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 90
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 91
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 92
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 93
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 96
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 97
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 98
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 100
+      RoadObjectType: 4
+      TrackNo: 9
+    - Position: 111
+      RoadObjectType: 5
+      TrackNo: 5
+    - Position: 120
+      RoadObjectType: 0
+      TrackNo: 1
+    - Position: 120
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 120
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 120
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 128
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 130
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 130
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 130
+      RoadObjectType: 0
+      TrackNo: 8
+    - Position: 130
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 140
+      RoadObjectType: 4
+      TrackNo: 7
+    - Position: 158
+      RoadObjectType: 1
+      TrackNo: 7
+    Length: 175
+    LevelNo: 3
+  - Objects:
+    - Position: 15
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 15
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 19
+      RoadObjectType: 4
+      TrackNo: 6
+    - Position: 25
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 27
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 26
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 33
+      RoadObjectType: 5
+      TrackNo: 2
+    - Position: 36
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 45
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 52
+      RoadObjectType: 4
+      TrackNo: 2
+    - Position: 52
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 53
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 53
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 54
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 69
+      RoadObjectType: 4
+      TrackNo: 1
+    - Position: 72
+      RoadObjectType: 0
+      TrackNo: 2
+    - Position: 74
+      RoadObjectType: 0
+      TrackNo: 3
+    - Position: 75
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 85
+      RoadObjectType: 5
+      TrackNo: 6
+    - Position: 95
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 95
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 96
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 97
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 98
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 98
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 7
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 100
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 115
+      RoadObjectType: 4
+      TrackNo: 1
+    - Position: 120
+      RoadObjectType: 4
+      TrackNo: 6
+    - Position: 135
+      RoadObjectType: 1
+      TrackNo: 2
+    - Position: 140
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 140
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 142
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 143
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 145
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 145
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 146
+      RoadObjectType: 0
+      TrackNo: 6
+    - Position: 147
+      RoadObjectType: 0
+      TrackNo: 5
+    - Position: 148
+      RoadObjectType: 0
+      TrackNo: 4
+    - Position: 150
+      RoadObjectType: 1
+      TrackNo: 6
+    - Position: 153
+      RoadObjectType: 1
+      TrackNo: 7
+    Length: 172
+    LevelNo: 4

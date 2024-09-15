@@ -22,6 +22,7 @@ public class RoadDataGenerator : MonoBehaviour {
     public float RoadLengthStep = 15;
     public float MinGroupBudget = 3;
     public float GroupPositionTolerance = 0.1f;
+    public float ChanceToGenerateWeaponBox = 40;
     public Team Team;
     public AttackController AttackController;
     public Road Road;
@@ -58,8 +59,18 @@ public class RoadDataGenerator : MonoBehaviour {
         { RoadObjectType.EnemyGiant, 5 },
         { RoadObjectType.EnemyGiantArmored, 13 }
     };
+    Dictionary<Difficulty, float> totalRewardByDifficulty = new Dictionary<Difficulty, float>() {
+        { Difficulty.Noob, 150 },
+        { Difficulty.Pro, 205 },
+        { Difficulty.Hacker, 250 },
+    };
+    public Dictionary<RoadObjectType, float> EnemyCoinReward = new Dictionary<RoadObjectType, float>();
     public RoadDataViewModel GetLevelViewModel(int levelNo, Difficulty difficulty) {
         RoadDataViewModel vm = RoadDataStorage.Levels.FirstOrDefault(l => l.LevelNo == levelNo);
+        if (vm != null) {
+            float budget = CalcBudgetForPredefinedLevel(vm);
+            CalcCoinRewards(budget, difficulty);
+        }
         vm = vm == null ? GenerateLevelData(levelNo, difficulty) : vm;
         System.Array.Sort(vm.Objects, (RoadObjectViewModel a, RoadObjectViewModel b) => { return a.Position.CompareTo(b.Position); });
         return vm;
@@ -72,8 +83,28 @@ public class RoadDataGenerator : MonoBehaviour {
     }
     List<RoadObjectViewModel> GetRoadObjects(int levelNo, Difficulty difficulty, float length) {
         float budget = GetBudget(levelNo, difficulty);
+        CalcCoinRewards(budget, difficulty);
         Random.InitState(System.DateTime.Now.Millisecond);
         return SpendBudget(budget, length, difficulty);
+    }
+    float CalcBudgetForPredefinedLevel(RoadDataViewModel vm) {
+        float budget = 0;
+        foreach (RoadObjectViewModel ovm in vm.Objects) {
+            switch (ovm.RoadObjectType) {
+                case RoadObjectType.EnemySimple: budget += enemyWeights[RoadObjectType.EnemySimple]; break;
+                case RoadObjectType.EnemyGiant: budget += enemyWeights[RoadObjectType.EnemyGiant]; break;
+                case RoadObjectType.EnemyGiantArmored: budget += enemyWeights[RoadObjectType.EnemyGiantArmored]; break;
+                default: break;
+            }
+        }
+        return budget;
+    }
+    void CalcCoinRewards(float budget, Difficulty difficulty) {
+        float totalReward = totalRewardByDifficulty[difficulty];
+        float coinByBudget = totalReward / budget;
+        EnemyCoinReward.Add(RoadObjectType.EnemySimple, coinByBudget * enemyWeights[RoadObjectType.EnemySimple]);
+        EnemyCoinReward.Add(RoadObjectType.EnemyGiant, coinByBudget * enemyWeights[RoadObjectType.EnemyGiant]);
+        EnemyCoinReward.Add(RoadObjectType.EnemyGiantArmored, coinByBudget * enemyWeights[RoadObjectType.EnemyGiantArmored]);
     }
     float GetBudget(int levelNo, Difficulty difficulty) {
         return (MinBudget + (levelNo / 3) * BudgetStep) * difficultFactor[difficulty];
@@ -225,22 +256,6 @@ public class RoadDataGenerator : MonoBehaviour {
             }
         }
     }
-    // GroupRect GetGroupRect(GroupLayout layout, float position) {
-    //     GroupRect rect = null;
-    //     if (layout == GroupLayout.Quad) {
-    //         float height = Random.Range(0, MinGroupIndent);
-    //         int width = Random.Range(1, 11);
-    //         int startTrackNo = Random.Range(0, TRACKS - width);
-    //         bool isLeft = Random.Range(0, 2) == 0;
-    //         rect = new GroupRect() {
-    //             MinPosition = position - height / 2,
-    //             MaxPosition = position + height / 2,
-    //             MinTrackNo = isLeft ? startTrackNo : TRACKS - startTrackNo - width,
-    //             MaxTrackNo = isLeft ? startTrackNo + width : TRACKS - startTrackNo
-    //         };
-    //     }
-    //     return rect;
-    // }
     GroupLayout GetGroupLayout() {
         return GroupLayout.Quad;
         GroupLayout[] layouts = System.Enum.GetValues(typeof(GroupLayout)).Cast<GroupLayout>().ToArray();
@@ -287,6 +302,7 @@ public class RoadDataGenerator : MonoBehaviour {
         int maxCages = Team.MAX_CAPACITY - Team.StartupCount;
         int cagesCount = 0;
         for (int i = 0; i < groupRects.Count - 1; i++) {
+            bool skipGeneration = false;
             List<RoadObjectType> bonusTypes = new List<RoadObjectType>() { RoadObjectType.WeaponBox };
             if (cagesCount < maxCages) {
                 bonusTypes.Add(RoadObjectType.Cage);
@@ -294,15 +310,20 @@ public class RoadDataGenerator : MonoBehaviour {
             RoadObjectType bonusType = bonusTypes[Random.Range(0, bonusTypes.Count)];
             if (bonusType == RoadObjectType.Cage) 
                 cagesCount++;
-            RoadObjectViewModel ovm = new RoadObjectViewModel() {
-                RoadObjectType = bonusType,
-                TrackNo = Random.Range(0, TRACKS)
-            };
-            //bool isInside = Random.Range(0, 2) == 0;
-            bool isInside = false;
-            ovm.Position = isInside ? groupRects[i].GetRandomPosition()
-                : Random.Range(groupRects[i].MaxPosition + BonusIndentFromGroup, groupRects[i + 1].MinPosition - BonusIndentFromGroup);
-            objects.Add(ovm);
+            if (bonusType == RoadObjectType.WeaponBox) {
+                skipGeneration = Random.Range(0, 100) > ChanceToGenerateWeaponBox;
+            }
+            if (!skipGeneration) {
+                RoadObjectViewModel ovm = new RoadObjectViewModel() {
+                    RoadObjectType = bonusType,
+                    TrackNo = Random.Range(0, TRACKS)
+                };
+                //bool isInside = Random.Range(0, 2) == 0;
+                bool isInside = false;
+                ovm.Position = isInside ? groupRects[i].GetRandomPosition()
+                    : Random.Range(groupRects[i].MaxPosition + BonusIndentFromGroup, groupRects[i + 1].MinPosition - BonusIndentFromGroup);
+                objects.Add(ovm);
+            }
         }
         return objects;
     }

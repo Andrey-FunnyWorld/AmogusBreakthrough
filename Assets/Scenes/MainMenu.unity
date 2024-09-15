@@ -9144,7 +9144,7 @@ MonoBehaviour:
   BlueSkinWeight: 1
   DiamondWeight: 2
   UpgradeWeight: 2
-  PerkWeight: 122
+  PerkWeight: 1
   MoneyWeight: 2
 --- !u!1 &848216145
 GameObject:
@@ -24521,7 +24521,7 @@ MonoBehaviour:
   GiftBoxButton: {fileID: 1898173848}
   ExpandButton: {fileID: 8063757827320825083}
   LostRoundsForFirstRecommendation: 1
-  LostRoundsLoop: 3
+  LostRoundsLoop: 2
   RoundsPlayedToGift: 8
 --- !u!1 &2041248364
 GameObject:

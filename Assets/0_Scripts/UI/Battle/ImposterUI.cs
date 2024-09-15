@@ -12,6 +12,8 @@ public class ImposterUI : MonoBehaviour {
     public float TransitionDuration = 0.5f;
     public AudioSource AudioSource;
     public AudioClip SuccessClip, FailClip, StartClip;
+    public ScoreText ImposterCoinRewardText;
+    public int CoinsForImposter = 50;
     const string ANIMATION_TRIGGER_INTRO = "intro";
     const string ANIMATION_TRIGGER_FULLINTRO = "fullintro";
     const string ANIMATION_TRIGGER_HELP = "help";
@@ -33,6 +35,7 @@ public class ImposterUI : MonoBehaviour {
         Animator.SetTrigger(trigger);
         AudioSource.clip = StartClip;
         AudioSource.Play();
+        ImposterCoinRewardText.Score = CoinsForImposter;
     }
     public void ShowHelp() {
         Animator.SetTrigger(ANIMATION_TRIGGER_HELP);

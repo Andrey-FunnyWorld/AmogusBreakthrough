@@ -11,7 +11,7 @@ public class LoopScaler : MonoBehaviour {
     bool isRunning = false;
     Coroutine runCoroutine = null;
     Vector3 originalScale;
-    void Start() {
+    void Awake() {
         originalScale = transform.localScale;
         IsRunning = RunOnStart;
     }
