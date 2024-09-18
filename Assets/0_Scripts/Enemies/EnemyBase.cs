@@ -4,6 +4,7 @@ public abstract class EnemyBase : Attackable {
     public float Damage;
     public float MoveSpeed;
     public AudioClip AttackSound;
+    public float CoinReward;
     public abstract void Attack(Team team, float roadSpeed);
 
     public override void Destroyed() {

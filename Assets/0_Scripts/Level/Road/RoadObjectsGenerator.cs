@@ -10,6 +10,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public Cage CagePrefab;
     public Weapon WeaponBoxPrefab;
     public RoadObstacle ObstaclePrefab;
+    public GemOnRoad GemPrefab;
     public Transform enemiesContainer;
 
     public GameObject IonGunPrefab;
@@ -19,6 +20,8 @@ public class RoadObjectsGenerator : MonoBehaviour {
 
     public float DistanceToGenerate = 65;
     public float ExpectedLevelCountForAllUpgrades = 50;
+    public Dictionary<RoadObjectType, float> EnemyCoinReward = new Dictionary<RoadObjectType, float>();
+
     int lastIndexToGenerate = 0;
     float scaleHPFactor = 1;
     Dictionary<Difficulty, float> scaleHPDifficulty = new Dictionary<Difficulty, float>() {
@@ -38,12 +41,15 @@ public class RoadObjectsGenerator : MonoBehaviour {
         //return GenerateObstacles(roadTracksCoords);
         //return DebugGenerateEnemies(roadTracksCoords);
     }
-    public void ApplyProgress(int levelNo) {
+    public void ApplyProgress(int levelNo, int levelNoToStartHPScaling) {
         float maxUpgradeIncrease = UpgradeItem.MAX_LEVEL * UpgradeItem.INCREASE_STEP;
         float maxDamageFactor = Mathf.Pow(1 + maxUpgradeIncrease, 2); // 2 - two upgrades increase DPS
-        scaleHPFactor = scaleHPFactor + (maxDamageFactor - 1) * Mathf.Min(levelNo, ExpectedLevelCountForAllUpgrades) / ExpectedLevelCountForAllUpgrades;
+        if (levelNo >= levelNoToStartHPScaling) {
+            int levelFactor = levelNo - levelNoToStartHPScaling + 1;
+            scaleHPFactor = scaleHPFactor + (maxDamageFactor - 1) * Mathf.Min(levelFactor, ExpectedLevelCountForAllUpgrades) / ExpectedLevelCountForAllUpgrades;
+        }
         scaleHPFactor *= Mathf.Max(1, scaleHPDifficulty[LevelLoader.Difficulty]);
-        Debug.Log("scaleHPFactor: " + scaleHPFactor);
+        //Debug.Log("scaleHPFactor: " + scaleHPFactor);
     }
     List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords, float roadPosition) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
@@ -56,13 +62,13 @@ public class RoadObjectsGenerator : MonoBehaviour {
     }
     RoadObjectBase CreateObject(RoadObjectViewModel ovm, float x) {
         RoadObjectBase newItem = Instantiate(GetPrefabByObjectType(ovm.RoadObjectType));
-        AdjustNewItem(newItem);
+        AdjustNewItem(newItem, ovm);
         newItem.RoadPosition = ovm.Position;
         newItem.transform.Translate(new Vector3(x, 0, 0));
         newItem.transform.parent = enemiesContainer;
         return newItem;
     }
-    void AdjustNewItem(RoadObjectBase newItem) {
+    void AdjustNewItem(RoadObjectBase newItem, RoadObjectViewModel ovm) {
         if (newItem is Weapon weapon) {
             weapon.TurnOffDieFx();
             weapon.WeaponType = GetRandomWeapon();
@@ -70,6 +76,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
         }
         if (newItem is EnemyBase enemy) {
             enemy.StartHP *= scaleHPFactor;
+            enemy.CoinReward = EnemyCoinReward[ovm.RoadObjectType];
         }
     }
     float GetXOnRoad(int trackNo, List<float> roadTracksCoords) {
@@ -84,6 +91,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             case RoadObjectType.Cage: return CagePrefab;
             case RoadObjectType.ObstacleSaw: return ObstaclePrefab;
             case RoadObjectType.WeaponBox: return WeaponBoxPrefab;
+            case RoadObjectType.Gem: return GemPrefab;
         }
         return null;
     }

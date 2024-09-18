@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting.Dependencies.NCalc;
 
 public class ProgressBarUI : MonoBehaviour {
     public RectTransform barRectTransform, progressImage;

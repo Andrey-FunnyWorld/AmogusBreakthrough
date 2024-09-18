@@ -53,14 +53,6 @@ public class LevelUIManager : MonoBehaviour {
         }
     }
 
-    public void HandlePerk(PerkType type, Sprite sprite) {
-        if (!FirstAbility.gameObject.activeSelf) {
-            FirstAbility.Init(type, sprite);
-        } else {
-            SecondAbility.Init(type, sprite);
-        }
-    }
-
     void StartMovement(object arg) {
         if (waitTutorialRoutine != null)
             StopCoroutine(waitTutorialRoutine);

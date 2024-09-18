@@ -4932,6 +4932,7 @@ MonoBehaviour:
   Damage: 5
   MoveSpeed: 2
   AttackSound: {fileID: 8300000, guid: 6641232ffb360084db8d2db206d48e64, type: 3}
+  CoinReward: 0
 --- !u!33 &9074245652093621910
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5015,7 +5016,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 9003720126147719258, guid: 9b658400b01be8b4f94a7cf350727a40, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.69
   m_Pitch: 1
   Loop: 0
   Mute: 0

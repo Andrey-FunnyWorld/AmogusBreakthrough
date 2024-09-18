@@ -1,0 +1,151 @@
+"filename", "language", "JSON", "UnityShader", "HTML", "C#", "comment", "blank", "total"
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\AmbientSound.cs", "C#", 0, 0, 0, 25, 0, 2, 27
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\AudioRandomize.cs", "C#", 0, 0, 0, 36, 1, 2, 39
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\ClickSound.cs", "C#", 0, 0, 0, 10, 0, 2, 12
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\MultiStepSound.cs", "C#", 0, 0, 0, 34, 0, 2, 36
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\ShotSoundManager.cs", "C#", 0, 0, 0, 89, 1, 3, 93
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Audio\UISoundHandler.cs", "C#", 0, 0, 0, 34, 0, 1, 35
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Characters\Amogus.cs", "C#", 0, 0, 0, 68, 0, 5, 73
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Characters\ImposterSkinned.cs", "C#", 0, 0, 0, 23, 0, 2, 25
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Characters\MainGuy.cs", "C#", 0, 0, 0, 31, 1, 3, 35
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Characters\Team.cs", "C#", 0, 0, 0, 244, 3, 16, 263
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Characters\TeamMember.cs", "C#", 0, 0, 0, 10, 0, 2, 12
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\AttackController.cs", "C#", 0, 0, 0, 271, 3, 56, 330
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\AttackFXController.cs", "C#", 0, 0, 0, 162, 0, 31, 193
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\BattleCameraController.cs", "C#", 0, 0, 0, 33, 0, 1, 34
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\CoinsController.cs", "C#", 0, 0, 0, 41, 0, 12, 53
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\MenuCameraController.cs", "C#", 0, 0, 0, 38, 9, 1, 48
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\MovementController.cs", "C#", 0, 0, 0, 44, 0, 4, 48
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\PController.cs", "C#", 0, 0, 0, 8, 3, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\TeamHealthController.cs", "C#", 0, 0, 0, 132, 0, 17, 149
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\TouchMoveController.cs", "C#", 0, 0, 0, 9, 15, 2, 26
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Enemies\Attackable.cs", "C#", 0, 0, 0, 75, 0, 11, 86
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Enemies\EnemyArmoredGiant.cs", "C#", 0, 0, 0, 13, 0, 2, 15
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Enemies\EnemyBase.cs", "C#", 0, 0, 0, 14, 1, 3, 18
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Enemies\EnemyGiant.cs", "C#", 0, 0, 0, 54, 0, 13, 67
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Enemies\EnemySimple.cs", "C#", 0, 0, 0, 67, 0, 15, 82
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Integration\AdsManager.cs", "C#", 0, 0, 0, 15, 0, 2, 17
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Integration\HtmlBridge.cs", "C#", 0, 0, 0, 156, 3, 6, 165
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Integration\IPlatformBridge.cs", "C#", 0, 0, 0, 19, 1, 5, 25
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Integration\StartupViewModel.cs", "C#", 0, 0, 0, 31, 0, 3, 34
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\AutoRunTexture.cs", "C#", 0, 0, 0, 10, 0, 2, 12
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Bonus\Cage.cs", "C#", 0, 0, 0, 47, 0, 5, 52
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\DropPlatform.cs", "C#", 0, 0, 0, 60, 0, 2, 62
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Managers\ImposterManager.cs", "C#", 0, 0, 0, 145, 1, 2, 148
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Managers\LevelManager.cs", "C#", 0, 0, 0, 174, 4, 7, 185
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Managers\LevelUIManager.cs", "C#", 0, 0, 0, 72, 5, 15, 92
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\DebugLevelParams.cs", "C#", 0, 0, 0, 8, 0, 2, 10
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\Road.cs", "C#", 0, 0, 0, 194, 8, 27, 229
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadDataGenerator.cs", "C#", 0, 0, 0, 356, 9, 2, 367
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadDataStorage.cs", "C#", 0, 0, 0, 7, 0, 2, 9
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadDecoration.cs", "C#", 0, 0, 0, 6, 0, 2, 8
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadDecorationGenerator.cs", "C#", 0, 0, 0, 62, 0, 1, 63
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadObjectBase.cs", "C#", 0, 0, 0, 6, 0, 2, 8
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadObjectsGenerator.cs", "C#", 0, 0, 0, 192, 25, 11, 228
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadObstacle.cs", "C#", 0, 0, 0, 14, 0, 2, 16
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadSkin.cs", "C#", 0, 0, 0, 11, 0, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RunningTexture.cs", "C#", 0, 0, 0, 36, 0, 4, 40
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\StartGate.cs", "C#", 0, 0, 0, 14, 0, 2, 16
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\CollectAllBlock.cs", "C#", 0, 0, 0, 15, 0, 2, 17
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\Desintegrator.cs", "C#", 0, 0, 0, 47, 1, 3, 51
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\DesintegratorAnimationHelper.cs", "C#", 0, 0, 0, 24, 0, 2, 26
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\DesintegratorScene.cs", "C#", 0, 0, 0, 60, 0, 2, 62
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\GiftBox.cs", "C#", 0, 0, 0, 25, 0, 2, 27
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\GiftController.cs", "C#", 0, 0, 0, 104, 0, 2, 106
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\HatDemo.cs", "C#", 0, 0, 0, 35, 0, 2, 37
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\MenuTutorial.cs", "C#", 0, 0, 0, 284, 24, 5, 313
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\MenuLevel\ProgressText3D.cs", "C#", 0, 0, 0, 48, 0, 2, 50
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Progress\ProgressFileSaver.cs", "C#", 0, 0, 0, 31, 0, 1, 32
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Progress\UserProgressController.cs", "C#", 0, 0, 0, 133, 12, 5, 150
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Tutorial\BattleTutorial.cs", "C#", 0, 0, 0, 32, 0, 2, 34
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Battle\DefeatUI.cs", "C#", 0, 0, 0, 49, 0, 7, 56
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Battle\ImposterResultUI.cs", "C#", 0, 0, 0, 16, 0, 2, 18
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Battle\ImposterUI.cs", "C#", 0, 0, 0, 87, 2, 2, 91
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Battle\ResultUI.cs", "C#", 0, 0, 0, 108, 0, 2, 110
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\AbilityButton.cs", "C#", 0, 0, 0, 35, 0, 8, 43
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\ButtonDisabled.cs", "C#", 0, 0, 0, 31, 0, 2, 33
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\ButtonHint.cs", "C#", 0, 0, 0, 12, 2, 5, 19
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\ButtonScored.cs", "C#", 0, 0, 0, 37, 0, 2, 39
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\ExpandButton.cs", "C#", 0, 0, 0, 50, 0, 2, 52
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\GiftBoxButton.cs", "C#", 0, 0, 0, 56, 0, 2, 58
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\HoldDownButton.cs", "C#", 0, 0, 0, 14, 0, 2, 16
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\KeyDownButton.cs", "C#", 0, 0, 0, 16, 0, 1, 17
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\KeyText.cs", "C#", 0, 0, 0, 8, 0, 2, 10
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Button\SkipAdButton.cs", "C#", 0, 0, 0, 35, 0, 2, 37
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\HitRangeBar.cs", "C#", 0, 0, 0, 62, 1, 2, 65
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\DifficultyItem.cs", "C#", 0, 0, 0, 26, 0, 1, 27
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\GridPaging.cs", "C#", 0, 0, 0, 73, 0, 2, 75
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\ListItem.cs", "C#", 0, 0, 0, 62, 0, 2, 64
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\PerkListItem.cs", "C#", 0, 0, 0, 43, 0, 2, 45
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\PerkShopList.cs", "C#", 0, 0, 0, 73, 0, 2, 75
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\ShopList.cs", "C#", 0, 0, 0, 115, 0, 3, 118
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\SkinItems.cs", "C#", 0, 0, 0, 18, 0, 2, 20
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\UpgradeShop.cs", "C#", 0, 0, 0, 48, 0, 2, 50
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ItemList\WeaponsList.cs", "C#", 0, 0, 0, 22, 0, 5, 27
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ProgressBarUI.cs", "C#", 0, 0, 0, 85, 2, 4, 91
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ProgressBarUITicks.cs", "C#", 0, 0, 0, 29, 0, 2, 31
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\TimerSyncer.cs", "C#", 0, 0, 0, 23, 0, 2, 25
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\Wheel.cs", "C#", 0, 0, 0, 122, 1, 1, 124
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\WheelItem.cs", "C#", 0, 0, 0, 16, 0, 2, 18
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\LevelLoader\LevelLoader.cs", "C#", 0, 0, 0, 64, 14, 2, 80
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\LevelLoader\LevelLoaderTransition.cs", "C#", 0, 0, 0, 8, 0, 2, 10
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\AdSpinButton.cs", "C#", 0, 0, 0, 49, 0, 2, 51
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\DesintegratorLegendItem.cs", "C#", 0, 0, 0, 15, 0, 2, 17
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\DesintegratorPanel.cs", "C#", 0, 0, 0, 114, 0, 3, 117
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\GiftRewardPanel.cs", "C#", 0, 0, 0, 73, 0, 2, 75
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\LoserAssistant.cs", "C#", 0, 0, 0, 34, 0, 2, 36
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\MainMenuManager.cs", "C#", 0, 0, 0, 196, 15, 2, 213
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MainMenu\NewSkinPanel.cs", "C#", 0, 0, 0, 35, 0, 2, 37
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\MyDialog.cs", "C#", 0, 0, 0, 31, 0, 3, 34
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkBar.cs", "C#", 0, 0, 0, 28, 0, 2, 30
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkItem.cs", "C#", 0, 0, 0, 40, 0, 2, 42
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkPanel.cs", "C#", 0, 0, 0, 122, 0, 2, 124
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkSelector.cs", "C#", 0, 0, 0, 79, 9, 2, 90
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkStorage.cs", "C#", 0, 0, 0, 24, 0, 2, 26
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\SettingsPanel.cs", "C#", 0, 0, 0, 34, 0, 2, 36
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Texts\ScoreText.cs", "C#", 0, 0, 0, 54, 0, 2, 56
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Texts\ScoreTextMenu.cs", "C#", 0, 0, 0, 11, 0, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Texts\ScoreTextSound.cs", "C#", 0, 0, 0, 16, 0, 2, 18
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Upgrade\UpgradeItem.cs", "C#", 0, 0, 0, 56, 0, 2, 58
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\AlphaChanger.cs", "C#", 0, 0, 0, 53, 0, 2, 55
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\AnimationEventsListener.cs", "C#", 0, 0, 0, 8, 0, 3, 11
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\BackpackNameMaterialMap.cs", "C#", 0, 0, 0, 11, 0, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\EventManager.cs", "C#", 0, 0, 0, 83, 1, 14, 98
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\HatNamePrefabMap.cs", "C#", 0, 0, 0, 13, 0, 3, 16
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\HatStorage.cs", "C#", 0, 0, 0, 57, 1, 3, 61
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\LocalizedText.cs", "C#", 0, 0, 0, 15, 2, 2, 19
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\LoopScaler.cs", "C#", 0, 0, 0, 54, 0, 3, 57
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\MaterialStorage.cs", "C#", 0, 0, 0, 42, 14, 2, 58
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\MathUtils.cs", "C#", 0, 0, 0, 8, 0, 2, 10
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\MeshCololizer.cs", "C#", 0, 0, 0, 25, 0, 2, 27
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\MyLocalization.cs", "C#", 0, 0, 0, 173, 4, 8, 185
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\SkinQualityColors.cs", "C#", 0, 0, 0, 11, 0, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\Spiner.cs", "C#", 0, 0, 0, 19, 0, 2, 21
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\TransformUtils.cs", "C#", 0, 0, 0, 8, 0, 2, 10
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\Utils.cs", "C#", 0, 0, 0, 62, 0, 1, 63
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Weapons\Weapon.cs", "C#", 0, 0, 0, 55, 0, 13, 68
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Weapons\WeaponBoxMarker.cs", "C#", 0, 0, 0, 4, 0, 2, 6
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Weapons\WeaponMarker.cs", "C#", 0, 0, 0, 4, 0, 2, 6
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Weapons\WeaponSwitcher.cs", "C#", 0, 0, 0, 33, 0, 7, 40
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader", "UnityShader", 0, 109, 0, 0, 2, 33, 144
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader", "UnityShader", 0, 112, 0, 0, 3, 31, 146
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader", "UnityShader", 0, 109, 0, 0, 2, 33, 144
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader", "UnityShader", 0, 243, 0, 0, 4, 71, 318
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader", "UnityShader", 0, 241, 0, 0, 4, 66, 311
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader", "UnityShader", 0, 188, 0, 0, 10, 50, 248
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader", "UnityShader", 0, 183, 0, 0, 8, 50, 241
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader", "UnityShader", 0, 82, 0, 0, 4, 21, 107
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader", "UnityShader", 0, 183, 0, 0, 8, 50, 241
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader", "UnityShader", 0, 103, 0, 0, 8, 28, 139
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader", "UnityShader", 0, 122, 0, 0, 4, 33, 159
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_SDF.shader", "UnityShader", 0, 243, 0, 0, 4, 71, 318
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMP_Sprite.shader", "UnityShader", 0, 97, 0, 0, 0, 20, 117
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMPro.cginc", "UnityShader", 0, 63, 0, 0, 2, 20, 85
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc", "UnityShader", 0, 122, 0, 0, 2, 34, 158
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc", "UnityShader", 0, 62, 0, 0, 10, 14, 86
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc", "UnityShader", 0, 76, 0, 0, 7, 19, 102
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\TextMesh Pro\Sprites\EmojiOne.json", "JSON", 155, 0, 0, 0, 0, 2, 157
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Packages\manifest.json", "JSON", 45, 0, 0, 0, 0, 1, 46
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Packages\packages-lock.json", "JSON", 406, 0, 0, 0, 0, 1, 407
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\index.html", "HTML", 0, 0, 254, 0, 1, 14, 269
+"Total", "-", 606, 2338, 254, 7230, 281, 1204, 11913

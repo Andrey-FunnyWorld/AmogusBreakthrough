@@ -27,22 +27,22 @@ MonoBehaviour:
     Price: 0
   - PerkType: 4
     Sprite: {fileID: 21300000, guid: 5915702ec7f25e744b9231ed090926d3, type: 3}
-    Price: 100
+    Price: 125
   - PerkType: 5
     Sprite: {fileID: 21300000, guid: 027f38b914d34eb4280c9eaa5a099d66, type: 3}
-    Price: 100
+    Price: 125
   - PerkType: 6
     Sprite: {fileID: 21300000, guid: 0534e9973cf371048a51423de6182879, type: 3}
-    Price: 100
+    Price: 125
   - PerkType: 7
     Sprite: {fileID: 21300000, guid: 1e96db4b3be4ebb438d0be43964e6170, type: 3}
-    Price: 100
+    Price: 125
   - PerkType: 8
     Sprite: {fileID: 21300000, guid: b9552f9511663f449aa40da1fb1c853c, type: 3}
-    Price: 250
+    Price: 150
   - PerkType: 9
     Sprite: {fileID: 21300000, guid: 1c9a682200bac1945a627e7199425c09, type: 3}
-    Price: 250
+    Price: 200
   - PerkType: 10
     Sprite: {fileID: 21300000, guid: 37b55ab64b1f4784286b2cb8ab5c0f15, type: 3}
     Price: 200

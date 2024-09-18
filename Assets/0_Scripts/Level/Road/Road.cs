@@ -13,6 +13,7 @@ public class Road : MonoBehaviour {
     public RoadDataViewModel ViewModel;
     [HideInInspector]
     public float ZeroPointInWorld;
+    public CoinsController CoinsController;
 
     public float Width;
     public float Length = 40;
@@ -198,6 +199,12 @@ public class Road : MonoBehaviour {
                 obstacle.DamageTeam(AttackHandler.MainGuy.Team);
             } else if (roadObject is EnemyBase enemy) {
                 // enemy.Attack(AttackHandler.MainGuy.Team);
+            }
+        }
+        if (roadObject is GemOnRoad gem) {
+            if (!gem.IsPicked && AttackHandler.IntersectsTeam(roadObject, true)) {
+                gem.Pickup();
+                CoinsController.AddPremiumCoin(1);
             }
         }
     }

@@ -1,0 +1,16 @@
+"filename", "language", "C#", "comment", "blank", "total"
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\AttackController.cs", "C#", 5, 0, -1, 4
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\CoinsController.cs", "C#", 2, 0, 0, 2
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Controllers\TeamHealthController.cs", "C#", -7, 0, -1, -8
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Bonus\Cage.cs", "C#", -11, 0, 0, -11
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Bonus\GemOnRoad.cs", "C#", 11, 0, 2, 13
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Managers\LevelUIManager.cs", "C#", -7, 0, -1, -8
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\Road.cs", "C#", 7, 0, 0, 7
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadDataGenerator.cs", "C#", 49, -3, 0, 46
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadObjectsGenerator.cs", "C#", 2, 0, 0, 2
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Level\Road\RoadObstacle.cs", "C#", 1, 0, 0, 1
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Controls\ProgressBarUI.cs", "C#", -1, 0, 0, -1
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkPanel.cs", "C#", 12, 0, 0, 12
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\UI\Perks\PerkSelector.cs", "C#", 3, 0, 0, 3
+"c:\x-folder\MyGames\RobbyAmogus\RobbyAmogus\Assets\0_Scripts\Utils\Utils.cs", "C#", 11, 0, 0, 11
+"Total", "-", 77, -3, -1, 73

@@ -18,7 +18,7 @@ public class Cage : Attackable {
         StartCoroutine(Utils.WaitAndDo(DESTROY_ANIMATION_LENGTH, () => {
             StopCoroutine(blinkAnimation);
         }));
-        StartCoroutine(AnimateIcon(ICON_ANIMATION_DURATION));
+        StartCoroutine(Utils.AnimateFloatUp(Icon, ICON_ANIMATION_DURATION, ICON_ELEVATE_DISTANCE));
         Destroy(ChainedAmogus.gameObject);
     }
 
@@ -36,16 +36,5 @@ public class Cage : Attackable {
             yield return null;
         }
         blinkAnimation = StartCoroutine(Blink(BlinkDuration));
-    }
-    IEnumerator AnimateIcon(float time) {
-        float timer = 0;
-        float startY = Icon.transform.position.y;
-        while (timer < time) {
-            timer += Time.deltaTime;
-            float delta = ICON_ELEVATE_DISTANCE * timer / time;
-            Icon.transform.position = new Vector3(Icon.transform.position.x, startY + delta, Icon.transform.position.z);
-            yield return null;
-        }
-        Destroy(Icon.gameObject);
     }
 }

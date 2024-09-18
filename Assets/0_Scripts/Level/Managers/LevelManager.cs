@@ -81,6 +81,7 @@ public class LevelManager : MonoBehaviour {
         Road.IsRunning = false;
         Road.MovementStarted = false;
         var deathFxDuration = MainGuy.TeamDead();
+        BattleMusic.Stop();
         StartCoroutine(Utils.WaitAndDo(deathFxDuration, () => { LevelUIManager.GameOver(CoinsController.CasualCoins); }));
     }
     void HandleOnePunchAbility(object arg) {
@@ -106,9 +107,10 @@ public class LevelManager : MonoBehaviour {
         RoadDataGenerator.GiantArmoredHp = ObjectsGenerator.EnemyArmoredGiantPrefab.StartHP;
         RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
         Road.Length = vm.Length;
-        Debug.Log(vm.ToString());
+        //Debug.Log(vm.ToString());
         Road.ViewModel = vm;
-        ObjectsGenerator.ApplyProgress(levelNumber);
+        ObjectsGenerator.EnemyCoinReward = RoadDataGenerator.EnemyCoinReward;
+        ObjectsGenerator.ApplyProgress(levelNumber, RoadDataGenerator.RoadDataStorage.Levels.Length);
         Road.StartAction();
     }
     void AdjustToPlatform(PlatformType platformType) {

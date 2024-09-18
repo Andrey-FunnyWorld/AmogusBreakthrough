@@ -56,6 +56,17 @@ public static class Utils {
         }
         tr.localScale = originalScale;
     }
+    public static IEnumerator AnimateFloatUp(Transform tr, float duration, float distance) {
+        float timer = 0;
+        float startY = tr.position.y;
+        while (timer < duration) {
+            timer += Time.deltaTime;
+            float delta = distance * timer / duration;
+            tr.position = new Vector3(tr.position.x, startY + delta, tr.position.z);
+            yield return null;
+        }
+        GameObject.Destroy(tr.gameObject);
+    }
 }
 public class ChainedAction {
     public float DeltaTime;

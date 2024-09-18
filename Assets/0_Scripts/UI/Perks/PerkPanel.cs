@@ -46,16 +46,19 @@ public class PerkPanel : MonoBehaviour {
     public void RollSelectors() {
         PerkType[] perks = GetRandomPerks(PerkSelectorCount, takenExtraPerk);
         AudioRolling.Play();
-        StartCoroutine(WaitForRollers());
         for (int i = 0; i < PerkSelectorCount; i++) {
             selectors[i].RollToPerk(ROLL_BASE_DURATION + ROLL_DURATION_OFFSET * i, perks[i]);
         }
+        StartCoroutine(WaitForRollers());
     }
     IEnumerator WaitForRollers() {
         bool rolling = true;
         while (rolling) {
-            rolling = selectors.Any(s => !s.CanSelect);
+            rolling = selectors.Any(s => !s.IsRolling);
             yield return null;
+        }
+        for (int i = 0; i < PerkSelectorCount; i++) {
+            selectors[i].CanSelect = true;
         }
         AudioRolling.Stop();
     }
@@ -65,6 +68,15 @@ public class PerkPanel : MonoBehaviour {
         for (int i = 0; i < perkCount; i++) {
             perks[i] = perksToPick[Random.Range(0, perksToPick.Count)];
             perksToPick.Remove(perks[i]);
+        }
+        if (availablePerks.Contains(PerkType.Bubble)) {
+            perks[0] = PerkType.Bubble;
+            perks[1] = PerkType.ExtraCoins;
+            perks[2] = PerkType.OnePunchKill;
+        } else {
+            perks[0] = PerkType.WeaponBoxTransparency;
+            perks[1] = PerkType.ExtraCoins;
+            perks[2] = PerkType.OnePunchKill;
         }
         return perks;
     }

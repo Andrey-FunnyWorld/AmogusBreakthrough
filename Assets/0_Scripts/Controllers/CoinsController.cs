@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CoinsController : MonoBehaviour {
-
     public ScoreText casualCoinsText;
     public TextMeshProUGUI premiumCoinsText;
+    public AudioSource GemPickupSound;
 
     int casualCoins;
     int premiumCoins;
@@ -19,16 +20,17 @@ public class CoinsController : MonoBehaviour {
     public void ApplyExtraCoinsPerk() =>
         extraCoinsPerk = true;
 
-    public void AddCasualCoins() {
-        int value = UnityEngine.Random.Range(1, 4); //или брать мин/макс значения в зависимости от поверженного монстра, сами эти значения хранить, например, в скриптаблОбжектах
+    public void AddCasualCoins(float coins) {
+        int value = (int)Mathf.Ceil(coins); //UnityEngine.Random.Range(1, 4); //или брать мин/макс значения в зависимости от поверженного монстра, сами эти значения хранить, например, в скриптаблОбжектах
         if (extraCoinsPerk)
-            value += UnityEngine.Random.Range(1, 4);
+            value += UnityEngine.Random.Range(1, 2);
         casualCoins += value;
         UpdateUI();
     }
 
-    public void AddPremiumCoins() {
-        premiumCoins += 1; //или брать мин/макс значения в зависимости от поверженного монстра, сами эти значения хранить, например, в скриптаблОбжектах
+    public void AddPremiumCoin(int count, bool playSound = true) {
+        GemPickupSound.Play();
+        premiumCoins += count;
         UpdateUI();
     }
 
@@ -39,8 +41,9 @@ public class CoinsController : MonoBehaviour {
             premiumCoinsText.text = premiumCoins.ToString();
     }
 
-    void HandleEnemyDied(object arg0) {
-        AddCasualCoins();
+    void HandleEnemyDied(object arg) {
+        EnemyBase enemy = (EnemyBase)arg;
+        AddCasualCoins(enemy.CoinReward);
     }
 
     void SubscribeEvents() =>
