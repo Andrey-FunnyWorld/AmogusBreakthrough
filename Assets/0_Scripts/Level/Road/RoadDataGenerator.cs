@@ -7,25 +7,36 @@ using UnityEngine;
 
 public class RoadDataGenerator : MonoBehaviour {
     public RoadDataStorage RoadDataStorage;
+    public Team Team;
+    public AttackController AttackController;
+    public Road Road;
+    [Header("Road")]
     public float MinRoadLength = 70;
     public float MaxRoadLength = 200;
     public float StartRoadPosition = 5;
     public float EndRoadPositionIndent = 10;
+    public float RoadLengthStep = 15;
+    [Header("Groups")]
     public int GroupCountDifBetweenMinMax = 5;
     public int MaxGroupCount = 20;
     public float MinGroupHeight = 1;
     public float MaxGroupHeight = 3;
     public float MinDistanceBetweenGroupBorders = 5;
     public float BonusIndentFromGroup = 1;
+    public float GroupPositionTolerance = 0.1f;
+    [Header("Saw Group")]
+    [Min(1)] public int MinSawCountInGroup = 3;
+    [Min(2)] public int MaxSawCountInGroup = 8;
+    [Range(1, 8)] public float SawIndent = 2;
+    [Min(5)] public float SawGroupIndent = 10;
+    [Header("Budget")]
     public float MinBudget = 25;
     public float BudgetStep = 15;
-    public float RoadLengthStep = 15;
     public float MinGroupBudget = 3;
-    public float GroupPositionTolerance = 0.1f;
-    public float ChanceToGenerateWeaponBox = 40;
-    public Team Team;
-    public AttackController AttackController;
-    public Road Road;
+    [Header("Chances")] 
+    [Range(0, 100)] public float ChanceToGenerateWeaponBox = 40;
+    [Range(0, 100)] public float GemChance = 40;
+    [Range(0, 100)] public float ChanceForSawGroup = 30;
     [System.NonSerialized]
     public float PivotEnemyHp;
     [System.NonSerialized]
@@ -60,9 +71,14 @@ public class RoadDataGenerator : MonoBehaviour {
         { RoadObjectType.EnemyGiantArmored, 13 }
     };
     Dictionary<Difficulty, float> totalRewardByDifficulty = new Dictionary<Difficulty, float>() {
-        { Difficulty.Noob, 150 },
-        { Difficulty.Pro, 205 },
-        { Difficulty.Hacker, 250 },
+        { Difficulty.Noob, 100 },
+        { Difficulty.Pro, 155 },
+        { Difficulty.Hacker, 200 },
+    };
+    Dictionary<Difficulty, float> sawIndentByDifficulty = new Dictionary<Difficulty, float>() {
+        { Difficulty.Noob, 1 },
+        { Difficulty.Pro, 0 },
+        { Difficulty.Hacker, -1 },
     };
     public Dictionary<RoadObjectType, float> EnemyCoinReward = new Dictionary<RoadObjectType, float>();
     public RoadDataViewModel GetLevelViewModel(int levelNo, Difficulty difficulty) {
@@ -78,14 +94,20 @@ public class RoadDataGenerator : MonoBehaviour {
     RoadDataViewModel GenerateLevelData(int levelNo, Difficulty difficulty) {
         RoadDataViewModel vm = new RoadDataViewModel() { LevelNo = levelNo };
         vm.Length = GetRoadLength(levelNo);
-        vm.Objects = GetRoadObjects(levelNo, difficulty, vm.Length).ToArray();
+        GroupRectSaw sawGroup = null;
+        if (Random.Range(0, 100) < ChanceForSawGroup) {
+            SawIndent += sawIndentByDifficulty[difficulty];
+            sawGroup = GetSawGroup(0);
+        }
+        vm.Objects = GetRoadObjects(levelNo, difficulty, vm.Length, sawGroup).ToArray();
+        if (sawGroup != null) vm.Length += sawGroup.MaxPosition - sawGroup.MinPosition;
         return vm;
     }
-    List<RoadObjectViewModel> GetRoadObjects(int levelNo, Difficulty difficulty, float length) {
+    List<RoadObjectViewModel> GetRoadObjects(int levelNo, Difficulty difficulty, float length, GroupRectSaw sawGroup) {
         float budget = GetBudget(levelNo, difficulty);
         CalcCoinRewards(budget, difficulty);
         Random.InitState(System.DateTime.Now.Millisecond);
-        return SpendBudget(budget, length, difficulty);
+        return SpendBudget(budget, length, difficulty, sawGroup);
     }
     float CalcBudgetForPredefinedLevel(RoadDataViewModel vm) {
         float budget = 0;
@@ -129,12 +151,21 @@ public class RoadDataGenerator : MonoBehaviour {
         int groupCount = Random.Range(minGroupCount, maxGroupCount);
         return groupCount;
     }
-    List<RoadObjectViewModel> SpendBudget(float budget, float length, Difficulty difficulty) {
+    List<RoadObjectViewModel> SpendBudget(float budget, float length, Difficulty difficulty, GroupRectSaw sawGroup) {
         float timeToEncounter = Team.AttackRange / Road.Speed;
         WeaponDefinition pivotWeapon = AttackController.weaponsStaticData.Items.First(i => i.Type == WeaponType.Rifle);
         List<RoadObjectViewModel> objects = new List<RoadObjectViewModel>();
         int groupCount = CalcGroupCount(budget, length);
         List<float> groupPositions = GetGroupPositions(groupCount, length);
+        if (sawGroup != null) {
+            int sawGroupIndex = Random.Range(1, groupCount - 1);
+            sawGroup.Position = groupPositions[sawGroupIndex];
+            for (int i = sawGroupIndex; i < groupPositions.Count; i++) {
+                groupPositions[i] += sawGroup.MaxPosition;
+            }
+            sawGroup.MinPosition = sawGroup.Position;
+            sawGroup.MaxPosition += sawGroup.MinPosition;
+        }
         List<GroupRect> groupRects = new List<GroupRect>(groupCount);
         for (int i = 0; i < groupCount; i++) {
             GroupRect rect = new GroupRect() { GroupLayout = GetGroupLayout(), Position = groupPositions[i] };
@@ -143,6 +174,9 @@ public class RoadDataGenerator : MonoBehaviour {
         }
         List<RoadObjectViewModel> bonuses = GenerateBonuses(groupRects);
         objects.AddRange(bonuses);
+        if (sawGroup != null) {
+            objects.AddRange(GenerateObstacles(sawGroup, bonuses));
+        }
         List<float> groupBudgets = GetGroupBudgets(groupCount, budget);
         int teamCountForFirstGiant = -1;
         int teamCountForFirstArmoredGiant = -1;
@@ -174,6 +208,15 @@ public class RoadDataGenerator : MonoBehaviour {
         }
         //objects.AddRange(GenerateObstacles(groupRects, bonuses));
         return objects;
+    }
+    GroupRectSaw GetSawGroup(float position) {
+        GroupRectSaw rect = new GroupRectSaw() { GroupType = GroupType.Obstacles };
+        rect.SawCount = Random.Range(MinSawCountInGroup, MaxSawCountInGroup);
+        float groupHeight = rect.SawCount * (SawIndent - 1) + SawGroupIndent;
+        rect.Position = position;
+        rect.MinPosition = position;
+        rect.MaxPosition = position + groupHeight;
+        return rect;
     }
     int GetTeamCountToAllowEnemyInGroup(
         int teamCountForFirstEnemy, float timeToEncounter, RoadObjectType enemyType, float dmg, float enemyHp,
@@ -258,8 +301,8 @@ public class RoadDataGenerator : MonoBehaviour {
     }
     GroupLayout GetGroupLayout() {
         return GroupLayout.Quad;
-        GroupLayout[] layouts = System.Enum.GetValues(typeof(GroupLayout)).Cast<GroupLayout>().ToArray();
-        return layouts[UnityEngine.Random.Range(0, layouts.Length)];
+        // GroupLayout[] layouts = System.Enum.GetValues(typeof(GroupLayout)).Cast<GroupLayout>().ToArray();
+        // return layouts[UnityEngine.Random.Range(0, layouts.Length)];
     }
     RoadObjectViewModel GetNextEnemy(float budgetLeft, GroupRect rect) {
         List<RoadObjectType> availableTypes = rect.PossibleEnemyTypes.Where(t => enemyWeights[t] <= budgetLeft).ToList();
@@ -272,46 +315,42 @@ public class RoadDataGenerator : MonoBehaviour {
             TrackNo = trackNo
         };
     }
-    List<RoadObjectViewModel> GenerateObstacles(List<GroupRect> groupRects, List<RoadObjectViewModel> bonuses) {
+    List<RoadObjectViewModel> GenerateObstacles(GroupRectSaw sawGroup, List<RoadObjectViewModel> bonuses) {
         List<RoadObjectViewModel> objects = new List<RoadObjectViewModel>();
         const float trackPartByTeamMember = (TRACKS - MIN_OBSTACLE_TRACK_INDENT) / Team.MAX_CAPACITY;
-        for (int i = 0; i < groupRects.Count - 1; i++) {
-            bool addObstacle = Random.Range(0f, 1f) <= 0.3f;
-            if (addObstacle) {
-                float position = Random.Range(groupRects[i].MaxPosition, groupRects[i + 1].MinPosition);
-                int cagesPassed = bonuses.Count(b => b.RoadObjectType == RoadObjectType.Cage && b.Position < position);
-                int potentialTeamCount = Team.StartupCount + cagesPassed;
-                //int maxIndent = MIN_OBSTACLE_TRACK_INDENT + (int)Mathf.Floor((Team.MAX_CAPACITY - potentialTeamCount) * trackPartByTeamMember);
-                int maxIndent = 1;
-                //int trackNo = Random.Range(0, maxIndent);
-                //bool isLeft = Random.Range(0, 2) == 0;
-                bool isLeft = groupRects[i+1].MinTrackNo > TRACKS / 2;
-                int trackNo = isLeft ? maxIndent : TRACKS - maxIndent;
-                RoadObjectViewModel ovm = new RoadObjectViewModel() {
-                    RoadObjectType = RoadObjectType.ObstacleSaw,
-                    TrackNo = trackNo,
-                    Position = position
-                };
-                objects.Add(ovm);
-            }
+        int cagesPassed = bonuses.Count(b => b.RoadObjectType == RoadObjectType.Cage && b.Position < sawGroup.MinPosition);
+        int potentialTeamCount = Team.StartupCount + cagesPassed;
+        int maxIndent = MIN_OBSTACLE_TRACK_INDENT + (int)Mathf.Floor((Team.MAX_CAPACITY - potentialTeamCount) * trackPartByTeamMember) - 1;
+        for (int i = 0; i < sawGroup.SawCount; i++) {
+            float position = sawGroup.MinPosition + i * SawIndent;
+            bool isLeft = Random.Range(0, 2) == 1;
+            int trackNo = isLeft ? maxIndent : TRACKS - maxIndent;
+            RoadObjectViewModel ovm = new RoadObjectViewModel() {
+                RoadObjectType = RoadObjectType.ObstacleSaw,
+                TrackNo = trackNo,
+                Position = position
+            };
+            objects.Add(ovm);
         }
         return objects;
     }
     List<RoadObjectViewModel> GenerateBonuses(List<GroupRect> groupRects) {
+        bool shouldGenerateGem = Random.Range(0, 100) < GemChance;
         List<RoadObjectViewModel> objects = new List<RoadObjectViewModel>();
         int maxCages = Team.MAX_CAPACITY - Team.StartupCount;
         int cagesCount = 0;
         for (int i = 0; i < groupRects.Count - 1; i++) {
             bool skipGeneration = false;
             List<RoadObjectType> bonusTypes = new List<RoadObjectType>() { RoadObjectType.WeaponBox };
-            if (cagesCount < maxCages) {
+            if (cagesCount < maxCages)
                 bonusTypes.Add(RoadObjectType.Cage);
-            }
+            if (shouldGenerateGem)
+                bonusTypes.Add(RoadObjectType.Gem);
             RoadObjectType bonusType = bonusTypes[Random.Range(0, bonusTypes.Count)];
-            if (bonusType == RoadObjectType.Cage) 
-                cagesCount++;
-            if (bonusType == RoadObjectType.WeaponBox) {
-                skipGeneration = Random.Range(0, 100) > ChanceToGenerateWeaponBox;
+            switch (bonusType) {
+                case RoadObjectType.Cage: cagesCount++; break;
+                case RoadObjectType.WeaponBox: skipGeneration = Random.Range(0, 100) > ChanceToGenerateWeaponBox; break;
+                case RoadObjectType.Gem: shouldGenerateGem = false; break;
             }
             if (!skipGeneration) {
                 RoadObjectViewModel ovm = new RoadObjectViewModel() {
@@ -347,16 +386,20 @@ public class RoadDataViewModel {
 }
 
 public enum RoadObjectType {
-    EnemySimple, EnemyGiant, EnemyGiantArmored, ObstacleSaw, Cage, WeaponBox
+    EnemySimple, EnemyGiant, EnemyGiantArmored, ObstacleSaw, Cage, WeaponBox, Gem
 }
 public enum GroupLayout {
     Quad, Line, ZigZag
+}
+public enum GroupType {
+    Enemies, Obstacles
 }
 public class GroupRect {
     public int MinTrackNo, MaxTrackNo;
     public float MinPosition, MaxPosition;
     public float Position;
     public GroupLayout GroupLayout;
+    public GroupType GroupType = GroupType.Enemies;
     public List<RoadObjectType> PossibleEnemyTypes = new List<RoadObjectType>() { RoadObjectType.EnemySimple };
     public float GetRandomPosition() {
         return Random.Range(MinPosition, MaxPosition);
@@ -364,4 +407,7 @@ public class GroupRect {
     public override string ToString() {
         return string.Format("GroupRect. Positions: {0} - {1}. Tracks: {2}-{3}. Types: {4}", MinPosition, MaxPosition, MinTrackNo, MaxTrackNo, PossibleEnemyTypes.Count.ToString());
     }
+}
+public class GroupRectSaw: GroupRect {
+    public int SawCount;
 }

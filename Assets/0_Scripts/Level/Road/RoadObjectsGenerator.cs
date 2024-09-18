@@ -10,6 +10,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     public Cage CagePrefab;
     public Weapon WeaponBoxPrefab;
     public RoadObstacle ObstaclePrefab;
+    public GemOnRoad GemPrefab;
     public Transform enemiesContainer;
 
     public GameObject IonGunPrefab;
@@ -48,7 +49,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             scaleHPFactor = scaleHPFactor + (maxDamageFactor - 1) * Mathf.Min(levelFactor, ExpectedLevelCountForAllUpgrades) / ExpectedLevelCountForAllUpgrades;
         }
         scaleHPFactor *= Mathf.Max(1, scaleHPDifficulty[LevelLoader.Difficulty]);
-        Debug.Log("scaleHPFactor: " + scaleHPFactor);
+        //Debug.Log("scaleHPFactor: " + scaleHPFactor);
     }
     List<RoadObjectBase> GenerateRealObjects(RoadDataViewModel vm, List<float> roadTracksCoords, float roadPosition) {
         List<RoadObjectBase> objects = new List<RoadObjectBase>();
@@ -90,6 +91,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
             case RoadObjectType.Cage: return CagePrefab;
             case RoadObjectType.ObstacleSaw: return ObstaclePrefab;
             case RoadObjectType.WeaponBox: return WeaponBoxPrefab;
+            case RoadObjectType.Gem: return GemPrefab;
         }
         return null;
     }

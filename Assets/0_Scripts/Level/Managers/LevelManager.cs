@@ -107,7 +107,7 @@ public class LevelManager : MonoBehaviour {
         RoadDataGenerator.GiantArmoredHp = ObjectsGenerator.EnemyArmoredGiantPrefab.StartHP;
         RoadDataViewModel vm = RoadDataGenerator.GetLevelViewModel(levelNumber, LevelLoader.Difficulty);
         Road.Length = vm.Length;
-        Debug.Log(vm.ToString());
+        //Debug.Log(vm.ToString());
         Road.ViewModel = vm;
         ObjectsGenerator.EnemyCoinReward = RoadDataGenerator.EnemyCoinReward;
         ObjectsGenerator.ApplyProgress(levelNumber, RoadDataGenerator.RoadDataStorage.Levels.Length);

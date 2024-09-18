@@ -19,17 +19,9 @@ public class TeamHealthController : MonoBehaviour {
     float additionalHealthFactor = 1.5f;
     float additionalUltraHealthFactor = 3f;
     Coroutine healthRegenCoroutine;
-    [ContextMenu("DEBUG_TakeRandomDamage")]
-    public void ForDebugTakeDamage() { //TODO remove later
-        TakeDamage(UnityEngine.Random.Range(1f, 50f));
-    }
-
-    [ContextMenu("DEBUG_AddExtraHpPerk")]
-    public void DebugAddExtraHpPerk() { //todo remove later
-        ChangeHealthBy(additionalUltraHealthFactor);
-    }
     void Awake() {
         currentHealth = maxHealth;
+        HpBar.Value = currentHealth;
         InitBubbleShield();
     }
     void Start() => SubscribeEvents();

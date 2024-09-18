@@ -45,8 +45,8 @@ public class Weapon : Attackable {
         EventManager.TriggerEvent(EventNames.WeaponChanged, WeaponType);
         Destroy(gameObject);
     }
-
-    public void TurnOffDieFx() =>
+    
+    public override void TurnOffDieFx() =>
         base.TurnOffDieFx();
 
     void SetShouldAnimateFallDown() {

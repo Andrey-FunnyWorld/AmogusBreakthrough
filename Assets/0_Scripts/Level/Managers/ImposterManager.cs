@@ -139,7 +139,7 @@ public class ImposterManager : MonoBehaviour {
         AudioRandomize.Stop(false);
         ResultUIModel vm = new ResultUIModel() { 
             CoinReward = CoinsController.CasualCoins + (imposterDetected ? ImposterUI.CoinsForImposter : 0),
-            DiamondReward = 1,
+            DiamondReward = CoinsController.PremiumlCoins,
             ImposterDetected = imposterDetected
         };
         ResultUI.ShowResult(vm);

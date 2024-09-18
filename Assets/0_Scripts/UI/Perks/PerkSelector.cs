@@ -8,7 +8,10 @@ using System.Linq;
 public class PerkSelector : MonoBehaviour, IPointerDownHandler {
     public PerkStorage PerkStorage;
     public PerkItem PerkItemPrefab;
+    [NonSerialized]
     public bool CanSelect = false;
+    [NonSerialized]
+    public bool IsRolling = false;
     [NonSerialized]
     public PerkItem CurrentPerk;
     List<PerkItem> items;
@@ -37,6 +40,8 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
     void Start() {
     }
     public void RollToPerk(float duration, PerkType perkType) {
+        CanSelect = false;
+        IsRolling = false;
         rollingSpeed = (thisHeight + ITEM_SPACING) / ItemRollDuration;
         //int targetIndex = Array.IndexOf(PerkStorage.Perks.Select(p => p.PerkType).ToArray(), perkType);
         int targetIndex = Array.IndexOf(availablePerks, perkType);
@@ -79,7 +84,7 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         CurrentPerk.SetTextVisibility(true);
         CurrentPerk.RectTransform.anchoredPosition = Vector2.zero;
         CurrentPerk.Alpha = 1;
-        CanSelect = true;
+        IsRolling = true;
     }
     public void OnPointerDown(PointerEventData e) {
         if (CanSelect) {

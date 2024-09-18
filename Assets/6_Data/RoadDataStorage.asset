@@ -41,7 +41,10 @@ MonoBehaviour:
     - Position: 88
       RoadObjectType: 0
       TrackNo: 3
-    Length: 100
+    - Position: 95
+      RoadObjectType: 6
+      TrackNo: 5
+    Length: 110
     LevelNo: 0
   - Objects:
     - Position: 20
@@ -98,7 +101,7 @@ MonoBehaviour:
     - Position: 106
       RoadObjectType: 0
       TrackNo: 1
-    Length: 120
+    Length: 115
     LevelNo: 1
   - Objects:
     - Position: 18
@@ -461,5 +464,8 @@ MonoBehaviour:
     - Position: 153
       RoadObjectType: 1
       TrackNo: 7
-    Length: 172
+    - Position: 160
+      RoadObjectType: 6
+      TrackNo: 7
+    Length: 179
     LevelNo: 4

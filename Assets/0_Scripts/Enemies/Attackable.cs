@@ -79,7 +79,7 @@ public abstract class Attackable : RoadObjectBase {
         Destroy(gameObject);
     }
     
-    protected virtual void TurnOffDieFx() =>
+    public virtual void TurnOffDieFx() =>
         playDieFx = false;
 
 }

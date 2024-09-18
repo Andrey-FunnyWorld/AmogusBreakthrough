@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AttackController : MonoBehaviour {
     public Road Road;
@@ -11,6 +12,7 @@ public class AttackController : MonoBehaviour {
     public ShotSoundManager ShotSoundManager;
     public float OnePunchZone = 20f;
     public Transform EnemyAttackThreshhold;
+    public AudioSource PickupWeaponSound;
 
     public float bossExtraMin = 1.1f;
     public float bossExtraMax = 1.4f;
@@ -81,7 +83,7 @@ public class AttackController : MonoBehaviour {
         HandleWeaponChanged(MainGuy.CurrentWeaponType);
     }
 
-    public bool IntersectsTeam(RoadObjectBase roadObject) {
+    public bool IntersectsTeam(RoadObjectBase roadObject, bool skipHorzCheck = false) {
         if (MainGuy == null)
             return false;
 
@@ -91,7 +93,7 @@ public class AttackController : MonoBehaviour {
         float farthest = roadObject.transform.position.z + roadObject.transform.lossyScale.z / 2;
         if (PlayerIsDrovePast(farthest))
             return false;
-
+        if (skipHorzCheck) { return true; }
         float objectHalfWidth = roadObject.transform.lossyScale.x / 2;
         float objectX = roadObject.transform.position.x;
         float teamNearestLeft = TeamNearestLeftPoint();
@@ -195,8 +197,10 @@ public class AttackController : MonoBehaviour {
     }
 
     void EventWeaponChanged(object argument) {
-        if (argument is WeaponType weaponType)
+        if (argument is WeaponType weaponType) {
+            PickupWeaponSound.Play();
             HandleWeaponChanged(weaponType);
+        }
     }
 
     void InitAttackRange() {

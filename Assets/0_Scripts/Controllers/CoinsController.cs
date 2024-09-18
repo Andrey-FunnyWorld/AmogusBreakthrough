@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CoinsController : MonoBehaviour {
     public ScoreText casualCoinsText;
     public TextMeshProUGUI premiumCoinsText;
+    public AudioSource GemPickupSound;
 
     int casualCoins;
     int premiumCoins;
@@ -27,8 +28,9 @@ public class CoinsController : MonoBehaviour {
         UpdateUI();
     }
 
-    public void AddPremiumCoins() {
-        premiumCoins += 1; //или брать мин/макс значения в зависимости от поверженного монстра, сами эти значения хранить, например, в скриптаблОбжектах
+    public void AddPremiumCoin(int count, bool playSound = true) {
+        GemPickupSound.Play();
+        premiumCoins += count;
         UpdateUI();
     }
 
