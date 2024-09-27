@@ -96,6 +96,10 @@ public class ProgressState {
             UpgradeLevelDamage = 7;
         }
     }
+    public void Equipp(SkinType skinType, SkinItemName skinName, int index) {
+        int[] skinItemArray = skinType == SkinType.Hat ? EquippedHats : EquippedBackpacks;
+        skinItemArray[index] = (int)skinName;
+    }
     public void Equipp(SkinType skinType, SkinItemName skinName) {
         int[] skinItemArray = skinType == SkinType.Hat ? EquippedHats : EquippedBackpacks;
         for (int i = 0; i < skinItemArray.Length; i++) {

@@ -25,10 +25,10 @@ public static class MetricNames {
     public static string DifficultyNoob = "DifficultyNoob";
     public static string DifficultyPro = "DifficultyPro";
     public static string DifficultyHacker = "DifficultyHacker";
-    public static string Win = "Win";
-    public static string Lose = "Lose";
-    public static string SkinPurchased = "SkinPurchased";
-    public static string PerkPurchased = "PerkPurchased";
-    public static string UpgradePurchased = "UpgradePurchased";
-    public static string GiftAd = "GiftAd";
+    public static string Win = "RobbyAmogusWin";
+    public static string Lose = "RobbyAmogusLose";
+    public static string SkinPurchased = "RobbyAmogusSkinPurchased";
+    public static string PerkPurchased = "RobbyAmogusPerkPurchased";
+    public static string UpgradePurchased = "RobbyAmogusUpgradePurchased";
+    public static string GiftAd = "RobbyAmogusGiftAd";
 }

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PerkPanel : MonoBehaviour {
+public class PerkPanel : MonoBehaviour, IPointerDownHandler {
     public int PerkSelectorCount = 3;
     public PerkSelector PerkSelectorPrefab;
     public GridLayoutGroup Grid;
@@ -18,13 +19,15 @@ public class PerkPanel : MonoBehaviour {
     public AudioSource AudioSelected, AudioRolling;
     PerkType? takenExtraPerk = null;
     List<PerkSelector> selectors;
-    const float ROLL_BASE_DURATION = 2f;
+    const float ROLL_BASE_DURATION = 1.7f;
     const float ROLL_DURATION_OFFSET = 1f;
     PerkType[] availablePerks;
+    bool canFastRool = true;
     void CreateSelectors(PerkType[] availablePerks) {
         selectors = new List<PerkSelector>(PerkSelectorCount);
         for (int i = 0; i < PerkSelectorCount; i++) {
             PerkSelector selector = Instantiate(PerkSelectorPrefab, Grid.transform);
+            selector.PerkPanel = this;
             selector.CreatePerkItems(Grid.cellSize.y, availablePerks);
             selector.ItemRollDuration = Random.Range(0.1f, 0.15f);
             selectors.Add(selector);
@@ -44,6 +47,7 @@ public class PerkPanel : MonoBehaviour {
         UnsubscriveEvents();
     }
     public void RollSelectors() {
+        canFastRool = true;
         PerkType[] perks = GetRandomPerks(PerkSelectorCount, takenExtraPerk);
         AudioRolling.Play();
         for (int i = 0; i < PerkSelectorCount; i++) {
@@ -54,7 +58,7 @@ public class PerkPanel : MonoBehaviour {
     IEnumerator WaitForRollers() {
         bool rolling = true;
         while (rolling) {
-            rolling = selectors.Any(s => !s.IsRolling);
+            rolling = selectors.Any(s => s.IsRolling);
             yield return null;
         }
         for (int i = 0; i < PerkSelectorCount; i++) {
@@ -69,15 +73,15 @@ public class PerkPanel : MonoBehaviour {
             perks[i] = perksToPick[Random.Range(0, perksToPick.Count)];
             perksToPick.Remove(perks[i]);
         }
-        if (availablePerks.Contains(PerkType.Bubble)) {
-            perks[0] = PerkType.Bubble;
-            perks[1] = PerkType.ExtraCoins;
-            perks[2] = PerkType.OnePunchKill;
-        } else {
-            perks[0] = PerkType.WeaponBoxTransparency;
-            perks[1] = PerkType.ExtraCoins;
-            perks[2] = PerkType.OnePunchKill;
-        }
+        // if (availablePerks.Contains(PerkType.Bubble)) {
+        //     perks[0] = PerkType.Bubble;
+        //     perks[1] = PerkType.ExtraCoins;
+        //     perks[2] = PerkType.OnePunchKill;
+        // } else {
+        //     perks[0] = PerkType.WeaponBoxTransparency;
+        //     perks[1] = PerkType.ExtraCoins;
+        //     perks[2] = PerkType.OnePunchKill;
+        // }
         return perks;
     }
     PerkType[] GetRandomPerks1(int perkCount, PerkType? perkType) {
@@ -129,6 +133,14 @@ public class PerkPanel : MonoBehaviour {
                 StartCoroutine(Utils.WaitAndDo(0.8f, () => {
                     RollSelectors();
                 }));
+            }
+        }
+    }
+    public void OnPointerDown(PointerEventData e) {
+        if (canFastRool && selectors.Any(s => s.IsRolling)) {
+            canFastRool = false;
+            foreach (PerkSelector selector in selectors) {
+                selector.FastRoll();
             }
         }
     }

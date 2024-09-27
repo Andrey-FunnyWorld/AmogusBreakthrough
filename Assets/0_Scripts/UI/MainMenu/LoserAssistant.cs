@@ -9,6 +9,7 @@ public class LoserAssistant : MonoBehaviour {
     public Button UpgradeButton;
     public GiftBoxButton GiftBoxButton;
     public ExpandButton ExpandButton;
+    public UpgradeShop UpgradeShop;
     public int LostRoundsForFirstRecommendation = 1;
     public int LostRoundsLoop = 3;
     public int RoundsPlayedToGift = 10;
@@ -16,10 +17,12 @@ public class LoserAssistant : MonoBehaviour {
     public static int RoundsPlayed = 0;
     static bool GiftRecommended = false;
     public void RecommendUpgrade() {
-        UpgradeDialog.Show(() => {
-            UpgradeButton.onClick.Invoke();
-            ExpandButton.ToggleButton();
-        });
+        if (UserProgressController.Instance.ProgressState.Money >= UpgradeShop.UpgradePrice) {
+            UpgradeDialog.Show(() => {
+                UpgradeButton.onClick.Invoke();
+                ExpandButton.ToggleButton();
+            });
+        }
     }
     public void CheckToRecommend() {
         if (!GiftRecommended) GiftRecommended = RoundsPlayed == RoundsPlayedToGift;

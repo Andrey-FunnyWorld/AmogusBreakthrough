@@ -11,11 +11,11 @@ public class DefeatUI : MonoBehaviour {
     bool canLoadNextLevel = true;
     DefeatViewModel viewModel;
     
-    public void AdRewardCoins(int multiplier) {
+    public void AdRewardCoins(int addition) {
         canLoadNextLevel = false;
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
         HtmlBridge.Instance.ShowRewarded(() => {
-            viewModel.CoinReward *= multiplier;
+            viewModel.CoinReward += addition;
             SetCoins();
             canLoadNextLevel = true;
         }, () => {

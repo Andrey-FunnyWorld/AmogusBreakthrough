@@ -24596,6 +24596,7 @@ MonoBehaviour:
   UpgradeButton: {fileID: 1149341910}
   GiftBoxButton: {fileID: 1898173848}
   ExpandButton: {fileID: 8063757827320825083}
+  UpgradeShop: {fileID: 1866849292}
   LostRoundsForFirstRecommendation: 1
   LostRoundsLoop: 2
   RoundsPlayedToGift: 8

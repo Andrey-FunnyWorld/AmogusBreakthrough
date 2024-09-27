@@ -15,6 +15,7 @@ public class TeamHealthController : MonoBehaviour {
 
     bool isBubbleActive;
     bool recoverHealth;
+    bool alive = true;
     float currentHealth;
     float additionalHealthFactor = 1.5f;
     float additionalUltraHealthFactor = 3f;
@@ -88,7 +89,7 @@ public class TeamHealthController : MonoBehaviour {
 
         UpdateHealthUI();
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && alive)
             OnTeamDie();
     }
 
@@ -120,6 +121,7 @@ public class TeamHealthController : MonoBehaviour {
         if (healthRegenCoroutine != null) StopCoroutine(healthRegenCoroutine);
     }
     void OnTeamDie() {
+        alive = false;
         DefeatHitSource.Play();
         EventManager.TriggerEvent(EventNames.TeamDead);
     }
