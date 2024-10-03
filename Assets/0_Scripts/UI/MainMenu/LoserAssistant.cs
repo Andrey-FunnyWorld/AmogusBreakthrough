@@ -15,6 +15,7 @@ public class LoserAssistant : MonoBehaviour {
     public int RoundsPlayedToGift = 10;
     public static int LostRounds = 0;
     public static int RoundsPlayed = 0;
+    public static bool LastRoundIsLost = false;
     static bool GiftRecommended = false;
     public void RecommendUpgrade() {
         if (UserProgressController.Instance.ProgressState.Money >= UpgradeShop.UpgradePrice) {
@@ -26,9 +27,9 @@ public class LoserAssistant : MonoBehaviour {
     }
     public void CheckToRecommend() {
         if (!GiftRecommended) GiftRecommended = RoundsPlayed == RoundsPlayedToGift;
-        if (LostRounds == LostRoundsForFirstRecommendation) {
+        if (LastRoundIsLost && LostRounds == LostRoundsForFirstRecommendation) {
             RecommendUpgrade();
-        } else if ((LostRounds - LostRoundsForFirstRecommendation) % LostRoundsLoop == 0) {
+        } else if (LastRoundIsLost && (LostRounds - LostRoundsForFirstRecommendation) % LostRoundsLoop == 0) {
             RecommendUpgrade();
         } else if (GiftRecommended) {
             GiftRecommended = false;

@@ -23,6 +23,7 @@ public class MainMenuManager : MonoBehaviour {
     public DesintegratorPanel DesintegratorPanel;
     public LoopScaler DesintegratorButton;
     public LoserAssistant LoserAssistant;
+    public ScoreText SpinBadge;
     //List<ButtonDisabled> buttonsToSkip = new List<ButtonDisabled>();
     void Awake() {
         SubscriveEvents();
@@ -62,6 +63,12 @@ public class MainMenuManager : MonoBehaviour {
         UpdateProgressTexts(progress);
         ScoreText.SetScoreSilent(progress.Money);
         Wheel.ApplyProgress(progress);
+        UpdateSpinBadge(progress);
+    }
+    void UpdateSpinBadge(ProgressState progress) {
+        bool adSpinAvailable = progress.AdSpinWhenAvailable < DateTime.Now;
+        SpinBadge.gameObject.SetActive(adSpinAvailable || progress.Spins > 0);
+        SpinBadge.Score = progress.Spins + (adSpinAvailable ? 1 : 0);
     }
     void ChooseQualityLevel(PlatformType platform) {
         int currentLevel = QualitySettings.GetQualityLevel();
@@ -164,7 +171,11 @@ public class MainMenuManager : MonoBehaviour {
     void NotEnoughMoney(object arg) {
         ScoreText.HighlightError();
     }
+    void FreeSpinChanged(object arg) {
+        UpdateSpinBadge(UserProgressController.Instance.ProgressState);
+    }
     void WheelSpinStart(object arg) {
+        UpdateSpinBadge(UserProgressController.Instance.ProgressState);
         // foreach (ButtonDisabled btn in DisableWhenSpinning) {
         //     if (!btn.Enable) buttonsToSkip.Add(btn);
         //     else btn.Enable = false;
@@ -191,6 +202,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StartListening(EventNames.NotEnoughMoney, NotEnoughMoney);
         EventManager.StartListening(EventNames.SkipAdPurchased, SkipAdPurchased);
         EventManager.StartListening(EventNames.SkinItemEquip, SkinItemEquip);
+        EventManager.StartListening(EventNames.FreeSpinChanged, FreeSpinChanged);
     }
     void UnsubscriveEvents() {
         EventManager.StopListening(EventNames.StartDataLoaded, StartDataLoaded);
@@ -202,6 +214,7 @@ public class MainMenuManager : MonoBehaviour {
         EventManager.StopListening(EventNames.NotEnoughMoney, NotEnoughMoney);
         EventManager.StopListening(EventNames.SkipAdPurchased, SkipAdPurchased);
         EventManager.StopListening(EventNames.SkinItemEquip, SkinItemEquip);
+        EventManager.StopListening(EventNames.FreeSpinChanged, FreeSpinChanged);
     }
     public void HideShops() {
         ShopBackpacks.gameObject.SetActive(false);

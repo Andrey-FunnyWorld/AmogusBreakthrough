@@ -26,8 +26,12 @@ public class ScoreText : MonoBehaviour {
         }
     }
     void ScoreChanged() {
-        if (AnimateValueChange)
-            StartCoroutine(AnimateValueTextChange());
+        if (AnimateValueChange) {
+            if (gameObject.activeInHierarchy)
+                StartCoroutine(AnimateValueTextChange());
+            else
+                Text.text = string.Format(Format, score);
+        }
         else
             Text.text = string.Format(Format, score);
     }

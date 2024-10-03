@@ -10,7 +10,7 @@ public class DesintegratorPanel : MonoBehaviour {
     public ProgressBarUITicks ProgressBar;
     public ProgressMilestone[] Milestones;
     public DesintegratorLegendItem DiamondLegend, DiamondsLegend, GiftLegend;
-    public RectTransform CollectMsg;
+    public LoopScaler CollectMsg;
     public DesintegratorScene Scene;
     public GiftBoxButton GiftBoxButton;
     public Button CloseButton;
@@ -24,6 +24,10 @@ public class DesintegratorPanel : MonoBehaviour {
         int lastAvailableMilestoneIndex = Milestones.Count(m => m.Progress < Progress) - 1;
         int lastTakenMilestoneIndex = UserProgressController.Instance.ProgressState.LastGiftedMilestone;
         return lastAvailableMilestoneIndex > lastTakenMilestoneIndex;
+    }
+    void OnEnable() {
+        BoomButton.Enable = CanBoom();
+        CollectMsg.RunOnStart = !BoomButton.Enable;
     }
     public void Test() {
         bool canBoom = CanBoom();
@@ -40,7 +44,7 @@ public class DesintegratorPanel : MonoBehaviour {
             } else {
                 Desintegrator.IsRunning = false;
                 SetTesting(false);
-                StartCoroutine(Utils.AnimateScale(0.5f, CollectMsg, 0.3f, true));
+                StartCoroutine(Utils.AnimateScale(0.5f, CollectMsg.transform, 0.3f, true));
             }
         });
     }

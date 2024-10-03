@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using Unity.VisualScripting;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class AdSpinButton : MonoBehaviour {
     public int NextSpinDelaySec = 15;
@@ -23,13 +20,21 @@ public class AdSpinButton : MonoBehaviour {
     }
     public void Spin() {
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardWheel);
+        #if UNITY_WEBGL && !UNITY_EDITOR
         HtmlBridge.Instance.ShowRewarded(() => {
-            DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
-            Text.text = GetTimeText(DateAvailable);
-            UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
-            UserProgressController.Instance.SaveProgress();
-            Wheel.Spin(SpinDuration);
+            SpinStarter();
         }, () => {});
+        #endif
+        #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
+            SpinStarter();
+        #endif
+    }
+    void SpinStarter() {
+        DateAvailable = DateTime.Now.AddSeconds(NextSpinDelaySec);
+        Text.text = GetTimeText(DateAvailable);
+        UserProgressController.Instance.ProgressState.AdSpinWhenAvailableString = DateAvailable.ToString();
+        UserProgressController.Instance.SaveProgress();
+        Wheel.Spin(SpinDuration);
     }
     string GetTimeText(DateTime date) {
         if (date < DateTime.Now) {
