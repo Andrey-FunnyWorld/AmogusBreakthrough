@@ -14,9 +14,12 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
     public bool IsRolling = false;
     [NonSerialized]
     public PerkItem CurrentPerk;
+    [NonSerialized]
+    public PerkPanel PerkPanel;
     List<PerkItem> items;
     const float ITEM_SPACING = 30;
     PerkType[] availablePerks;
+    float rollDuration = 0;
     public void CreatePerkItems(float itemHeight, PerkType[] unlockedPerks) {
         thisHeight = itemHeight;
         availablePerks = unlockedPerks;
@@ -28,24 +31,16 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
             items.Add(perkItem);
             perkItem.RectTransform.anchoredPosition = new Vector2(0, (items.Count - 1) * (thisHeight + ITEM_SPACING));
         }
-        // foreach (PerkModel model in PerkStorage.Perks) {
-        //     if (availablePerks.Contains(model.PerkType)) {
-        //         PerkItem perkItem = Instantiate(PerkItemPrefab, transform);
-        //         perkItem.Init(model);
-        //         items.Add(perkItem);
-        //         perkItem.RectTransform.anchoredPosition = new Vector2(0, (items.Count - 1) * (thisHeight + ITEM_SPACING));
-        //     }
-        // }
     }
     void Start() {
     }
     public void RollToPerk(float duration, PerkType perkType) {
+        rollDuration = duration;
         CanSelect = false;
-        IsRolling = false;
+        IsRolling = true;
         rollingSpeed = (thisHeight + ITEM_SPACING) / ItemRollDuration;
-        //int targetIndex = Array.IndexOf(PerkStorage.Perks.Select(p => p.PerkType).ToArray(), perkType);
         int targetIndex = Array.IndexOf(availablePerks, perkType);
-        StartCoroutine(Rolling(duration, targetIndex));
+        StartCoroutine(Rolling(targetIndex));
     }
     float thisHeight;
     int currentIndex = 0;
@@ -65,9 +60,9 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         }
         if (currentIndex >= items.Count) currentIndex = 0;
     }
-    IEnumerator Rolling(float duration, int targetIndex) {
+    IEnumerator Rolling(int targetIndex) {
         float timer = 0;
-        while (timer < duration) {
+        while (timer < rollDuration) {
             timer += Time.deltaTime;
             RollItems();
             yield return null;
@@ -84,11 +79,17 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         CurrentPerk.SetTextVisibility(true);
         CurrentPerk.RectTransform.anchoredPosition = Vector2.zero;
         CurrentPerk.Alpha = 1;
-        IsRolling = true;
+        IsRolling = false;
     }
     public void OnPointerDown(PointerEventData e) {
         if (CanSelect) {
             EventManager.TriggerEvent(EventNames.PerkSelected, CurrentPerk);
+        } else {
+            PerkPanel.OnPointerDown(e);
         }
+    }
+    public void FastRoll() {
+        rollDuration = 0;
+        rollingSpeed *= 5;
     }
 }

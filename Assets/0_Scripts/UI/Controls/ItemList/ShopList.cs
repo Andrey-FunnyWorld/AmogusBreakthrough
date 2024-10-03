@@ -36,7 +36,9 @@ public class ShopList : MonoBehaviour {
         List<int> randomSkins = new List<int>(Team.MAX_CAPACITY);
         for (int i = 0; i < Team.MAX_CAPACITY; i++) {
             randomSkins.Add(availableSkins[Random.Range(0, availableSkins.Length)]);
+            UserProgressController.Instance.ProgressState.Equipp(ShopType, (SkinItemName)randomSkins[i], i + 1);
         }
+        UserProgressController.Instance.SaveProgress();
         EventManager.TriggerEvent(EventNames.RandomSkins, 
             new RandomSkinArg() { RandomSkins = randomSkins.ToArray(), ShopType = ShopType }
         );
