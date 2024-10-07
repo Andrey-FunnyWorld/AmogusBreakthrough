@@ -14502,12 +14502,12 @@ MonoBehaviour:
   HitRangeBar: {fileID: 669764919}
   HitRangeUI: {fileID: 1217934295}
   StepParams:
-  - ThumbSpeed: 1
+  - ThumbSpeed: 1.3
     TargetRatio: 0.2
-  - ThumbSpeed: 1.2
-    TargetRatio: 0.2
-  - ThumbSpeed: 1.5
-    TargetRatio: 0.15
+  - ThumbSpeed: 1.8
+    TargetRatio: 0.14
+  - ThumbSpeed: 2.2
+    TargetRatio: 0.1
   Animator: {fileID: 1885099919}
   TransitionImage: {fileID: 66389613}
   TransitionDuration: 0.5

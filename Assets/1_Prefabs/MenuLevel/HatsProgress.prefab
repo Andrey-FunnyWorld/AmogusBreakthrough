@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2572445419118877569}
   - component: {fileID: 9135396421095219948}
+  - component: {fileID: 3151829919205356964}
   m_Layer: 0
   m_Name: HatsProgress
   m_TagString: Untagged
@@ -52,6 +53,28 @@ MonoBehaviour:
   Text: {fileID: 4404501108277084415}
   ProgressBar: {fileID: 8962521566007003783}
   MaxSize: 5.21
+  AnimationDuration: 0.7
+--- !u!65 &3151829919205356964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525945368559490614}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.829991, y: 4.0252585, z: 1}
+  m_Center: {x: -0.18189874, y: 1.9864911, z: 0}
 --- !u!1 &6707258179781856592
 GameObject:
   m_ObjectHideFlags: 0

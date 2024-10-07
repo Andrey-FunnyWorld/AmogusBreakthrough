@@ -13,6 +13,8 @@ public class DropPlatform : MonoBehaviour {
     public Renderer StatusPlane;
     public UnityEvent<int> DropAction;
     public int Index;
+    public Material PositiveAura;
+    public MeshRenderer AuraMesh;
     bool canSelect = false;
     public void Drop() {
         Animator.SetBool("drop", true);
@@ -38,6 +40,7 @@ public class DropPlatform : MonoBehaviour {
     }
     public void SetChecked() {
         StatusPlane.material = ImposterChecked;
+        AuraMesh.material = PositiveAura;
     }
     public void ReadyForSelection() {
         canSelect = true;

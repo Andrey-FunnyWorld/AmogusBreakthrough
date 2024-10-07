@@ -58,7 +58,7 @@ mergeInto(LibraryManager.library, {
     ysdk.features.LoadingAPI?.ready();
   },
   ReportMetricExtern: function(id) {
-    //ym(TOKEN PLACEHOLDER,'reachGoal', UTF8ToString(id));
+    ym(98396260, 'reachGoal', UTF8ToString(id));
   },
   RateGameExtern: function() {
     ysdk.feedback.canReview()
