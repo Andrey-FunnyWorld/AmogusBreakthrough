@@ -119,16 +119,25 @@
             return settingsData;
         }
         function getPlayerSavedData() {
+            let myJSON = window.localStorage.getItem(storageKey);
             const promise = new Promise((resolve, reject) => {
                 if (player && player.getMode() !== 'lite') {
                     player.getData().then(data => {
-                        resolve({
-                            progress: extractProgressData(data),
-                            settings: extractSettingsData(data)
-                        });
+                        if (myJSON == null) {
+                            resolve({
+                                progress: extractProgressData(data),
+                                settings: extractSettingsData(data)
+                            });
+                        } else {
+                            const localData = JSON.parse(myJSON);
+                            const dataToSend = localData.CompletedRoundsCount > data.CompletedRoundsCount ? localData : data;
+                            resolve({
+                                progress: extractProgressData(dataToSend),
+                                settings: extractSettingsData(dataToSend)
+                            });
+                        }
                     });
                 } else {
-                    let myJSON = window.localStorage.getItem(storageKey);
                     if (myJSON == null) {
                         resolve({
                             progress: {},

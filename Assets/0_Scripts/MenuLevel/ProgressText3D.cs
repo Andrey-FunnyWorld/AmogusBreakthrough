@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ProgressText3D : MonoBehaviour {
     public SkinType TextType;
     public TextMeshPro Text;
     public Transform ProgressBar;
+    public ExpandButton ShopButton;
     public float MaxSize;
     public float AnimationDuration = 0.7f;
     int percentValue = 0;
@@ -46,5 +47,24 @@ public class ProgressText3D : MonoBehaviour {
             }
             yield return null;
         }
+    }
+    void HandleClick() {
+        if (!IsPointerOverGameObject())
+            ShopButton.ToggleButton();
+    }
+    void OnTouchDown() {
+        HandleClick();
+    }
+    void OnMouseDown() {
+        HandleClick();
+    }
+    bool IsPointerOverGameObject(){
+        if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return true;
+        if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began ){
+            if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                return true;
+        }
+        return false;
     }
 }
