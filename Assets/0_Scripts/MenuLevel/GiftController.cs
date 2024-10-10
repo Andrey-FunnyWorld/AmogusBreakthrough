@@ -84,7 +84,7 @@ public class GiftController : MonoBehaviour {
             if (openAction != null)
                 openAction.Invoke();
             if (giftType.ToString().Contains("Skin")) {
-                SkinItemQuality quality = giftType == GiftType.GraySkin ? SkinItemQuality.Regular : giftType == GiftType.GreenSkin ? SkinItemQuality.Rare : SkinItemQuality.Epic;
+                SkinItemQuality quality = giftType == GiftType.GraySkin ? SkinItemQuality.Regular : (giftType == GiftType.GreenSkin ? SkinItemQuality.Rare : SkinItemQuality.Epic);
                 ListItem skinItem = GetRandomSkin(quality);
                 NewSkinPanel.ShowItem(skinItem.Model, skinItem.ShopType);
                 skinItem.Unlock(false, true);
@@ -94,9 +94,16 @@ public class GiftController : MonoBehaviour {
         }));
     }
     ListItem GetRandomSkin(SkinItemQuality quality) {
-        int shopType = Random.Range(0, 2);
-        ShopList shopList = shopType == 0 ? BackpackShop : HatShop;
+        bool haveBackpacks = BackpackShop.GetRandomItem(quality) != null;
+        bool haveHats = HatShop.GetRandomItem(quality) != null;
+        ShopList shopList = HatShop;
+        if (haveBackpacks && haveHats) {
+            shopList = Random.Range(0, 2) == 0 ? BackpackShop : HatShop;
+        } else if (haveBackpacks) {
+            shopList = BackpackShop;
+        }
         ListItem rewardItem = shopList.GetRandomItem(quality);
+        if (rewardItem == null) Debug.LogError("GiftController.GetRandomSkin: reward is null");
         return rewardItem;
     }
 }
