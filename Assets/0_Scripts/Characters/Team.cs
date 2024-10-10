@@ -47,7 +47,7 @@ public class Team : MonoBehaviour {
     }
     public void AddNewMate(bool isRunning = false, bool playAppearanceFX = false) {
         SkinItemName skinBackpack = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedBackpacks[MatesCount];
-        SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[MatesCount];
+        SkinItemName skinHat = (SkinItemName)UserProgressController.Instance.ProgressState.EquippedHats[MatesCount + 1];
         CreateMate(skinBackpack, skinHat, isRunning, playAppearanceFX);
         CalcTeamRange();
         EventManager.TriggerEvent(EventNames.MatesChanged);

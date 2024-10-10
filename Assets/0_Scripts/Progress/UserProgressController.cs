@@ -130,6 +130,9 @@ public class ProgressState {
             case UpgradeType.HP: UpgradeLevelHP = level; break;
         }
     }
+    public bool IsAllSkinsCollected() {
+        return PurchasedHats.Length + PurchasedBackpacks.Length >= Enum.GetValues(typeof(SkinItemName)).Length + 1;
+    }
     // public void AdjustHats(int startIndex) {
     //     for (int i = 0; i < EquippedHats.Length; i++) {
     //         if (EquippedHats[i] > 0)

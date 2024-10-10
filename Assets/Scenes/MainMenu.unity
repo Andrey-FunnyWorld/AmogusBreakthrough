@@ -8722,6 +8722,7 @@ MonoBehaviour:
   SettingsPanel: {fileID: 74276071}
   SkipAdButton: {fileID: 1576919250}
   Wheel: {fileID: 384591214}
+  OpenWheelButton: {fileID: 1252370918}
   CollectAllBlock: {fileID: 454136039}
   MenuTutorial: {fileID: 1134059827}
   LevelLoader: {fileID: 1563484755}
@@ -14683,6 +14684,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundType: 0
+--- !u!114 &1252370918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5794487643242386781, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
+  m_PrefabInstance: {fileID: 1252370915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083710532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f46f0dc106818a43abd063163d1654a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1253715675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15759,7 +15771,7 @@ MonoBehaviour:
   ButtonDisabled: {fileID: 1347012725}
   KeepDisabled: 0
   Wheel: {fileID: 384591214}
-  SpinDuration: 5
+  SpinDuration: 6
 --- !u!114 &1347690954 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4434263988434608917, guid: a9b574951773b274898c2188caf78e4f, type: 3}
@@ -19456,7 +19468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u043E\u0431\u0435\u0440\u0438 \u0432\u0441\u0435"
+  m_text: "\u0421\u041E\u0411\u0415\u0420\u0418 \u0412\u0421\u0415"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
   m_sharedMaterial: {fileID: -6969964487963048819, guid: a5d736127724e7d4282c223f60db7f82, type: 2}
@@ -19490,7 +19502,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -19519,7 +19531,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -1.5710754, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -23905,7 +23917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5507199110782490553, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5507199110782490553, guid: 33e9d08f1a6e30f4fb1a8bc0e06629a0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -24142,8 +24154,8 @@ Transform:
   m_GameObject: {fileID: 1995983153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12.644583, y: 2.2158487, z: 1}
+  m_LocalPosition: {x: 0.6856, y: 0, z: -0.0412}
+  m_LocalScale: {x: 13.992496, y: 2.2158487, z: 1.0942}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 638245724}

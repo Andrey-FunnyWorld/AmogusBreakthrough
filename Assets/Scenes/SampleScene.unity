@@ -8378,7 +8378,7 @@ MonoBehaviour:
   RifflePrefab: {fileID: 4427827604290941968, guid: cb058ea0be0258441b4344e294faf4c9, type: 3}
   BazookaPrefab: {fileID: 8748192931737106672, guid: ab2b38db8be01f24087b8d602c00e4a6, type: 3}
   DistanceToGenerate: 65
-  ExpectedLevelCountForAllUpgrades: 50
+  ExpectedLevelCountForAllUpgrades: 36
 --- !u!1 &1023350265
 GameObject:
   m_ObjectHideFlags: 0
@@ -14504,10 +14504,10 @@ MonoBehaviour:
   StepParams:
   - ThumbSpeed: 1.3
     TargetRatio: 0.2
-  - ThumbSpeed: 1.8
-    TargetRatio: 0.14
-  - ThumbSpeed: 2.2
-    TargetRatio: 0.1
+  - ThumbSpeed: 1.75
+    TargetRatio: 0.15
+  - ThumbSpeed: 2.05
+    TargetRatio: 0.12
   Animator: {fileID: 1885099919}
   TransitionImage: {fileID: 66389613}
   TransitionDuration: 0.5

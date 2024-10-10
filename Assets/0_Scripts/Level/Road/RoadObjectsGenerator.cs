@@ -27,7 +27,7 @@ public class RoadObjectsGenerator : MonoBehaviour {
     Dictionary<Difficulty, float> scaleHPDifficulty = new Dictionary<Difficulty, float>() {
         { Difficulty.Noob, 0.9f },
         { Difficulty.Pro, 1f },
-        { Difficulty.Hacker, 1f },
+        { Difficulty.Hacker, 1.08f },
     };
     public List<RoadObjectBase> GetObjects(
         RoadDataViewModel vm,

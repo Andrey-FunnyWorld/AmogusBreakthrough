@@ -71,7 +71,7 @@ public class RoadDataGenerator : MonoBehaviour {
     Dictionary<Difficulty, float> totalRewardByDifficulty = new Dictionary<Difficulty, float>() {
         { Difficulty.Noob, 100 },
         { Difficulty.Pro, 155 },
-        { Difficulty.Hacker, 200 },
+        { Difficulty.Hacker, 185 },
     };
     Dictionary<Difficulty, float> sawIndentByDifficulty = new Dictionary<Difficulty, float>() {
         { Difficulty.Noob, 1 },

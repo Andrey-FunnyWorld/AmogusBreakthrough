@@ -17,6 +17,7 @@ public class HatStorage : MonoBehaviour {
     }
     Dictionary<SkinItemName, List<HatStorageItem>> hats = new Dictionary<SkinItemName, List<HatStorageItem>>();
     public Transform GetHat(SkinItemName name) {
+        //if (name == SkinItemName.None) return null;
         if (!name.ToString().Contains("Hat")) Debug.LogError("HatStorage can only give hats");
         if (!hats.ContainsKey(name)) {
             hats.Add(name, new List<HatStorageItem>());
