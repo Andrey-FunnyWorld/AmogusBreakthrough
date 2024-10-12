@@ -71,10 +71,12 @@ public class MainMenuManager : MonoBehaviour {
         bool adSpinAvailable = progress.AdSpinWhenAvailable < DateTime.Now;
         SpinBadge.gameObject.SetActive(adSpinAvailable || progress.Spins > 0);
         SpinBadge.Score = progress.Spins + (adSpinAvailable ? 1 : 0);
+        SpinBadge.gameObject.SetActive(SpinBadge.Score > 0);
     }
     void UpdateOpenWheelButton(ProgressState progress) {
         OpenWheelButton.Enable = !progress.IsAllSkinsCollected();
-        SpinBadge.gameObject.SetActive(OpenWheelButton.Enable);
+        if (!OpenWheelButton.Enable)
+            SpinBadge.gameObject.SetActive(OpenWheelButton.Enable);
     }
     void ChooseQualityLevel(PlatformType platform) {
         int currentLevel = QualitySettings.GetQualityLevel();
@@ -102,9 +104,10 @@ public class MainMenuManager : MonoBehaviour {
         // HatText.SetProgress(CalcSkinProgress(SkinType.Hat, progress));
         // BackpackText.SetProgress(CalcSkinProgress(SkinType.Backpack, progress));
     }
-    void ApplyProgressLight(ProgressState progress) {
+    public void ApplyProgressLight(ProgressState progress) {
         ScoreText.Score = progress.Money;
         ActivateDesintegratorButton(progress);
+        UpdateSpinBadge(progress);
         UpdateOpenWheelButton(progress);
     }
     void ShopItemPurchased(object arg) {

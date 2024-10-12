@@ -985,6 +985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 166333584}
+  - component: {fileID: 166333585}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -1012,6 +1013,18 @@ Transform:
   - {fileID: 543895044}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166333585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166333583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c409cfe8eff4d0438981a186aace2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &172160301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8067,10 +8080,10 @@ RectTransform:
   - {fileID: 609410322}
   m_Father: {fileID: 1067913569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &995337380 stripped
 GameObject:
@@ -8378,7 +8391,7 @@ MonoBehaviour:
   RifflePrefab: {fileID: 4427827604290941968, guid: cb058ea0be0258441b4344e294faf4c9, type: 3}
   BazookaPrefab: {fileID: 8748192931737106672, guid: ab2b38db8be01f24087b8d602c00e4a6, type: 3}
   DistanceToGenerate: 65
-  ExpectedLevelCountForAllUpgrades: 36
+  ExpectedLevelCountForAllUpgrades: 40
 --- !u!1 &1023350265
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,11 +12297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 390.23947
+      value: -38.9
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 225
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 5547519900201281972, guid: addf81f821b2d244cb968aa907ef3603, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17451,11 +17464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -390.2395
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 225
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 7167894964395622507, guid: 2d6c4b354a531184da1c169f1d7a1f97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
