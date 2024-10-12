@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class GiftRewardPanel : MonoBehaviour {
+    public MainMenuManager MainMenuManager;
     public Image GiftImage;
     public TextMeshProUGUI Caption;
     public Sprite PerkSprite, DiamondSprite, MoneySprite, UpgradeSprite;
@@ -66,9 +67,14 @@ public class GiftRewardPanel : MonoBehaviour {
     void AddMoney() {
         UserProgressController.Instance.ProgressState.Money += MoneyReward;
         HtmlBridge.Instance.SaveProgress();
+        UpdateUI();
     }
     void AddDiamond() {
         UserProgressController.Instance.ProgressState.Spins += DiamondReward;
         HtmlBridge.Instance.SaveProgress();
+        UpdateUI();
+    }
+    void UpdateUI() {
+        MainMenuManager.ApplyProgressLight(UserProgressController.Instance.ProgressState);
     }
 }

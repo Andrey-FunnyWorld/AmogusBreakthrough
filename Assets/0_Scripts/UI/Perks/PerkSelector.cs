@@ -80,7 +80,12 @@ public class PerkSelector : MonoBehaviour, IPointerDownHandler {
         CurrentPerk.RectTransform.anchoredPosition = Vector2.zero;
         CurrentPerk.Alpha = 1;
         IsRolling = false;
+        foreach (PerkItem pItem in items) {
+            if (pItem != CurrentPerk)
+                pItem.Alpha = 0;
+        }
     }
+
     public void OnPointerDown(PointerEventData e) {
         if (CanSelect) {
             EventManager.TriggerEvent(EventNames.PerkSelected, CurrentPerk);

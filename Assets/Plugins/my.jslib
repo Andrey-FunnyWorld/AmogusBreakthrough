@@ -55,7 +55,7 @@ mergeInto(LibraryManager.library, {
   },
   PingYandexReadyExtern: function() {
     console.log("GameReady API");
-    ysdk.features.LoadingAPI?.ready();
+    ysdk.features.LoadingAPI.ready();
   },
   ReportMetricExtern: function(id) {
     ym(98396260, 'reachGoal', UTF8ToString(id));
