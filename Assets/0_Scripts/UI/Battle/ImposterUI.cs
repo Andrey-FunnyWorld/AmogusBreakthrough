@@ -19,7 +19,7 @@ public class ImposterUI : MonoBehaviour {
     const string ANIMATION_TRIGGER_HELP = "help";
     const string ANIMATION_TRIGGER_SUCCESS = "success";
     const string ANIMATION_TRIGGER_FAIL = "fail";
-    const float PAUSE_BETWEEN_HIT_TESTS = 0.5f;
+    public const float PAUSE_BETWEEN_HIT_TESTS = 0.5f;
     int stepIndex = 0;
     int maxSteps = 3;
     void RunHitBar(int index) {
