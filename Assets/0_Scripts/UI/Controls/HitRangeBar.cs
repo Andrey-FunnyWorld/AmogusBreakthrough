@@ -49,8 +49,10 @@ public class HitRangeBar : MonoBehaviour {
         Thumb.anchoredPosition = new Vector2(BarArea.rect.width * pos, 0);
     }
     public void Click() {
-        clicked = true;
-        ClickAction.Invoke(IsHit(thumbPosition));
+        if (!clicked) {
+            clicked = true;
+            ClickAction.Invoke(IsHit(thumbPosition));
+        }
         //return IsHit(thumbPosition);
     }
     bool IsHit(float pos) {

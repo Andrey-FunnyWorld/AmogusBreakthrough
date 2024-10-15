@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ImposterManager : MonoBehaviour {
     public ImposterUI ImposterUI;
@@ -46,17 +47,20 @@ public class ImposterManager : MonoBehaviour {
         if (ok) {
             int fineMatesCount = GetCheckedMates(ImposterUI.GetStep());
             while (fineMatesCount > 0) {
-                int finePlatformIndex = Random.Range(0, Team.MatesCount);
-                if (finePlatformIndex != imposterIndex && !finePlatformIndices.Contains(finePlatformIndex)) {
-                    fineMatesCount--;
-                    finePlatformIndices.Add(finePlatformIndex);
+                List<int> availablePlatformIndices = new List<int>();
+                for (int i = 0; i < Team.MatesCount; i++) {
+                    if (!finePlatformIndices.Contains(i) && i != imposterIndex)
+                        availablePlatformIndices.Add(i);
                 }
+                int finePlatformIndex = availablePlatformIndices[Random.Range(0, availablePlatformIndices.Count)];
+                fineMatesCount--;
+                finePlatformIndices.Add(finePlatformIndex);
             }
             for (int i = 0; i < finePlatformIndices.Count; i++) {
                 DropPlatforms[finePlatformIndices[i]].SetChecked();
             }
         }
-        if (ImposterUI.GetStep() == maxSteps - 1) {
+        if (ImposterUI.GetStep() >= maxSteps - 1) {
             for (int i = 0; i < Team.MatesCount; i++) {
                 if (!finePlatformIndices.Contains(i))
                     DropPlatforms[i].ReadyForSelection();

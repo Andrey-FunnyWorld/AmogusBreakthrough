@@ -86,7 +86,7 @@ MonoBehaviour:
     Price: 80
     Quality: 1
   - SkinName: 18
-    Sprite: {fileID: 21300000, guid: d9cc34dd437d90146bfd81966e8f6e79, type: 3}
+    Sprite: {fileID: 21300000, guid: 8ace26d17f552d64daab0df06569992c, type: 3}
     Price: 125
     Quality: 2
   - SkinName: 19

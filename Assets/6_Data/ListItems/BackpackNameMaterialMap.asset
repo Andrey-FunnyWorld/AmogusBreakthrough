@@ -48,7 +48,7 @@ MonoBehaviour:
   - SkinItemName: 17
     Material: {fileID: 2100000, guid: 2669d8d8fee32984882f2e7679f9b505, type: 2}
   - SkinItemName: 18
-    Material: {fileID: 2100000, guid: 51a2db0ddb90a3a4085d76897f386efa, type: 2}
+    Material: {fileID: 2100000, guid: aca9b1ad6a61ed44f8c5d8a5177e34de, type: 2}
   - SkinItemName: 19
     Material: {fileID: 2100000, guid: 375999147fb7b96468a0d55241c6423c, type: 2}
   - SkinItemName: 20
