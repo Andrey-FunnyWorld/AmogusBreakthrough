@@ -11,10 +11,6 @@ public class LevelUIManager : MonoBehaviour {
     public Transform BattleStats;
     public Transform HpBar;
 
-    public interface IPlatformAdaptable {
-        void Adapt(PlatformType platformType);
-    }
-
     void Start() {
         waitTutorialRoutine = StartCoroutine(WaitForTutorial(BattleTutorial.ShowDelay));
     }
@@ -31,9 +27,10 @@ public class LevelUIManager : MonoBehaviour {
     }
 
     public void AdjustToPlatform(PlatformType platformType) {
-        IPlatformAdaptable[] adaptables = GetComponentsInChildren<IPlatformAdaptable>(true);
-        foreach (IPlatformAdaptable adaptable in adaptables)
-            adaptable.Adapt(platformType);
+        BattleTutorial.Adapt(platformType);
+        // IPlatformAdaptable[] adaptables = GetComponentsInChildren<IPlatformAdaptable>(true);
+        // foreach (IPlatformAdaptable adaptable in adaptables)
+        //     adaptable.Adapt(platformType);
     }
 
     public void RoadFinished() {

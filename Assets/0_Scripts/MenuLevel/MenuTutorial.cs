@@ -17,6 +17,7 @@ public class MenuTutorial : MonoBehaviour {
     public NewSkinPanel NewSkinPanel;
     public DesintegratorPanel DesintegratorPanel;
     public RectTransform[] DesintegratorHints;
+    public MainMenuManager MainMenuManager;
 
     public float HandLoopDuration = 0.5f;
     public float HandDistance = 150;
@@ -45,7 +46,12 @@ public class MenuTutorial : MonoBehaviour {
     }
     void InitStage1(List<TutorialStep> Steps) {
         Steps.Add(new TutorialStep() {
-            StepAction = () => { 
+            StepAction = () => {
+                if (UserProgressController.Instance.ProgressState.Money < 50) {
+                    UserProgressController.Instance.ProgressState.Money = 50;
+                    UserProgressController.Instance.SaveProgress();
+                    MainMenuManager.ApplyProgressLight(UserProgressController.Instance.ProgressState);
+                }
                 DisableButtonsExceptFor(ShopButton.GetComponent<ButtonDisabled>());
                 AttachHand(ShopButton.transform, new Vector2(-1, 1));
             },
