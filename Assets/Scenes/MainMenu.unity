@@ -13582,6 +13582,7 @@ MonoBehaviour:
   - {fileID: 321367873}
   - {fileID: 442907155}
   - {fileID: 198718940}
+  MainMenuManager: {fileID: 827198490}
   HandLoopDuration: 0.6
   HandDistance: 100
   AimTextDuration: 4

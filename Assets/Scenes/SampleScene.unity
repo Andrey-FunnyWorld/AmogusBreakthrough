@@ -14515,12 +14515,12 @@ MonoBehaviour:
   HitRangeBar: {fileID: 669764919}
   HitRangeUI: {fileID: 1217934295}
   StepParams:
-  - ThumbSpeed: 1.3
-    TargetRatio: 0.2
-  - ThumbSpeed: 1.75
-    TargetRatio: 0.15
-  - ThumbSpeed: 2.05
-    TargetRatio: 0.12
+  - ThumbSpeed: 1.2
+    TargetRatio: 0.22
+  - ThumbSpeed: 1.45
+    TargetRatio: 0.17
+  - ThumbSpeed: 1.85
+    TargetRatio: 0.13
   Animator: {fileID: 1885099919}
   TransitionImage: {fileID: 66389613}
   TransitionDuration: 0.5
@@ -16122,8 +16122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a488ebebb1e744248be3f7d5aeb155f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesktopObjects: []
-  TouchObjects: []
+  DesktopObjects:
+  - {fileID: 1634709825}
+  - {fileID: 583020459}
+  - {fileID: 1708036837}
+  TouchObjects:
+  - {fileID: 748185635}
+  - {fileID: 2023082601}
   MyAnimator: {fileID: 1992147951}
 --- !u!4 &1992147953
 Transform:
