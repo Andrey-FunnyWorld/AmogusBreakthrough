@@ -17,17 +17,22 @@ public class DefeatUI : MonoBehaviour {
         AdCoinText.Score = CoinsAdReward;
     }
 
-    public void AdRewardCoins() {
-        canLoadNextLevel = false;
+    public void AddRewardedCoins(int extraCoins) {
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
-        HtmlBridge.Instance.ShowRewarded(() => {
-            viewModel.CoinReward += CoinsAdReward;
-            SetCoins();
-            canLoadNextLevel = true;
-        }, () => {
-            canLoadNextLevel = true;
-        });
+        viewModel.CoinReward += extraCoins;
+        SetCoins();
     }
+    // public void AdRewardCoins() {
+    //     canLoadNextLevel = false;
+    //     HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
+    //     HtmlBridge.Instance.ShowRewarded(() => {
+    //         viewModel.CoinReward += CoinsAdReward;
+    //         SetCoins();
+    //         canLoadNextLevel = true;
+    //     }, () => {
+    //         canLoadNextLevel = true;
+    //     });
+    // }
 
     public void ShowResult(DefeatViewModel vm) {
         viewModel = vm;

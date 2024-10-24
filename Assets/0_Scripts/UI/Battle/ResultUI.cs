@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ResultUI : MonoBehaviour {
     public ImposterResultUI ImposterResultUI;
@@ -11,6 +12,7 @@ public class ResultUI : MonoBehaviour {
     public UnityEvent[] AnimationSteps;
     public LevelLoader LevelLoader;
     public MyDialog LoginDialog, RateDialog;
+    public Image FinishButtonImage;
     ResultUIModel viewModel;
     bool canLoadNextLevel = true;
     public void ShowImposterResult(bool success) {
@@ -18,9 +20,8 @@ public class ResultUI : MonoBehaviour {
     }
     public void ShowResult(ResultUIModel vm) {
         viewModel = vm;
+        SetImposterStatus();
         ResultPanel.gameObject.SetActive(true);
-        ImposterDetected.gameObject.SetActive(false);
-        ImposterNotDetected.gameObject.SetActive(false);
         Animator.SetTrigger("show");
         UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
         HtmlBridge.Instance.ReportMetric(MetricNames.Win);
@@ -82,17 +83,29 @@ public class ResultUI : MonoBehaviour {
         UserProgressController.Instance.ProgressState.Money += viewModel.CoinReward;
         UserProgressController.Instance.ProgressState.Spins += viewModel.DiamondReward;
     }
-    public void AdRewardCoins(int multiplier) {
-        canLoadNextLevel = false;
-        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWinCoin);
-        HtmlBridge.Instance.ShowRewarded(() => {
-            viewModel.CoinReward *= multiplier;
-            SetCoins();
-            canLoadNextLevel = true;
-        }, () => {
-            canLoadNextLevel = true;
-        });
+    public void AllowNextLevel(bool allow) {
+        canLoadNextLevel = allow;
+        FinishButtonImage.color = new Color(
+            FinishButtonImage.color.r, FinishButtonImage.color.g, FinishButtonImage.color.g,
+            allow ? 1 : 0.2f
+        );
     }
+    public void MultiplyRewardedCoins(float multiplier) {
+        HtmlBridge.Instance.ReportMetric(MetricNames.RewardWinCoin);
+        viewModel.CoinReward = (int)Mathf.Floor(multiplier * viewModel.CoinReward);
+        SetCoins();
+    }
+    // public void AdRewardCoins(int multiplier) {
+    //     canLoadNextLevel = false;
+    //     HtmlBridge.Instance.ReportMetric(MetricNames.RewardWinCoin);
+    //     HtmlBridge.Instance.ShowRewarded(() => {
+    //         viewModel.CoinReward *= multiplier;
+    //         SetCoins();
+    //         canLoadNextLevel = true;
+    //     }, () => {
+    //         canLoadNextLevel = true;
+    //     });
+    // }
     void AuthStatusRecieved(object arg) {
         LoadMenuLevel();
     }
