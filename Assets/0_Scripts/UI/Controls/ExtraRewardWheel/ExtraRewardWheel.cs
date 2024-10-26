@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ExtraRewardWheel : MonoBehaviour {
+    public bool RunOnStart = false;
     public int SectorCount = 5;
     public float LoopDuration = 1;
     public float RewardScaleDuration = 0.3f;
@@ -15,6 +16,10 @@ public class ExtraRewardWheel : MonoBehaviour {
     float angle = 0;
     bool canHitTest = false;
     Coroutine spinCoroutine;
+    void OnEnable() {
+        if (RunOnStart)
+            StartRolling();
+    }
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             HitTest();
@@ -45,6 +50,7 @@ public class ExtraRewardWheel : MonoBehaviour {
     void ShowReward(int sectorNo) {
         #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_EDITOR_WIN
             RewardCallback.Invoke();
+            Prizes.GiveReward(sectorNo);
         #endif
         #if UNITY_WEBGL && !UNITY_EDITOR
             HtmlBridge.Instance.ShowRewarded(() => {

@@ -8,6 +8,7 @@ public class DefeatUI : MonoBehaviour {
     public ScoreText CoinText, AdCoinText;
     public LevelLoader LevelLoader;
     public Transform AdButton;
+    public ExtraRewardWheel ExtraRewardWheel;
     bool canLoadNextLevel = true;
     DefeatViewModel viewModel;
     public AudioRandomShot Audio;
@@ -15,12 +16,16 @@ public class DefeatUI : MonoBehaviour {
 
     void Start() {
         AdCoinText.Score = CoinsAdReward;
+        ExtraRewardWheel.StartRolling();
     }
 
     public void AddRewardedCoins(int extraCoins) {
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
         viewModel.CoinReward += extraCoins;
         SetCoins();
+    }
+    public void AllowNextLevel(bool allow) {
+        canLoadNextLevel = allow;
     }
     // public void AdRewardCoins() {
     //     canLoadNextLevel = false;
@@ -37,7 +42,7 @@ public class DefeatUI : MonoBehaviour {
     public void ShowResult(DefeatViewModel vm) {
         viewModel = vm;
         gameObject.SetActive(true);
-        AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
+        //AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
         Audio.Play();
         SetCoins();
         HtmlBridge.Instance.ReportMetric(MetricNames.Lose);

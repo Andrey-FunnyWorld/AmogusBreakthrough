@@ -1016,8 +1016,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80fe9ac494699f4d90364ee20538099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RunOnStart: 0
   SectorCount: 5
-  LoopDuration: 0.8
+  LoopDuration: 0.4
   RewardScaleDuration: 0.3
   RewardExtraScale: 1
   Arrow: {fileID: 8274991859798164577}
@@ -1033,6 +1034,10 @@ MonoBehaviour:
   FailRewardCallback:
     m_PersistentCalls:
       m_Calls: []
+  BetweenHitAndRewardCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  Prizes: {fileID: 0}
 --- !u!1 &9212954639645757223
 GameObject:
   m_ObjectHideFlags: 0

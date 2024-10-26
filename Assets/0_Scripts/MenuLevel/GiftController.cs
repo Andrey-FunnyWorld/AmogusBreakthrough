@@ -13,6 +13,9 @@ public class GiftController : MonoBehaviour {
     public ShopList BackpackShop, HatShop;
     public UpgradeShop UpgradeShop;
     public PerkShopList PerkShopList;
+    public Transform GiftWheelDialog;
+    [HideInInspector]
+    public GiftBox GiftBox;
     public float GraySkinWeight = 3;
     public float GreenSkinWeight = 2;
     public float BlueSkinWeight = 1;
@@ -23,6 +26,9 @@ public class GiftController : MonoBehaviour {
     Dictionary<GiftType, float> chances;
     void Start() {
         CalcWeights();
+    }
+    public void ShowDialog() {
+        GiftWheelDialog.gameObject.SetActive(true);
     }
     void CalcWeights() {
         float sum = GraySkinWeight + GreenSkinWeight + BlueSkinWeight + DiamondWeight + UpgradeWeight + PerkWeight + MoneyWeight;
@@ -71,7 +77,7 @@ public class GiftController : MonoBehaviour {
         }
         return GiftType.GraySkin;
     }
-    public void GetGift(UnityAction openAction = null) {
+    public void GetGift(GiftType giftType, UnityAction openAction = null) {
         AudioSource.clip = Drums;
         AudioSource.loop = true;
         AudioSource.Play();
@@ -80,10 +86,12 @@ public class GiftController : MonoBehaviour {
             AudioSource.loop = false;
             AudioSource.clip = OpenSound;
             AudioSource.Play();
-            GiftType giftType = GetRandomGiftType();
+            //GiftType giftType = GetRandomGiftType();
+
             if (openAction != null)
                 openAction.Invoke();
             if (giftType.ToString().Contains("Skin")) {
+                giftType = (GiftType)Random.Range(0, 2);
                 SkinItemQuality quality = giftType == GiftType.GraySkin ? SkinItemQuality.Regular : (giftType == GiftType.GreenSkin ? SkinItemQuality.Rare : SkinItemQuality.Epic);
                 ListItem skinItem = GetRandomSkin(quality);
                 NewSkinPanel.ShowItem(skinItem.Model, skinItem.ShopType);
