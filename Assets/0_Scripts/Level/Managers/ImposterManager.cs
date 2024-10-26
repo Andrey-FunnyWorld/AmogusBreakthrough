@@ -20,6 +20,8 @@ public class ImposterManager : MonoBehaviour {
     int imposterIndex = 0;
     bool imposterDetected = false;
     public void RunImposterScene() {
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 0)
+            HtmlBridge.Instance.ReportMetric(MetricNames.FirstImposterStarted);
         maxSteps = Mathf.Min(Team.MatesCount - 1, maxSteps);
         imposterIndex = Random.Range(0, Team.MatesCount);
         ImposterUI.Transition(true);
@@ -85,6 +87,8 @@ public class ImposterManager : MonoBehaviour {
         AudioSource.Play();
         imposterDetected = index == imposterIndex;
         HtmlBridge.Instance.ReportMetric(imposterDetected ? MetricNames.ImposterDetected : MetricNames.ImposterFailed);
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 0)
+            HtmlBridge.Instance.ReportMetric(MetricNames.FirstImposterSelected);
         UserProgressController.Instance.ProgressState.ImposterDetectedCount++;
         CameraFocusPlatform(DropPlatforms[index]);
         StartCoroutine(Utils.WaitAndDo(2, () => {

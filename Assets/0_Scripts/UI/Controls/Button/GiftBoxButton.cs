@@ -20,7 +20,7 @@ public class GiftBoxButton : MonoBehaviour {
             HtmlBridge.Instance.ShowRewarded(() => {
                 DropGift();
             }, () => {});
-            HtmlBridge.Instance.ReportMetric(MetricNames.GiftAd);
+            //HtmlBridge.Instance.ReportMetric(MetricNames.GiftAd);
             #endif
         });
     }
