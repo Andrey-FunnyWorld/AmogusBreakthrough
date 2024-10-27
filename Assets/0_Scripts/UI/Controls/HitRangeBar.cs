@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class HitRangeBar : MonoBehaviour {
     public RectTransform Thumb, TargetArea, BarArea;
     public ButtonDisabled TestButton;
-    public KeyCode TestKey = KeyCode.Space;
     public UnityEvent<bool> ClickAction;
     public float TargetRatio = 0.1f;
     public float ThumbSpeed = 3;
@@ -53,14 +52,8 @@ public class HitRangeBar : MonoBehaviour {
             clicked = true;
             ClickAction.Invoke(IsHit(thumbPosition));
         }
-        //return IsHit(thumbPosition);
     }
     bool IsHit(float pos) {
         return pos >= minHit && pos <= maxHit;
-    }
-    void Update() {
-        if (!clicked && Input.GetKeyDown(TestKey)) {
-            Click();
-        }
     }
 }

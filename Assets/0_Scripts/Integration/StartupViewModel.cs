@@ -31,4 +31,10 @@ public static class MetricNames {
     public static string PerkPurchased = "RobbyAmogusPerkPurchased";
     public static string UpgradePurchased = "RobbyAmogusUpgradePurchased";
     public static string GiftAd = "RobbyAmogusGiftAd";
+    // track new players
+    public static string FirstGameReady = "FirstGameReady";
+    public static string FirstBattleStarted = "FirstBattleStarted";
+    public static string FirstImposterStarted = "FirstImposterStarted";
+    public static string FirstImposterSelected = "FirstImposterSelected";
+    public static string FirstTutorialComplete = "FirstTutorialComplete";
 }

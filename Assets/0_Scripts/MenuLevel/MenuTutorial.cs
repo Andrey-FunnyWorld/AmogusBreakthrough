@@ -271,6 +271,8 @@ public class MenuTutorial : MonoBehaviour {
         if (handCoroutine != null)
             StopCoroutine(handCoroutine);
         Hand.gameObject.SetActive(false);
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 1)
+            HtmlBridge.Instance.ReportMetric(MetricNames.FirstTutorialComplete);
     }
     IEnumerator AttachHand(Vector2 startPos, Vector2 endPos, float loopTime) {
         float timer = 0;

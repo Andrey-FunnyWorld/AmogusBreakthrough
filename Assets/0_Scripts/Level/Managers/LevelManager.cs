@@ -43,6 +43,8 @@ public class LevelManager : MonoBehaviour {
         EndGate.GetComponent<RoadObjectBase>().RoadPosition = Road.Length + END_GATE_OFFSET;
         HtmlBridge.Instance.ReportMetric(MetricNames.BattleLevelStarted);
         BattleMusic.Play();
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 0)
+            HtmlBridge.Instance.ReportMetric(MetricNames.FirstBattleStarted);
     }
     void StartMovement(object arg) {
         EventManager.StopListening(EventNames.StartMovement, StartMovement);
@@ -122,6 +124,8 @@ public class LevelManager : MonoBehaviour {
         MovementController = HtmlBridge.PlatformType == PlatformType.Desktop ? KeyboardController : TouchController;
         MovementController.gameObject.SetActive(true);
         MovementController.AllowMove = !PerkPanel.ShowOnStart;
+        if (UserProgressController.Instance.ProgressState.CompletedRoundsCount == 0)
+            HtmlBridge.Instance.ReportMetric(MetricNames.FirstGameReady);
     }
     void PerkSelected(object arg) {
         PerkItem perkItem = (PerkItem)arg;

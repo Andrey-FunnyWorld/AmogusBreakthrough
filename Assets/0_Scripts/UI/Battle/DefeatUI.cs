@@ -8,6 +8,7 @@ public class DefeatUI : MonoBehaviour {
     public ScoreText CoinText, AdCoinText;
     public LevelLoader LevelLoader;
     public Transform AdButton;
+    public ExtraRewardWheel ExtraRewardWheel;
     bool canLoadNextLevel = true;
     DefeatViewModel viewModel;
     public AudioRandomShot Audio;
@@ -15,24 +16,33 @@ public class DefeatUI : MonoBehaviour {
 
     void Start() {
         AdCoinText.Score = CoinsAdReward;
+        ExtraRewardWheel.StartRolling();
     }
 
-    public void AdRewardCoins() {
-        canLoadNextLevel = false;
+    public void AddRewardedCoins(int extraCoins) {
         HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
-        HtmlBridge.Instance.ShowRewarded(() => {
-            viewModel.CoinReward += CoinsAdReward;
-            SetCoins();
-            canLoadNextLevel = true;
-        }, () => {
-            canLoadNextLevel = true;
-        });
+        viewModel.CoinReward += extraCoins;
+        SetCoins();
     }
+    public void AllowNextLevel(bool allow) {
+        canLoadNextLevel = allow;
+    }
+    // public void AdRewardCoins() {
+    //     canLoadNextLevel = false;
+    //     HtmlBridge.Instance.ReportMetric(MetricNames.RewardDefeatCoin);
+    //     HtmlBridge.Instance.ShowRewarded(() => {
+    //         viewModel.CoinReward += CoinsAdReward;
+    //         SetCoins();
+    //         canLoadNextLevel = true;
+    //     }, () => {
+    //         canLoadNextLevel = true;
+    //     });
+    // }
 
     public void ShowResult(DefeatViewModel vm) {
         viewModel = vm;
         gameObject.SetActive(true);
-        AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
+        //AdButton.gameObject.SetActive(UserProgressController.Instance.ProgressState.CompletedRoundsCount > 0);
         Audio.Play();
         SetCoins();
         HtmlBridge.Instance.ReportMetric(MetricNames.Lose);

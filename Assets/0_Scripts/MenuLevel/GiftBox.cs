@@ -9,12 +9,16 @@ public class GiftBox : MonoBehaviour {
     public GiftController GiftController;
     bool opened = false;
     void Click() {
+        GiftController.ShowDialog();
+            // Animator.SetTrigger("open");
+            // GiftController.GetGift(() => {
+            //     Destroy(gameObject);
+            // });
+    }
+    public void Open() {
         if (!opened) {
             opened = true;
             Animator.SetTrigger("open");
-            GiftController.GetGift(() => {
-                Destroy(gameObject);
-            });
         }
     }
     void OnTouchDown() {

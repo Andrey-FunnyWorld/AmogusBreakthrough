@@ -20,7 +20,7 @@ public class GiftBoxButton : MonoBehaviour {
             HtmlBridge.Instance.ShowRewarded(() => {
                 DropGift();
             }, () => {});
-            HtmlBridge.Instance.ReportMetric(MetricNames.GiftAd);
+            //HtmlBridge.Instance.ReportMetric(MetricNames.GiftAd);
             #endif
         });
     }
@@ -28,6 +28,7 @@ public class GiftBoxButton : MonoBehaviour {
         gameObject.SetActive(false);
         GiftBox gift = Instantiate(GiftBoxPrefab, GiftParent);
         gift.GiftController = GiftController;
+        GiftController.GiftBox = gift;
     }
     void Start() {
         rectTransform = GetComponent<RectTransform>();
