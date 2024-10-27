@@ -6,6 +6,7 @@ using Cinemachine;
 public class MenuCameraController : MonoBehaviour {
     public CinemachineVirtualCamera FaceCamera, BackpackFarCamera, BackpackCloseCamera, HatCloseCamera, HatFarCamera,
         BackpackMedium, HatMedium, Desintegrator, DesintegratorScene;
+    public CinemachineVirtualCamera CameraPromo1, CameraPromo2;
     CameraType currentCamera;
     CinemachineVirtualCamera[] cameras;
     void Start() {
@@ -33,6 +34,16 @@ public class MenuCameraController : MonoBehaviour {
     }
     public void SwitchToCamera(CameraType nextCamera) {
         SwitchToCamera((int)nextCamera);
+    }
+    public void EnterPromoMode() {
+        foreach (CinemachineVirtualCamera cam in cameras) {
+            cam.gameObject.SetActive(false);
+        }
+        CameraPromo1.gameObject.SetActive(true);
+        StartCoroutine(Utils.WaitAndDo(0.1f, () => {
+            CameraPromo2.gameObject.SetActive(true);
+            CameraPromo1.gameObject.SetActive(false);
+        }));
     }
     // public void ToogleBackpackCameras() {
     //     CameraType cameraType = currentCamera == CameraType.BackpackFar ? CameraType.BackpackClose : CameraType.BackpackFar;
