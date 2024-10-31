@@ -7,13 +7,13 @@ public class GiftBox : MonoBehaviour {
     public Animator Animator;
     [NonSerialized]
     public GiftController GiftController;
+    [HideInInspector]
+    public bool CanClick { get; set; } = true;
     bool opened = false;
     void Click() {
-        GiftController.ShowDialog();
-            // Animator.SetTrigger("open");
-            // GiftController.GetGift(() => {
-            //     Destroy(gameObject);
-            // });
+        if (CanClick) {
+            GiftController.ShowDialog();
+        }
     }
     public void Open() {
         if (!opened) {

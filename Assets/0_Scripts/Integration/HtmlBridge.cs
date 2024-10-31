@@ -28,10 +28,10 @@ public class HtmlBridge : MonoBehaviour, IPlatformBridge {
         PlatformType = GetPlatformTypeByString(vm.Platform);
         IsLogged = vm.IsLogged == TRUE;
         MyLocalization.Instance.CurrentLanguage = vm.Locale;
-        if (IsLogged)
-            UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
         UserProgressController.Instance.ProgressState = vm.Progress;
         UserProgressController.Instance.PlayerSettings = vm.Settings;
+        if (IsLogged)
+            UserProgressController.Instance.ProgressState.SkipSaveTargetDialog = true;
         if (boot) {
             StartCoroutine(Utils.WaitAndDo(0.1f, () => {
                 UserProgressController.ProgressLoaded = true;

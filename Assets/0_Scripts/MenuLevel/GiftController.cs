@@ -94,8 +94,12 @@ public class GiftController : MonoBehaviour {
                 giftType = (GiftType)Random.Range(0, 2);
                 SkinItemQuality quality = giftType == GiftType.GraySkin ? SkinItemQuality.Regular : (giftType == GiftType.GreenSkin ? SkinItemQuality.Rare : SkinItemQuality.Epic);
                 ListItem skinItem = GetRandomSkin(quality);
-                NewSkinPanel.ShowItem(skinItem.Model, skinItem.ShopType);
-                skinItem.Unlock(false, true);
+                if (skinItem != null) {
+                    NewSkinPanel.ShowItem(skinItem.Model, skinItem.ShopType);
+                    skinItem.Unlock(false, true);
+                } else {
+                    GiftPanel.Show(GiftType.Money);
+                }
             } else {
                 GiftPanel.Show(giftType);
             }
