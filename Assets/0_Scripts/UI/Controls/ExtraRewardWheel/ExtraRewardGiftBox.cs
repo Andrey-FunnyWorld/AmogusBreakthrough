@@ -8,6 +8,7 @@ public class ExtraRewardGiftBox : ExtraRewardWheelPrizeBase {
     public override void GiveReward(int sectorNo) {
         HtmlBridge.Instance.ReportMetric(MetricNames.GiftAd);
         GiftController.GiftBox.Open();
+        GiftController.GiftBox.CanClick = false;
         GiftController.GetGift(GiftBySector[sectorNo], () => {
             Destroy(GiftController.GiftBox.gameObject);
         });

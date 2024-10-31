@@ -69,7 +69,7 @@ mergeInto(LibraryManager.library, {
                     console.log("Review result: ", feedbackSent);
                 })
         } else {
-            console.log(reason)
+            console.log("Auth Request Failed: ", reason)
         }
     })
   }

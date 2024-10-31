@@ -14,9 +14,9 @@ public class ImposterUI : MonoBehaviour {
     public AudioClip SuccessClip, FailClip, StartClip;
     public ScoreText ImposterCoinRewardText;
     public int CoinsForImposter = 50;
+    public Transform HelpPanel;
     const string ANIMATION_TRIGGER_INTRO = "intro";
     const string ANIMATION_TRIGGER_FULLINTRO = "fullintro";
-    const string ANIMATION_TRIGGER_HELP = "help";
     const string ANIMATION_TRIGGER_SUCCESS = "success";
     const string ANIMATION_TRIGGER_FAIL = "fail";
     public const float PAUSE_BETWEEN_HIT_TESTS = 0.5f;
@@ -38,7 +38,7 @@ public class ImposterUI : MonoBehaviour {
         ImposterCoinRewardText.Score = CoinsForImposter;
     }
     public void ShowHelp() {
-        Animator.SetTrigger(ANIMATION_TRIGGER_HELP);
+        HelpPanel.gameObject.SetActive(true);
     }
     public void HitTestRangeBar(bool isHit) {
         AudioSource.clip = isHit ? SuccessClip : FailClip;

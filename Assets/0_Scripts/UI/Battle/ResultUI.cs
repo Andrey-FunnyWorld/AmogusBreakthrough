@@ -22,6 +22,7 @@ public class ResultUI : MonoBehaviour {
         viewModel = vm;
         SetImposterStatus();
         ResultPanel.gameObject.SetActive(true);
+        SetDiamonds();
         Animator.SetTrigger("show");
         UserProgressController.Instance.ProgressState.CompletedRoundsCount++;
         HtmlBridge.Instance.ReportMetric(MetricNames.Win);

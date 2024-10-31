@@ -43,6 +43,8 @@ public class GridPaging : MonoBehaviour {
             NextPageItem.SetParent(transform);
             NextPageItem.gameObject.SetActive(true);
         }
+        PrevPageItem.transform.localScale = Vector2.one;
+        NextPageItem.transform.localScale = Vector2.one;
     }
     Transform[] GetPageItems(int pageIndex) {
         int skip = pageIndex * PageSize + (pageIndex > 0 ? 1 : 0);
