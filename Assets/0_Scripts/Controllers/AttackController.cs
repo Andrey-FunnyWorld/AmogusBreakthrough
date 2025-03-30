@@ -81,6 +81,8 @@ public class AttackController : MonoBehaviour {
         InitAttackOnePunchRange();
         PrepareWeapons();
         HandleWeaponChanged(MainGuy.CurrentWeaponType);
+        CalcAttackZone();
+        AttackZonePlane.transform.parent.gameObject.SetActive(true);
     }
 
     public bool IntersectsTeam(RoadObjectBase roadObject, bool skipHorzCheck = false) {

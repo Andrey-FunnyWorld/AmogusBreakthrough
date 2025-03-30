@@ -3,7 +3,12 @@ guid: 93882ce81d4b08448b03e98a9d5e3c13
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: road-cone
+    second: {fileID: 2100000, guid: cd4ef38f8d6648447917106f89e3e469, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

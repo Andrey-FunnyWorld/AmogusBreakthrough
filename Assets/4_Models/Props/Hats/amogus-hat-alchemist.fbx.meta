@@ -3,7 +3,17 @@ guid: ec642b89a6cc9d040a29047e7cf80c8b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KnighHelmetGray.001
+    second: {fileID: 2100000, guid: 7212ba4b516f92949a0380a6414c3110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aclhemist
+    second: {fileID: 2100000, guid: c51af3dc0809ddf4db5acf348b9af3c5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

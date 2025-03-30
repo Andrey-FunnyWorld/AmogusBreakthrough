@@ -17,7 +17,8 @@ public class PerkShopList : MonoBehaviour {
         progressState = state;
         int[] purchasedItems = state.PurchasedPerks;
         foreach (PerkModel model in PerkStorage.Perks) {
-            CreateItem(model, purchasedItems.Contains((int)model.PerkType));
+            if (model.PerkType != PerkType.AttackZoneVisibility)
+                CreateItem(model, purchasedItems.Contains((int)model.PerkType));
         }
         Grid.SetAllItems(liveItems.Select(i => i.transform).ToArray());
     }

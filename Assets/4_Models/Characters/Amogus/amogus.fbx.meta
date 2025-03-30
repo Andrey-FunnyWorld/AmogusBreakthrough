@@ -3,7 +3,27 @@ guid: 5a2baf6bf5d36ea4f947ec404d75df77
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Backpack
+    second: {fileID: 2100000, guid: 2ac3da372abd16541bc216e2e1f0a4ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackpackSkin
+    second: {fileID: 2100000, guid: f70bf5e3d275e3144996bac34e72bcae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 27581969054bba94b9e710dc6c69d1a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaskAlive
+    second: {fileID: 2100000, guid: e73e8a3febd35964bb67de8723746bff, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

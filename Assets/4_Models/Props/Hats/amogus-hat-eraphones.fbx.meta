@@ -3,7 +3,17 @@ guid: 0ddfce23afd87ad4fba300cd297fc4b3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EraphonesColor
+    second: {fileID: 2100000, guid: a09bf27aba4b75b4baca12764c0bc6df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KnighHelmetGray.001
+    second: {fileID: 2100000, guid: 776e4d4d15a54294b8039b3066b00cf4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

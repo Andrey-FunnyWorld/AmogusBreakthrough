@@ -3,7 +3,12 @@ guid: 80cdbf4ae438cb140bd5156c50130652
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: IonGun
+    second: {fileID: 2100000, guid: 2c467dce2d291e84ca80ad6c5a019213, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
