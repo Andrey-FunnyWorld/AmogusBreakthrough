@@ -3,7 +3,22 @@ guid: 9ecd2bcc331307d4b95f5381f1fdd066
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KnighHelmetGray.001
+    second: {fileID: 2100000, guid: da83040752ecdbc42adb49d346710e3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Yellow
+    second: {fileID: 2100000, guid: ce6cdd1eb0c097c4bbcf6cee7eed52a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scuba-glasses
+    second: {fileID: 2100000, guid: 70224990373f04749bc5a1001da3981a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

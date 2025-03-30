@@ -3,7 +3,17 @@ guid: eaec700304c33cc49a422a2b36fcc142
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Box
+    second: {fileID: 2100000, guid: f9815160684be124588150c0105c4b13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wires
+    second: {fileID: 2100000, guid: 100e2590d3e12c64b838b174e584cc63, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

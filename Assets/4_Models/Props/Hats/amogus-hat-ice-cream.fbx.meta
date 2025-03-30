@@ -3,7 +3,17 @@ guid: 74d0d31542593af4dacc5bd8217a70be
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ice-cream-cone
+    second: {fileID: 2100000, guid: 6a2901be6b1608f4e9f3fa2d04a8dc37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vanilla-color
+    second: {fileID: 2100000, guid: 8e883e77a0dc9f149968a786f7083a6f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

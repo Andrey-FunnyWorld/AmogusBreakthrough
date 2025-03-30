@@ -92,6 +92,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2f5ed7388b2701d4d9b640a39a117637, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2f5ed7388b2701d4d9b640a39a117637, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f5ed7388b2701d4d9b640a39a117637, type: 3}
       propertyPath: m_Name
       value: amogus-hat-underwear

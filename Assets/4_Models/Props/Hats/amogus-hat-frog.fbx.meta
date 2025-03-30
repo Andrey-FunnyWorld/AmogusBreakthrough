@@ -3,7 +3,17 @@ guid: 2dd533abea4ba174185b3a19a3e63de2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EraphonesColor
+    second: {fileID: 2100000, guid: 7abdce2bc85e3de4399c03087315176f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frog-eye
+    second: {fileID: 2100000, guid: a0b6680239343d94e83d9369d4a0fdaf, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

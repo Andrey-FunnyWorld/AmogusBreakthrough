@@ -3,7 +3,12 @@ guid: 45e5ab8f1671e744ea4b4611d16b1e7b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bazooka
+    second: {fileID: 2100000, guid: 8419c0528067e824a98cf4316de71cab, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

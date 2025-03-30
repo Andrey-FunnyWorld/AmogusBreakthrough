@@ -3,7 +3,12 @@ guid: 55f94057783f22a4bb5ec60e441afea2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BaloonHat
+    second: {fileID: 2100000, guid: 10f4c28cafade6246954a7ec601efbd8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

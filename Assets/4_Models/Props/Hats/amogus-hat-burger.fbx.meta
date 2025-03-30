@@ -3,7 +3,22 @@ guid: 0d1e739ea11cd394d96c57bfd7f116f9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Punk
+    second: {fileID: 2100000, guid: 78ff1076d9a77ec49aeb6a59091041fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: burger-bun
+    second: {fileID: 2100000, guid: 67d78cfb71e0966489ce794e2d63402a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: burger-fill
+    second: {fileID: 2100000, guid: f43d0dfd3a8a6b146914d3a07a310c4c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

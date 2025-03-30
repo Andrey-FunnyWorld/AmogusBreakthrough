@@ -3,7 +3,17 @@ guid: ef37935cae364424983af0bcd7cb53fb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal-pylon
+    second: {fileID: 2100000, guid: dfe3e8c6a9b3dee48865c0061b7889eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: perils
+    second: {fileID: 2100000, guid: 72fef61b67d5a3240b81ac1756ddb034, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

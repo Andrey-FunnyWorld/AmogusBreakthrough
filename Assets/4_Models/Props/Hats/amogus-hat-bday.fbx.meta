@@ -3,7 +3,17 @@ guid: bd8bcef435451a04298133d458e29cb9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Backpack
+    second: {fileID: 2100000, guid: 4fea4f1102dd8a9439582f3ade33bf0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bday-hat
+    second: {fileID: 2100000, guid: 07be69514f9e324479a6544ab1391cb4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

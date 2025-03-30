@@ -37,6 +37,16 @@ public static class Utils {
             yield return null;
         }
     }
+    public static IEnumerator DoEveryFrame(float duration, UnityAction<float> frameAction, UnityAction finishAction = null, UnityAction startAction = null) {
+        if (startAction != null) startAction.Invoke();
+        float timer = 0;
+        while (timer < duration) {
+            timer += Time.deltaTime;
+            frameAction.Invoke(timer / duration);
+            yield return null;
+        }
+        if (finishAction != null) finishAction.Invoke();
+    }
     public static IEnumerator AnimateScale(float time, Transform tr, float extent, bool scaleUp) {
         Vector3 pivotScale = tr.localScale;
         Vector3 originalScale = tr.localScale;

@@ -3,7 +3,12 @@ guid: 395df725f84523f4fa8b30b4a1228475
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blaster
+    second: {fileID: 2100000, guid: fe8cfc0ab48180b4386af638a4e0235c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

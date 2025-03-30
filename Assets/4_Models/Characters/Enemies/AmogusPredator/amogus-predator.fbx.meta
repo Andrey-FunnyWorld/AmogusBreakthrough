@@ -3,7 +3,22 @@ guid: 5e88c78ac0a5a834cbca188fe127b1ce
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: a66368db32ffcae4f8df523c5ddabcb4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaskBroken
+    second: {fileID: 2100000, guid: ecae3cc08e40f264abf04c0482da8419, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Teeth
+    second: {fileID: 2100000, guid: 5a54ea06add3eda4799d9aff4a4c4ca7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

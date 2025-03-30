@@ -3,7 +3,12 @@ guid: 11b4a2bfd4e731e4b92903b553db0be2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Punk
+    second: {fileID: 2100000, guid: 33902166b7bee754c9946bf6693bbd82, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
